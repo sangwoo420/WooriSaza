@@ -18,7 +18,6 @@ public class Article {
 
     @Id
     @Column(name = "article_id")
-    @OneToOne(mappedBy = "party")
     @OneToMany(mappedBy = "comment")
     private long id;
 
