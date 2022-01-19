@@ -1,7 +1,9 @@
 package project.woori_saza.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 @Table(name = "paid_form")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaidForm {
 
     @Id
