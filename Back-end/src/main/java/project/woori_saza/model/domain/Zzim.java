@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Embeddable
 public class Zzim{
         @EmbeddedId
         private ZzimId zzimId;
