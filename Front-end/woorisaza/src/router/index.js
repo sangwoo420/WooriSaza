@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import ThisSaza from "../views/ThisSaza/ThisSaza.vue";
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/thissaza",
+    name: "ThisSaza",
+    component: ThisSaza,
   },
   {
     path: "/about",

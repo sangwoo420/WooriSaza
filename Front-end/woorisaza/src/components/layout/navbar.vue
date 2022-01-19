@@ -1,10 +1,10 @@
 <template>
-    <div style="position:fixed; width:100%">
+    <div style="">
         <div>
             <b-navbar toggleable="lg" type="white" >
 
-                <img src="@/assets/icon.png" style="width:80px">
-                <img src="@/assets/name.png" style="width:140px">
+                <img src="@/assets/icon.png" style="width:7%">
+                <img src="@/assets/name.png" style="width:14%">
                 <b-collapse id="nav-collapse" is-nav>
 
                 <b-navbar-nav class="ml-auto">
@@ -24,8 +24,8 @@
         <div>
             <div>
                 <b-nav align="center">
-                    <b-nav-item  active>홈</b-nav-item>
-                    <b-nav-item >이거사자</b-nav-item>
+                    <b-nav-item router-link to="/home" active>홈</b-nav-item>
+                    <b-nav-item router-link to="/ThisSaza">이거사자</b-nav-item>
                     <b-nav-item>마이사자</b-nav-item>
                     <b-nav-item >가이드</b-nav-item>
                 </b-nav>
