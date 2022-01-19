@@ -24,7 +24,7 @@
         <div>
             <div>
                 <b-nav align="center">
-                    <b-nav-item router-link to="/home" active>홈</b-nav-item>
+                    <b-nav-item router-link to="/" active>홈</b-nav-item>
                     <b-nav-item router-link to="/ThisSaza">이거사자</b-nav-item>
                     <b-nav-item>마이사자</b-nav-item>
                     <b-nav-item >가이드</b-nav-item>
