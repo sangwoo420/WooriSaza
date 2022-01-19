@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <nav-bar style="z-index: 2;" />
-
-    <router-view style="padding-top : 150px; z-index: 2;"/>
+    <nav-bar />
+    <router-view />
   </div>
 </template>
 
