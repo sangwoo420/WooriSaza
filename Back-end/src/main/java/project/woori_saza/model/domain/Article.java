@@ -21,7 +21,7 @@ public class Article {
 
     @Id
     @Column(name = "article_id")
-    private long id;
+    private Long id;
 
     private String title;
     private String content;

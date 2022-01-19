@@ -28,4 +28,5 @@ public class Party {
     @OneToMany(mappedBy = "party")
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
+
 }
