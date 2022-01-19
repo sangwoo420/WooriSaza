@@ -4,12 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.bytebuddy.asm.Advice;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +18,8 @@ public class Article {
 
     @Id
     @Column(name = "article_id")
+    @OneToOne(mappedBy = "party")
+    @OneToMany(mappedBy = "comment")
     private long id;
 
     private String title;
