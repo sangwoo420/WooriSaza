@@ -18,7 +18,6 @@ public class Article {
 
     @Id
     @Column(name = "article_id")
-    @OneToMany(mappedBy = "comment")
     private long id;
 
     private String title;
@@ -32,18 +31,20 @@ public class Article {
     private boolean isDone;
     private List<String> pic;
 
-    //FK
+    // referencing area
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id")
     private Party party;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tag_id")
+    @Enumerated(EnumType.STRING)
     private Tag tag;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
+    // referenced area
+
+    @OneToMany(mappedBy = "comment")
+    List<Comment> comments;
 }
