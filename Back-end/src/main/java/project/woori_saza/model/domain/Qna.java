@@ -24,11 +24,12 @@ public class Qna {
 
     private String comment;
 
+    @ElementCollection
     private List<String> pic=new ArrayList<>();
 
     //profile_id
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name="profile_id")
-    UserProfile userprofile;
+    UserProfile userProfile;
 
 }

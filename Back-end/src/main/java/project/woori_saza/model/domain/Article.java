@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,7 @@ public class Article {
     private int totalCount;
     private int recruitCount;
     private boolean isDone;
+    @ElementCollection
     private List<String> pic;
 
     // referencing area
@@ -45,6 +47,15 @@ public class Article {
 
     // referenced area
 
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "article")
     List<Comment> comments;
+
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private UserProfile userProfile;
+
+    @OneToMany(mappedBy = "article")
+    private List<Zzim> zzims = new ArrayList<>();
+
+
 }

@@ -1,8 +1,13 @@
 package project.woori_saza.model.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@Entity
+@Getter
+@Setter
 public class Comment {
 
     @Id
@@ -18,7 +23,7 @@ public class Comment {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "profile_id")
-    private UserProfile profileId;
+    private UserProfile userProfile;
 }

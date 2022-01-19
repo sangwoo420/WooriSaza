@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -15,7 +17,7 @@ public class MemberInfo {
 
     @Id
     @Column(name="member_info_id")
-    private String id;
+    private Long id;
 
     private boolean isBoss;
 
@@ -33,5 +35,6 @@ public class MemberInfo {
     @ManyToOne
     @JoinColumn(name="party_id")
     private Party party;
+
     
 }

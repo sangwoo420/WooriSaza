@@ -22,7 +22,7 @@ public class Party {
     @OneToOne(mappedBy = "party")
     private PaidForm paidForm;
 
-    @OneToOne(mappedBy = "article")
+    @OneToOne(mappedBy = "party")
     private Article article;
 
     @OneToMany(mappedBy = "party")

@@ -26,11 +26,12 @@ public class Review {
     // review_from_id
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name="profile_id")
-    private UserProfile userprofile;
+    private UserProfile fromUser;
+
     // review_to_id
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name="profile_id")
-    private UserProfile userprofile;
+    private UserProfile toUser;
 
 
 }

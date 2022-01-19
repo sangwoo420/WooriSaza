@@ -37,14 +37,14 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userProfile")
-    private List<Party> parties = new ArrayList<>();
-
     @OneToOne(mappedBy = "userProfile")
     private UserAuth userAuth;
 
-    @OneToMany(mappedBy = "userProfile")
-    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "fromUser")
+    private List<Review> reviewsFrom = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toUser")
+    private List<Review> reviewsTo = new ArrayList<>();
 
     @OneToMany(mappedBy = "userProfile")
     private List<Qna> qnas = new ArrayList<>();
