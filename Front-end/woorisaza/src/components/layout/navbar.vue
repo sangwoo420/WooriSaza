@@ -67,7 +67,6 @@ export default {
             this.thisSazaActive="active";
             this.mySazaActive=null;
             this.guideActive=null;
-            this.$store.commit('currentArticle',0);
         },
         getMySazaActive(){
             this.homeActive=null;
