@@ -17,13 +17,11 @@ public class Zzim{
         @EmbeddedId
         private ZzimId zzimId;
 
-        @ManyToOne(fetch = LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
         @MapsId("profileId")
         private UserProfile userProfile;
 
-        @ManyToOne(fetch = LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
         @MapsId("articleId")
         private Article article;
-
-
 }

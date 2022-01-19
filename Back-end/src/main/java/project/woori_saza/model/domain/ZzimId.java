@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import static javax.persistence.FetchType.LAZY;
 
-@Entity
 @Getter
 @Embeddable
 @NoArgsConstructor

@@ -19,10 +19,10 @@ public class Party {
 
     private boolean formChecked;
 
-    @OneToOne(mappedBy = "party")
+    @OneToOne(mappedBy = "party",fetch = FetchType.LAZY)
     private PaidForm paidForm;
 
-    @OneToOne(mappedBy = "party")
+    @OneToOne(mappedBy = "party",fetch = FetchType.LAZY)
     private Article article;
 
     @OneToMany(mappedBy = "party")

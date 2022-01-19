@@ -24,14 +24,13 @@ public class Review {
     private int score;
 
     // review_from_id
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile fromUser;
 
     // review_to_id
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile toUser;
-
 
 }

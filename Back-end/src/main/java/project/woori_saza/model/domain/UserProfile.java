@@ -37,7 +37,7 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userProfile")
+    @OneToOne(mappedBy = "userProfile",fetch = FetchType.LAZY)
     private UserAuth userAuth;
 
     @OneToMany(mappedBy = "fromUser")

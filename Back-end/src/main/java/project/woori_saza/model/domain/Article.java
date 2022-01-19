@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @Setter
@@ -50,7 +52,7 @@ public class Article {
     @OneToMany(mappedBy = "article")
     List<Comment> comments;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
 

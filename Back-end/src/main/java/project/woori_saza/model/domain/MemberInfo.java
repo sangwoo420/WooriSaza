@@ -17,6 +17,7 @@ public class MemberInfo {
 
     @Id
     @Column(name="member_info_id")
+    @GeneratedValue
     private Long id;
 
     private boolean isBoss;
@@ -28,11 +29,11 @@ public class MemberInfo {
     private boolean isConfirmed;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile userProfile;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="party_id")
     private Party party;
 

@@ -20,7 +20,7 @@ public class UserAuth {
     private String admin;
 
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile userProfile;
 

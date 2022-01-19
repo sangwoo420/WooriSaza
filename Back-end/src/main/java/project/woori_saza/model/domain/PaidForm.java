@@ -26,7 +26,7 @@ public class PaidForm {
 
     private LocalDateTime receiptDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id")
     private Party party;
 
