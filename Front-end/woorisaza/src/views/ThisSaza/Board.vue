@@ -70,8 +70,7 @@ export default {
 };
 </script>
 
-<style >
-
+<style scoped>
     .custom-select{
         font-size: 0.5em;
         

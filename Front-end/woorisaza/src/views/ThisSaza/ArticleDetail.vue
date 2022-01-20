@@ -53,20 +53,40 @@
                 <b-col>사자들과 함께 사기</b-col>
                 <b-col style="text-align:right">2500원</b-col>  
             </b-row>
+            
         </div>
         <!-- 찜버튼 + 참여하기 버튼 -->
-        <div>
+        <div style="text-align:right">
+            <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
+            <b-button variant="secondary">참여하기</b-button>
+        </div>
+        <!-- 글내용 -->
+        <div class="mt-3">
+            <b-form-textarea
+                id="textarea-auto-height"
+                placeholder="내용이 없습니다."
+                rows="8"
+                max-rows="100"
+                value =" 음~맛잇다"
+                disabled
+                no-resize
+            ></b-form-textarea>
+        </div>
 
+        <!-- 목록버튼 -->
+        <div style="text-align:right" class="mt-2">
+            <b-button variant="secondary">목록</b-button>
         </div>
         <!-- 댓글 -->
     </div>
 </template>
 
+
 <script>
 // import axios from "axios"
-import ogs from "open-graph-scraper"
-// import dns from "dns"
-
+// import ogs from "open-graph-scraper"
+// import {ogs} from "@/ogs.js"
+import axios from "axios"
 export default {
     name: 'Articledetail',
     data() {
@@ -74,23 +94,24 @@ export default {
             articleNo : this.$route.params.articleno,
             slide: 0,
             sliding: null,
-            imgURL : [
-                "https://thumbnail9.coupangcdn.com/thumbnails/remote/230x230ex/image/product/image/vendoritem/2019/03/04/3213757282/456ca43b-ffe6-46ef-b793-d787986a9e52.jpg",
-                "https://thumbnail8.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/873394256992-7e874da2-d555-4f7d-b5ff-c098b3775d40.jpg",
-            ],
-            url : "https://www.coupang.com/vp/products/293308540?itemId=926269831&vendorItemId=5302019285&q=%EB%AC%BC&itemsCount=36&searchId=8a8c3602bd194ab4ad3e221c97f59cba&rank=1&isAddedCart=",
-        options : { url: this.url },
+            imgURL : [],
+            url : "https://smartstore.naver.com/designersbay/products/6162926005?NaPm=ct%3Dkymr45t4%7Cci%3D0AW0001L9IzvcNwlAfkE%7Ctr%3Dpla%7Chk%3D424bdc46c4996bea7cf305af4b37198d256bd738",
+
         };
     },
     created() {
-ogs(this.options, (error, results, response) => {
-  console.log('error:', error); // This returns true or false. True if there was an error. The error itself is inside the results object.
-  console.log('results:', results); // This contains all of the Open Graph results
-  console.log('response:', response); // This contains the HTML of page
-});
+        // 이 부분은 글쓰기 부분에서 사진 필드에 바로 썸네일 사진 링크 넣어주기
+        axios({
+            method : "get",
+            url : "https://cors-anywhere.herokuapp.com/https://api.urlmeta.org/?url="+this.url,
+            headers:{
+                "Authorization" : "Basic dG9teTk3MjlAbmF2ZXIuY29tOjhUYkdka2MxVnE3bnBYTzcyMkpC",
+            },
+        }).then(({data})=>{
+            this.imgURL.push(data.meta.image)
+        })
     },
     mounted() {
-        
     },
 
     methods: {
@@ -104,21 +125,13 @@ ogs(this.options, (error, results, response) => {
 };
 </script>
 
-<style>
-.img-fluid{
-    width: 1024px;
-    height: 240px;
-    object-fit: contain;
+<style scoped>
+.btn-secondary{
+    width : 8em;
+    background-color: #F1A501 ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-radius : 2em;
+    border-color: #F1A501;
 }
-.img-fluid.d-block{
-    width: 1024px;
-    height: 240px;
-    object-fit: contain;
-}
-.img-fluid.d-block.w-100{
-    width: 1024px;
-    height: 240px;
-    object-fit: contain;
-}
-
 </style>
