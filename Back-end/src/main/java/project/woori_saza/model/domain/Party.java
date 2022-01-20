@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class Party {
     @Column(name = "party_id")
     private Long id;
 
-    private boolean formChecked;
+    @NotNull
+    private Boolean formChecked;
 
     @OneToOne(mappedBy = "party",fetch = FetchType.LAZY)
     private PaidForm paidForm;
@@ -31,6 +33,5 @@ public class Party {
 
     @OneToMany(mappedBy = "party")
     private List<MemberInfo> memberInfos = new ArrayList<>();
-
 
 }
