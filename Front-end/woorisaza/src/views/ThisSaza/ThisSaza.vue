@@ -12,7 +12,20 @@
                                 </div>
                             </div>
                         </b-col>
-                        <b-col></b-col>
+                        <b-col>
+                            <div class="fixed">
+                                <div>
+                                    <b-button variant="secondary">
+                                        <img src="@/assets/write.png" alt="" style="width:80%">
+                                    </b-button>
+                                </div>
+                                <div class="mt-2">
+                                    <b-button variant="secondary">
+                                        <img src="@/assets/chat.png" alt="" style="width:80%">
+                                    </b-button>
+                                </div>
+                            </div>
+                        </b-col>
                     </b-row>
                 </b-container>
                 <!-- 모바일버전 -->
@@ -81,5 +94,21 @@ export default {
     .box::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera*/
     }
+
+    .btn-secondary{
+    width : 8em;
+    height: 8em;
+    background-color: #F1A501 ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: #F1A501;
+    border-radius: 50%;
+    }
+    .fixed {
+        position: fixed;
+        top:75%;
+        
+    }
+
 
 </style>

@@ -58,7 +58,7 @@
         <!-- 찜버튼 + 참여하기 버튼 -->
         <div style="text-align:right">
             <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
-            <b-button variant="secondary">참여하기</b-button>
+            <b-button variant="secondary" pill>참여하기</b-button>
         </div>
         <!-- 글내용 -->
         <div class="mt-3">
@@ -75,7 +75,7 @@
 
         <!-- 목록버튼 -->
         <div style="text-align:right" class="mt-2">
-            <b-button variant="secondary">목록</b-button>
+            <b-button variant="secondary" pill>목록</b-button>
         </div>
         <!-- 댓글 -->
     </div>
@@ -131,7 +131,6 @@ export default {
     background-color: #F1A501 ;
     font-size : 0.5em;
     padding: 0.5em;
-    border-radius : 2em;
     border-color: #F1A501;
 }
 </style>
