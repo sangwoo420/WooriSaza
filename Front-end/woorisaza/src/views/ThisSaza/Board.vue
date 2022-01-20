@@ -5,8 +5,8 @@
                 <b-row>       
                     <b-col cols="8">
                         <div>
-                            <b-form-select v-model="category" :options="categories" size="sm" style="width:49%"></b-form-select>
-                            <b-form-select v-model="area" :options="areas" size="sm" style="width:49%"></b-form-select>
+                            <b-form-select v-model="category" :options="categories" size="sm" style="width:48%"></b-form-select>&nbsp;
+                            <b-form-select v-model="area" :options="areas" size="sm" style="width:48%"></b-form-select>
                         </div>
                     </b-col>
                     <b-col cols="4">
