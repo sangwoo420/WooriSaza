@@ -21,6 +21,7 @@ public class MemberInfo {
     @NotNull
     private Long id;
 
+    @Column(columnDefinition = "boolean default false")
     private Boolean isBoss;
 
     @NotNull

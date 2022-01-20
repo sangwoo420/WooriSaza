@@ -18,6 +18,7 @@ public class UserAuth {
     @Column(name="auth_id")
     private String id;
 
+    @Column(columnDefinition = "boolean default false")
     private Boolean admin;
 
 

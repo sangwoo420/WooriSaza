@@ -18,7 +18,7 @@ import java.util.List;
 public class Qna {
     @Id
     @GeneratedValue
-    @Column(name = "review_id")
+    @Column(name = "qna_id")
     private Integer id;
 
     @NotNull
