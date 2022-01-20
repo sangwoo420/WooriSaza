@@ -34,21 +34,6 @@ public class Article {
     @NotNull
     private String link;
 
-    @NotNull
-    private LocalDateTime deadline;
-
-    @NotNull
-    private Integer totalPrice;
-
-    @NotNull
-    private Integer totalCount;
-
-    @NotNull
-    private Integer recruitCount;
-
-    @NotNull
-    private Boolean isDone;
-
     @ElementCollection
     private List<String> pic;
 
