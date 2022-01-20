@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
@@ -19,12 +20,15 @@ public class Review {
     @Id
     @GeneratedValue
     @Column(name = "review_id")
-    private int id;
+    private Integer id;
 
+    @NotNull
     private String content;
 
+    @NotNull
     private LocalDateTime date;
 
+    @NotNull
     private int score;
 
     // review_from_id

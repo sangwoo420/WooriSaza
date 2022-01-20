@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -20,13 +19,17 @@ public class Qna {
     @Id
     @GeneratedValue
     @Column(name = "review_id")
-    private int id;
+    private Integer id;
 
+    @NotNull
     private String category;
 
+    @NotNull
     private String content;
 
+    @NotNull
     private String title;
+
 
     private String comment;
 

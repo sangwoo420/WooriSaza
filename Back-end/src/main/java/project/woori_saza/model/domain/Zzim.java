@@ -33,7 +33,7 @@ public class Zzim{
         @Embeddable
         @NoArgsConstructor
         @AllArgsConstructor
-        public class ZzimId implements Serializable {
+        public static class ZzimId implements Serializable {
 
                 private String profileId;
                 private Long articleId;
