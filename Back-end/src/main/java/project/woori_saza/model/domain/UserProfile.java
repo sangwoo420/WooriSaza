@@ -38,19 +38,19 @@ public class UserProfile {
     private Integer cnt;
 
 
-    @OneToMany(mappedBy = "userProfile")
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userProfile",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userProfile",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private UserAuth userAuth;
 
-    @OneToMany(mappedBy = "fromUser")
+    @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsFrom = new ArrayList<>();
 
-    @OneToMany(mappedBy = "toUser")
+    @OneToMany(mappedBy = "toUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsTo = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userProfile")
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Qna> qnas = new ArrayList<>();
 
     @OneToMany(mappedBy = "userProfile")
