@@ -1,5 +1,5 @@
 <template>
-  <div class="home" style="text-align : center">
+  <div class="home mt-3" style="text-align : center">
     <div style="background-color : #FFFDF2; width:100%">
       <div class="py-5 container">
         <b-container>
