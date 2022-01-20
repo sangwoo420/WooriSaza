@@ -6,11 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -23,15 +22,33 @@ public class Article {
     @Column(name = "article_id")
     private Long id;
 
+    @NotNull
     private String title;
+
+    @NotNull
     private String content;
+
+    @NotNull
     private LocalDateTime createdAt;
+
+    @NotNull
     private String link;
+
+    @NotNull
     private LocalDateTime deadline;
-    private int totalPrice;
-    private int totalCount;
-    private int recruitCount;
-    private boolean isDone;
+
+    @NotNull
+    private Integer totalPrice;
+
+    @NotNull
+    private Integer totalCount;
+
+    @NotNull
+    private Integer recruitCount;
+
+    @NotNull
+    private Boolean isDone;
+
     @ElementCollection
     private List<String> pic;
 
