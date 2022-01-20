@@ -18,7 +18,7 @@ public class UserAuth {
     @Column(name="auth_id")
     private String id;
 
-    private String admin;
+    private Boolean admin;
 
 
     @OneToOne(fetch = FetchType.LAZY)

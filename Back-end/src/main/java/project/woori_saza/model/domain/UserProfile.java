@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.xml.namespace.QName;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +22,20 @@ public class UserProfile {
     @Column(name="profile_id")
     private String id;
 
+    @NotNull
     private String address;
 
+    @NotNull
     private String nickname;
 
+    @NotNull
     private LocalDateTime joinDate;
 
     private String pic;
 
-    private int score;
+    private Integer score;
 
-    private int cnt;
+    private Integer cnt;
 
 
     @OneToMany(mappedBy = "userProfile")
