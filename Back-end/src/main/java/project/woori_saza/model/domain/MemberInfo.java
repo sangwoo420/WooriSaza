@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -19,15 +18,18 @@ public class MemberInfo {
     @Id
     @Column(name="member_info_id")
     @GeneratedValue
+    @NotNull
     private Long id;
 
-    private boolean isBoss;
+    private Boolean isBoss;
 
-    private int amount;
+    @NotNull
+    private Integer amount;
 
-    private int price;
+    @NotNull
+    private Integer price;
 
-    private boolean isConfirmed;
+    private Boolean isConfirmed;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,5 +40,4 @@ public class MemberInfo {
     @JoinColumn(name="party_id")
     private Party party;
 
-    
 }
