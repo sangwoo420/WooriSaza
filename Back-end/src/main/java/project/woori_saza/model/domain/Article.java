@@ -39,6 +39,10 @@ public class Article {
 
     // referencing area
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id")
+    private UserProfile userProfile;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id")
     private Party party;
@@ -51,15 +55,10 @@ public class Article {
 
     // referenced area
 
-    @OneToMany(mappedBy = "article")
-    List<Comment> comments;
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id")
-    private UserProfile userProfile;
-
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
-
 
 }
