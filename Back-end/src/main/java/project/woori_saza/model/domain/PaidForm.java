@@ -24,7 +24,7 @@ public class PaidForm {
 
     private String pic;
 
-    private int billingNo;
+    private Integer billingNo;
 
     private LocalDateTime deliveryDate;
 

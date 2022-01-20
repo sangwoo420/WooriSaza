@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 @Entity
 @Getter
@@ -19,8 +20,10 @@ public class Comment {
     @Column(name="comment_id")
     private Long id;
 
+    @NotNull
     private String content;
 
+    @NotNull
     private LocalDateTime createAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
