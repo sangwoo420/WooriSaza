@@ -27,6 +27,11 @@ public class Zzim{
         @MapsId("articleId")
         private Article article;
 
+        public Zzim(UserProfile userProfile, Article article) {
+                this.userProfile = userProfile;
+                this.article = article;
+                this.zzimId = new ZzimId(userProfile.getId(),article.getId());
+        }
 
         @Getter
         @Setter

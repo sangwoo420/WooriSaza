@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,24 @@ public class Party {
 
     @NotNull
     private Boolean formChecked;
+
+    @NotNull
+    private LocalDateTime deadline;
+
+    @NotNull
+    private String product;
+
+    @NotNull
+    private Integer totalPrice;
+
+    @NotNull
+    private Integer totalCount;
+
+    @NotNull
+    private Integer recruitCount;
+
+    @NotNull
+    private Boolean isDone;
 
     @OneToOne(mappedBy = "party",fetch = FetchType.LAZY)
     private PaidForm paidForm;
