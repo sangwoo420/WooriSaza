@@ -33,12 +33,12 @@ public class Review {
 
     // review_from_id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="profile_id")
+    @JoinColumn
     private UserProfile fromUser;
 
     // review_to_id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="profile_id")
+    @JoinColumn
     private UserProfile toUser;
 
 }
