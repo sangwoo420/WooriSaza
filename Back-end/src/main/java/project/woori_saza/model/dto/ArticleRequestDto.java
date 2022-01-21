@@ -7,19 +7,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleRequestDto {
-    
+
     private String title;
     private String content;
     private String link;
     @ElementCollection
     private List<String> pic;
 
-    public Article toEntity() {
-        return Article.builder()
-                .title(title)
-                .content(content)
-                .link(link)
-                .pic(pic)
-                .build();
-    }
+//    public Article toEntity() {
+//        return Article.builder()
+//                .title(title)
+//                .content(content)
+//                .link(link)
+//                .pic(pic)
+//                .build();
+//    }
 }
