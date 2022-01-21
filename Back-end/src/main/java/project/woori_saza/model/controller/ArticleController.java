@@ -39,14 +39,5 @@ public class ArticleController {
 //        return new ResponseEntity<List<Article>>(list, HttpStatus.OK);
 //    }
 
-    //   @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환다.",response = Map.class)
 
-
-//    @ApiOperation(value = "찜목록 리스트", notes = "찜목록을 반환한다.", response = Map.class)
-//    @GetMapping("/list/{bookmark_user_id}")
-//    public ResponseEntity<List<Bookmark>> getBookmarklist(@PathVariable("bookmark_user_id")String bookmark_user_id) throws Exception{
-//        List<Bookmark> list=service.getBookmark(bookmark_user_id);
-//        ResponseEntity<List<Bookmark>> res=new ResponseEntity(list,HttpStatus.OK);
-//        return res;
-//    }
 }
