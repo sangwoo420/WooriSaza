@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,4 +38,10 @@ export default {
   font-family: 'twayair';
   color: #2c3e50;
 } 
+
+.btn{
+  font-size : 0.5em;
+  padding: 0.5em;
+  border-radius : 2em;
+}
 </style>

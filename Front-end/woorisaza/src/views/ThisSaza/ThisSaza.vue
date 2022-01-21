@@ -1,45 +1,149 @@
 <template>
-    <div class="mt-3" style="background-color : #FFFDF2; width:100%;height:87vh">
-        <div class="container">
-            <div class="pt-5">
+    <div class="mt-3" style="background-color : #FFFDF2; width:100%;height:100%">
+            <div class="pt-5 pb-5">
+                <!-- pc버전 -->
                 <b-container >
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
-                            <Board></Board>
+                            <div :class="{box:true}" style="overflow-y:auto;">
+                                <div class="p-5">
+                                    <component :is="selectComponent"></component>
+                                </div>
+                            </div>
                         </b-col>
-                        <b-col></b-col>
+                        <b-col>
+                        </b-col>
                     </b-row>
                 </b-container>
+
+                <!-- 채팅창 글쓰기 버튼 -->
+                <div class="chat">
+                    <transition name="fade">
+                        <div v-if="!chatShow">
+                            <ChatList @chatShowFromChild="chatOff"></ChatList>
+                        </div>
+                    </transition>
+                </div>
+                <div class="button">
+                    <div>
+                        <transition name="fade">
+                            <div v-if="chatShow">
+                                <div>
+                                    <b-button variant="secondary">
+                                        <img src="@/assets/write.png" alt="" style="width:80%">
+                                    </b-button>
+                                </div>
+                                <div class="mt-2">
+                                    <b-button variant="secondary" v-on:click="chatShow = !chatShow">
+                                        <img src="@/assets/chat.png" alt="" style="width:80%">
+                                    </b-button>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+                <!-- 모바일버전 -->
+                <!-- <Board></Board> -->
             </div>
-            
-        </div>
     </div>
 </template>
 
 <script>
 import Board from "@/views/ThisSaza/Board.vue";
+import ArticleDetail from "@/views/ThisSaza/ArticleDetail.vue";
+import ChatList from "@/components/ThisSaza/Chat/ChatList.vue";
 export default {
     name: 'Thissaza',
     components : {
         Board,
+        ArticleDetail,
+        ChatList,
     },
     data() {
         return {
-            
+            chatShow: true,
+            selectComponent : "Board",
         };
     },
-
+    created(){
+        if(this.$route.params.articleno==null){
+            this.selectComponent = "Board";
+        }
+        else{
+            this.selectComponent = "ArticleDetail";
+        }
+    },
+    computed:{
+        getArticlNo(){
+            // return this.$store.getters.getArticleNo;
+            return this.$route.params.articleno;
+        }
+    },
+    watch:{
+        getArticlNo(val){
+            if(val==null){
+                this.selectComponent = "Board";
+            }
+            else{
+                this.selectComponent = "ArticleDetail";
+            }
+        },
+    },
     mounted() {
         
     },
 
     methods: {
-        
+        chatOff(s){
+            this.chatShow=s;
+        }
     },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+    .box{
+        background-color:white; 
+        box-shadow: 0px 0px 5px 0.1px grey; 
+        border-radius: 0.5em;
+        width:100%;
+        height:100%;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+    .box::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
+    }
+
+    .btn-secondary{
+    width : 8em;
+    height: 8em;
+    background-color: #F1A501 ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: #F1A501;
+    border-radius: 50%;
+    }
+    .button {
+        position: fixed;
+        top:75%;
+        left: 90%;
+    }
+    .chat {
+        position: fixed;
+        bottom: 5%;
+        left: 70%;
+        width: 300px;
+        height: 500px;
+    }
+    
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+
 
 </style>

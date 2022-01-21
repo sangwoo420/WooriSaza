@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import ThisSaza from "../views/ThisSaza/ThisSaza.vue";
+import Guide from "../views/Guide.vue"
+import Board from "../views/ThisSaza/ThisSaza.vue";
+import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
 
 Vue.use(VueRouter);
 
@@ -12,9 +14,19 @@ const routes = [
     component: Home,
   },
   {
-    path: "/thissaza",
-    name: "ThisSaza",
-    component: ThisSaza,
+    path: "/guide",
+    name: "Guide",
+    component: Guide,
+  },
+  {
+    path: "/board",
+    name: "Board",
+    component: Board,
+  },
+  {
+    path: "/board/:articleno",
+    name: "ArticleDetail",
+    component: ArticleDetail,
   },
   {
     path: "/about",
