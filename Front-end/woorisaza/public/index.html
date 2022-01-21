@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>woorisaza</title>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   </head>
   <body>
     <noscript>
@@ -18,3 +19,9 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
+
+<script>
+  window.Kakao.init("723d2b6bf595c274fdf3eb193ce16cc8");
+  window.Kakao.isInitialized();
+  // console.log(Kakao.isInitialized());
+</script>

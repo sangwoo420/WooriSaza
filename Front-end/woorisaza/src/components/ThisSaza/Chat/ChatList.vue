@@ -56,4 +56,5 @@ export default {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
+    .chat::-webkit-scrollbar{ display:none; }
 </style>
