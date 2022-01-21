@@ -12,6 +12,9 @@
             <div>
                 <b-form-input v-model="party" placeholder="검색"></b-form-input>
             </div>
+            <div>
+                
+            </div>
         </div>
     </div>
 </template>
@@ -23,6 +26,7 @@ export default {
     data() {
         return {
             party : "",
+            chatList : [1,2,3,4,5],
         };
     },
 
