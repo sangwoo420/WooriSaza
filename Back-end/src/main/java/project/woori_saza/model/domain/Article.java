@@ -1,9 +1,7 @@
 package project.woori_saza.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -47,6 +45,7 @@ public class Article {
     @JoinColumn(name = "party_id")
     private Party party;
 
+
     @Enumerated(EnumType.STRING)
     private Tag tag;
 
@@ -58,7 +57,23 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
+//    @Builder
+//    public Article(Long id, String title, String content, LocalDateTime createdAt, String link, List<String> pic, UserProfile userProfile, Party party, Tag tag, Category category, List<Comment> comments, List<Zzim> zzims) {
+//        this.id = id;
+//        this.title = title;
+//        this.content = content;
+//        this.createdAt = createdAt;
+//        this.link = link;
+//        this.pic = pic;
+//        this.userProfile = userProfile;
+//        this.party = party;
+//        this.tag = tag;
+//        this.category = category;
+//        this.comments = comments;
+//        this.zzims = zzims;
+//    }
 }
