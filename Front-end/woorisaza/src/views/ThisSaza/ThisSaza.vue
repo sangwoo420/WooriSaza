@@ -13,21 +13,36 @@
                             </div>
                         </b-col>
                         <b-col>
-                            <div class="fixed">
+                        </b-col>
+                    </b-row>
+                </b-container>
+
+                <!-- 채팅창 글쓰기 버튼 -->
+                <div class="chat">
+                    <transition name="fade">
+                        <div v-if="!chatShow">
+                            <ChatList @chatShowFromChild="chatOff"></ChatList>
+                        </div>
+                    </transition>
+                </div>
+                <div class="button">
+                    <div>
+                        <transition name="fade">
+                            <div v-if="chatShow">
                                 <div>
                                     <b-button variant="secondary">
                                         <img src="@/assets/write.png" alt="" style="width:80%">
                                     </b-button>
                                 </div>
                                 <div class="mt-2">
-                                    <b-button variant="secondary">
+                                    <b-button variant="secondary" v-on:click="chatShow = !chatShow">
                                         <img src="@/assets/chat.png" alt="" style="width:80%">
                                     </b-button>
                                 </div>
                             </div>
-                        </b-col>
-                    </b-row>
-                </b-container>
+                        </transition>
+                    </div>
+                </div>
                 <!-- 모바일버전 -->
                 <!-- <Board></Board> -->
             </div>
@@ -37,14 +52,17 @@
 <script>
 import Board from "@/views/ThisSaza/Board.vue";
 import ArticleDetail from "@/views/ThisSaza/ArticleDetail.vue";
+import ChatList from "@/components/ThisSaza/ChatList.vue";
 export default {
     name: 'Thissaza',
     components : {
         Board,
         ArticleDetail,
+        ChatList,
     },
     data() {
         return {
+            chatShow: true,
             selectComponent : "Board",
         };
     },
@@ -77,6 +95,9 @@ export default {
     },
 
     methods: {
+        chatOff(s){
+            this.chatShow=s;
+        }
     },
 };
 </script>
@@ -104,10 +125,22 @@ export default {
     border-color: #F1A501;
     border-radius: 50%;
     }
-    .fixed {
+    .button {
         position: fixed;
         top:75%;
-        
+        left: 80%;
+    }
+    .chat {
+        position: fixed;
+        top:50%;
+        left: 70%;
+    }
+    
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 
 
