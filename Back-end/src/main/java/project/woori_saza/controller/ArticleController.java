@@ -1,4 +1,4 @@
-package project.woori_saza.model.controller;
+package project.woori_saza.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
