@@ -43,6 +43,9 @@ public class Party {
     private Integer recruitCount;
 
     @NotNull
+    private Integer currentCount;
+
+    @NotNull
     private Boolean isDone;
 
     @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
