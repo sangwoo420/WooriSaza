@@ -52,7 +52,7 @@
 <script>
 import Board from "@/views/ThisSaza/Board.vue";
 import ArticleDetail from "@/views/ThisSaza/ArticleDetail.vue";
-import ChatList from "@/components/ThisSaza/ChatList.vue";
+import ChatList from "@/components/ThisSaza/Chat/ChatList.vue";
 export default {
     name: 'Thissaza',
     components : {
@@ -128,12 +128,14 @@ export default {
     .button {
         position: fixed;
         top:75%;
-        left: 80%;
+        left: 90%;
     }
     .chat {
         position: fixed;
-        top:50%;
+        bottom: 5%;
         left: 70%;
+        width: 300px;
+        height: 500px;
     }
     
     .fade-enter-active, .fade-leave-active {
