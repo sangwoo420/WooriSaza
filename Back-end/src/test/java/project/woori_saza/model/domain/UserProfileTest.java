@@ -91,12 +91,18 @@ class UserProfileTest {
         List<Article> articleList = articleRepo.findByUserProfile(user);
         for (Article article1 : articleList) {
             article1.setUserProfile(null);
+            articleRepo.save(article1);
+        }
+
+        for(Comment c : commentRepo.findByUserProfile(user)){
+            c.setUserProfile(null);
+            commentRepo.save(c);
         }
 
         System.out.println(articleRepo.findByUserProfile(user));
 //        System.out.println("articleList = " + articleList);
 
-//        userAuthRepo.deleteById(userAuth.getId());
+       userAuthRepo.deleteById(userAuth.getId());
 
 
         // OK TODO: comment, zzim 삭제
