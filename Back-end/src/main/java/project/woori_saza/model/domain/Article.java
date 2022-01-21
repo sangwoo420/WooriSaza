@@ -57,12 +57,19 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
-    @Builder
-    public Article(Long id, String title, String content, LocalDateTime createdAt, String link, List<String> pic) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.link = link;
-        this.pic = pic;
-    }
+//    @Builder
+//    public Article(Long id, String title, String content, LocalDateTime createdAt, String link, List<String> pic, UserProfile userProfile, Party party, Tag tag, Category category, List<Comment> comments, List<Zzim> zzims) {
+//        this.id = id;
+//        this.title = title;
+//        this.content = content;
+//        this.createdAt = createdAt;
+//        this.link = link;
+//        this.pic = pic;
+//        this.userProfile = userProfile;
+//        this.party = party;
+//        this.tag = tag;
+//        this.category = category;
+//        this.comments = comments;
+//        this.zzims = zzims;
+//    }
 }
