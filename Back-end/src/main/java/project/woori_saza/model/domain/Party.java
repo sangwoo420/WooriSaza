@@ -34,19 +34,19 @@ public class Party {
     private String product;
 
     @NotNull
-    private Integer totalPrice;
+    private Integer totalPrice; //총금액
 
     @NotNull
-    private Integer totalCount;
+    private Integer totalProductCount; //총 물건수량
 
     @NotNull
-    private Integer recruitCount;
+    private Integer totalRecruitMember; //총 모집인원수
 
     @NotNull
-    private Integer currentCount;
+    private Integer currentRecruitMember; //현재 인원수
 
     @NotNull
-    private Boolean isDone;
+    private Boolean isClosed; //마감
 
     @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private PaidForm paidForm;

@@ -1,11 +1,13 @@
 package project.woori_saza.model.dto;
 
+import lombok.Data;
 import project.woori_saza.model.domain.Article;
 
 import javax.persistence.ElementCollection;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 public class ArticleRequestDto {
 
     private String title;

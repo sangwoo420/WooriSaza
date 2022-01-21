@@ -1,5 +1,6 @@
 package project.woori_saza.model.dto;
 
+import lombok.Data;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Category;
 import project.woori_saza.model.domain.Tag;
@@ -8,6 +9,7 @@ import javax.persistence.ElementCollection;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 public class ArticleResponseDto {
 
     private Long id;
@@ -19,9 +21,9 @@ public class ArticleResponseDto {
     @ElementCollection
     private List<String> pic;
     private Integer totalPrice;
+    private Integer totalRecruitMember;
     private Integer myPrice;
-    private Integer recruitCount;
-    private Integer currentCount;
+    private Integer currentRecruitMember;
     private Tag tag;
     private Category category;
 
@@ -37,9 +39,9 @@ public class ArticleResponseDto {
         link = article.getLink();
         pic = article.getPic();
         totalPrice = article.getParty().getTotalPrice();
-        myPrice = article.getParty().getTotalPrice()/recruitCount;
-        recruitCount = article.getParty().getRecruitCount();
-        currentCount = article.getParty().getCurrentCount();
+        totalRecruitMember = article.getParty().getTotalRecruitMember();
+        myPrice = article.getParty().getTotalPrice()/currentRecruitMember;
+        currentRecruitMember = article.getParty().getCurrentRecruitMember();
         tag = article.getTag();
         category = article.getCategory();
     }

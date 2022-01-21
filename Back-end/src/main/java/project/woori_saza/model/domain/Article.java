@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Article {
 
     @Id
@@ -26,7 +27,7 @@ public class Article {
     private String content;
 
     @NotNull
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     @NotNull
     private String link;
@@ -44,6 +45,7 @@ public class Article {
     @JoinColumn(name = "party_id")
     private Party party;
 
+
     @Enumerated(EnumType.STRING)
     private Tag tag;
 
@@ -51,11 +53,11 @@ public class Article {
     private Category category;
 
     // referenced area
-    @JsonIgnore
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 

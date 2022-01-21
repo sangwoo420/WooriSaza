@@ -38,7 +38,7 @@ public class UserProfile {
 
     private Integer cnt;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
@@ -46,27 +46,27 @@ public class UserProfile {
     @JoinColumn(name="auth_id")
     private UserAuth userAuth;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsFrom = new ArrayList<>();
 
-    @JsonIgnore
+ //   @JsonIgnore
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsTo = new ArrayList<>();
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Qna> qnas = new ArrayList<>();
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "userProfile")
     private List<Comment> comments = new ArrayList<>();
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "userProfile")
     private List<Article> articles = new ArrayList<>();
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 

@@ -26,18 +26,18 @@ public class ArticleController {
     @Autowired
     ArticleRepo articleRepo;
 
-//    @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환다.",response = Map.class)
-//    @GetMapping("/list")
-//    public ResponseEntity<List<ArticleResponseDto>> GetArticleList(){
-//        List<ArticleResponseDto> list= articleService.getArticleList();
-//        return new ResponseEntity<List<ArticleResponseDto>>(list, HttpStatus.OK);
-//    }
-
+ //   @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환다.",response = Map.class)
     @GetMapping("/list")
-    public ResponseEntity<List<Article>> GetArticleList(){
-        List<Article> list= articleRepo.findAll();
-        return new ResponseEntity<List<Article>>(list, HttpStatus.OK);
+    public ResponseEntity<List<ArticleResponseDto>> GetArticleList(){
+        List<ArticleResponseDto> list= articleService.getArticleList();
+        return new ResponseEntity<List<ArticleResponseDto>>(list, HttpStatus.OK);
     }
+
+//    @GetMapping("/list")
+//    public ResponseEntity<List<Article>> GetArticleList(){
+//        List<Article> list= articleRepo.findAll();
+//        return new ResponseEntity<List<Article>>(list, HttpStatus.OK);
+//    }
 
     //   @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환다.",response = Map.class)
 

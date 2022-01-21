@@ -61,10 +61,10 @@ public class InitDb {
             UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
             userProfileRepo.save(user2);
 
-            Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,false,null, null,null);
+            Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,5,false,null, null,null);
             partyRepo.save(party);
 
-            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link",null);
+            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
             articleRepo.save(article);
 
 
