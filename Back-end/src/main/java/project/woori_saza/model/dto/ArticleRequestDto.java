@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleRequestDto {
+    
     private String title;
     private String content;
     private String link;
