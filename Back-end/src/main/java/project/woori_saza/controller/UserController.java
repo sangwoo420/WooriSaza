@@ -1,5 +1,6 @@
 package project.woori_saza.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.woori_saza.model.domain.UserAuth;
 import project.woori_saza.model.domain.UserProfile;
+import project.woori_saza.model.service.UserService;
 import project.woori_saza.model.service.UserServiceImpl;
 
 import java.time.LocalDateTime;
@@ -18,13 +20,14 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    UserServiceImpl userService;
+    @Autowired
+    UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> params) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = null;
-        UserProfile userProfile = userService.login(params.get("id"));
+        UserProfile userProfile = userService.login(params.get("id")); // thirdPartyId
         result.put("profile", userProfile);
         status = HttpStatus.ACCEPTED;
 

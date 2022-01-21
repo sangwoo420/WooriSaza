@@ -19,7 +19,7 @@ public class UserAuth {
     private String id;
 
     @Column(columnDefinition = "boolean default false")
-    private Boolean admin;
+    private Boolean isAdmin;
 
 
     @OneToOne(mappedBy = "userAuth", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
