@@ -22,8 +22,7 @@ public class UserAuth {
     private Boolean admin;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="profile_id")
+    @OneToOne(mappedBy = "userAuth", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private UserProfile userProfile;
 
 }

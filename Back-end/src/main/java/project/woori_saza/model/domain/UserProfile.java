@@ -41,7 +41,8 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userProfile",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="auth_id")
     private UserAuth userAuth;
 
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -59,7 +60,7 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     private List<Article> articles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userProfile")
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
 }

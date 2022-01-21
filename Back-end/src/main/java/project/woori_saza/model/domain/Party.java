@@ -44,13 +44,13 @@ public class Party {
     @NotNull
     private Boolean isDone;
 
-    @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private PaidForm paidForm;
 
-    @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Article article;
 
-    @OneToMany(mappedBy = "party", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "party", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
 }
