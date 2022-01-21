@@ -1,9 +1,6 @@
 package project.woori_saza.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Article {
 
     @Id
@@ -29,7 +25,7 @@ public class Article {
     private String content;
 
     @NotNull
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @NotNull
     private String link;
@@ -61,4 +57,12 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
+    @Builder
+    public Article(Long id, String title, String content, LocalDateTime createdAt, String link, List<String> pic) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.link = link;
+        this.pic = pic;
+    }
 }
