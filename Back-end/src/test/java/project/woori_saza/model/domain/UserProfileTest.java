@@ -39,10 +39,10 @@ class UserProfileTest {
 
     @Test
     void userTest() {
-        UserAuth userAuth = new UserAuth("ssafyid",false,null);
+        UserAuth userAuth = new UserAuth("ssafyid", false, null);
         userAuthRepo.save(userAuth);
 
-        UserAuth userAuth2 = new UserAuth("wooriid",false,null);
+        UserAuth userAuth2 = new UserAuth("wooriid", false, null);
         userAuthRepo.save(userAuth2);
 
         UserProfile user = new UserProfile("hashssafy", "seoul", "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, null, null);
@@ -51,7 +51,7 @@ class UserProfileTest {
         UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
-        Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,false,null, null,null);
+        Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, false, null, null, null);
         partyRepo.save(party);
 
         Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
@@ -60,19 +60,19 @@ class UserProfileTest {
         Article article2 = new Article(2L, "title2", "content2", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
         articleRepo.save(article2);
 
-        Qna qna=new Qna(1,"카테고리","내용","제목","댓글",null,user);
+        Qna qna = new Qna(1, "카테고리", "내용", "제목", "댓글", null, user);
         qnaRepo.save(qna); //저장
 
-        Review review=new Review(1,"리뷰내용", LocalDateTime.now(),130,user,user2);
+        Review review = new Review(1, "리뷰내용", LocalDateTime.now(), 130, user, user2);
         reviewRepo.save(review); //저장
 
         Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
         commentRepo.save(comment);
 
-        Zzim zzim=new Zzim(user,article);
+        Zzim zzim = new Zzim(user, article);
         zzimRepo.save(zzim);
 
-        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,false,user,party);
+        MemberInfo memberInfo = new MemberInfo(1L, false, 1, 2500, false, user, party);
         memberInfoRepo.save(memberInfo);
 
         // OK TODO: userProfile 삭제시 cascade (memberInfo, review, qna, userauth, zzim)
@@ -80,21 +80,22 @@ class UserProfileTest {
         // 위 두개는 한번에 해줘야함 (참조하고 있기때문)
 
         /* * 회원 탈퇴 버튼 누름
-        * * profile에서 userAuth 찾음
-        * * profile에서 관련 연관 끊기
-        * * userAuth 지우기 * */
+         * * profile에서 userAuth 찾음
+         * * profile에서 관련 연관 끊기
+         * * userAuth 지우기 * */
 
         /* 1 articleRepo에서 프로필을 외래키로 갖는 리스트 불러오기
-        * * 2 리스트를 순회하면서 프로필 외래키를 null로 만들기
+         * * 2 리스트를 순회하면서 프로필 외래키를 null로 만들기
          */
 
-        List<Article> articleList = articleRepo.findByUserProfile(user);
+        UserProfile find = userProfileRepo.findByUserAuth(userAuth);
+        List<Article> articleList = articleRepo.findByUserProfile(find);
         for (Article article1 : articleList) {
             article1.setUserProfile(null);
             articleRepo.save(article1);
         }
 
-        for(Comment c : commentRepo.findByUserProfile(user)){
+        for (Comment c : commentRepo.findByUserProfile(find)) {
             c.setUserProfile(null);
             commentRepo.save(c);
         }
@@ -102,7 +103,7 @@ class UserProfileTest {
         System.out.println(articleRepo.findByUserProfile(user));
 //        System.out.println("articleList = " + articleList);
 
-       userAuthRepo.deleteById(userAuth.getId());
+        userAuthRepo.deleteById(userAuth.getId());
 
 
         // OK TODO: comment, zzim 삭제
@@ -118,7 +119,7 @@ class UserProfileTest {
         UserProfile user2 = new UserProfile("wooriid", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
-        Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,false,null, null,null);
+        Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, false, null, null, null);
         partyRepo.save(party);
 
         Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
@@ -127,13 +128,13 @@ class UserProfileTest {
         Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
         commentRepo.save(comment);
 
-        Zzim zzim=new Zzim(user,article);
+        Zzim zzim = new Zzim(user, article);
         zzimRepo.save(zzim);
 
-        PaidForm paidForm = new PaidForm(1L,null,1,LocalDateTime.now(),LocalDateTime.now(),party);
+        PaidForm paidForm = new PaidForm(1L, null, 1, LocalDateTime.now(), LocalDateTime.now(), party);
         paidFormRepo.save(paidForm);
 
-        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,false,user,party);
+        MemberInfo memberInfo = new MemberInfo(1L, false, 1, 2500, false, user, party);
         memberInfoRepo.save(memberInfo);
 
         // OK TODO: 파티 삭제 -> (article -> comment, zzim), paid_form, member_info
