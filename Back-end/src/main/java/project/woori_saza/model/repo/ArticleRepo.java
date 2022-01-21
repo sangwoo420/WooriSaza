@@ -10,4 +10,6 @@ public interface ArticleRepo extends JpaRepository<Article, Long> {
 
     List<Article> findByUserProfile(UserProfile userProfile);
 
+
+
 }
