@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import project.woori_saza.model.dto.UserProfileDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,7 +21,7 @@ import java.util.List;
 public class UserProfile {
 
     @Id
-    @Column(name="profile_id")
+    @Column(name = "profile_id")
     private String id;
 
     @NotNull
@@ -38,35 +39,45 @@ public class UserProfile {
 
     private Integer cnt;
 
-//    @JsonIgnore
+    public UserProfile(UserProfileDto userProfileDto) {
+        this.id = userProfileDto.getId();
+        this.address = userProfileDto.getAddress();
+        this.nickname = userProfileDto.getNickname();
+        this.joinDate = userProfileDto.getJoinDate();
+        this.pic = userProfileDto.getPic();
+        this.score = userProfileDto.getScore();
+        this.cnt = userProfileDto.getCnt();
+    }
+
+    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="auth_id")
+    @JoinColumn(name = "auth_id")
     private UserAuth userAuth;
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsFrom = new ArrayList<>();
 
- //   @JsonIgnore
+    //   @JsonIgnore
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsTo = new ArrayList<>();
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Qna> qnas = new ArrayList<>();
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile")
     private List<Comment> comments = new ArrayList<>();
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile")
     private List<Article> articles = new ArrayList<>();
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
