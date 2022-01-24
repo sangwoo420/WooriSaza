@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import project.woori_saza.model.domain.Category;
 import project.woori_saza.model.domain.Party;
 import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
+import project.woori_saza.model.dto.PartyRequestDto;
 import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.service.ArticleService;
 import project.woori_saza.model.service.ArticleServiceImpl;
@@ -40,15 +42,15 @@ public class ArticleController {
 
         try {
             articleList = articleService.getArticleList();
+
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e){
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-
         result.put("articleList", articleList);
 
-        return new ResponseEntity<>(result, httpStatus);
+        return new ResponseEntity<Map<String,Object>>(result, httpStatus);
     }
 
     @GetMapping("/{articleId}")
@@ -58,12 +60,13 @@ public class ArticleController {
         ArticleResponseDto article = null;
         try {
             article = articleService.getArticle(Long.parseLong(articleId));
+
             httpStatus = HttpStatus.OK;
         }catch (RuntimeException e){
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("article", article);
-        return new ResponseEntity<>(result, httpStatus);
+        return new ResponseEntity<Map<String,Object>>(result, httpStatus);
     }
 
     @PostMapping
@@ -71,33 +74,75 @@ public class ArticleController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try{
-            Party party = new Party();
-            party.setDeadline(LocalDateTime.parse(body.get("deadline")));
-            party.setProduct(body.get("product"));
-            party.setTotalPrice(Integer.parseInt(body.get("totalprice")));
-            party.setTotalProductCount(Integer.parseInt(body.get("productcount")));
-            party.setTotalRecruitMember(Integer.parseInt(body.get("recruitmember")));
+            PartyRequestDto partyRequestDto = new PartyRequestDto();
+            partyRequestDto.setDeadline(LocalDateTime.parse(body.get("deadline")));
+            partyRequestDto.setProduct(body.get("product"));
+            partyRequestDto.setTotalPrice(Integer.parseInt(body.get("totalprice")));
+            partyRequestDto.setTotalProductCount(Integer.parseInt(body.get("productcount")));
+            partyRequestDto.setTotalRecruitMember(Integer.parseInt(body.get("recruitmember")));
             ArticleRequestDto articleRequestDto = new ArticleRequestDto();
             articleRequestDto.setTitle(body.get("title"));
             articleRequestDto.setContent(body.get("content"));
             articleRequestDto.setLink(body.get("link"));
+            articleRequestDto.setCategory(Category.valueOf(body.get("category")));
             List<String> picList = objectMapper.readValue(body.get("piclist"), List.class);
             articleRequestDto.setPic(picList);
-            articleService.insertArticle(party, articleRequestDto);
+
+            articleService.insertArticle(partyRequestDto, articleRequestDto);
+
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         }catch (RuntimeException | JsonProcessingException e){
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
-        return new ResponseEntity<>(result, httpStatus);
+        return new ResponseEntity<Map<String,Object>>(result, httpStatus);
     }
 
-//    @GetMapping("/list")
-//    public ResponseEntity<List<Article>> GetArticleList(){
-//        List<Article> list= articleRepo.findAll();
-//        return new ResponseEntity<List<Article>>(list, HttpStatus.OK);
-//    }
+    @PutMapping
+    public ResponseEntity<Map<String, Object>> updateArticle(@RequestBody Map<String, String> body){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        try{
+            PartyRequestDto partyRequestDto = new PartyRequestDto();
+            partyRequestDto.setDeadline(LocalDateTime.parse(body.get("deadline")));
+            partyRequestDto.setProduct(body.get("product"));
+            partyRequestDto.setTotalPrice(Integer.parseInt(body.get("totalprice")));
+            partyRequestDto.setTotalProductCount(Integer.parseInt(body.get("productcount")));
+            partyRequestDto.setTotalRecruitMember(Integer.parseInt(body.get("recruitmember")));
+            ArticleRequestDto articleRequestDto = new ArticleRequestDto();
+            articleRequestDto.setTitle(body.get("title"));
+            articleRequestDto.setContent(body.get("content"));
+            articleRequestDto.setLink(body.get("link"));
+            articleRequestDto.setCategory(Category.valueOf(body.get("category")));
+            List<String> picList = objectMapper.readValue(body.get("piclist"), List.class);
+            articleRequestDto.setPic(picList);
 
+            articleService.updateArticle(partyRequestDto, articleRequestDto, Long.parseLong(body.get("articleid")));
+
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException | JsonProcessingException e){
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String,Object>>(result, httpStatus);
+    }
+
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<Map<String, Object>> deleteArticle(@PathVariable String articleId){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        try{
+            articleService.deleteArticle(Long.parseLong(articleId));
+
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e){
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String,Object>>(result, httpStatus);
+    }
 
 }

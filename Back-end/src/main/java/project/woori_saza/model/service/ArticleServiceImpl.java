@@ -6,12 +6,12 @@ import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Party;
 import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
+import project.woori_saza.model.dto.PartyRequestDto;
 import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.PartyRepo;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +31,9 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
-        return null;
+        Article article = articleRepo.getById(articleId);
+        ArticleResponseDto articleResponseDto = new ArticleResponseDto(article);
+        return articleResponseDto;
     }
 
     // 게시글 전체 조회
@@ -43,15 +45,23 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public void insertArticle(Party party, ArticleRequestDto articleRequestDto) {
+    public void insertArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto) {
+
+        Party party = new Party();
+        party.setDeadline(partyRequestDto.getDeadline());
+        party.setTotalRecruitMember(partyRequestDto.getTotalRecruitMember());
+        party.setProduct(partyRequestDto.getProduct());
+        party.setTotalPrice(partyRequestDto.getTotalPrice());
+        party.setTotalProductCount(partyRequestDto.getTotalProductCount());
         partyRepo.save(party);
+
         Article article = new Article();
         article.setTitle(articleRequestDto.getTitle());
         article.setContent(articleRequestDto.getContent());
         article.setLink(articleRequestDto.getLink());
         article.setPic(articleRequestDto.getPic());
         article.setCreatedAt(LocalDateTime.now());
-        article.setCategory(null);
+        article.setCategory(articleRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
         articleRepo.save(article);
@@ -59,12 +69,31 @@ public class ArticleServiceImpl implements ArticleService{
 
 
     @Override
-    public void updateArticle(ArticleRequestDto article) {
+    public void updateArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto, Long articleId) {
+
+        Article article = articleRepo.getById(articleId);
+
+        Party party = article.getParty();
+        party.setDeadline(partyRequestDto.getDeadline());
+        party.setTotalRecruitMember(partyRequestDto.getTotalRecruitMember());
+        party.setProduct(partyRequestDto.getProduct());
+        party.setTotalPrice(partyRequestDto.getTotalPrice());
+        party.setTotalProductCount(partyRequestDto.getTotalProductCount());
+        partyRepo.save(party);
+
+        article.setTitle(articleRequestDto.getTitle());
+        article.setContent(articleRequestDto.getContent());
+        article.setLink(articleRequestDto.getLink());
+        article.setPic(articleRequestDto.getPic());
+        article.setCategory(articleRequestDto.getCategory());
+        article.setTag(null);
+        article.setParty(party);
+        articleRepo.save(article);
 
     }
 
     @Override
     public void deleteArticle(Long articleId) {
-
+        articleRepo.deleteById(articleId);
     }
 }
