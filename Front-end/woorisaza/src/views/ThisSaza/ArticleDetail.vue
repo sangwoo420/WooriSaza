@@ -58,7 +58,7 @@
         <!-- 찜버튼 + 참여하기 버튼 -->
         <div style="text-align:right">
             <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
-            <b-button variant="secondary" pill>참여하기</b-button>
+            <b-button variant="warning" pill>참여하기</b-button>
         </div>
         <!-- 글내용 -->
         <div class="mt-3">
@@ -75,9 +75,36 @@
 
         <!-- 목록버튼 -->
         <div style="text-align:right" class="mt-2">
-            <b-button variant="secondary" pill>목록</b-button>
+            <b-button variant="warning" pill>목록</b-button>
         </div>
         <!-- 댓글 -->
+        <hr>
+        <div class="mt-3">
+            <div class="p-2" style="border-radius: 2em;">
+                <!-- <img src="@/assets/comment.png" style="display:inline;width:7%" class="ml-1 mr-1"> -->
+                <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%"></b-form-textarea>
+                <b-button style="display:inline;width:9%;">등록</b-button>
+                <hr>
+            </div>
+            <!-- 사람들 댓글 쓴 거 -->
+            <!-- 댓글듯 for문 -->
+            <div>
+                <!-- 각 댓글 -->
+                <div>
+                    <div>
+                        <img src="@/assets/icon.png" style="width:10%" alt="">
+                        <!-- 사용자 닉네임 -->
+                        <a href="" style="color:black; width:10%;display:inline">김현수</a>
+                        <b-button variant="danger" style="float:right">삭제</b-button>
+                        <b-button variant="success" style="float:right" class="mr-1">수정</b-button>
+                    </div>
+                    <div style="font-size:12px">
+                        안녕하세요 삼다수 정품 맞나요? 확실하죠?
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -126,11 +153,34 @@ export default {
 </script>
 
 <style scoped>
-.btn-secondary{
+.btn-warning{
     width : 8em;
     background-color: #F1A501 ;
     font-size : 0.5em;
     padding: 0.5em;
     border-color: #F1A501;
+}
+
+.btn-secondary{
+    width : 8em;
+    background-color: #C4C4C4     ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: #C4C4C4 ;
+    position: absolute;
+}
+.btn-success{
+    width : 5em;
+    background-color: #22C55E      ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: #22C55E  ;
+}
+.btn-danger{
+    width : 5em;
+    background-color: #FF0000      ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: #FF0000  ;
 }
 </style>
