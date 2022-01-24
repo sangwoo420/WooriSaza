@@ -4,7 +4,7 @@
             <b-navbar toggleable="lg" type="white" >
 
                 <img src="@/assets/icon.png" style="width:70px">
-                <img src="@/assets/name.png" style="width:120px">
+                <img src="@/assets/name.png" style="width:120px; cursor:pointer" @click="toHome" >
                 <b-collapse id="nav-collapse" is-nav>
 
                 <b-navbar-nav class="ml-auto">
@@ -148,6 +148,10 @@ export default {
         logout(){
             this.$cookie.delete("accesstoken");
             this.$router.go();
+        },
+        toHome(){
+            this.$router.push("/");
+            this.getHomeActive();
         },
     },
 };

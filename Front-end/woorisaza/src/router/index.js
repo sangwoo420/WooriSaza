@@ -6,6 +6,7 @@ import MyBoard from "../views/MySaza/MySaza.vue";
 import MyArticleDetail from "../views/MySaza/MySaza.vue";
 import Board from "../views/ThisSaza/ThisSaza.vue";
 import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
+import ArticleWrite from "../views/ThisSaza/ThisSaza.vue";
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,11 @@ const routes = [
     path: "/board/:articleno",
     name: "ArticleDetail",
     component: ArticleDetail,
+  },
+  {
+    path: "/board/write",
+    name: "ArticleWrite",
+    component: ArticleWrite,
   },
   {
     path: "/myboard",
