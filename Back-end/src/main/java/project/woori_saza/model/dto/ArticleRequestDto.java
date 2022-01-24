@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class ArticleRequestDto {
-
+// 작성
     private String title;
     private String content;
     private String link;
