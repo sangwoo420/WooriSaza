@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Party;
+import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
 import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.PartyRequestDto;
@@ -46,23 +47,23 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public void insertArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto) {
+    public void insertArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto) {
 
         Party party = new Party();
-        party.setDeadline(partyRequestDto.getDeadline());
-        party.setTotalRecruitMember(partyRequestDto.getTotalRecruitMember());
-        party.setProduct(partyRequestDto.getProduct());
-        party.setTotalPrice(partyRequestDto.getTotalPrice());
-        party.setTotalProductCount(partyRequestDto.getTotalProductCount());
+        party.setDeadline(articleAndPartyRequestDto.getDeadline());
+        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+        party.setProduct(articleAndPartyRequestDto.getProduct());
+        party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
+        party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
         partyRepo.save(party);
 
         Article article = new Article();
-        article.setTitle(articleRequestDto.getTitle());
-        article.setContent(articleRequestDto.getContent());
-        article.setLink(articleRequestDto.getLink());
-        article.setPic(articleRequestDto.getPic());
+        article.setTitle(articleAndPartyRequestDto.getTitle());
+        article.setContent(articleAndPartyRequestDto.getContent());
+        article.setLink(articleAndPartyRequestDto.getLink());
+        article.setPic(articleAndPartyRequestDto.getPic());
         article.setCreatedAt(LocalDateTime.now());
-        article.setCategory(articleRequestDto.getCategory());
+        article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
         articleRepo.save(article);
@@ -70,23 +71,23 @@ public class ArticleServiceImpl implements ArticleService{
 
 
     @Override
-    public void updateArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto, Long articleId) {
+    public void updateArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto, Long articleId) {
 
         Article article = articleRepo.getById(articleId);
 
         Party party = article.getParty();
-        party.setDeadline(partyRequestDto.getDeadline());
-        party.setTotalRecruitMember(partyRequestDto.getTotalRecruitMember());
-        party.setProduct(partyRequestDto.getProduct());
-        party.setTotalPrice(partyRequestDto.getTotalPrice());
-        party.setTotalProductCount(partyRequestDto.getTotalProductCount());
+        party.setDeadline(articleAndPartyRequestDto.getDeadline());
+        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+        party.setProduct(articleAndPartyRequestDto.getProduct());
+        party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
+        party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
         partyRepo.save(party);
 
-        article.setTitle(articleRequestDto.getTitle());
-        article.setContent(articleRequestDto.getContent());
-        article.setLink(articleRequestDto.getLink());
-        article.setPic(articleRequestDto.getPic());
-        article.setCategory(articleRequestDto.getCategory());
+        article.setTitle(articleAndPartyRequestDto.getTitle());
+        article.setContent(articleAndPartyRequestDto.getContent());
+        article.setLink(articleAndPartyRequestDto.getLink());
+        article.setPic(articleAndPartyRequestDto.getPic());
+        article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
         articleRepo.save(article);
