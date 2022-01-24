@@ -30,7 +30,7 @@
                         <transition name="fade">
                             <div v-if="chatShow">
                                 <div>
-                                    <b-button variant="secondary">
+                                    <b-button variant="secondary" @click="toArticleWrite">
                                         <img src="@/assets/write.png" alt="" style="width:80%">
                                     </b-button>
                                 </div>
@@ -53,12 +53,15 @@
 import Board from "@/views/ThisSaza/Board.vue";
 import ArticleDetail from "@/views/ThisSaza/ArticleDetail.vue";
 import ChatList from "@/components/ThisSaza/Chat/ChatList.vue";
+import ArticleWrite from "@/views/ThisSaza/ArticleWrite.vue";
+
 export default {
     name: 'Thissaza',
     components : {
         Board,
         ArticleDetail,
         ChatList,
+        ArticleWrite,
     },
     data() {
         return {
@@ -69,6 +72,9 @@ export default {
     created(){
         if(this.$route.params.articleno==null){
             this.selectComponent = "Board";
+        }
+        else if(this.$route.params.articleno=="write"){
+            this.selectComponent = "ArticleWrite";
         }
         else{
             this.selectComponent = "ArticleDetail";
@@ -85,6 +91,9 @@ export default {
             if(val==null){
                 this.selectComponent = "Board";
             }
+            else if(val=="write"){
+                this.selectComponent = "ArticleWrite";
+            }
             else{
                 this.selectComponent = "ArticleDetail";
             }
@@ -97,6 +106,10 @@ export default {
     methods: {
         chatOff(s){
             this.chatShow=s;
+        },
+        toArticleWrite(){
+            this.selectComponent="ArticleWrite";
+            this.$router.push("/board/write").catch(()=>{});;
         }
     },
 };
