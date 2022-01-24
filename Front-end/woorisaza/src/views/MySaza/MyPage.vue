@@ -8,15 +8,16 @@
                         <b-col cols="7">
                             <div :class="{box:true}" style="overflow-y:auto;">
                                 <div class="p-5">
+                                    <h2 style="text-align:center">마이페이지</h2>
                                     <!-- 신분증 -->
                                     <div>
                                         <my-profile/>
                                     </div>
-                                    <!-- 마이사자 네비게이션 바 -->
+                                    <!-- 마이페이지 네비게이션 바 -->
                                     <div>
                                         <my-navbar/>
                                     </div>
-                                    <!-- 게시글 폼 -->
+                                    <!-- 게시글 목록 -->
                                     <component :is="selectComponent">
                                       
                                     </component>
@@ -40,7 +41,7 @@ import MyBoard from "@/views/MySaza/MyBoard.vue";
 import MyArticleDetail from "@/views/MySaza/MyArticleDetail.vue";
 import MyNavbar from "@/components/MySaza/MyNavbar.vue";
 export default {
-    name: 'Mysaza',
+    name: 'MyPage',
     components : {
         MyBoard,
         MyArticleDetail,

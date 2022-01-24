@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Guide from "../views/Guide.vue"
 import MyBoard from "../views/MySaza/MySaza.vue";
+import MyPage from "../views/MySaza/MyPage.vue"
 import MyArticleDetail from "../views/MySaza/MySaza.vue";
 import Board from "../views/ThisSaza/ThisSaza.vue";
 import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
@@ -34,6 +35,11 @@ const routes = [
     path: "/myboard",
     name: "MyBoard",
     component: MyBoard,
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: MyPage,
   },
   {
     path: "/myboard/:articleno",
