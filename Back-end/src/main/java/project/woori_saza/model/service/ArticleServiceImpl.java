@@ -37,7 +37,8 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     // 게시글 전체 조회
-    public List<ArticleResponseDto> getArticleList() {
+    public List<ArticleResponseDto> getArticleList(String... options) {
+
         System.out.println("들어오나");
         List<Article> articles = articleRepo.findAll();
         System.out.println("articles"+articles);

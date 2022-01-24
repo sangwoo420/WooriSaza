@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ArticleService {
     ArticleResponseDto getArticle(Long articleId);
-    List<ArticleResponseDto> getArticleList();
+    List<ArticleResponseDto> getArticleList(String... options);
     void insertArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto);
     void updateArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto, Long articleId);
     void deleteArticle(Long articleId);

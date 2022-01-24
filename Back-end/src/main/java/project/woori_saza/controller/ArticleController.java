@@ -35,13 +35,15 @@ public class ArticleController {
 
  //   @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환다.",response = Map.class)
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getArticleList(@RequestParam Map<String, String> params){
+    public ResponseEntity<Map<String, Object>> getArticleList(@RequestParam("category") String category,
+                                                              @RequestParam("range") String range,
+                                                              @RequestParam("keyword") String keyword){
         Map<String, Object> result = new HashMap<>();
         List<ArticleResponseDto> articleList = null;
         HttpStatus httpStatus = null;
 
         try {
-            articleList = articleService.getArticleList();
+            articleList = articleService.getArticleList(category, range, keyword);
 
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e){
