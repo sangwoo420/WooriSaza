@@ -49,15 +49,16 @@ public class CommentServiceImpl implements CommentService{
     /**
      * 댓글 작성
      */
+
     @Override
-    public void insertComment(Long articleId, CommentDto commentDto, String profileId) {
+    public void insertComment(CommentDto commentDto) {
         System.out.println("===댓글 작성===");
-        Article article = articleRepo.getById(articleId);
-        UserProfile user = userProfileRepo.getById(profileId);
+        Article article = articleRepo.getById(commentDto.getArticleId());
+        UserProfile user = userProfileRepo.getById(commentDto.getProfileId());
         Comment comment = new Comment();
         comment.setId(commentDto.getId());
         comment.setContent(commentDto.getContent());
-        comment.setCreateAt(commentDto.getCreateAt());
+        comment.setCreateAt(LocalDateTime.now());
         comment.setArticle(article);
         comment.setUserProfile(user);
         commentRepo.save(comment);
