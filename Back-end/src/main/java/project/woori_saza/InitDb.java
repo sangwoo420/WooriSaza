@@ -77,6 +77,12 @@ public class InitDb {
             Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
             commentRepo.save(comment);
 
+            Comment comment2 = new Comment(2L, "content2", LocalDateTime.now(), article, user2);
+            commentRepo.save(comment2);
+
+            Comment comment3 = new Comment(3L, "content3", LocalDateTime.now(), article, user);
+            commentRepo.save(comment3);
+
             Zzim zzim=new Zzim(user,article);
             zzimRepo.save(zzim);
 
