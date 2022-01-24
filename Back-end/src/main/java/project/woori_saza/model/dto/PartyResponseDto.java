@@ -1,6 +1,7 @@
 package project.woori_saza.model.dto;
 
 import lombok.Data;
+import project.woori_saza.model.domain.MemberInfo;
 import project.woori_saza.model.domain.Party;
 import project.woori_saza.model.domain.Tag;
 
@@ -19,10 +20,10 @@ public class PartyResponseDto {
     private Integer currentRecruitMember; //현재 인원수
     private Integer myPrice; // 총 금액/현재 인원수
 
-    public PartyResponseDto(Party party){
+    public PartyResponseDto(Party party,MemberInfo memberInfo){
         title= party.getArticle().getTitle();
         tag=party.getArticle().getTag();
-        //isBoss는 memberinfo리스트 만들어서 거기서 isboss빼오기
+        isBoss=memberInfo.getIsBoss();
         id=party.getId();
         deadline=party.getDeadline();
         totalPrice=party.getTotalPrice();

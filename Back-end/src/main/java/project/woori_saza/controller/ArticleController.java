@@ -25,7 +25,7 @@ public class ArticleController {
     @Autowired
     ArticleRepo articleRepo;
 
- //   @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환다.",response = Map.class)
+ //   @ApiOperation(value="게시글 리스트",notes = "게시글 리스트를 반환한다.",response = Map.class)
     @GetMapping("/list")
     public ResponseEntity<List<ArticleResponseDto>> GetArticleList(){
         List<ArticleResponseDto> list= articleService.getArticleList();

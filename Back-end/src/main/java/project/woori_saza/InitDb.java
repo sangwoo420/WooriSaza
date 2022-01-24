@@ -89,6 +89,9 @@ public class InitDb {
             MemberInfo memberInfo2 = new MemberInfo(1L,false,1,2500,false,user2,party);
             memberInfoRepo.save(memberInfo2);
 
+           MemberInfo memberInfo3 = new MemberInfo(1L,false,1,2500,false,user2,party2);
+           memberInfoRepo.save(memberInfo3);
+
         }
 
     }
