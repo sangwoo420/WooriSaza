@@ -1,20 +1,16 @@
 package project.woori_saza;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.repo.*;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class UserProfileTest {
+class DBTest {
 
     @Autowired
     UserAuthRepo userAuthRepo;

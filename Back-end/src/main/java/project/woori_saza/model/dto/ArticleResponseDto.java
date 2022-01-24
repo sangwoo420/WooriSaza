@@ -40,7 +40,7 @@ public class ArticleResponseDto {
         pic = article.getPic();
         totalPrice = article.getParty().getTotalPrice();
         totalRecruitMember = article.getParty().getTotalRecruitMember();
-        myPrice = article.getParty().getTotalPrice()/currentRecruitMember;
+        myPrice = article.getParty().getTotalPrice()/totalRecruitMember;
         currentRecruitMember = article.getParty().getCurrentRecruitMember();
         tag = article.getTag();
         category = article.getCategory();

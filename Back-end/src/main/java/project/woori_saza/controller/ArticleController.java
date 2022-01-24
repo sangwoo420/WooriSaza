@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/article")
 @Api(tags = {"User Controller"})
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class ArticleController {
     @Autowired
     ArticleService articleService;

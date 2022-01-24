@@ -64,6 +64,9 @@ public class InitDb {
             Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,5,false,null, null,null);
             partyRepo.save(party);
 
+            Party party2 = new Party(2L,false, LocalDateTime.now(),"sss",20000,40,4,5,false,null, null,null);
+            partyRepo.save(party2);
+
             Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
             articleRepo.save(article);
 
@@ -80,8 +83,11 @@ public class InitDb {
             Zzim zzim=new Zzim(user,article);
             zzimRepo.save(zzim);
 
-            MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,false,user,party);
+            MemberInfo memberInfo = new MemberInfo(1L,true,1,2500,false,user,party);
             memberInfoRepo.save(memberInfo);
+
+            MemberInfo memberInfo2 = new MemberInfo(1L,false,1,2500,false,user2,party);
+            memberInfoRepo.save(memberInfo2);
 
         }
 
