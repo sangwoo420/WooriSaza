@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Guide from "../views/Guide.vue"
+import MyBoard from "../views/MySaza/MySaza.vue";
+import MyArticleDetail from "../views/MySaza/MySaza.vue";
 import Board from "../views/ThisSaza/ThisSaza.vue";
 import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
 
@@ -27,6 +29,16 @@ const routes = [
     path: "/board/:articleno",
     name: "ArticleDetail",
     component: ArticleDetail,
+  },
+  {
+    path: "/myboard",
+    name: "MyBoard",
+    component: MyBoard,
+  },
+  {
+    path: "/myboard/:articleno",
+    name: "MyArticleDetail",
+    component: MyArticleDetail,
   },
   {
     path: "/about",
