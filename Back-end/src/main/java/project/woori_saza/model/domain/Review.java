@@ -24,7 +24,6 @@ public class Review {
     @NotNull
     private String content;
 
-    @NotNull
     private LocalDateTime date;
 
     @NotNull
@@ -39,11 +38,9 @@ public class Review {
     private UserProfile toUser;
 
     @Builder
-    public Review(String content, LocalDateTime date, UserProfile toUser, UserProfile fromUser) {
+    public Review(String content, int score) {
         this.content = content;
-        this.date = date;
-        this.toUser = toUser;
-        this.fromUser = fromUser;
+        this.score = score;
     }
 
 }
