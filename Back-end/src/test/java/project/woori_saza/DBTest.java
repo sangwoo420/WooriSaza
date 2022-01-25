@@ -61,7 +61,7 @@ class UserProfileTest {
         Article article2 = new Article(2L, "title2", "content2", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
         articleRepo.save(article2);
 
-        Qna qna=new Qna(1,"카테고리","내용","제목","댓글",null,user);
+        Qna qna=new Qna(1L,"카테고리","내용","제목","댓글",null,user);
         qnaRepo.save(qna); //저장
 
         Review review=new Review(1,"리뷰내용", LocalDateTime.now(),130,user,user2);
