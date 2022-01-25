@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Qna {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qna_id")
     private Integer id;
 
