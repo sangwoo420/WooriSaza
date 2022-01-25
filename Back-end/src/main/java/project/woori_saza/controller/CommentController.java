@@ -49,8 +49,7 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 작성", notes = "게시글 내에 댓글을 작성한다.")
     @PostMapping("/{articleId}")
-    public ResponseEntity<String> InsertComment(@PathVariable @ApiParam(value = "게시글 번호", required = true) Long articleId,
-                                                @RequestBody @ApiParam(value = "댓글 작성 모델") CommentDto commentDto) {
+    public ResponseEntity<String> InsertComment(@RequestBody @ApiParam(value = "댓글 작성 모델") CommentDto commentDto) {
         commentService.insertComment(commentDto);
         return null;
     }
