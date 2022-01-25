@@ -72,6 +72,7 @@ public class ArticleController {
 
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("article", article);
@@ -89,6 +90,7 @@ public class ArticleController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
@@ -107,6 +109,7 @@ public class ArticleController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException  e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
@@ -124,6 +127,7 @@ public class ArticleController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }

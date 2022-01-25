@@ -60,21 +60,22 @@ public class ArticleServiceImpl implements ArticleService{
         party.setProduct(articleAndPartyRequestDto.getProduct());
         party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
         party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
+        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+        party.setCurrentRecruitMember(1);
         party.setFormChecked(false);
         party.setIsClosed(false);
-        System.out.println(party.getId());
-        //partyRepo.save(party);
+        party = partyRepo.save(party);
 //
-//        Article article = new Article();
-//        article.setTitle(articleAndPartyRequestDto.getTitle());
-//        article.setContent(articleAndPartyRequestDto.getContent());
-//        article.setLink(articleAndPartyRequestDto.getLink());
-//        article.setPic(articleAndPartyRequestDto.getPic());
-//        article.setCreatedAt(LocalDateTime.now());
-//        article.setCategory(articleAndPartyRequestDto.getCategory());
-//        article.setTag(null);
-//        article.setParty(party);
-//        articleRepo.save(article);
+        Article article = new Article();
+        article.setTitle(articleAndPartyRequestDto.getTitle());
+        article.setContent(articleAndPartyRequestDto.getContent());
+        article.setLink(articleAndPartyRequestDto.getLink());
+        article.setPic(articleAndPartyRequestDto.getPic());
+        article.setCreatedAt(LocalDateTime.now());
+        article.setCategory(articleAndPartyRequestDto.getCategory());
+        article.setTag(null);
+        article.setParty(party);
+        article = articleRepo.save(article);
     }
 
 
