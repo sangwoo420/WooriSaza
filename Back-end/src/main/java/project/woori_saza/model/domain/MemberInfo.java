@@ -1,9 +1,6 @@
 package project.woori_saza.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,6 +27,7 @@ public class MemberInfo {
     @NotNull
     private Integer price; // 파티원 부담금액
 
+    @Column(columnDefinition = "boolean default false")
     private Boolean isConfirmed; //파티원 구매확정여부
 
 
@@ -40,5 +38,14 @@ public class MemberInfo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="party_id")
     private Party party;
+
+//    @Builder
+//    public Review(String content, int score) {
+//        this.content = content;
+//        this.score = score;
+//    }
+
+//    @Builder
+//    public MemberInfo(int amount,int price,)
 
 }

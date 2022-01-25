@@ -1,30 +1,23 @@
 package project.woori_saza.model.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import project.woori_saza.model.domain.Article;
+import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.MemberInfo;
 import project.woori_saza.model.domain.Party;
 import project.woori_saza.model.domain.UserProfile;
-import project.woori_saza.model.dto.ArticleResponseDto;
+import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.dto.PartyDto;
-import project.woori_saza.model.dto.PartyRequestDto;
 import project.woori_saza.model.dto.PartyResponseDto;
 import project.woori_saza.model.repo.MemberInfoRepo;
 import project.woori_saza.model.repo.PartyRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
-import javax.swing.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class PartyServiceImpl implements PartyService{
 
     @Autowired
@@ -40,19 +33,38 @@ public class PartyServiceImpl implements PartyService{
     public List<PartyResponseDto> getPartyList(String id) {
         //1.받은 userProfile로 memberinfo찾기
         System.out.println("id="+id);
-        UserProfile userProfile=userProfileRepo.getById(id);
-        System.out.println("userprofile="+userProfile.getMemberInfos()); //2개 나옴
-        List<MemberInfo>memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
-        System.out.println("멤버인포확인="+memberInfos); //2개 나옴
+        UserProfile userProfile=userProfileRepo.getById(id); //프로필 1개 나옴
+        System.out.println("userprofile의 memberinfo="+userProfile.getMemberInfos()); //3개 나옴
+        List<MemberInfo>memberInfos=memberInfoRepo.findAllByUserProfile(userProfile); //배열 3개일듯
+        System.out.println("memberInfos = " + memberInfos);
+
         //2.그 memberInfos에 해당하는 파티들을 찾아서 parties에 넣어주기
         List<PartyResponseDto> parties=new ArrayList<>();
+        PartyResponseDto partyResponseDto = null;
+
+        //이건나옴 있으니까...
         for(MemberInfo memberInfo:memberInfos){
             Party party=memberInfo.getParty();
-            PartyResponseDto partyResponseDto=new PartyResponseDto(party,memberInfo);
+            System.out.println("party.getId() = " + party.getId());
+            System.out.println("memberInfo.getId() = " + memberInfo.getId());
+        }
+
+        for(MemberInfo memberInfo:memberInfos){
+            Party party=memberInfo.getParty();
+            partyResponseDto=new PartyResponseDto(party,memberInfo);
+            System.out.println("memberinfo , partyResponsedto"+memberInfo.getId()+" "+partyResponseDto.getId());
             parties.add(partyResponseDto);
         }
+        System.out.println("parties"+" "+parties);
         return parties;
     }
+
+//      for(MemberInfo memberInfo:memberInfos){
+//        Party party=memberInfo.getParty();
+//        PartyResponseDto partyResponseDto=new PartyResponseDto(party,memberInfo);
+//        System.out.println("memberinfo , partyResponsedto"+memberInfo.getId()+" "+partyResponseDto.getId());
+//        parties.add(partyResponseDto);
+//    }
 
     @Override
     public List<PartyDto> getDetailList(Long id) {
@@ -69,11 +81,26 @@ public class PartyServiceImpl implements PartyService{
         }
         return partyDtos;
     }
+//    @Override
+//    @Transactional
+//    public String insertApplyForm(MemberInfoRequestDto memberInfoRequestDto) {
+//       MemberInfo memberInfo=memberInfoRequestDto.toEntity();
+//
+//    }
 
     @Override
+    @Transactional
     public void deleteParty(Long partyId) {
         partyRepo.deleteById(partyId);
     }
+
+
+
+//    @Override
+//    public String insertApplyForm(PartyApplyDto partyApplyDto) {
+//
+//        return null;
+//    }
 
 //    @Override
 //    public PartyDto getPartyOne(Long partyId, String userId) {

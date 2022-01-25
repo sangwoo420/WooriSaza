@@ -3,6 +3,7 @@ package project.woori_saza;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.repo.*;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
+@Transactional
 class DBTest {
 
     @Autowired
@@ -134,7 +136,7 @@ class DBTest {
         memberInfoRepo.save(memberInfo);
 
         // OK TODO: 파티 삭제 -> (article -> comment, zzim), paid_form, member_info
-        partyRepo.deleteById(1L);
+      //  partyRepo.deleteById(1L);
 
     }
 

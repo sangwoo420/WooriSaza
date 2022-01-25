@@ -1,15 +1,16 @@
 package project.woori_saza.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.domain.Party;
-import project.woori_saza.model.domain.UserProfile;
+import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.dto.PartyDto;
 import project.woori_saza.model.dto.PartyResponseDto;
 import project.woori_saza.model.service.PartyService;
-import project.woori_saza.model.service.PartyServiceImpl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,15 +18,17 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/party")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
+@Api("파티 컨트롤러")
 public class PartyController {
     @Autowired
     PartyService partyService;
 
-    //내 파티리스트 전체 조회
-    //  @ApiOperation(value="파티 리스트",notes = "사용자의 파티 리스트를 반환다.",response = Map.class)
-    @PostMapping("/")
-    public ResponseEntity<List<PartyResponseDto>> GetPartyList(@RequestBody Map<String,String> params){
-        List<PartyResponseDto> list= partyService.getPartyList(params.get("id"));
+//    내 파티리스트 전체 조회
+      @ApiOperation(value="마이사자에서 내 파티 리스트 조회",notes = "사용자의 파티 리스트를 반환다.")
+    @GetMapping("/{profileId}")
+    public ResponseEntity<List<PartyResponseDto>> GetPartyList(@PathVariable("profileId")String profileId){
+        List<PartyResponseDto> list= partyService.getPartyList(profileId);
         return new ResponseEntity<List<PartyResponseDto>>(list, HttpStatus.OK);
     }
 
@@ -38,16 +41,31 @@ public class PartyController {
 //    }
 
     //파티리스트 디테일 리스트 조회
-    @PostMapping("/{partyId}")
-    public ResponseEntity<List<PartyDto>> getDetailList(@PathVariable("partyId")Long partyId){
-        List<PartyDto> party=partyService.getDetailList(partyId);
-        return new ResponseEntity<List<PartyDto>>(party,HttpStatus.OK);
+    @ApiOperation(value="파티 디테일 리스트 조회",notes = "파티에 해당하는 사용자 정보들을 확인할 수 있다.")
+    @GetMapping("/detail/{partyId}")
+    public ResponseEntity<List<PartyDto>> getDetailList(@RequestParam @ApiParam(value="파티 아이디",required = true) String partyId){
+          List<PartyDto> party=partyService.getDetailList(Long.parseLong(partyId));
+          return new ResponseEntity<List<PartyDto>>(party,HttpStatus.OK);
     }
+
+    //파티원이 신청서 작성
+//    @ApiOperation(value="파티원 신청서 작성",notes="파티원이 신청서를 작성한다.")
+//    @PostMapping
+//    public ResponseEntity<Map<String,Object>> insertApplyForm(@RequestBody @ApiParam( value="사용자가 작성하는 파티에 대한 정보",required = true) MemberInfoRequestDto memberInfoRequestDto){
+//        Map<String,Object>result=new HashMap<>();
+//        HttpStatus httpStatus=null;
+//        try{
+//
+//        }
+//    }
+
+
 
 
     //파티리스트 삭제
+    @ApiOperation(value="파티 삭제",notes = "파티를 삭제한다.")
     @DeleteMapping("/{partyId}")
-    public ResponseEntity<Map<String, Object>> deleteParty(@PathVariable Long partyId){
+    public ResponseEntity<Map<String, Object>> deleteParty(@PathVariable  @ApiParam(value="파티 아이디",required = true) Long partyId){
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try{
