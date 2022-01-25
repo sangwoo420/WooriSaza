@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PartyResponseDto {
-    private String title; //제목
-    private Tag tag; //태그
+//    private String title; //제목
+//    private Tag tag; //태그
     private Boolean isBoss; //파티장/원 유무
     private Long id; //파티 아이디
     private LocalDateTime deadline; //마감일
@@ -25,8 +25,8 @@ public class PartyResponseDto {
     private Integer myPrice; // 총 금액/현재 인원수
 
     public PartyResponseDto(Party party,MemberInfo memberInfo){
-        title= party.getArticle().getTitle();
-        tag=party.getArticle().getTag();
+//        title= party.getArticle().getTitle();
+//        tag=party.getArticle().getTag();
         isBoss=memberInfo.getIsBoss();
         id=party.getId();
         deadline=party.getDeadline();

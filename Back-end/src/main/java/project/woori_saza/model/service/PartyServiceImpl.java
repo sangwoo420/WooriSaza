@@ -32,27 +32,22 @@ public class PartyServiceImpl implements PartyService{
     @Override
     public List<PartyResponseDto> getPartyList(String id) {
         //1.받은 userProfile로 memberinfo찾기
-        System.out.println("id="+id);
+   //     System.out.println("id="+id);
         UserProfile userProfile=userProfileRepo.getById(id); //프로필 1개 나옴
-        System.out.println("userprofile의 memberinfo="+userProfile.getMemberInfos()); //3개 나옴
+   //     System.out.println("userprofile의 memberinfo="+userProfile.getMemberInfos()); //3개 나옴
         List<MemberInfo>memberInfos=memberInfoRepo.findAllByUserProfile(userProfile); //배열 3개일듯
-        System.out.println("memberInfos = " + memberInfos);
+    //    System.out.println("memberInfos = " + memberInfos);
 
         //2.그 memberInfos에 해당하는 파티들을 찾아서 parties에 넣어주기
         List<PartyResponseDto> parties=new ArrayList<>();
-        PartyResponseDto partyResponseDto = null;
 
-        //이건나옴 있으니까...
-        for(MemberInfo memberInfo:memberInfos){
-            Party party=memberInfo.getParty();
-            System.out.println("party.getId() = " + party.getId());
-            System.out.println("memberInfo.getId() = " + memberInfo.getId());
-        }
 
         for(MemberInfo memberInfo:memberInfos){
             Party party=memberInfo.getParty();
-            partyResponseDto=new PartyResponseDto(party,memberInfo);
-            System.out.println("memberinfo , partyResponsedto"+memberInfo.getId()+" "+partyResponseDto.getId());
+    //        System.out.println("party.getId() = " + party.getId());
+    //        System.out.println("memberInfo.getId() = " + memberInfo.getId());
+            PartyResponseDto partyResponseDto=new PartyResponseDto(party,memberInfo);
+    //        System.out.println("memberinfo , partyResponsedto"+memberInfo.getId()+" "+partyResponseDto.getId());
             parties.add(partyResponseDto);
         }
         System.out.println("parties"+" "+parties);
