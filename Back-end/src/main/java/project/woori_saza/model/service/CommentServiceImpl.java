@@ -2,6 +2,7 @@ package project.woori_saza.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Comment;
 import project.woori_saza.model.domain.UserProfile;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class CommentServiceImpl implements CommentService{
 
     @Autowired
@@ -50,6 +52,7 @@ public class CommentServiceImpl implements CommentService{
      * 댓글 작성
      */
     @Override
+    @Transactional
     public void insertComment(CommentDto commentDto) {
         System.out.println("===댓글 작성===");
         Article article = articleRepo.getById(commentDto.getArticleId());
@@ -67,6 +70,7 @@ public class CommentServiceImpl implements CommentService{
      * 댓글 수정
      */
     @Override
+    @Transactional
     public void updateComment(CommentDto commentDto) {
         System.out.println("===댓글 수정===");
         Comment comment = commentRepo.getById(commentDto.getId());
@@ -79,6 +83,7 @@ public class CommentServiceImpl implements CommentService{
      * 댓글 삭제
      */
     @Override
+    @Transactional
     public void deleteComment(Long commentId) {
         System.out.println("===댓글 삭제===");
         commentRepo.deleteById(commentId);

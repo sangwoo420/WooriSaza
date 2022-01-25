@@ -71,17 +71,26 @@ public class InitDb {
 //            Article article2 = new Article(2L, "title2", "content2", LocalDateTime.now(), "link", null, user, party, null, null, new ArrayList<>(), new ArrayList<>());
 //            articleRepo.save(article2);
 
-            Qna qna = new Qna(1, "카테고리", "내용", "제목", "댓글", null, user);
-            qnaRepo.save(qna); //저장
+            Qna qna1=new Qna(1L,"카테고리1","내용1","제목1","답변",null,user);
+            qnaRepo.save(qna1); //저장
+
+            Qna qna2=new Qna(2L,"카테고리2","내용2","제목2","답변",null,user);
+            qnaRepo.save(qna2); //저장
+
+            Qna qna3=new Qna(3L,"카테고리3","내용3","제목3","답변",null,user2);
+            qnaRepo.save(qna3); //저장
 
             Review review1 = new Review(1L, "리뷰1내용", LocalDateTime.now(), 100, user, user2);
             reviewRepo.save(review1); //저장
 
-            Review review2 = new Review(2L, "리뷰2내용", LocalDateTime.now(), 200, user, user2);
-            reviewRepo.save(review2); //저장
+            Comment comment = new Comment(1L, "content", LocalDateTime.now(), articleRepo.getById(1L), user);
+            commentRepo.save(comment);
 
-            Review review3 = new Review(3L, "리뷰3내용", LocalDateTime.now(), 300, user, user2);
-            reviewRepo.save(review3); //저장
+            Comment comment2 = new Comment(2L, "content2", LocalDateTime.now(), articleRepo.getById(1L), user2);
+            commentRepo.save(comment2);
+
+            Comment comment3 = new Comment(3L, "content3", LocalDateTime.now(), articleRepo.getById(1L), user);
+            commentRepo.save(comment3);
 
             Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
             commentRepo.save(comment);
