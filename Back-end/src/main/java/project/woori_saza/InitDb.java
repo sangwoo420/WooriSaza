@@ -71,8 +71,14 @@ public class InitDb {
             Qna qna=new Qna(1,"카테고리","내용","제목","댓글",null,user);
             qnaRepo.save(qna); //저장
 
-            Review review=new Review(1,"리뷰내용", LocalDateTime.now(),130,user,user2);
-            reviewRepo.save(review); //저장
+            Review review1= new Review(1L,"리뷰1내용", LocalDateTime.now(),100,user,user2);
+            reviewRepo.save(review1); //저장
+
+            Review review2= new Review(2L,"리뷰2내용", LocalDateTime.now(),200,user,user2);
+            reviewRepo.save(review2); //저장
+
+            Review review3= new Review(3L,"리뷰3내용", LocalDateTime.now(),300,user,user2);
+            reviewRepo.save(review3); //저장
 
             Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
             commentRepo.save(comment);
