@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class PaidForm {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Paid_form_id")
     private Long id;
 

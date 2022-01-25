@@ -1,9 +1,8 @@
 package project.woori_saza.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,14 +17,13 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Review {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private Integer id;
+    private Long id;
 
     @NotNull
     private String content;
 
-    @NotNull
     private LocalDateTime date;
 
     @NotNull
@@ -33,12 +31,16 @@ public class Review {
 
     // review_from_id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private UserProfile fromUser;
 
     // review_to_id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private UserProfile toUser;
+
+    @Builder
+    public Review(String content, int score) {
+        this.content = content;
+        this.score = score;
+    }
 
 }

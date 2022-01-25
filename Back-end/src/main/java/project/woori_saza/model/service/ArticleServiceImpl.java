@@ -2,8 +2,10 @@ package project.woori_saza.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Party;
+import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
 import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.PartyRequestDto;
@@ -11,10 +13,12 @@ import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.PartyRepo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class ArticleServiceImpl implements ArticleService{
 
     @Autowired
@@ -37,6 +41,7 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     // 게시글 전체 조회
+    @Override
     public List<ArticleResponseDto> getArticleList(String category, String range, String keyword) {
 
         System.out.println("들어오나");
@@ -46,47 +51,53 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public void insertArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto) {
+    @Transactional
+    public void insertArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto) {
 
         Party party = new Party();
-        party.setDeadline(partyRequestDto.getDeadline());
-        party.setTotalRecruitMember(partyRequestDto.getTotalRecruitMember());
-        party.setProduct(partyRequestDto.getProduct());
-        party.setTotalPrice(partyRequestDto.getTotalPrice());
-        party.setTotalProductCount(partyRequestDto.getTotalProductCount());
-        partyRepo.save(party);
-
+        party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
+        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+        party.setProduct(articleAndPartyRequestDto.getProduct());
+        party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
+        party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
+        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+        party.setCurrentRecruitMember(1);
+        party.setFormChecked(false);
+        party.setIsClosed(false);
+        party = partyRepo.save(party);
+//
         Article article = new Article();
-        article.setTitle(articleRequestDto.getTitle());
-        article.setContent(articleRequestDto.getContent());
-        article.setLink(articleRequestDto.getLink());
-        article.setPic(articleRequestDto.getPic());
+        article.setTitle(articleAndPartyRequestDto.getTitle());
+        article.setContent(articleAndPartyRequestDto.getContent());
+        article.setLink(articleAndPartyRequestDto.getLink());
+        article.setPic(articleAndPartyRequestDto.getPic());
         article.setCreatedAt(LocalDateTime.now());
-        article.setCategory(articleRequestDto.getCategory());
+        article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
-        articleRepo.save(article);
+        article = articleRepo.save(article);
     }
 
 
     @Override
-    public void updateArticle(PartyRequestDto partyRequestDto, ArticleRequestDto articleRequestDto, Long articleId) {
+    @Transactional
+    public void updateArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto, Long articleId) {
 
         Article article = articleRepo.getById(articleId);
 
         Party party = article.getParty();
-        party.setDeadline(partyRequestDto.getDeadline());
-        party.setTotalRecruitMember(partyRequestDto.getTotalRecruitMember());
-        party.setProduct(partyRequestDto.getProduct());
-        party.setTotalPrice(partyRequestDto.getTotalPrice());
-        party.setTotalProductCount(partyRequestDto.getTotalProductCount());
+        party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
+        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+        party.setProduct(articleAndPartyRequestDto.getProduct());
+        party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
+        party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
         partyRepo.save(party);
 
-        article.setTitle(articleRequestDto.getTitle());
-        article.setContent(articleRequestDto.getContent());
-        article.setLink(articleRequestDto.getLink());
-        article.setPic(articleRequestDto.getPic());
-        article.setCategory(articleRequestDto.getCategory());
+        article.setTitle(articleAndPartyRequestDto.getTitle());
+        article.setContent(articleAndPartyRequestDto.getContent());
+        article.setLink(articleAndPartyRequestDto.getLink());
+        article.setPic(articleAndPartyRequestDto.getPic());
+        article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
         articleRepo.save(article);
@@ -94,6 +105,7 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
+    @Transactional
     public void deleteArticle(Long articleId) {
         articleRepo.deleteById(articleId);
     }

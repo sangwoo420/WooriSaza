@@ -20,7 +20,7 @@ import java.util.List;
 public class Party {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "party_id")
     private Long id;
 
