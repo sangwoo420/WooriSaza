@@ -17,6 +17,8 @@ import java.util.List;
 @ApiModel(value = "게시글과 파티 정보 생성", description = "게시글과 파티의 상세 정보를 나타낸다")
 public class ArticleAndPartyRequestDto {
     // for article
+    @ApiModelProperty(value = "작성자 아이디", example = "hashedProfile")
+    private String profileId;
     @ApiModelProperty(value = "게시글 제목", example = "title")
     private String title;
     @ApiModelProperty(value = "게시글 내용", example = "content")
@@ -31,7 +33,7 @@ public class ArticleAndPartyRequestDto {
 
     // for party
     @ApiModelProperty(value = "파티 만료 기간", example = "2022-02-01-23:59:59")
-    private LocalDateTime deadline;
+    private String deadline;
     @ApiModelProperty(value = "상품 이름", example = "product name")
     private String product;
     @ApiModelProperty(value = "상품 총 가격", example = "10000")
