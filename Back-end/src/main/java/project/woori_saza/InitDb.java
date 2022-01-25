@@ -67,7 +67,7 @@ public class InitDb {
 
             Article article = new Article(null, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, new ArrayList<>(), new ArrayList<>());
 
-            articleRepo.save(article);
+            article = articleRepo.save(article);
 //            Article article2 = new Article(2L, "title2", "content2", LocalDateTime.now(), "link", null, user, party, null, null, new ArrayList<>(), new ArrayList<>());
 //            articleRepo.save(article2);
 
@@ -83,7 +83,7 @@ public class InitDb {
             Review review3 = new Review(3L, "리뷰3내용", LocalDateTime.now(), 300, user, user2);
             reviewRepo.save(review3); //저장
 
-            Comment comment = new Comment(1L, "content", LocalDateTime.now(), articleRepo.getById(1L), user);
+            Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
             commentRepo.save(comment);
 //
 //
