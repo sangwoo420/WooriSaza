@@ -64,7 +64,7 @@ class UserProfileTest {
         Qna qna=new Qna(1,"카테고리","내용","제목","댓글",null,user);
         qnaRepo.save(qna); //저장
 
-        Review review=new Review(1,"리뷰내용", LocalDateTime.now(),130,user,user2);
+        Review review=new Review(1L,"리뷰내용", LocalDateTime.now(),130,user,user2);
         reviewRepo.save(review); //저장
 
         Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
