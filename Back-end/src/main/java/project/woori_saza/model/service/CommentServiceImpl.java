@@ -49,7 +49,6 @@ public class CommentServiceImpl implements CommentService{
     /**
      * 댓글 작성
      */
-
     @Override
     public void insertComment(CommentDto commentDto) {
         System.out.println("===댓글 작성===");
