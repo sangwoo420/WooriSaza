@@ -10,4 +10,5 @@ public interface ReviewRepo extends JpaRepository<Review, Long> {
 
     List<Review> findByToUser(UserProfile userProfile);
 
+
 }

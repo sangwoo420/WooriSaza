@@ -1,5 +1,6 @@
 package project.woori_saza.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ReviewResponseDto {
 
+    @ApiModelProperty(value = "후기 id", example = "id")
     private Long id;
+    @ApiModelProperty(value = "후기 내용", example = "content")
     private String content;
+    @ApiModelProperty(value = "후기 작성일", example = "2022-02-01-23:59:59")
     private LocalDateTime date;
+    @ApiModelProperty(value = "후기 점수", example = "score")
     private int score;
+    @ApiModelProperty(value = "후기 작성자", example = "author")
     private String author;
 
     public ReviewResponseDto(Review review){
