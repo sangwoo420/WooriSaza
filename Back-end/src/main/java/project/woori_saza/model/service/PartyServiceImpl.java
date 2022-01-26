@@ -29,14 +29,12 @@ public class PartyServiceImpl implements PartyService{
     @Autowired
     MemberInfoRepo memberInfoRepo;
 
+    //    내 파티리스트 전체 조회
     @Override
     public List<PartyResponseDto> getPartyList(String id) {
         //1.받은 userProfile로 memberinfo찾기
-   //     System.out.println("id="+id);
         UserProfile userProfile=userProfileRepo.getById(id); //프로필 1개 나옴
-   //     System.out.println("userprofile의 memberinfo="+userProfile.getMemberInfos()); //3개 나옴
         List<MemberInfo>memberInfos=memberInfoRepo.findAllByUserProfile(userProfile); //배열 3개일듯
-    //    System.out.println("memberInfos = " + memberInfos);
 
         //2.그 memberInfos에 해당하는 파티들을 찾아서 parties에 넣어주기
         List<PartyResponseDto> parties=new ArrayList<>();
@@ -44,23 +42,14 @@ public class PartyServiceImpl implements PartyService{
 
         for(MemberInfo memberInfo:memberInfos){
             Party party=memberInfo.getParty();
-    //        System.out.println("party.getId() = " + party.getId());
-    //        System.out.println("memberInfo.getId() = " + memberInfo.getId());
             PartyResponseDto partyResponseDto=new PartyResponseDto(party,memberInfo);
-    //        System.out.println("memberinfo , partyResponsedto"+memberInfo.getId()+" "+partyResponseDto.getId());
             parties.add(partyResponseDto);
         }
-        System.out.println("parties"+" "+parties);
+        System.out.println("parties "+parties);
         return parties;
     }
 
-//      for(MemberInfo memberInfo:memberInfos){
-//        Party party=memberInfo.getParty();
-//        PartyResponseDto partyResponseDto=new PartyResponseDto(party,memberInfo);
-//        System.out.println("memberinfo , partyResponsedto"+memberInfo.getId()+" "+partyResponseDto.getId());
-//        parties.add(partyResponseDto);
-//    }
-
+    //파티리스트 디테일 리스트 조회
     @Override
     public List<PartyDto> getDetailList(Long id) {
         List<PartyDto>partyDtos=new ArrayList<>();
@@ -70,18 +59,29 @@ public class PartyServiceImpl implements PartyService{
         List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
         //3.memberinfo에 해당하는 user정보를 찾고 dto에 넣어주기 + party +memberinfo
         for(MemberInfo memberInfo:memberInfos){
-           UserProfile userProfile=memberInfo.getUserProfile();
-           PartyDto partyDto=new PartyDto(userProfile,party,memberInfo);
-           partyDtos.add(partyDto);
+            UserProfile userProfile=memberInfo.getUserProfile();
+            PartyDto partyDto=new PartyDto(userProfile,party,memberInfo);
+            partyDtos.add(partyDto);
         }
         return partyDtos;
     }
-//    @Override
-//    @Transactional
-//    public String insertApplyForm(MemberInfoRequestDto memberInfoRequestDto) {
-//       MemberInfo memberInfo=memberInfoRequestDto.toEntity();
-//
-//    }
+
+    //파티원이 신청서 작성 => memberinfo에 저장
+    @Override
+    @Transactional
+    public void insertApplyForm(MemberInfoRequestDto memberInfoRequestDto) {
+        UserProfile userProfile = userProfileRepo.getById(memberInfoRequestDto.getProfileId());
+        Party party=partyRepo.getById(memberInfoRequestDto.getPartyId());
+
+        MemberInfo memberInfo=MemberInfo.builder()
+                        .userProfile(userProfile)
+                                .party(party)
+                                        .price(memberInfoRequestDto.getPrice())
+                                                .amount(memberInfoRequestDto.getAmount())
+                                                        .build();
+        memberInfoRepo.save(memberInfo);
+    }
+
 
     @Override
     @Transactional
@@ -91,11 +91,7 @@ public class PartyServiceImpl implements PartyService{
 
 
 
-//    @Override
-//    public String insertApplyForm(PartyApplyDto partyApplyDto) {
-//
-//        return null;
-//    }
+
 
 //    @Override
 //    public PartyDto getPartyOne(Long partyId, String userId) {

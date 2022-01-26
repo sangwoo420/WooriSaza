@@ -42,24 +42,30 @@ public class PartyController {
 
     //파티리스트 디테일 리스트 조회
     @ApiOperation(value="파티 디테일 리스트 조회",notes = "파티에 해당하는 사용자 정보들을 확인할 수 있다.")
-    @GetMapping("/detail/{partyId}")
-    public ResponseEntity<List<PartyDto>> getDetailList(@RequestParam @ApiParam(value="파티 아이디",required = true) String partyId){
-          List<PartyDto> party=partyService.getDetailList(Long.parseLong(partyId));
+    @GetMapping
+    public ResponseEntity<List<PartyDto>> getDetailList(@RequestParam("partyId") @ApiParam(value="파티 아이디",required = true)Long partyId){
+          List<PartyDto> party=partyService.getDetailList(partyId);
           return new ResponseEntity<List<PartyDto>>(party,HttpStatus.OK);
     }
 
-    //파티원이 신청서 작성
-//    @ApiOperation(value="파티원 신청서 작성",notes="파티원이 신청서를 작성한다.")
-//    @PostMapping
-//    public ResponseEntity<Map<String,Object>> insertApplyForm(@RequestBody @ApiParam( value="사용자가 작성하는 파티에 대한 정보",required = true) MemberInfoRequestDto memberInfoRequestDto){
-//        Map<String,Object>result=new HashMap<>();
-//        HttpStatus httpStatus=null;
-//        try{
-//
-//        }
-//    }
-
-
+    //파티원이 신청서 작성 => memberinfo에 저장
+    @ApiOperation(value="파티원 신청서 작성",notes="파티원이 신청서를 작성한다.")
+    @PostMapping
+    public ResponseEntity<Map<String,Object>> insertApplyForm(@RequestBody @ApiParam( value="사용자가 작성하는 파티에 대한 정보",required = true) MemberInfoRequestDto memberInfoRequestDto){
+        Map<String,Object>result=new HashMap<>();
+        HttpStatus status=null;
+        System.out.println("찍어보자"+memberInfoRequestDto.getPartyId()+" "+memberInfoRequestDto.getProfileId());
+        try{
+            partyService.insertApplyForm(memberInfoRequestDto);
+            status=HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e) {
+           e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
 
 
     //파티리스트 삭제

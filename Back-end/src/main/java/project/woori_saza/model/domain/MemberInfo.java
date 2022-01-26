@@ -10,12 +10,12 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MemberInfo {
 
     @Id
     @Column(name="member_info_id")
-    @GeneratedValue
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(columnDefinition = "boolean default false")
@@ -27,8 +27,13 @@ public class MemberInfo {
     @NotNull
     private Integer price; // 파티원 부담금액
 
+    private String paidMethod; //결제 방법
+
     @Column(columnDefinition = "boolean default false")
     private Boolean isConfirmed; //파티원 구매확정여부
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isLated; // 위약금 부담여부
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,13 +44,5 @@ public class MemberInfo {
     @JoinColumn(name="party_id")
     private Party party;
 
-//    @Builder
-//    public Review(String content, int score) {
-//        this.content = content;
-//        this.score = score;
-//    }
-
-//    @Builder
-//    public MemberInfo(int amount,int price,)
 
 }

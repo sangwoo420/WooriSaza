@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 public class ArticleResponseDto {
-
+// 보여줄때
     private Long id;
     private String title;
     private String content;
@@ -40,8 +40,8 @@ public class ArticleResponseDto {
         pic = article.getPic();
         totalPrice = article.getParty().getTotalPrice();
         totalRecruitMember = article.getParty().getTotalRecruitMember();
-        myPrice = article.getParty().getTotalPrice()/totalRecruitMember;
         currentRecruitMember = article.getParty().getCurrentRecruitMember();
+        myPrice = article.getParty().getTotalPrice()/totalRecruitMember;
         tag = article.getTag();
         category = article.getCategory();
     }

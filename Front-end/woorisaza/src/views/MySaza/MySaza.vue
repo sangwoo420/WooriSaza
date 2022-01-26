@@ -8,12 +8,15 @@
                         <b-col cols="7">
                             <div :class="{box:true}" style="overflow-y:auto;">
                                 <div class="p-5">
+                                    <!-- 신분증 -->
                                     <div>
                                         <my-profile/>
                                     </div>
+                                    <!-- 마이사자 네비게이션 바 -->
                                     <div>
                                         <my-navbar/>
                                     </div>
+                                    <!-- 게시글 폼 -->
                                     <component :is="selectComponent">
                                       
                                     </component>

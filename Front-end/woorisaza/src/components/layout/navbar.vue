@@ -4,12 +4,12 @@
             <b-navbar toggleable="lg" type="white" >
 
                 <img src="@/assets/icon.png" style="width:70px">
-                <img src="@/assets/name.png" style="width:120px">
+                <img src="@/assets/name.png" style="width:120px; cursor:pointer" @click="toHome" >
                 <b-collapse id="nav-collapse" is-nav>
 
                 <b-navbar-nav class="ml-auto">
                     <!-- 로그인-->
-                    <div v-if="access_token==null">
+                    <div v-if="accesstoken==null">
                         <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">로그인</b-button>  &nbsp; &nbsp;
                         <!-- <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">회원가입</b-button>&nbsp; &nbsp; -->
                         <b-modal id="signlogin" hide-footer size="sm">
@@ -23,13 +23,13 @@
                     </div>
                     
                     <!-- 마이페이지 -->
-                    <div v-if="access_token!=null">
+                    <div v-if="accesstoken!=null">
                          <b-nav-item-dropdown right>
                         <template #button-content>
                             <em><img src="@/assets/saza.png" style="width:40px"></em>
                         </template>
                         <b-dropdown-item href="#">마이페이지</b-dropdown-item>
-                        <b-dropdown-item href="#">로그아웃</b-dropdown-item>
+                        <b-dropdown-item router-link to="/" @click="logout">로그아웃</b-dropdown-item>
                         </b-nav-item-dropdown>
                     </div>
                    
@@ -65,7 +65,7 @@ export default {
             thisSazaActive : null,
             mySazaActive: null,
             guideActive:null,
-
+            accesstoken : null,
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
@@ -73,12 +73,12 @@ export default {
                     code : this.$route.query.code,
             },
             queryString : null,
-            access_token : null,
         };
     },
     watch:{
     },
     created(){
+        this.accesstoken = this.$cookie.get("accesstoken");
     },
     mounted() {
         this.getKakaoQuery();
@@ -129,8 +129,9 @@ export default {
                     data: this.queryString,
                 }).then(({data})=>{
                     console.log(data)
-                    this.access_token = data.access_token;
-                    console.log(this.access_token)
+                    this.accesstoken = data.access_token;
+                    this.$cookie.set("accesstoken",this.access_token, 1);
+                    // console.log(this.access_token)
                     axios({
                         mathod : "get",
                         url : "https://cors-anywhere.herokuapp.com/https://kapi.kakao.com/v1/user/access_token_info",
@@ -143,7 +144,15 @@ export default {
                     })
                 })
             }
-        }
+        },
+        logout(){
+            this.$cookie.delete("accesstoken");
+            this.$router.go();
+        },
+        toHome(){
+            this.$router.push("/");
+            this.getHomeActive();
+        },
     },
 };
 </script>
