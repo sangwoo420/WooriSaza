@@ -1,14 +1,10 @@
 package project.woori_saza.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter

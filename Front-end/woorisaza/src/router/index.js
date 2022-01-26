@@ -8,6 +8,7 @@ import MyArticleDetail from "../views/MySaza/MySaza.vue";
 import Board from "../views/ThisSaza/ThisSaza.vue";
 import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
 import ArticleWrite from "../views/ThisSaza/ThisSaza.vue";
+import Request from "../views/Request/Request.vue";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
     path: "/board/write",
     name: "ArticleWrite",
     component: ArticleWrite,
+  },
+  {
+    path: "/request/:articleno",
+    name: "Request",
+    component: Request,
   },
   {
     path: "/myboard",

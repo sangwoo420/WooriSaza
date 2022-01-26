@@ -7,7 +7,7 @@ import java.util.List;
 public interface ReviewService {
 
     List<ReviewResponseDto> getReviewList(String profileId);
-    Long insertReview(ReviewRequestDto reviewRequestDto);
+    void insertReview(ReviewRequestDto reviewRequestDto);
     void updateReview(Long reviewId, ReviewRequestDto reviewRequestDto);
     void deleteReview(Long reviewId);
 }
