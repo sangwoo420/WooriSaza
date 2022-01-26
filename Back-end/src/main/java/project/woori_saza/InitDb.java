@@ -62,14 +62,27 @@ public class InitDb {
             UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
             userProfileRepo.save(user2);
 
-            Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, null, null, null);
-            partyRepo.save(party);
+            Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
+            Party party1db=partyRepo.save(party);
 
-            Article article = new Article(null, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, new ArrayList<>(), new ArrayList<>());
+
+            Party party2 = new Party(2L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false,50, null,null, null);
+            Party party2db=partyRepo.save(party2);
+
+
+            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party1db, null, null, new ArrayList<>(), new ArrayList<>());
 
             article = articleRepo.save(article);
+            party.setArticle(article);
+
+            Article article2 = new Article(2L, "title2", "content", LocalDateTime.now(), "link", null, user, party2db, null, null, new ArrayList<>(), new ArrayList<>());
+
+            article2 = articleRepo.save(article2);
+            party2.setArticle(article2);
 //            Article article2 = new Article(2L, "title2", "content2", LocalDateTime.now(), "link", null, user, party, null, null, new ArrayList<>(), new ArrayList<>());
 //            articleRepo.save(article2);
+
+
 
             Qna qna1=new Qna(1L,"카테고리1","내용1","제목1","답변",null,user);
             qnaRepo.save(qna1); //저장
@@ -105,8 +118,13 @@ public class InitDb {
             Zzim zzim = new Zzim(user, article);
             zzimRepo.save(zzim);
 
-            MemberInfo memberInfo = new MemberInfo(1L, false, 1, 2500, false, user, party);
+            MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party);
             memberInfoRepo.save(memberInfo);
+
+            MemberInfo memberInfo2 = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party2);
+            memberInfoRepo.save(memberInfo2);
+
+
 
         }
 

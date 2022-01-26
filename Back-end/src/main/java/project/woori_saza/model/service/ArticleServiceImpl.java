@@ -91,7 +91,7 @@ public class ArticleServiceImpl implements ArticleService{
         party.setCurrentRecruitMember(1);
         party.setFormChecked(false);
         party.setIsClosed(false);
-        party = partyRepo.save(party);
+//        party = partyRepo.save(party);
 //
         Article article = new Article();
         article.setTitle(articleAndPartyRequestDto.getTitle());
