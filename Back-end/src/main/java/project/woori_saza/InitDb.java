@@ -88,11 +88,11 @@ public class InitDb {
             PaidForm paidForm2 = new PaidForm(null, null, 2468, LocalDate.now(), LocalDate.now(), party);
             paidFormRepo.save(paidForm2);
 
-            PaidForm paidForm1 = new PaidForm(null, null, 1234, LocalDate.now(), LocalDate.now(), party);
-            paidFormRepo.save(paidForm1);
-
-            PaidForm paidForm2 = new PaidForm(null, null, 2468, LocalDate.now(), LocalDate.now(), party2);
-            paidFormRepo.save(paidForm2);
+//            PaidForm paidForm1 = new PaidForm(null, null, 1234, LocalDate.now(), LocalDate.now(), party);
+//            paidFormRepo.save(paidForm1);
+//
+//            PaidForm paidForm2 = new PaidForm(null, null, 2468, LocalDate.now(), LocalDate.now(), party2);
+//            paidFormRepo.save(paidForm2);
 
 
             Qna qna1=new Qna(1L,"카테고리1","내용1","제목1","답변",null,user);
