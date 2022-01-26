@@ -8,6 +8,7 @@ import project.woori_saza.model.domain.*;
 import project.woori_saza.model.repo.*;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -131,7 +132,7 @@ class UserProfileTest {
         Zzim zzim=new Zzim(user,article);
         zzimRepo.save(zzim);
 
-        PaidForm paidForm = new PaidForm(1L,null,1,LocalDateTime.now(),LocalDateTime.now(),party);
+        PaidForm paidForm = new PaidForm(1L,null,1, LocalDate.now(), LocalDate.now(), party);
         paidFormRepo.save(paidForm);
 
         MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,false,user,party);
