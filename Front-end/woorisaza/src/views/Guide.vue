@@ -147,7 +147,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
     .box{
         background-color:white; 
         box-shadow: 0px 0px 5px 0.1px grey; 
@@ -168,11 +168,11 @@ export default {
     }
     .graybox{
       position: relative;
-      left: 8%;
+      left: 13%;
       background-color:whitesmoke; 
       box-shadow: 0px 0px 2px 0.1px grey; 
       border-radius: 0.5em;
-      width:92%;
+      width:87%;
       height:100%;
       margin-top: 1em;
       padding: 1.2em;
@@ -193,7 +193,8 @@ export default {
     height: 3px;
     background: #ccc;
     }
-
-
-
+    
+    p {
+        font-size: 0.9em;
+      }
 </style>
