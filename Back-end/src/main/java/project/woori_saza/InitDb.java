@@ -93,8 +93,8 @@ public class InitDb {
 //            Comment comment3 = new Comment(3L, "content3", LocalDateTime.now(), article, user);
 //            commentRepo.save(comment3);
 //
-//            Zzim zzim=new Zzim(user,article);
-//            zzimRepo.save(zzim);
+            Zzim zzim = new Zzim(user, article);
+            zzimRepo.save(zzim);
 
             MemberInfo memberInfo = new MemberInfo(1L, false, 1, 2500, false, user, party);
             memberInfoRepo.save(memberInfo);
