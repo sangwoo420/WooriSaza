@@ -3,11 +3,8 @@ package project.woori_saza.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.woori_saza.model.domain.Article;
-import project.woori_saza.model.domain.Comment;
 import project.woori_saza.model.domain.Review;
 import project.woori_saza.model.domain.UserProfile;
-import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.ReviewRequestDto;
 import project.woori_saza.model.dto.ReviewResponseDto;
 import project.woori_saza.model.repo.ReviewRepo;
@@ -15,7 +12,6 @@ import project.woori_saza.model.repo.UserProfileRepo;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,12 +34,12 @@ public class ReviewServiceImpl implements ReviewService{
 
     @Override
     @Transactional
-    public Long insertReview(ReviewRequestDto reviewRequestDto) {
+    public void insertReview(ReviewRequestDto reviewRequestDto) {
         Review review = reviewRequestDto.toEntity();
         review.setDate(LocalDateTime.now());
         review.setFromUser(userProfileRepo.getById(reviewRequestDto.getFromUser()));
         review.setToUser(userProfileRepo.getById(reviewRequestDto.getToUser()));
-        return reviewRepo.save(review).getId();
+        reviewRepo.save(review);
     }
 
     @Override

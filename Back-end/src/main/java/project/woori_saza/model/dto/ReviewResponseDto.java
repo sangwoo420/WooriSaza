@@ -14,22 +14,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ReviewResponseDto {
 
-    @ApiModelProperty(value = "후기 id", example = "id")
+    @ApiModelProperty(value = "후기 id", example = "1")
     private Long id;
     @ApiModelProperty(value = "후기 내용", example = "content")
     private String content;
     @ApiModelProperty(value = "후기 작성일", example = "2022-02-01-23:59:59")
     private LocalDateTime date;
-    @ApiModelProperty(value = "후기 점수", example = "score")
+    @ApiModelProperty(value = "후기 점수", example = "70")
     private int score;
-    @ApiModelProperty(value = "후기 작성자", example = "author")
-    private String author;
+    @ApiModelProperty(value = "후기 작성자", example = "hashssafy")
+    private String fromUser;
 
     public ReviewResponseDto(Review review){
         id = review.getId();
         content = review.getContent();
         date = review.getDate();
         score = review.getScore();
-        author = review.getFromUser().getNickname();
+        fromUser = review.getFromUser().getNickname();
     }
 }

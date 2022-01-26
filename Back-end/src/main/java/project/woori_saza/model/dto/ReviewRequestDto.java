@@ -18,11 +18,11 @@ public class ReviewRequestDto {
 
     @ApiModelProperty(value = "후기 내용", example = "content")
     private String content;
-    @ApiModelProperty(value = "후기 점수", example = "score")
+    @ApiModelProperty(value = "후기 점수", example = "70")
     private int score;
-    @ApiModelProperty(value = "후기 대상자", example = "toUser")
+    @ApiModelProperty(value = "후기 대상자", example = "hashssafy")
     private String toUser;
-    @ApiModelProperty(value = "후기 작성자", example = "fromUser")
+    @ApiModelProperty(value = "후기 작성자", example = "hashwoori")
     private String fromUser;
 
     @Builder

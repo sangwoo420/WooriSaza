@@ -44,9 +44,7 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public List<ArticleResponseDto> getArticleList(String category, String range, String keyword) {
 
-        System.out.println("들어오나");
         List<Article> articles = articleRepo.findAll();
-        System.out.println("articles"+articles);
         return articles.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 

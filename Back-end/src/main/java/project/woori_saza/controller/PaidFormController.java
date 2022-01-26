@@ -5,43 +5,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.dto.ReviewRequestDto;
-import project.woori_saza.model.dto.ReviewResponseDto;
-import project.woori_saza.model.service.ReviewService;
+import project.woori_saza.model.dto.PaidFormRequestDto;
+import project.woori_saza.model.dto.PaidFormResponseDto;
+import project.woori_saza.model.service.PaidFormService;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/review")
-public class ReviewController {
+@RequestMapping("/paidForm")
+public class PaidFormController {
 
     @Autowired
-    ReviewService reviewService;
+    PaidFormService paidFormService;
 
-    @ApiOperation(value = "후기 조회", notes = "사용자에게 달린 후기들을 불러온다.", response = Map.class)
-    @GetMapping("/{profileId}")
-    public ResponseEntity<Map<String, Object>> getReviewList(@PathVariable String profileId) {
+    @ApiOperation(value = "결제 인증 폼 조회", notes = "결제 인증 폼을 조회한다.", response = Map.class)
+    @GetMapping("/{paidFormId}")
+    public ResponseEntity<Map<String, Object>> getPaidForm(@PathVariable Long paidFormId) {
         Map<String, Object> result = new HashMap<>();
-        List<ReviewResponseDto> reviewList = null;
+        PaidFormResponseDto paidForm = null;
         HttpStatus httpStatus = null;
         try {
-            reviewList = reviewService.getReviewList(profileId);
+            paidForm = paidFormService.getPaidForm(paidFormId);
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        result.put("reviewList", reviewList);
+        result.put("paidForm", paidForm);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
-    @ApiOperation(value = "후기 작성", notes = "파티원들의 후기를 작성한다.")
+    @ApiOperation(value = "결제 인증 폼 작성", notes = "결제 인증 폼을 작성한다.")
     @PostMapping
-    public ResponseEntity<Map<String, Object>> insertReview(@RequestBody ReviewRequestDto reviewRequestDto) {
+    public ResponseEntity<Map<String, Object>> insert(@RequestBody PaidFormRequestDto paidFormRequestDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            reviewService.insertReview(reviewRequestDto);
+            paidFormService.insertPaidForm(paidFormRequestDto);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
@@ -51,13 +52,13 @@ public class ReviewController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
-    @ApiOperation(value = "후기 수정", notes = "파티원들의 후기를 수정한다.", response = Map.class)
-    @PutMapping("/{reviewId}")
-    public ResponseEntity<Map<String, Object>> updateReview(@PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) {
+    @ApiOperation(value = "결제 인증 폼 수정", notes = "결제 인증 폼을 수정한다.", response = Map.class)
+    @PutMapping("/{paidFormId}")
+    public ResponseEntity<Map<String, Object>> updatePaidForm(@PathVariable("paidFormId") Long paidFormId, @RequestBody PaidFormRequestDto paidFormRequestDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            reviewService.updateReview(reviewId, reviewRequestDto);
+            paidFormService.updatePaidForm(paidFormId, paidFormRequestDto);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
@@ -68,12 +69,12 @@ public class ReviewController {
     }
 
     @ApiOperation(value = "후기 삭제", notes = "파티원들의 후기를 삭제한다.", response = Map.class)
-    @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Map<String, Object>> deleteReview(@PathVariable("reviewId") Long reviewId) {
+    @DeleteMapping("/{paidFormId}")
+    public ResponseEntity<Map<String, Object>> deletePaidForm(@PathVariable("paidFormId") Long paidFormId) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            reviewService.deleteReview(reviewId);
+            paidFormService.deletePaidForm(paidFormId);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
