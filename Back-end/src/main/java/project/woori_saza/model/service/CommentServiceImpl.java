@@ -1,6 +1,5 @@
 package project.woori_saza.model.service;
 
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,14 +65,7 @@ public class CommentServiceImpl implements CommentService{
         comment.setUserProfile(user);
         commentRepo.save(comment);
     }
-//    @ApiModelProperty(value = "댓글 번호", example = "null", required = true)
-//    private Long id;
-//    @ApiModelProperty(value = "댓글 내용", example = "testContent", required = true)
-//    private String content;
-//    @ApiModelProperty(value = "댓글 작성자 아이디", example = "hashwoori", required = true)
-//    private String profileId;
-//    @ApiModelProperty(value = "댓글을 작성한 게시글 번호", example = "1", required = true)
-//    private Long articleId;
+
     /**
      * 댓글 수정
      */
