@@ -15,9 +15,9 @@ public class PaidFormRequestDto {
     private String pic;
     @ApiModelProperty(value = "운송장 번호", example = "1234567")
     private Integer billingNo;
-    @ApiModelProperty(value = "택배 예상 도착일", example = "2022-02-01-23:59:59")
+    @ApiModelProperty(value = "택배 예상 도착일", example = "2022-02-01")
     private LocalDate deliveryDate;
-    @ApiModelProperty(value = "예상 수령일", example = "2022-02-01-23:59:59")
+    @ApiModelProperty(value = "예상 수령일", example = "2022-02-01")
     private LocalDate receiptDate;
     @ApiModelProperty(value = "파티 id", example = "1")
     private Long party;
