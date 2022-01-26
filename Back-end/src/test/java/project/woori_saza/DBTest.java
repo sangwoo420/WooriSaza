@@ -1,9 +1,9 @@
 package project.woori_saza;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.repo.*;
 
@@ -12,10 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class UserProfileTest {
+@Transactional
+class DBTest {
 
     @Autowired
     UserAuthRepo userAuthRepo;
@@ -53,10 +52,7 @@ class UserProfileTest {
         UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
-        UserProfile user3 = new UserProfile("psw", "광주광역시 북구 면앙로6번길 48", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
-        userProfileRepo.save(user3);
-
-        Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,null,false,null, null,null);
+        Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
         partyRepo.save(party);
 
         Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
@@ -77,7 +73,7 @@ class UserProfileTest {
         Zzim zzim=new Zzim(user,article);
         zzimRepo.save(zzim);
 
-        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,false,user,party);
+        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party);
         memberInfoRepo.save(memberInfo);
 
         // OK TODO: userProfile 삭제시 cascade (memberInfo, review, qna, userauth, zzim)
@@ -123,7 +119,7 @@ class UserProfileTest {
         UserProfile user2 = new UserProfile("wooriid", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
-        Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,null,false,null, null,null);
+        Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
         partyRepo.save(party);
 
         Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party, null, null, null, null);
@@ -138,11 +134,11 @@ class UserProfileTest {
         PaidForm paidForm = new PaidForm(1L,null,1, LocalDate.now(), LocalDate.now(), party);
         paidFormRepo.save(paidForm);
 
-        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,false,user,party);
+        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party);
         memberInfoRepo.save(memberInfo);
 
         // OK TODO: 파티 삭제 -> (article -> comment, zzim), paid_form, member_info
-        partyRepo.deleteById(1L);
+        //  partyRepo.deleteById(1L);
 
     }
 

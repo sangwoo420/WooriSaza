@@ -30,5 +30,4 @@ public class CommentDto {
         this.articleId = comment.getArticle().getId();
         this.profileId = comment.getUserProfile().getId();
     }
-
 }

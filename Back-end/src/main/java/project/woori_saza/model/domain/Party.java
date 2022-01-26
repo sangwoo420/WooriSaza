@@ -48,6 +48,9 @@ public class Party {
     @NotNull
     private Boolean isClosed; //마감
 
+    @NotNull
+    private Integer penalty; //위약금
+
     @OneToOne(mappedBy = "party",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private PaidForm paidForm;
 

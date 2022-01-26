@@ -1,9 +1,6 @@
 package project.woori_saza.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,24 +10,30 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MemberInfo {
 
     @Id
     @Column(name="member_info_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @Column(columnDefinition = "boolean default false")
-    private Boolean isBoss;
+    private Boolean isBoss; //파티장 여부
 
     @NotNull
-    private Integer amount;
+    private Integer amount; // 파티원 선택수량
 
     @NotNull
-    private Integer price;
+    private Integer price; // 파티원 부담금액
 
-    private Boolean isConfirmed;
+    private String paidMethod; //결제 방법
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isConfirmed; //파티원 구매확정여부
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isLated; // 위약금 부담여부
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,5 +43,6 @@ public class MemberInfo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="party_id")
     private Party party;
+
 
 }

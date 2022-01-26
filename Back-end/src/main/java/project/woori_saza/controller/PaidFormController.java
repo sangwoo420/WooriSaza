@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/paidForm")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PaidFormController {
 
     @Autowired
