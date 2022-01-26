@@ -9,7 +9,7 @@
                             <div :class="{box:true}" style="overflow-y:auto;">
                                 <div class="p-5">
                                     <!-- 신분증 -->
-                                    <div>
+                                    <div style="text-align:center;" @click="moveToMypage">
                                         <my-profile/>
                                     </div>
                                     <!-- 마이사자 네비게이션 바 -->
@@ -17,9 +17,9 @@
                                         <my-navbar/>
                                     </div>
                                     <!-- 게시글 폼 -->
-                                    <component :is="selectComponent">
-                                      
-                                    </component>
+                                    <div class="mt-4">
+                                        <component :is="selectComponent"> </component>
+                                    </div>
                                 </div>
                             </div>
                         </b-col>
@@ -36,53 +36,44 @@
 
 <script>
 import MyProfile from "@/views/MySaza/MyProfile.vue";
-import MyBoard from "@/views/MySaza/MyBoard.vue";
-import MyArticleDetail from "@/views/MySaza/MyArticleDetail.vue";
 import MyNavbar from "@/components/MySaza/MyNavbar.vue";
+import MemberOfParty from "@/components/MySaza/MemberOfParty/MemberOfParty.vue";
+import BossOfParty from "@/components/MySaza/BossOfParty/BossOfParty.vue";
+import Comment from "@/components/MySaza/Comment/Comments.vue";
+import Review from "@/components/MySaza/Review/Reviews.vue";
+import { EventBus } from "@/event-bus.js"
 export default {
     name: 'Mysaza',
     components : {
-        MyBoard,
-        MyArticleDetail,
         MyProfile,
         MyNavbar,
+        MemberOfParty,
+        BossOfParty,
+        Comment,
+        Review,
     },
     data() {
         return {
-            selectComponent : "MyBoard",
-            
+            selectComponent : "MemberOfParty",
         };
     },
     created(){
-        if(this.$route.params.articleno==null){
-            this.selectComponent = "MyBoard";
-        }
-        else{
-            this.selectComponent = "MyArticleDetail";
-        }
+        EventBus.$on("selectComponent",selectComponent=>{
+            this.selectComponent=selectComponent;
+        })
     },
     computed:{
-        getArticlNo(){
-            // return this.$store.getters.getArticleNo;
-            return this.$route.params.articleno;
-        }
     },
     watch:{
-        getArticlNo(val){
-            if(val==null){
-                this.selectComponent = "MyBoard";
-            }
-            else{
-                this.selectComponent = "MyArticleDetail";
-            }
-        },
     },
     mounted() {
         
     },
 
     methods: {
-       
+       moveToMypage(){
+           this.$router.push("/mypage").catch(()=>{});;
+       }
     },
 };
 </script>

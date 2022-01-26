@@ -10,7 +10,7 @@
                                 <div class="p-5">
                                     <h2 style="text-align:center">마이페이지</h2>
                                     <!-- 신분증 -->
-                                    <div>
+                                    <div style="text-align:center" class="mt-4">
                                         <my-profile/>
                                     </div>
                                     <!-- 마이페이지 네비게이션 바 -->
@@ -18,9 +18,9 @@
                                         <my-navbar/>
                                     </div>
                                     <!-- 게시글 목록 -->
-                                    <component :is="selectComponent">
-                                      
-                                    </component>
+                                    <div class="mt-4">
+                                        <component :is="selectComponent"></component>
+                                    </div>
                                 </div>
                             </div>
                         </b-col>
@@ -37,46 +37,33 @@
 
 <script>
 import MyProfile from "@/views/MySaza/MyProfile.vue";
-import MyBoard from "@/views/MySaza/MyBoard.vue";
-import MyArticleDetail from "@/views/MySaza/MyArticleDetail.vue";
-import MyNavbar from "@/components/MySaza/MyNavbar.vue";
+import MyNavbar from "@/components/Mypage/MyNavbar.vue";
+import Zzim from "@/components/Mypage/Zzim/Zzims.vue";
+import Info from "@/components/Mypage/Info.vue"
+import { EventBus } from "@/event-bus.js"
+
 export default {
     name: 'MyPage',
     components : {
-        MyBoard,
-        MyArticleDetail,
         MyProfile,
         MyNavbar,
+        Zzim,
+        Info,
     },
     data() {
         return {
-            selectComponent : "MyBoard",
+            selectComponent : "Info",
             
         };
     },
     created(){
-        if(this.$route.params.articleno==null){
-            this.selectComponent = "MyBoard";
-        }
-        else{
-            this.selectComponent = "MyArticleDetail";
-        }
+        EventBus.$on("selectComponent",selectComponent=>{
+            this.selectComponent=selectComponent;
+        })
     },
     computed:{
-        getArticlNo(){
-            // return this.$store.getters.getArticleNo;
-            return this.$route.params.articleno;
-        }
     },
     watch:{
-        getArticlNo(val){
-            if(val==null){
-                this.selectComponent = "MyBoard";
-            }
-            else{
-                this.selectComponent = "MyArticleDetail";
-            }
-        },
     },
     mounted() {
         

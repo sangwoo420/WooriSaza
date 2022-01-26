@@ -43,7 +43,7 @@
                 <b-nav align="center" >
                     <b-nav-item router-link to="/" :active="homeActive" @click="getHomeActive">홈</b-nav-item>
                     <b-nav-item router-link to="/board" :active="thisSazaActive" @click="getThisSazaActive">이거사자</b-nav-item>
-                    <b-nav-item router-link to="/myboard" :active="mySazaActive" @click="getMySazaActive">마이사자</b-nav-item>
+                    <b-nav-item router-link to="/mysaza" :active="mySazaActive" @click="getMySazaActive">마이사자</b-nav-item>
                     <b-nav-item router-link to="/guide" :active="guideActive" @click="getGuideActive">가이드</b-nav-item>
                 </b-nav>
             </div>
