@@ -40,6 +40,7 @@ public class QnaDto {
         this.content = qna.getContent();
         this.title = qna.getTitle();
         this.comment = qna.getComment();
+        this.pic = qna.getPic();
         this.profileId = qna.getUserProfile().getId();
     }
 
