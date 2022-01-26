@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/comment")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("댓글 컨트롤러")
