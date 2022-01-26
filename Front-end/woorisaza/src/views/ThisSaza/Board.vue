@@ -20,21 +20,24 @@
             
             <!-- 게시글 목록 -->
             <div class="mt-3">
-                <div v-for="(item, index) in articleNo" :key="index">
+                <div v-for="(item, index) in printedArticleNo" :key="index">
                     <Article :articleNo="item"></Article>
                     <hr>
                 </div>
             </div>
-            
+            <infinite-loading @infinite="infiniteHandler" slot="append" force-use-infinite-wrapper=".el-table__body-wrapper"></infinite-loading>
         </div>
 </template>
 
 <script>
 import Article from "@/components/ThisSaza/Article.vue";
+import InfiniteLoading from "vue-infinite-loading";
+
 export default {
     name: 'Board',
     components : {
         Article,
+        InfiniteLoading,
     },
     data() {
         return {
@@ -55,8 +58,20 @@ export default {
                 {value:"car10", text:"차타고 10분 이내"}
             ],
             search:null,
-
-            articleNo:[1,2,3,4,5,6,7,8,9,10],
+            scrollPostion : 0,
+            printedArticleNo:[1,2,3,4,5,6,7,8,9,10],
+            articleNo:[
+                1,2,3,4,5,6,7,8,9,10,
+                11,12,13,14,15,16,17,18,19,20,
+                21,22,23,24,25,26,27,28,29,30,
+                31,32,33,34,35,36,37,38,39,40,
+                41,42,43,44,45,46,47,48,49,50,
+                51,52,53,54,55,56,57,58,59,60,
+                61,62,63,64,65,66,67,68,69,70,
+                71,72,73,74,75,76,77,78,79,80,
+                81,82,83,84,85,86,87,88,89,90,
+                91,92,93,94,95,96,97,98,99,100,
+            ],
         };
     },
 
@@ -65,7 +80,20 @@ export default {
     },
 
     methods: {
-        
+        infiniteHandler($state){
+            // console.log($state);
+            if(this.printedArticleNo.length < this.articleNo.length){
+                let len = this.printedArticleNo.length;
+                for (let index = len; index < len+10; index++) {
+                    this.printedArticleNo.push(this.articleNo[index])
+                }
+                console.log(this.printedArticleNo.length)
+                $state.loaded();
+            }
+            else{
+                $state.complete();
+            }
+        }
     },
 };
 </script>
