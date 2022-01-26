@@ -1,18 +1,20 @@
 package project.woori_saza.model.service;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.woori_saza.model.domain.Article;
-import project.woori_saza.model.domain.Category;
-import project.woori_saza.model.domain.Party;
+import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
 import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.PartyRequestDto;
 import project.woori_saza.model.repo.ArticleRepo;
+import project.woori_saza.model.repo.MemberInfoRepo;
 import project.woori_saza.model.repo.PartyRepo;
+import project.woori_saza.model.repo.UserProfileRepo;
 
+import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -27,6 +29,12 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Autowired
     private PartyRepo partyRepo;
+
+    @Autowired
+    private MemberInfoRepo memberInfoRepo;
+
+    @Autowired
+    private UserProfileRepo userProfileRepo;
 
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
@@ -73,7 +81,7 @@ public class ArticleServiceImpl implements ArticleService{
         else {
 
         }
-
+        System.out.println("article조회 "+articles.get(0).getTitle());
         return articles.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
@@ -88,12 +96,17 @@ public class ArticleServiceImpl implements ArticleService{
         party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
         party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
         party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
-        party.setCurrentRecruitMember(1);
+        party.setPenalty(articleAndPartyRequestDto.getPenalty());
+        party.setCurrentRecruitMember(articleAndPartyRequestDto.getAmount());
         party.setFormChecked(false);
         party.setIsClosed(false);
-//        party = partyRepo.save(party);
-//
+        party = partyRepo.save(party);
+
+
         Article article = new Article();
+
+        UserProfile userProfile= userProfileRepo.getById(articleAndPartyRequestDto.getProfileId());
+        article.setUserProfile(userProfile);
         article.setTitle(articleAndPartyRequestDto.getTitle());
         article.setContent(articleAndPartyRequestDto.getContent());
         article.setLink(articleAndPartyRequestDto.getLink());
@@ -103,6 +116,14 @@ public class ArticleServiceImpl implements ArticleService{
         article.setTag(null);
         article.setParty(party);
         article = articleRepo.save(article);
+
+        MemberInfo memberInfo=new MemberInfo();
+        memberInfo.setIsBoss(true);
+        memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
+        memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice()/ articleAndPartyRequestDto.getAmount());
+        memberInfo.setParty(party);
+        memberInfo.setUserProfile(userProfile);
+        memberInfoRepo.save(memberInfo);
 
         return new ArticleResponseDto(article);
     }
@@ -131,6 +152,13 @@ public class ArticleServiceImpl implements ArticleService{
         article.setParty(party);
         article = articleRepo.save(article);
 
+        List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
+        for(MemberInfo memberInfo:memberInfos){
+            if(memberInfo.getIsBoss()==true){
+                memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
+                memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice()/ articleAndPartyRequestDto.getAmount());
+            }
+        }
         return new ArticleResponseDto(article);
     }
 

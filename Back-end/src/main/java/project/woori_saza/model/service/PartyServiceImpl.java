@@ -66,23 +66,6 @@ public class PartyServiceImpl implements PartyService{
         return partyDtos;
     }
 
-    //파티원이 신청서 작성 => memberinfo에 저장
-    @Override
-    @Transactional
-    public void insertApplyForm(MemberInfoRequestDto memberInfoRequestDto) {
-        UserProfile userProfile = userProfileRepo.getById(memberInfoRequestDto.getProfileId());
-        Party party=partyRepo.getById(memberInfoRequestDto.getPartyId());
-
-        MemberInfo memberInfo=MemberInfo.builder()
-                        .userProfile(userProfile)
-                                .party(party)
-                                        .price(memberInfoRequestDto.getPrice())
-                                                .amount(memberInfoRequestDto.getAmount())
-                                                        .build();
-        memberInfoRepo.save(memberInfo);
-    }
-
-
     @Override
     @Transactional
     public void deleteParty(Long partyId) {

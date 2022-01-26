@@ -26,6 +26,7 @@ public class ArticleResponseDto {
     private Integer currentRecruitMember;
     private Tag tag;
     private Category category;
+    private Integer penalty;
 
     // 찜 유무..
 
@@ -44,5 +45,6 @@ public class ArticleResponseDto {
         myPrice = article.getParty().getTotalPrice()/totalRecruitMember;
         tag = article.getTag();
         category = article.getCategory();
+        penalty=article.getParty().getPenalty();
     }
 }
