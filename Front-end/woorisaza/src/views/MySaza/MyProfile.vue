@@ -8,7 +8,7 @@
 
         <b-col cols="7">
           <div class="card mb-3 flex-row" style="font-size:1.1em;cursor:pointer;align-items:center;background-color:#FFF9EC" @click="moveToMyPage">
-            <img src="@/assets/icon.png" style="width:100px;height:100px" alt="Card image" class="card-img-left p-3">
+            <img src="@/assets/IDimage.png" style="width:100px;height:100px" alt="Card image" class="card-img-left p-3">
             <div class="card-body" style="text-align:center">
               <p class="card-text">
                 등급
