@@ -1,6 +1,7 @@
 package project.woori_saza.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class ReviewController {
 
     @ApiOperation(value = "후기 조회", notes = "사용자에게 달린 후기들을 불러온다.", response = Map.class)
     @GetMapping("/{profileId}")
-    public ResponseEntity<Map<String, Object>> getReviewList(@PathVariable String profileId) {
+    public ResponseEntity<Map<String, Object>> getReviewList(@PathVariable("profileId")
+                                                                 @ApiParam(value = "내 프로필아이디", example = "hashwoori", required = true) String profileId) {
         Map<String, Object> result = new HashMap<>();
         List<ReviewResponseDto> reviewList = null;
         HttpStatus httpStatus = null;
@@ -38,7 +40,7 @@ public class ReviewController {
 
     @ApiOperation(value = "후기 작성", notes = "파티원들의 후기를 작성한다.")
     @PostMapping
-    public ResponseEntity<Map<String, Object>> insertReview(@RequestBody ReviewRequestDto reviewRequestDto) {
+    public ResponseEntity<Map<String, Object>> insertReview(@RequestBody @ApiParam(value = "후기 작성 모델") ReviewRequestDto reviewRequestDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
@@ -54,7 +56,9 @@ public class ReviewController {
 
     @ApiOperation(value = "후기 수정", notes = "파티원들의 후기를 수정한다.", response = Map.class)
     @PutMapping("/{reviewId}")
-    public ResponseEntity<Map<String, Object>> updateReview(@PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) {
+    public ResponseEntity<Map<String, Object>> updateReview(@PathVariable("reviewId")
+                                                                @ApiParam(value = "수정할 후기 아이디", example = "1", required = true) Long reviewId,
+                                                            @RequestBody @ApiParam(value = "후기 수정 모델") ReviewRequestDto reviewRequestDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
@@ -70,7 +74,8 @@ public class ReviewController {
 
     @ApiOperation(value = "후기 삭제", notes = "파티원들의 후기를 삭제한다.", response = Map.class)
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Map<String, Object>> deleteReview(@PathVariable("reviewId") Long reviewId) {
+    public ResponseEntity<Map<String, Object>> deleteReview(@PathVariable("reviewId")
+                                                                @ApiParam(value = "삭제할 후기 아이디", example = "1", required = true) Long reviewId) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
