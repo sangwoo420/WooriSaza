@@ -19,6 +19,7 @@
                     </div>
                 </b-col>
             </b-row>
+            <hr>
         </div>
     </div>
 </template>
@@ -27,7 +28,6 @@
 export default {
     name: 'Article',
     props:["articleNo"],
-
     data() {
         return {
             
@@ -40,12 +40,21 @@ export default {
 
     methods: {
         moveToDetail(){
-            this.$router.push("/board/"+this.articleNo).catch(()=>{});;
+            console.log("상세보기 페이지로 이동")
         },
     },
 };
 </script>
 
-<style>
-    
+<style scoped>
+.statebox{
+      color: white ;
+      font-size: 0.7em;
+      background-color: red ;
+      border-radius: 0.5em ;
+      padding: 0.2em ;
+      text-align: center;
+      width: 5em;
+      margin-bottom: 0.5em;
+}
 </style>

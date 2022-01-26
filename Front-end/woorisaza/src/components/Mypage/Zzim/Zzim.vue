@@ -1,6 +1,7 @@
 <template>
     <div>
-        <!-- {{articleNo}} -->
+        {{zzimNo[0]}}프로필id 
+        {{zzimNo[1]}}게시글id
         <div>
             <b-row>
                 <b-col cols="8">
@@ -19,15 +20,15 @@
                     </div>
                 </b-col>
             </b-row>
+            <hr>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Article',
-    props:["articleNo"],
-
+    name: 'Zzim',
+    props:["zzimNo"],
     data() {
         return {
             
@@ -40,12 +41,21 @@ export default {
 
     methods: {
         moveToDetail(){
-            this.$router.push("/board/"+this.articleNo).catch(()=>{});;
+            console.log("상세보기 페이지로 이동")
         },
     },
 };
 </script>
 
-<style>
-    
+<style scoped>
+.statebox{
+      color: white ;
+      font-size: 0.7em;
+      background-color: red ;
+      border-radius: 0.5em ;
+      padding: 0.2em ;
+      text-align: center;
+      width: 5em;
+      margin-bottom: 0.5em;
+}
 </style>

@@ -1,26 +1,27 @@
 <template>
-  <div>
+  <div style="width:100%">
     <b-nav align="center" >
-      <b-nav-item router-link to="/myboard" :active="homeActive" @click="getHomeActive">참가한 파티</b-nav-item>
-      <b-nav-item router-link to="/myboard" :active="thisSazaActive" @click="getThisSazaActive">개설한 파티</b-nav-item>
-      <b-nav-item router-link to="/myboard" :active="mySazaActive" @click="getMySazaActive">댓글</b-nav-item>
-      <b-nav-item router-link to="/myboard" :active="guideActive" @click="getGuideActive">후기</b-nav-item>
+      <b-nav-item  :active="memberActive" @click="getMemberOfParty">참가한 파티</b-nav-item>
+      <b-nav-item  :active="bossActive" @click="getBossOfParty">개설한 파티</b-nav-item>
+      <b-nav-item  :active="commentActive" @click="getcommentActive">댓글</b-nav-item>
+      <b-nav-item  :active="reviewActive" @click="getreviewActive">후기</b-nav-item>
     </b-nav>
   </div>
 </template>
 
 <script>
 // import {axios_contact} from "@/common.js"
+import { EventBus } from "@/event-bus.js"
 export default {
     name: 'MyNavbar',
     components:{
     },
     data() {
         return {
-            homeActive:"active",
-            thisSazaActive : null,
-            mySazaActive: null,
-            guideActive:null,
+            memberActive:"active",
+            bossActive : null,
+            commentActive: null,
+            reviewActive:null,
         };
     },
     watch:{
@@ -31,29 +32,33 @@ export default {
     },
 
     methods: {
-        getHomeActive(){
-            this.homeActive="active";
-            this.thisSazaActive=null;
-            this.mySazaActive=null;
-            this.guideActive=null;
+        getMemberOfParty(){
+            this.memberActive="active";
+            this.bossActive=null;
+            this.commentActive=null;
+            this.reviewActive=null;
+            EventBus.$emit("selectComponent","MemberOfParty");
         },
-        getThisSazaActive(){
-            this.homeActive=null;
-            this.thisSazaActive="active";
-            this.mySazaActive=null;
-            this.guideActive=null;
+        getBossOfParty(){
+            this.memberActive=null;
+            this.bossActive="active";
+            this.commentActive=null;
+            this.reviewActive=null;
+            EventBus.$emit("selectComponent","BossOfParty");
         },
-        getMySazaActive(){
-            this.homeActive=null;
-            this.thisSazaActive=null;
-            this.mySazaActive="active";
-            this.guideActive=null;
+        getcommentActive(){
+            this.memberActive=null;
+            this.bossActive=null;
+            this.commentActive="active";
+            this.reviewActive=null;
+            EventBus.$emit("selectComponent","Comment");
         },
-        getGuideActive(){
-            this.homeActive=null;
-            this.thisSazaActive=null;
-            this.mySazaActive=null;
-            this.guideActive="active";
+        getreviewActive(){
+            this.memberActive=null;
+            this.bossActive=null;
+            this.commentActive=null;
+            this.reviewActive="active";
+            EventBus.$emit("selectComponent","Review");
         },
     },
 };
@@ -62,9 +67,9 @@ export default {
 <style scoped>
 .nav-link{
         color:black;
-        font-size: 20px;
-        margin-left: 15px;
-        margin-right: 15px;
+        font-size: 1em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
     }
 .nav-link.active{
       color:#F45F60;
