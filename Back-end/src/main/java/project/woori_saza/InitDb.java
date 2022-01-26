@@ -92,8 +92,8 @@ public class InitDb {
             Comment comment3 = new Comment(3L, "content3", LocalDateTime.now(), articleRepo.getById(1L), user);
             commentRepo.save(comment3);
 
-            Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
-            commentRepo.save(comment);
+//            Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
+//            commentRepo.save(comment);
 //
 //
 //            Comment comment2 = new Comment(2L, "content2", LocalDateTime.now(), article, user2);

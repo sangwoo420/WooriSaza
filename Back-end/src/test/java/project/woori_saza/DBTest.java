@@ -53,6 +53,9 @@ class UserProfileTest {
         UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
+        UserProfile user3 = new UserProfile("psw", "광주광역시 북구 면앙로6번길 48", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
+        userProfileRepo.save(user3);
+
         Party party = new Party(1L,false, LocalDateTime.now(),"ss",10000,40,4,null,false,null, null,null);
         partyRepo.save(party);
 
