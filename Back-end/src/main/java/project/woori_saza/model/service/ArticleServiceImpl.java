@@ -85,7 +85,7 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     @Transactional
-    public void insertArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto) {
+    public ArticleResponseDto insertArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto) {
 
         Party party = new Party();
         party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
@@ -109,11 +109,14 @@ public class ArticleServiceImpl implements ArticleService{
         article.setTag(null);
         article.setParty(party);
         article = articleRepo.save(article);
+
+        return new ArticleResponseDto(article);
     }
 
 
     @Override
-    public void updateArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto, Long articleId) {
+    @Transactional
+    public ArticleResponseDto updateArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto, Long articleId) {
 
         Article article = articleRepo.getById(articleId);
 
@@ -123,7 +126,7 @@ public class ArticleServiceImpl implements ArticleService{
         party.setProduct(articleAndPartyRequestDto.getProduct());
         party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
         party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
-        partyRepo.save(party);
+        party = partyRepo.save(party);
 
         article.setTitle(articleAndPartyRequestDto.getTitle());
         article.setContent(articleAndPartyRequestDto.getContent());
@@ -132,8 +135,9 @@ public class ArticleServiceImpl implements ArticleService{
         article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
-        articleRepo.save(article);
+        article = articleRepo.save(article);
 
+        return new ArticleResponseDto(article);
     }
 
     @Override
