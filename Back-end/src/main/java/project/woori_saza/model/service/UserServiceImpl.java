@@ -9,6 +9,8 @@ import project.woori_saza.model.dto.UserProfileDto;
 import project.woori_saza.model.repo.UserAuthRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -28,16 +30,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void register(String userAuthId, UserProfileDto userProfileDto) {
-        //userAuthRepo.save(userAuth);
-        //userProfile.setUserAuth(userAuth);
-        //userProfileRepo.save(userProfile);
-        UserAuth userAuth = new UserAuth(passwordEncoder.encode(userAuthId),false,null);
-        userAuthRepo.save(userAuth);
+    public UserProfileDto register(UserProfileDto userProfileDto) {
+
+        UserAuth userAuth = new UserAuth(passwordEncoder.encode(userProfileDto.getId()),false,null);
+        userAuth = userAuthRepo.save(userAuth);
+
         UserProfile userProfile = new UserProfile(userProfileDto);
         userProfile.setId(passwordEncoder.encode(userAuth.getId())); // double hashed id
         userProfile.setUserAuth(userAuth);
-        userProfileRepo.save(userProfile);
+        userProfile.setJoinDate(LocalDateTime.now());
+        userProfile.setScore(0);
+        userProfile.setCnt(0);
+        userProfile = userProfileRepo.save(userProfile);
 
+        return new UserProfileDto(userProfile);
     }
 }
