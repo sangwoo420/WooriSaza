@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @ApiModel(description = "댓글 관련 모델")
 public class CommentDto {
 
-    @ApiModelProperty(value = "댓글 번호", example = "1", required = true)
+    @ApiModelProperty(value = "댓글 번호", example = "null", required = true)
     private Long id;
     @ApiModelProperty(value = "댓글 내용", example = "testContent", required = true)
     private String content;

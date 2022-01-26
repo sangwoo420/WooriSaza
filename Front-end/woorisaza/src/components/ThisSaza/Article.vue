@@ -47,7 +47,7 @@ export default {
 
     methods: {
         moveToDetail(){
-            this.$router.push("/board/"+this.articleNo).catch(()=>{});;
+            this.$router.push("/board/"+this.articleNo).catch(()=>{});
         },
     },
 };

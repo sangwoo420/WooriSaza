@@ -19,7 +19,7 @@ public class Qna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qna_id")
-    private Integer id;
+    private Long id;
 
     @NotNull
     private String category;
