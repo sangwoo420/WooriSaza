@@ -41,6 +41,10 @@
                         <b-form-textarea placeholder="내용을 입력하세요." size="sm" rows="8"></b-form-textarea>                    </b-col>
                     <b-col cols="4">
                         <div>
+                            내 선택 수량
+                            <b-form-input id="input-small" size="sm" placeholder="구매 할 수량을 입력하세요" type="number"></b-form-input>
+                        </div>
+                        <div class="mt-2">
                             위약금
                             <b-form-select v-model="selectedPenalty" size="sm" :options="penalty"></b-form-select>
                         </div>
