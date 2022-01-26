@@ -43,6 +43,17 @@ public class QnaServiceImpl implements QnaService{
     }
 
     /**
+     * 선택한 문의 글 내용
+     */
+    @Override
+    public QnaDto getQnaDetail(Long qnaId) {
+        System.out.println("===선택한 문의글 내용===");
+        Qna qna = qnaRepo.getById(qnaId);
+        QnaDto qnaDto = new QnaDto(qna);
+        return qnaDto;
+    }
+
+    /**
      * 1:1 문의 작성 - 작성자
      */
     @Override

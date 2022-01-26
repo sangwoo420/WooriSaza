@@ -1,16 +1,13 @@
 package project.woori_saza.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "paid_form")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,12 +23,19 @@ public class PaidForm {
 
     private Integer billingNo;
 
-    private LocalDateTime deliveryDate;
+    private LocalDate deliveryDate;
 
-    private LocalDateTime receiptDate;
+    private LocalDate receiptDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id")
     private Party party;
 
+    @Builder
+    public PaidForm(String pic, Integer billingNo, LocalDate deliveryDate, LocalDate receiptDate) {
+        this.pic = pic;
+        this.billingNo = billingNo;
+        this.deliveryDate = deliveryDate;
+        this.receiptDate = receiptDate;
+    }
 }

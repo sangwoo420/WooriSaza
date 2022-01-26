@@ -58,7 +58,7 @@
         <!-- 찜버튼 + 참여하기 버튼 -->
         <div style="text-align:right">
             <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
-            <b-button variant="warning" pill>참여하기</b-button>
+            <b-button variant="warning" pill @click="requestParty">참여하기</b-button>
         </div>
         <!-- 글내용 -->
         <div class="mt-3">
@@ -75,7 +75,7 @@
 
         <!-- 목록버튼 -->
         <div style="text-align:right" class="mt-2">
-            <b-button variant="warning" pill>목록</b-button>
+            <b-button variant="warning" pill @click="toBoard">목록</b-button>
         </div>
         <!-- 댓글 -->
         <hr>
@@ -147,6 +147,12 @@ export default {
         },
         onSlideEnd() {
             this.sliding = false
+        },
+        requestParty(){
+            this.$router.push("/request/"+this.articleNo).catch(()=>{});
+        },
+        toBoard(){
+            this.$router.push("/board");
         },
     },
 };

@@ -85,9 +85,10 @@ public class ArticleController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            articleService.insertArticle(articleAndPartyRequestDto);
+            ArticleResponseDto articleResponseDto = articleService.insertArticle(articleAndPartyRequestDto);
 
             httpStatus = HttpStatus.OK;
+            result.put("article", articleResponseDto);
             result.put("success", true);
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -104,9 +105,10 @@ public class ArticleController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            articleService.updateArticle(articleAndPartyRequestDto, Long.parseLong(articleId));
+            ArticleResponseDto articleResponseDto = articleService.updateArticle(articleAndPartyRequestDto, Long.parseLong(articleId));
 
             httpStatus = HttpStatus.OK;
+            result.put("article", articleResponseDto);
             result.put("success", true);
         } catch (RuntimeException  e) {
             e.printStackTrace();

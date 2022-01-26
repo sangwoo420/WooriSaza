@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/comment")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("댓글 컨트롤러")
@@ -32,7 +32,7 @@ public class CommentController {
 
     @ApiOperation(value = "선택한 게시글 내의 댓글", notes = "선택한 게시글 내의 모든 댓글을 반환한다.")
     @GetMapping
-    public ResponseEntity<Map<String, Object>> GetCommentList(@RequestParam("articleId") @ApiParam(value = "게시글 번호", required = true) Long articleId) {
+    public ResponseEntity<Map<String, Object>> getCommentList(@RequestParam("articleId") @ApiParam(value = "게시글 번호", required = true) Long articleId) {
         Map<String, Object> result = new HashMap<>();
         List<CommentDto> commentList = null;
         HttpStatus status = null;
@@ -49,7 +49,7 @@ public class CommentController {
 
     @ApiOperation(value = "마이사자 - 댓글 (내가 쓴 댓글)", notes = "마이사자의 '댓글' 창에 내가 쓴 모든 댓글을 반환한다.")
     @GetMapping("/{profileId}")
-    public ResponseEntity<Map<String, Object>> GetMyCommentList(@PathVariable("profileId")
+    public ResponseEntity<Map<String, Object>> getMyCommentList(@PathVariable("profileId")
                                                                 @ApiParam(value = "내 프로필아이디", example = "hashwoori", required = true) String profileId) {
 
 
@@ -69,7 +69,7 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 작성", notes = "게시글 내에 댓글을 작성한다.")
     @PostMapping
-    public ResponseEntity<String> InsertComment(@RequestBody @ApiParam(value = "댓글 작성 모델") CommentDto commentDto) {
+    public ResponseEntity<String> insertComment(@RequestBody @ApiParam(value = "댓글 작성 모델") CommentDto commentDto) {
         HttpStatus status = null;
         try {
             commentService.insertComment(commentDto);
@@ -82,7 +82,7 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 수정", notes = "게시글 내의 내가 쓴 댓글을 수정한다.")
     @PutMapping
-    public ResponseEntity<String> UpdateComment(@RequestBody @ApiParam(value = "댓글 수정 모델") CommentDto commentDto) {
+    public ResponseEntity<String> updateComment(@RequestBody @ApiParam(value = "댓글 수정 모델") CommentDto commentDto) {
         HttpStatus status = null;
         try {
             commentService.updateComment(commentDto);
@@ -95,7 +95,7 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 삭제", notes = "게시글 내의 내가 쓴 댓글을 삭제한다.")
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<String> DeleteComment(@PathVariable("commentId") @ApiParam(value = "댓글 번호", required = true) Long commentId) {
+    public ResponseEntity<String> deleteComment(@PathVariable("commentId") @ApiParam(value = "댓글 번호", required = true) Long commentId) {
         HttpStatus status = null;
         try {
             commentService.deleteComment(commentId);

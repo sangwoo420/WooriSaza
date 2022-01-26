@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.dto.CommentDto;
 import project.woori_saza.model.dto.QnaDto;
 import project.woori_saza.model.service.QnaService;
 
@@ -16,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/qna")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("1:1문의 컨트롤러")
@@ -27,7 +26,7 @@ public class QnaController {
 
     @ApiOperation(value = "관리자가 보는 모든 1:1문의 리스트", notes = "관리자가 확인하는 문의 리스트")
     @GetMapping("/admin")
-    public ResponseEntity<Map<String, Object>> GetAllQnaList() {
+    public ResponseEntity<Map<String, Object>> getAllQnaList() {
         Map<String, Object> result = new HashMap<>();
         List<QnaDto> qnaList = null;
         HttpStatus status = null;
@@ -44,7 +43,7 @@ public class QnaController {
 
     @ApiOperation(value = "자신(회원)이 쓴 1:1문의 리스트", notes = "회원(작성자)가 확인하는 문의 리스트")
     @GetMapping("/{profileId}")
-    public ResponseEntity<Map<String, Object>> GetMyQnaList(@PathVariable
+    public ResponseEntity<Map<String, Object>> getMyQnaList(@PathVariable
                                                                 @ApiParam(value = "회원 아이디", example = "hashwoori") String profileId) {
         Map<String, Object> result = new HashMap<>();
         List<QnaDto> myQnaList = null;
@@ -60,9 +59,27 @@ public class QnaController {
         return new ResponseEntity<>(result, status);
     }
 
+    @ApiOperation(value = "선택한 문의글 내용", notes = "리스트에서 선택한 문의글의 내용")
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getQnaDetail(@RequestParam
+                                                            @ApiParam(value = "문의글 번호", example = "1") Long qnaId) {
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = null;
+        QnaDto qnaDetail = null;
+        try {
+            qnaDetail = qnaService.getQnaDetail(qnaId);
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("qnaDetail", qnaDetail);
+
+        return new ResponseEntity<>(result, status);
+    }
+
     @ApiOperation(value = "1:1 문의 작성", notes = "회원이 1:1 문의글을 작성한다.")
     @PostMapping
-    public ResponseEntity<String> InsertQna(@RequestBody @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto) {
+    public ResponseEntity<String> insertQna(@RequestBody @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto) {
         HttpStatus status = null;
         try {
             qnaService.insertQna(qnaDto);
@@ -75,7 +92,7 @@ public class QnaController {
 
     @ApiOperation(value = "1:1 문의 수정", notes = "회원이 자신이 작성한 1:1 문의를 수정한다.")
     @PutMapping
-    public ResponseEntity<String> UpdateQna(@RequestBody @ApiParam(value = "댓글 수정 모델") QnaDto qnaDto) {
+    public ResponseEntity<String> updateQna(@RequestBody @ApiParam(value = "댓글 수정 모델") QnaDto qnaDto) {
         HttpStatus status = null;
         try {
             qnaService.updateQna(qnaDto);
@@ -101,7 +118,7 @@ public class QnaController {
 
     @ApiOperation(value = "관리자 답변 작성", notes = "관리자는 회원이 작성한 문의글에 답변을 작성한다.")
     @PutMapping("/admin")
-    public ResponseEntity<String> InsertQnaComment(@RequestBody @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto) {
+    public ResponseEntity<String> insertQnaComment(@RequestBody @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto) {
         HttpStatus status = null;
         try {
             qnaService.insertQnaComment(qnaDto);
