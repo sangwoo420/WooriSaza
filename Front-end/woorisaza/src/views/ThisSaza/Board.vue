@@ -87,7 +87,7 @@ export default {
                 for (let index = len; index < len+10; index++) {
                     this.printedArticleNo.push(this.articleNo[index])
                 }
-                console.log(this.printedArticleNo.length)
+                // console.log(this.printedArticleNo.length)
                 $state.loaded();
             }
             else{

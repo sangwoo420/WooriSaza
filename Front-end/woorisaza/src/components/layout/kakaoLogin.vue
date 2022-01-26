@@ -21,7 +21,7 @@ export default {
     methods: {
         loginWithKakao() {
             const params = {
-                redirectUri: "http://localhost:8080/",
+                redirectUri: "http://localhost:8081/",
             };
             window.Kakao.Auth.authorize(params);
         },

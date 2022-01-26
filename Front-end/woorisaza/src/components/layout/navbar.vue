@@ -69,7 +69,7 @@ export default {
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
-                    redirect_uri : "http://localhost:8080/",
+                    redirect_uri : "http://localhost:8081/",
                     code : this.$route.query.code,
             },
             queryString : null,

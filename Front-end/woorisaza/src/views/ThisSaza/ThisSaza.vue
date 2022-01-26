@@ -25,7 +25,7 @@
                         </div>
                     </transition>
                 </div>
-                <div class="button">
+                <div class="button" v-if="accesstoken!=null">
                     <div>
                         <transition name="fade">
                             <div v-if="chatShow">
@@ -67,9 +67,11 @@ export default {
         return {
             chatShow: true,
             selectComponent : "Board",
+            accesstoken : null,
         };
     },
     created(){
+        this.accesstoken = this.$cookie.get("accesstoken");
         if(this.$route.params.articleno==null){
             this.selectComponent = "Board";
         }
