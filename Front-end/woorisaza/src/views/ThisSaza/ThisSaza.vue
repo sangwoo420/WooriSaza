@@ -122,8 +122,6 @@ export default {
         border-radius: 0.5em;
         width:100%;
         height:100%;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
     }
     .box::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera*/
