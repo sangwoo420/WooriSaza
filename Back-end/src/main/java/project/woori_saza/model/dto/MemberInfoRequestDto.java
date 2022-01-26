@@ -15,14 +15,17 @@ public class MemberInfoRequestDto {
     private  Integer amount; //선택 수량
     @ApiModelProperty(value = "파티원 부담 금액", example = "50000")
     private  Integer price; //파티원 부담 금액
+    @ApiModelProperty(value = "파티원 결제 방법", example = "카카오페이")
+    private String paidMethod;
     @ApiModelProperty(value = "파티 아이디", example = "1")
     private  Long partyId; //파티 아이디
     @ApiModelProperty(value = "프로필 아이디", example = "hashssafy")
     private String profileId; //프로필 아이디
 
-    public MemberInfoRequestDto(int amount,int price,long partyId,String profileId){
+    public MemberInfoRequestDto(int amount,int price,String paidMethod,long partyId,String profileId){
         this.amount=amount;
         this.price=price;
+        this.paidMethod=paidMethod;
         this.partyId=partyId;
         this.profileId=profileId;
     }

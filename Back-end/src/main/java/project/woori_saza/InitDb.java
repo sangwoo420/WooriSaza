@@ -9,6 +9,7 @@ import project.woori_saza.model.repo.*;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -82,6 +83,11 @@ public class InitDb {
 //            Article article2 = new Article(2L, "title2", "content2", LocalDateTime.now(), "link", null, user, party, null, null, new ArrayList<>(), new ArrayList<>());
 //            articleRepo.save(article2);
 
+            PaidForm paidForm1 = new PaidForm(null, null, 1234, LocalDate.now(), LocalDate.now(), party);
+            paidFormRepo.save(paidForm1);
+
+            PaidForm paidForm2 = new PaidForm(null, null, 2468, LocalDate.now(), LocalDate.now(), party2);
+            paidFormRepo.save(paidForm2);
 
 
             Qna qna1=new Qna(1L,"카테고리1","내용1","제목1","답변",null,user);
@@ -105,8 +111,8 @@ public class InitDb {
             Comment comment3 = new Comment(3L, "content3", LocalDateTime.now(), articleRepo.getById(1L), user);
             commentRepo.save(comment3);
 
-            Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
-            commentRepo.save(comment);
+//            Comment comment = new Comment(1L, "content", LocalDateTime.now(), article, user);
+//            commentRepo.save(comment);
 //
 //
 //            Comment comment2 = new Comment(2L, "content2", LocalDateTime.now(), article, user2);

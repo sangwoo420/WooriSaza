@@ -42,4 +42,11 @@ public class ArticleAndPartyRequestDto {
     private Integer totalProductCount;
     @ApiModelProperty(value = "파티 총 인원", example = "4")
     private Integer totalRecruitMember;
+    @ApiModelProperty(value = "위약금", example = "50")
+    private Integer penalty;
+
+    //for memberinfo
+    @ApiModelProperty(value = "내가 선택한 수량", example = "2")
+    private Integer amount;
+
 }

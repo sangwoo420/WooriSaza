@@ -10,5 +10,4 @@ import java.util.List;
 public interface PartyRepo extends JpaRepository<Party, Long> {
 
          Party findAllByMemberInfos(MemberInfo memberInfo); //memberInfo에 해당하는 파티 찾기
-
 }
