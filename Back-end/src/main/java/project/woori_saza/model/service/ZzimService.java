@@ -14,7 +14,7 @@ public interface ZzimService {
     List<ZzimDto> getZzimList(String profileId);
     List<ZzimDto> getZzimList(Long articleId);
 
-    void insertZzim(String profileId, Long articleId);
+    ZzimDto insertZzim(String profileId, Long articleId);
     void deleteZzim(String profileId, Long articleId);
 
 }

@@ -28,12 +28,6 @@ public class ArticleServiceImpl implements ArticleService{
     @Autowired
     private PartyRepo partyRepo;
 
-//    // 게시글 작성
-//    @Transactional
-//    public Long insertArticle(ArticleRequestDto articleRequestDto) {
-//        return articleRepo.save(articleRequestDto.toEntity()).getId();
-//    }
-
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
         Article article = articleRepo.getById(articleId);

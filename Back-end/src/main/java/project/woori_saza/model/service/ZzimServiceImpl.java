@@ -48,9 +48,11 @@ public class ZzimServiceImpl implements ZzimService {
     }
 
     @Override
-    public void insertZzim(String profileId, Long articleId) {
+    public ZzimDto insertZzim(String profileId, Long articleId) {
         Zzim zzim = new Zzim(userProfileRepo.getById(profileId), articleRepo.getById(articleId));
-        zzimRepo.save(zzim);
+        zzim = zzimRepo.save(zzim);
+
+        return new ZzimDto(zzim);
     }
 
     @Override
