@@ -54,7 +54,7 @@ public class UserController {
             userProfileDto = userService.register(userProfileDto);
             result.put("profile", userProfileDto);
 
-            status = HttpStatus.ACCEPTED;
+            status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;

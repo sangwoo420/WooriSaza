@@ -1,27 +1,17 @@
 package project.woori_saza.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.domain.Category;
-import project.woori_saza.model.domain.Party;
 import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
-import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
-import project.woori_saza.model.dto.PartyRequestDto;
-import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.service.ArticleService;
-import project.woori_saza.model.service.ArticleServiceImpl;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

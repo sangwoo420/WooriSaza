@@ -104,10 +104,10 @@ public class InitDb {
             Zzim zzim = new Zzim(user, article);
             zzimRepo.save(zzim);
 
-            MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party);
+            MemberInfo memberInfo = new MemberInfo(null,false,1,2500,"카카오페이",false,false,user,party);
             memberInfoRepo.save(memberInfo);
 
-            MemberInfo memberInfo2 = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party2);
+            MemberInfo memberInfo2 = new MemberInfo(null,false,1,2500,"카카오페이",false,false,user,party2);
             memberInfoRepo.save(memberInfo2);
 
 
