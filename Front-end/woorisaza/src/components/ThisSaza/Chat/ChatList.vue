@@ -2,7 +2,7 @@
     <div class="chat p-2" style="overflow-y:scroll">
             <!-- 채팅창 헤더 -->
             <div>
-                <img src="@/assets/saza.png" style="width:3vw">
+                <img src="@/assets/saza.png" style="width:30px">
                 사자 채팅
                 <b-icon-x-circle @click="offChat" style="cursor:pointer"></b-icon-x-circle>
             </div>
@@ -12,7 +12,7 @@
             </div>
             <hr>
             <!-- 파티 채팅 리스트 -->
-            <div >
+            <div>
                 <div v-for="(item, index) in chatList" :key="index" >
                     <Chatpreview :partyNo=item></Chatpreview>
                 </div>
