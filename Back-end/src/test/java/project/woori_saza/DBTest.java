@@ -88,21 +88,20 @@ class DBTest {
          * * 2 리스트를 순회하면서 프로필 외래키를 null로 만들기
          */
 
-        List<Article> articleList = articleRepo.findByUserProfile(user);
-        for (Article article1 : articleList) {
-            article1.setUserProfile(null);
-            articleRepo.save(article1);
-        }
-
-        for(Comment c : commentRepo.findByUserProfile(user)){
-            c.setUserProfile(null);
-            commentRepo.save(c);
-        }
-
-        System.out.println(articleRepo.findByUserProfile(user));
-//        System.out.println("articleList = " + articleList);
-
-        userAuthRepo.deleteById(userAuth.getId());
+//        for (Article article1 : articleRepo.findByUserProfile(user)) {
+//            article1.setUserProfile(null);
+//            articleRepo.save(article1);
+//        }
+//
+//        for(Comment c : commentRepo.findByUserProfile(user)){
+//            c.setUserProfile(null);
+//            commentRepo.save(c);
+//        }
+//
+//        System.out.println(articleRepo.findByUserProfile(user));
+////        System.out.println("articleList = " + articleList);
+//
+//        userAuthRepo.deleteById(userAuth.getId());
 
 
         // OK TODO: comment, zzim 삭제
