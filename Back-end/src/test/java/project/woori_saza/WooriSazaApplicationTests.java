@@ -15,7 +15,7 @@ class WooriSazaApplicationTests {
 	@Test
 	void contextLoads() {
 		for(Article a : articleRepo.findByDefaultAddress("광주광역시")){
-			System.out.println(a.getUserProfile());
+			System.out.println(a.getUserProfile().getAddress());
 		}
 	}
 

@@ -59,7 +59,7 @@ public class InitDb {
             UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48", "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null);
             userProfileRepo.save(user);
 
-            UserProfile user2 = new UserProfile("hashwoori", "광주광역시 북구 용봉동 147-15", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null);
+            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null);
             userProfileRepo.save(user2);
 
             Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);

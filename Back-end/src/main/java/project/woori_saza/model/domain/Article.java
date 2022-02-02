@@ -38,7 +38,7 @@ public class Article {
 
     // referencing area
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
 
