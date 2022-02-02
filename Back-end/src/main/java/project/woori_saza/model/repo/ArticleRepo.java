@@ -7,7 +7,7 @@ import project.woori_saza.model.domain.UserProfile;
 
 import java.util.List;
 
-public interface ArticleRepo extends JpaRepository<Article, Long> {
+public interface ArticleRepo extends JpaRepository<Article, Long>, ArticleRepoSupport{
 
     List<Article> findByUserProfile(UserProfile userProfile);
 

@@ -28,7 +28,7 @@ class GeoLocationTest {
     @Test
     void geoLocationTest() {
         Double[] latlng1 = geoLocationUtil.parseLocationToLatLng("광주광역시 북구 면앙로6번길 48");
-        Double[] latlng2 = geoLocationUtil.parseLocationToLatLng("전라남도 순천시 해룡면 지봉로 372-5");
+        Double[] latlng2 = geoLocationUtil.parseLocationToLatLng("sdfsdfasd");
         Double dist = geoLocationUtil.getDistance(latlng1, latlng2);
         System.out.println(dist);
 
