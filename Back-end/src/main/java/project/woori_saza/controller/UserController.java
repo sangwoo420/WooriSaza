@@ -6,10 +6,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.domain.UserAuth;
 import project.woori_saza.model.domain.UserProfile;
 import project.woori_saza.model.dto.UserProfileDto;
@@ -45,6 +42,7 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 
+    @ApiOperation(value = "회원가입")
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody UserProfileDto userProfileDto) {
         Map<String, Object> result = new HashMap<>();
@@ -60,5 +58,38 @@ public class UserController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
+    @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 수정한다. 닉네임, 주소, 프로필 사진을 변경할 수 있다.")
+    @PutMapping("/update")
+    public ResponseEntity<Map<String, Object>> update(@RequestBody UserProfileDto userProfileDto){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            userProfileDto = userService.update(userProfileDto);
+            result.put("profile", userProfileDto);
+
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
+    @ApiOperation(value = "회원 탈퇴")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Object>> delete(@RequestBody UserProfileDto userProfileDto){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        try {
+            userService.delete(userProfileDto);
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+        } catch (RuntimeException e) {
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 }

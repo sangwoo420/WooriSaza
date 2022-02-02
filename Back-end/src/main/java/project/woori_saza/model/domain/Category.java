@@ -1,5 +1,5 @@
 package project.woori_saza.model.domain;
 
 public enum Category {
-    FOOD
+    FOOD, LIFETHINGS, FASHION, ELECTRICITY, ETC
 }

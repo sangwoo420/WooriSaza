@@ -1,7 +1,5 @@
 package project.woori_saza.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,7 +48,6 @@ public class UserProfile {
         this.cnt = userProfileDto.getCnt();
     }
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
@@ -58,27 +55,21 @@ public class UserProfile {
     @JoinColumn(name = "auth_id")
     private UserAuth userAuth;
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsFrom = new ArrayList<>();
 
-    //   @JsonIgnore
     @OneToMany(mappedBy = "toUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviewsTo = new ArrayList<>();
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Qna> qnas = new ArrayList<>();
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile")
     private List<Comment> comments = new ArrayList<>();
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile")
     private List<Article> articles = new ArrayList<>();
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
