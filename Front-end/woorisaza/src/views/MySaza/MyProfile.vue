@@ -24,6 +24,9 @@
 <script>
 export default {
   name : "MyProfile",
+  props : {
+        userId : String,
+    },
   components:{
     
   },
