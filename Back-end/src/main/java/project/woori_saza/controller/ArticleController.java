@@ -18,7 +18,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/article")
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("게시글 컨트롤러")
 public class ArticleController {
 

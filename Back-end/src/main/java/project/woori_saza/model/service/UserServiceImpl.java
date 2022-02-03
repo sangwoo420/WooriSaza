@@ -2,6 +2,7 @@ package project.woori_saza.model.service;
 
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Comment;
@@ -12,6 +13,7 @@ import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.CommentRepo;
 import project.woori_saza.model.repo.UserAuthRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
+import project.woori_saza.util.GeoLocationUtil;
 import project.woori_saza.util.HashEncoder;
 
 import java.time.LocalDateTime;
@@ -19,6 +21,9 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
+
+    @Autowired
+    GeoLocationUtil geoLocationUtil;
 
     @Autowired
     UserAuthRepo userAuthRepo;
@@ -53,6 +58,8 @@ public class UserServiceImpl implements UserService{
         userProfile.setId(hashEncoder.encode(userAuth.getId())); // double hashed id
         userProfile.setUserAuth(userAuth);
         userProfile.setJoinDate(LocalDateTime.now());
+        Double[] latlng = geoLocationUtil.parseLocationToLatLng(userProfile.getAddress());
+        userProfile.setLnglat(new Point(latlng[1], latlng[0]));
         userProfile.setScore(0);
         userProfile.setCnt(0);
         userProfile = userProfileRepo.save(userProfile);
@@ -66,6 +73,8 @@ public class UserServiceImpl implements UserService{
         UserProfile user = userProfileRepo.getById(userProfileDto.getId()); // hashwoori
         user.setNickname(userProfileDto.getNickname());
         user.setAddress(userProfileDto.getAddress());
+        Double[] latlng = geoLocationUtil.parseLocationToLatLng(user.getAddress());
+        user.setLnglat(new Point(latlng[1], latlng[0]));
         user.setPic(userProfileDto.getPic());
         user = userProfileRepo.save(user);
 
