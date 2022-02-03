@@ -46,10 +46,10 @@ class DBTest {
         UserAuth userAuth2 = new UserAuth("wooriid",false,null);
         userAuthRepo.save(userAuth2);
 
-        UserProfile user = new UserProfile("hashssafy", "seoul", "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, null, null,null,null);
+        UserProfile user = new UserProfile("hashssafy", "seoul", 126.9130945,35.1780739,"kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, null, null,null,null);
         userProfileRepo.save(user);
 
-        UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null,null,null);
+        UserProfile user2 = new UserProfile("hashwoori", "GJ", 0.0,0.0,"Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null,null,null);
         userProfileRepo.save(user2);
 
         Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
@@ -112,10 +112,10 @@ class DBTest {
 
     @Test
     void partyTest() {
-        UserProfile user = new UserProfile("ssafyid", "seoul", "kim", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null,null,null);
+        UserProfile user = new UserProfile("ssafyid", "seoul", 126.9130945,35.1780739,"kim2", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null,null,null);
         userProfileRepo.save(user);
 
-        UserProfile user2 = new UserProfile("wooriid", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null,null,null);
+        UserProfile user2 = new UserProfile("wooriid", "GJ",0.0,0.0, "Lee2", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null,null,null);
         userProfileRepo.save(user2);
 
         Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
