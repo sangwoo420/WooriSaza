@@ -57,10 +57,10 @@ public class InitDb {
             UserAuth userAuth2 = new UserAuth("wooriid", false, null);
             userAuthRepo.save(userAuth2);
 
-            UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48", 126.9130945,35.1780739, "kim1", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null);
+            UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48", "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null,null,null);
             userProfileRepo.save(user);
 
-            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가", 0.0,0.0, "Lee1", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null);
+            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null, null,null);
             userProfileRepo.save(user2);
 
             Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
@@ -71,12 +71,12 @@ public class InitDb {
             Party party2db=partyRepo.save(party2);
 
 
-            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party1db, null, null, new ArrayList<>(), new ArrayList<>());
+            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party1db, null, null, new ArrayList<>(), new ArrayList<>(),null);
 
             article = articleRepo.save(article);
             party.setArticle(article);
 
-            Article article2 = new Article(2L, "title2", "content", LocalDateTime.now(), "link", null, user2, party2db, null, null, new ArrayList<>(), new ArrayList<>());
+            Article article2 = new Article(2L, "title2", "content", LocalDateTime.now(), "link", null, user2, party2db, null, null, new ArrayList<>(), new ArrayList<>(), null);
 
             article2 = articleRepo.save(article2);
             party2.setArticle(article2);

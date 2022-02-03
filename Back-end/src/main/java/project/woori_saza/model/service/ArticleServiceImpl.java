@@ -129,6 +129,9 @@ public class ArticleServiceImpl implements ArticleService {
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
 
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setArticle(article);
+
         return new ArticleResponseDto(article);
     }
 
