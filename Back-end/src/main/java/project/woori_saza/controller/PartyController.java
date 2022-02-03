@@ -18,7 +18,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/party")
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("파티 컨트롤러")
 public class PartyController {
     @Autowired

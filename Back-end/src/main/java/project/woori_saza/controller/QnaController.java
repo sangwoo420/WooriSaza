@@ -17,7 +17,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/qna")
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("1:1문의 컨트롤러")
 public class QnaController {
 
