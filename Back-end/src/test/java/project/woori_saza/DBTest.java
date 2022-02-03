@@ -3,6 +3,7 @@ package project.woori_saza;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.geo.Point;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.repo.*;
@@ -45,10 +46,10 @@ class DBTest {
         UserAuth userAuth2 = new UserAuth("wooriid",false,null);
         userAuthRepo.save(userAuth2);
 
-        UserProfile user = new UserProfile("hashssafy", "seoul", "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, null, null);
+        UserProfile user = new UserProfile("hashssafy", "seoul", null, "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, null, null);
         userProfileRepo.save(user);
 
-        UserProfile user2 = new UserProfile("hashwoori", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
+        UserProfile user2 = new UserProfile("hashwoori", "GJ",null, "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
         Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
@@ -111,10 +112,10 @@ class DBTest {
 
     @Test
     void partyTest() {
-        UserProfile user = new UserProfile("ssafyid", "seoul", "kim", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null);
+        UserProfile user = new UserProfile("ssafyid", "seoul",new Point(0,0), "kim", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null);
         userProfileRepo.save(user);
 
-        UserProfile user2 = new UserProfile("wooriid", "GJ", "Lee", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null);
+        UserProfile user2 = new UserProfile("wooriid", "GJ",new Point(0,0), "Lee", LocalDateTime.now(), null, null, null, null, null, null, null, null, null, null, null);
         userProfileRepo.save(user2);
 
         Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);

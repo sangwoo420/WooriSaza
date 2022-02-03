@@ -2,6 +2,7 @@ package project.woori_saza;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
@@ -56,10 +57,10 @@ public class InitDb {
             UserAuth userAuth2 = new UserAuth("wooriid", false, null);
             userAuthRepo.save(userAuth2);
 
-            UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48", "kim", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null);
+            UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48", new Point(0,0), "kim1", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null);
             userProfileRepo.save(user);
 
-            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가", "Lee", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null);
+            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가", new Point(0,0), "Lee1", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null);
             userProfileRepo.save(user2);
 
             Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
