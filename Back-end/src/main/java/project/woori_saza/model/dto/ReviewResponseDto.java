@@ -20,7 +20,7 @@ public class ReviewResponseDto {
     private String content;
     @ApiModelProperty(value = "후기 작성일", example = "2022-02-01-23:59:59")
     private LocalDateTime date;
-    @ApiModelProperty(value = "후기 점수", example = "70")
+    @ApiModelProperty(value = "후기 점수", example = "10")
     private int score;
     @ApiModelProperty(value = "후기 작성자", example = "hashssafy")
     private String fromUser;
