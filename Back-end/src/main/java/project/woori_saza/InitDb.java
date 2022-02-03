@@ -70,12 +70,12 @@ public class InitDb {
             Party party2db=partyRepo.save(party2);
 
 
-            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party1db, null, null, new ArrayList<>(), new ArrayList<>(),new ChatRoom());
+            Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party1db, null, null, new ArrayList<>(), new ArrayList<>(),null);
 
             article = articleRepo.save(article);
             party.setArticle(article);
 
-            Article article2 = new Article(2L, "title2", "content", LocalDateTime.now(), "link", null, user2, party2db, null, null, new ArrayList<>(), new ArrayList<>(), new ChatRoom());
+            Article article2 = new Article(2L, "title2", "content", LocalDateTime.now(), "link", null, user2, party2db, null, null, new ArrayList<>(), new ArrayList<>(), null);
 
             article2 = articleRepo.save(article2);
             party2.setArticle(article2);

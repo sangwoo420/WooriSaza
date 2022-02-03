@@ -34,4 +34,5 @@ public class ChatMessage {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="profile_id")
     private UserProfile userProfile;
+
 }

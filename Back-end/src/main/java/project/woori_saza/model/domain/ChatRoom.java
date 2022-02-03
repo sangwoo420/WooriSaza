@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,7 +21,7 @@ public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="room_id")
-    private Long id;
+    private String id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
@@ -30,5 +32,16 @@ public class ChatRoom {
 
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
+
+//    public static ChatRoom create(String name) {
+//        ChatRoom chatRoom = new ChatRoom();
+//        chatRoom.id = UUID.randomUUID().toString();
+//        chatRoom.name = name;
+//        return chatRoom;
+//    }
+//
+//    public void addChatMessages(ChatMessage chatMessage){
+//        this.chatMessageList.add(chatMessage);
+//    }
 
 }
