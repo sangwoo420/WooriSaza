@@ -128,9 +128,10 @@ export default {
                     },
                     data: this.queryString,
                 }).then(({data})=>{
-                    console.log(data)
-                    this.accesstoken = data.access_token;
-                    this.$cookie.set("accesstoken",this.access_token, 1);
+                    // console.log(data)
+                    const token = data;
+                    // this.accesstoken = data.access_token;
+                    // this.$cookie.set("accesstoken",this.access_token, 1);
                     // console.log(this.access_token)
                     axios({
                         mathod : "get",
@@ -140,7 +141,24 @@ export default {
                             "Content-type" : "application/x-www-form-urlencoded;charset=utf-8",
                         },
                     }).then(({data})=>{
-                        console.log(data)
+                        axios({
+                            method : "post",
+                            url : "http://localhost:8080/user/login",
+                            data : {
+                                authid : data.id,
+                            },
+                        }).then(({data})=>{
+                            if(data.profile==null){
+                                console.log("회원가입하자")
+                                this.$router.push("/register");
+                                console.log(this.accesstoken)
+                            }
+                            else{
+                                console.log("로그인하자")
+                                this.accesstoken = token.access_token;
+                                this.$cookie.set("accesstoken",this.access_token, 1);
+                            }
+                        })
                     })
                 })
             }

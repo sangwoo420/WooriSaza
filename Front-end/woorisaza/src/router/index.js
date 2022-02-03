@@ -11,6 +11,7 @@ import ArticleWrite from "../views/ThisSaza/ThisSaza.vue";
 import Request from "../views/Request/Request.vue";
 
 import PartyDetail from "../views/PartyDetail/PartyDetail.vue";
+import Register from "../views/Register.vue";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
     path: "/guide",
