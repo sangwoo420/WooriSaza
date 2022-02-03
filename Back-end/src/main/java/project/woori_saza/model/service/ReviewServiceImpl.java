@@ -38,8 +38,11 @@ public class ReviewServiceImpl implements ReviewService{
         Review review = reviewRequestDto.toEntity();
         review.setDate(LocalDateTime.now());
         review.setFromUser(userProfileRepo.getById(reviewRequestDto.getFromUser()));
-        review.setToUser(userProfileRepo.getById(reviewRequestDto.getToUser()));
-        reviewRepo.save(review);
+
+        UserProfile toUser = userProfileRepo.getById(reviewRequestDto.getToUser());
+        review.setToUser(toUser);
+        toUser.setScore(toUser.getScore() + review.getScore());
+        toUser.setCnt(toUser.getCnt()+1);
     }
 
     @Override

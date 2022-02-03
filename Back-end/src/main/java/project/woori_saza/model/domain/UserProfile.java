@@ -27,6 +27,13 @@ public class UserProfile {
     private String address;
 
     @NotNull
+    private Double lng;
+
+    @NotNull
+    private Double lat;
+
+    @NotNull
+    @Column(unique = true)
     private String nickname;
 
     @NotNull

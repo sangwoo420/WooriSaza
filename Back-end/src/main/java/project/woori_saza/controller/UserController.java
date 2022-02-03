@@ -33,10 +33,14 @@ public class UserController {
         try {
             UserProfileDto userProfileDto = userService.login(body.get("authid")); // thirdPartyId
             result.put("profile", userProfileDto);
+            result.put("success", true);
+
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
         }
 
         return new ResponseEntity<Map<String, Object>>(result, status);
@@ -51,11 +55,14 @@ public class UserController {
 
             userProfileDto = userService.register(userProfileDto);
             result.put("profile", userProfileDto);
+            result.put("success", true);
 
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
         }
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
@@ -68,11 +75,14 @@ public class UserController {
         try {
             userProfileDto = userService.update(userProfileDto);
             result.put("profile", userProfileDto);
+            result.put("success", true);
 
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
         }
         return new ResponseEntity<Map<String, Object>>(result, status);
     }

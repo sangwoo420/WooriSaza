@@ -10,6 +10,9 @@ import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
 import ArticleWrite from "../views/ThisSaza/ThisSaza.vue";
 import Request from "../views/Request/Request.vue";
 
+import PartyDetail from "../views/PartyDetail/PartyDetail.vue";
+import Register from "../views/Register.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -17,6 +20,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
     path: "/guide",
@@ -52,6 +60,11 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
+  },
+  {
+    path: "/partydetail/:partyId",
+    name: "PartyDetail",
+    component: PartyDetail,
   },
   {
     path: "/about",

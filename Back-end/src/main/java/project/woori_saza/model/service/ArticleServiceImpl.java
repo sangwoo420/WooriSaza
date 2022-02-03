@@ -13,6 +13,7 @@ import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.MemberInfoRepo;
 import project.woori_saza.model.repo.PartyRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
+import project.woori_saza.util.GeoLocationUtil;
 
 import java.lang.reflect.Member;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
-public class ArticleServiceImpl implements ArticleService{
+public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleRepo articleRepo;
@@ -36,6 +37,9 @@ public class ArticleServiceImpl implements ArticleService{
     @Autowired
     private UserProfileRepo userProfileRepo;
 
+    @Autowired
+    private GeoLocationUtil geoLocationUtil;
+
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
         Article article = articleRepo.getById(articleId);
@@ -46,42 +50,42 @@ public class ArticleServiceImpl implements ArticleService{
 
     // 게시글 전체 조회
     @Override
-    public List<ArticleResponseDto> getArticleList(String category, String range, String keyword) {
+    public List<ArticleResponseDto> getArticleList(String profileId, String category, String range, String keyword) {
 
+        Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfileRepo.getById(profileId).getAddress());
         List<Article> articles = null;
         //1. 전부 없을때
-        if(category == null && range == null && keyword == null){
+        if (category == null && range == null && keyword == null) {
             articles = articleRepo.findAll();
         }
         //2. 카테고리만 있을때
-        else if(range == null && keyword == null){
+        else if (range == null && keyword == null) {
             articles = articleRepo.findByCategory(Category.valueOf(category));
         }
         //3. 범위만 있을때
-        else if(category == null && keyword == null){
-
+        else if (category == null && keyword == null) {
+            articles = articleRepo.findByRange(lnglat, range);
         }
         //4. 검색어만 있을때
-        else if(category == null && range == null){
+        else if (category == null && range == null) {
             articles = articleRepo.findByTitleContainingOrContentContaining(keyword, keyword);
         }
         //5. 카테고리, 범위
-        else if(keyword == null){
-
+        else if (keyword == null) {
+            articles = articleRepo.findByCategoryAndRange(category, lnglat, range);
         }
         //6. 카테고리, 검색어
-        else if(range == null){
-
+        else if (range == null) {
+            articles = articleRepo.findByKeywordAndCategory(keyword, category);
         }
         //7. 범위, 검색어
-        else if(category == null){
-
+        else if (category == null) {
+            articles = articleRepo.findByKeywordAndRange(keyword, lnglat, range);
         }
         //8. 전부있을때
         else {
-
+            articles = articleRepo.findByAllCondition(keyword, category, lnglat, range);
         }
-        System.out.println("article조회 "+articles.get(0).getTitle());
         return articles.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
@@ -105,7 +109,7 @@ public class ArticleServiceImpl implements ArticleService{
 
         Article article = new Article();
 
-        UserProfile userProfile= userProfileRepo.getById(articleAndPartyRequestDto.getProfileId());
+        UserProfile userProfile = userProfileRepo.getById(articleAndPartyRequestDto.getProfileId());
         article.setUserProfile(userProfile);
         article.setTitle(articleAndPartyRequestDto.getTitle());
         article.setContent(articleAndPartyRequestDto.getContent());
@@ -117,10 +121,10 @@ public class ArticleServiceImpl implements ArticleService{
         article.setParty(party);
         article = articleRepo.save(article);
 
-        MemberInfo memberInfo=new MemberInfo();
+        MemberInfo memberInfo = new MemberInfo();
         memberInfo.setIsBoss(true);
         memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-        memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice()/ articleAndPartyRequestDto.getAmount());
+        memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getAmount());
         memberInfo.setParty(party);
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
@@ -155,11 +159,11 @@ public class ArticleServiceImpl implements ArticleService{
         article.setParty(party);
         article = articleRepo.save(article);
 
-        List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
-        for(MemberInfo memberInfo:memberInfos){
-            if(memberInfo.getIsBoss()==true){
+        List<MemberInfo> memberInfos = memberInfoRepo.findAllByParty(party);
+        for (MemberInfo memberInfo : memberInfos) {
+            if (memberInfo.getIsBoss() == true) {
                 memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-                memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice()/ articleAndPartyRequestDto.getAmount());
+                memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getAmount());
             }
         }
         return new ArticleResponseDto(article);

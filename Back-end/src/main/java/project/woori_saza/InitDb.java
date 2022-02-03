@@ -2,6 +2,7 @@ package project.woori_saza;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
@@ -89,7 +90,7 @@ public class InitDb {
             Qna qna3=new Qna(3L,"카테고리3","내용3","제목3","답변",null,user2);
             qnaRepo.save(qna3); //저장
 
-            Review review1 = new Review(1L, "리뷰1내용", LocalDateTime.now(), 100, user, user2);
+            Review review1 = new Review(1L, "리뷰1내용", LocalDateTime.now(), 10, user, user2);
             reviewRepo.save(review1); //저장
 
             Comment comment = new Comment(1L, "content", LocalDateTime.now(), articleRepo.getById(1L), user);

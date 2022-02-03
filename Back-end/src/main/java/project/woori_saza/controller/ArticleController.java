@@ -18,7 +18,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/article")
-@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @Api("게시글 컨트롤러")
 public class ArticleController {
 
@@ -33,17 +32,21 @@ public class ArticleController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getArticleList(@RequestParam(required = false) @ApiParam(value = "카테고리 정보") String category,
                                                               @RequestParam(required = false) @ApiParam(value = "범위 정보") String range,
-                                                              @RequestParam(required = false) @ApiParam(value = "검색어") String keyword) {
+                                                              @RequestParam(required = false) @ApiParam(value = "검색어") String keyword,
+                                                              @RequestParam @ApiParam(value = "프로필 아이디") String profileId) {
         Map<String, Object> result = new HashMap<>();
         List<ArticleResponseDto> articleList = null;
         HttpStatus httpStatus = null;
 
         try {
-            articleList = articleService.getArticleList(category, range, keyword);
-
+            articleList = articleService.getArticleList(profileId, category, range, keyword);
             httpStatus = HttpStatus.OK;
+            result.put("success", true);
+
         } catch (RuntimeException e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
         }
 
         result.put("articleList", articleList);
@@ -59,11 +62,14 @@ public class ArticleController {
         ArticleResponseDto article = null;
         try {
             article = articleService.getArticle(Long.parseLong(articleId));
-
             httpStatus = HttpStatus.OK;
+            result.put("success", true);
+
         } catch (RuntimeException e) {
             e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
         }
         result.put("article", article);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
