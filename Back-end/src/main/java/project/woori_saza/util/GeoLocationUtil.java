@@ -2,6 +2,7 @@ package project.woori_saza.util;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ public class GeoLocationUtil {
     private final static String API_KEY = "AIzaSyBnaiR9ZGEyEe8VhfhAgQxSiGStnkmrU-w";
     private final static String PRE_URL = "https://maps.googleapis.com/maps/api/geocode/json?address="; // + URLEncoder.encode(LOCATION, "UTF-8")+"&key="+API_KEY;
 
-    public Double[] parseLocationToLatLng(String location) {
+    public Double[] parseLocationToLngLat(String location) {
         try {
             URL url = new URL(PRE_URL + URLEncoder.encode(location, "UTF-8") + "&key=" + API_KEY);
             InputStream is = url.openConnection().getInputStream();
@@ -45,7 +46,7 @@ public class GeoLocationUtil {
 
                 System.out.println("LAT:\t\t" + lat);
                 System.out.println("LNG:\t\t" + lng);
-                return new Double[]{lat, lng};
+                return new Double[] {lng, lat};
             }
 
         } catch (Exception e) {
@@ -55,28 +56,7 @@ public class GeoLocationUtil {
         return null;
     }
 
-    public Double getDistance(Double[] latlng1, Double[] latlng2){
-        if(latlng1[0] == latlng2[0] && latlng1[1] == latlng2[1])
-            return 0.0;
 
-        Double radLat1 = (Math.PI * latlng1[0]) / 180;
-        Double radLat2 = (Math.PI * latlng2[0]) / 180;
-        Double theta = latlng1[1] - latlng2[1];
-        Double radTheta = (Math.PI * theta) / 180;
-        Double dist =
-                Math.sin(radLat1) * Math.sin(radLat2) +
-                        Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
-        if (dist > 1) dist = 1.0;
-
-        dist = Math.acos(dist);
-        dist = (dist * 180) / Math.PI;
-        dist = dist * 60 * 1.1515 * 1.609344 * 1000;
-        if (dist < 100) dist = Math.round(dist / 10) * 10.0;
-        else dist = Math.round(dist / 100) * 100.0;
-
-        return dist;
-
-    }
 }
 
 //    try {

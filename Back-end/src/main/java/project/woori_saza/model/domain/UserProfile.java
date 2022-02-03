@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.data.geo.Point;
 import project.woori_saza.model.dto.UserProfileDto;
 
 import javax.persistence.*;
@@ -29,7 +27,10 @@ public class UserProfile {
     private String address;
 
     @NotNull
-    private Point lnglat;
+    private Double lng;
+
+    @NotNull
+    private Double lat;
 
     @NotNull
     @Column(unique = true)
