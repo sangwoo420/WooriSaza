@@ -73,4 +73,10 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userProfile")
+    private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userProfile")
+    private List<ChatMessage> chatMessageList = new ArrayList<>();
+
 }

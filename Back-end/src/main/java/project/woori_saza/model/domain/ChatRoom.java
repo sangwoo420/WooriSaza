@@ -25,10 +25,10 @@ public class ChatRoom {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @OneToMany(mappedBy = "chatMessage")
+    @OneToMany(mappedBy = "chatRoom")
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chatRoomJoin")
+    @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
 }
