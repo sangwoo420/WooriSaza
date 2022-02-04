@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -27,4 +28,11 @@ public class ChatRoomJoin {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
+
+    public static ChatRoomJoin create(ChatRoom chatRoom, UserProfile userProfile) {
+        ChatRoomJoin chatRoomJoin = new ChatRoomJoin();
+        chatRoomJoin.setChatRoom(chatRoom); // 채팅방 설정
+        chatRoomJoin.setUserProfile(userProfile); // 파티장
+        return chatRoomJoin;
+    }
 }

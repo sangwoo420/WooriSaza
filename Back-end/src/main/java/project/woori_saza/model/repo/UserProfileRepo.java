@@ -8,4 +8,6 @@ public interface UserProfileRepo extends JpaRepository<UserProfile,String> {
 
     UserProfile findByUserAuth(UserAuth userAuth);
 
+    UserProfile findByNickname(String Nickname);
+
 }

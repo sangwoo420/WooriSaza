@@ -1,28 +1,25 @@
 package project.woori_saza.model.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import project.woori_saza.model.domain.ChatMessage;
+import project.woori_saza.model.domain.MessageType;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ChatMessageDto {
 
-    private Long id;
-    private String msg_content;
-    private LocalDateTime msg_time;
+    private MessageType type;
+    private String content;
+    private LocalDateTime time;
     private String roomId;
-    private String profileId;
+    private String sender;
 
-    public ChatMessageDto(ChatMessage chatMessage){
-        this.id = chatMessage.getId();
-        this.msg_content = chatMessage.getMsg_content();
-        this.msg_time = chatMessage.getMsg_time();
+    public ChatMessageDto(ChatMessage chatMessage) {
+        this.type = chatMessage.getType();
+        this.content = chatMessage.getContent();
+        this.time = chatMessage.getTime();
         this.roomId = chatMessage.getChatRoom().getId();
-        this.profileId = chatMessage.getUserProfile().getId();
+        this.sender = chatMessage.getUserProfile().getNickname();
     }
 }

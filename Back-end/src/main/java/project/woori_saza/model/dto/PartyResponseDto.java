@@ -35,7 +35,7 @@ public class PartyResponseDto {
 
     public PartyResponseDto(Party party,MemberInfo memberInfo){
         title= party.getArticle().getTitle();
-       tag=party.getArticle().getTag();
+        tag=party.getArticle().getTag();
         isBoss=memberInfo.getIsBoss();
         id=party.getId();
         deadline=party.getDeadline();

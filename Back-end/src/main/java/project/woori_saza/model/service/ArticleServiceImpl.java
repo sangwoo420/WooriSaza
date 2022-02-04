@@ -9,10 +9,7 @@ import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
 import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.PartyRequestDto;
-import project.woori_saza.model.repo.ArticleRepo;
-import project.woori_saza.model.repo.MemberInfoRepo;
-import project.woori_saza.model.repo.PartyRepo;
-import project.woori_saza.model.repo.UserProfileRepo;
+import project.woori_saza.model.repo.*;
 import project.woori_saza.util.GeoLocationUtil;
 
 import java.lang.reflect.Member;
@@ -39,6 +36,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private GeoLocationUtil geoLocationUtil;
+
+    @Autowired
+    private ChatRoomRepo chatRoomRepo;
+
+    @Autowired
+    private ChatRoomJoinRepo chatRoomJoinRepo;
+
+    @Autowired
+    private ChatRoomService chatRoomService;
 
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
@@ -129,8 +135,13 @@ public class ArticleServiceImpl implements ArticleService {
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
 
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setArticle(article);
+        /**
+         * 채팅방 생성
+         */
+        ChatRoom chatRoom = chatRoomService.createChatRoom(article);
+        ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
+        chatRoomRepo.save(chatRoom);
+        chatRoomJoinRepo.save(chatRoomJoin);
 
         return new ArticleResponseDto(article);
     }

@@ -22,11 +22,14 @@ public class ChatMessage {
     @Column(name="msg_id")
     private Long id;
 
-    @NotNull
-    private String msg_content;
+    @Enumerated(EnumType.STRING)
+    private MessageType type;
 
     @NotNull
-    private LocalDateTime msg_time;
+    private String content;
+
+    @NotNull
+    private LocalDateTime time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id")
@@ -35,5 +38,6 @@ public class ChatMessage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile userProfile;
+
 
 }
