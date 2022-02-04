@@ -1,9 +1,9 @@
 package project.woori_saza.model.service;
 
-import org.apache.catalina.User;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Comment;
 import project.woori_saza.model.domain.UserAuth;
@@ -16,8 +16,10 @@ import project.woori_saza.model.repo.UserProfileRepo;
 import project.woori_saza.util.GeoLocationUtil;
 import project.woori_saza.util.HashEncoder;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileDto register(UserProfileDto userProfileDto) {
+    public UserProfileDto register(UserProfileDto userProfileDto, MultipartFile multipartFile) throws Exception {
 
         UserAuth userAuth = new UserAuth(hashEncoder.encode(userProfileDto.getId()), false, null);
         userAuth = userAuthRepo.save(userAuth);
@@ -63,6 +65,32 @@ public class UserServiceImpl implements UserService {
         userProfile.setLat(lnglat[1]);
         userProfile.setScore(0);
         userProfile.setCnt(0);
+
+        //파일 저장
+        if(multipartFile==null){
+            userProfile.setPic(null);
+        }else{
+            File file=new File("");
+            //저장경로
+            //  String savePath="i6c102.p.ssafy.io"+separ+"home"+separ+"ubuntu"+separ+"images";
+            //   String savePath="i6c102.p.ssafy.io"+separ+"images";
+            String savaPath="http://i6c102.p.ssafy.io/upload";
+            // "/home/ubuntu/images/"
+            // 파일 정보
+            String originFilename = multipartFile.getOriginalFilename();
+            String extension = originFilename.substring(originFilename.length()-3);
+
+            if(!(extension.equals("jpg") || extension.equals("png"))){
+                throw new FileUploadException("파일 확장자가 jpg나 png가 아닙니다.");
+            }
+            //파일이름 랜덤으로 만들기
+            String saveFileName = UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
+            System.out.println("랜덤이름 출력"+saveFileName);
+               String filePath=savaPath+saveFileName;
+               multipartFile.transferTo(new File(filePath));
+            // 파일 이름은 db에 저장
+            userProfile.setPic(saveFileName);
+        }
         userProfile = userProfileRepo.save(userProfile);
 
         return new UserProfileDto(userProfile);
