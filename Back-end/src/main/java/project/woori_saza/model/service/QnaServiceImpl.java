@@ -1,15 +1,21 @@
 package project.woori_saza.model.service;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import project.woori_saza.model.domain.PaidForm;
 import project.woori_saza.model.domain.Qna;
 import project.woori_saza.model.domain.UserProfile;
 import project.woori_saza.model.dto.QnaDto;
 import project.woori_saza.model.repo.QnaRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,7 +64,7 @@ public class QnaServiceImpl implements QnaService{
      */
     @Override
     @Transactional
-    public void insertQna(QnaDto qnaDto) {
+    public void insertQna(QnaDto qnaDto,List<MultipartFile>multipartFiles) throws Exception {
         System.out.println("===1:1 문의 작성===");
         UserProfile user = userProfileRepo.getById(qnaDto.getProfileId());
         Qna qna = new Qna();
@@ -67,7 +73,25 @@ public class QnaServiceImpl implements QnaService{
         qna.setContent(qnaDto.getContent());
         qna.setTitle(qnaDto.getTitle());
         qna.setUserProfile(user);
+        List<String>list=new ArrayList<>();
+        for (MultipartFile multipartFile : multipartFiles) {
+            File file=new File("");
+
+            String originFilename = multipartFile.getOriginalFilename();
+            String extension = originFilename.substring(originFilename.length()-3);
+
+            if(!(extension.equals("jpg") || extension.equals("png"))){
+                throw new FileUploadException("파일 확장자가 jpg나 png가 아닙니다.");
+            }
+            //파일이름 랜덤으로 만들기
+            String saveFileName = UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
+            System.out.println("랜덤이름 출력"+saveFileName);
+
+            list.add(saveFileName);
+        }
+        qna.setPic(list);
         qnaRepo.save(qna);
+        qnaDto.setPic(qna.getPic());
     }
 
     /**

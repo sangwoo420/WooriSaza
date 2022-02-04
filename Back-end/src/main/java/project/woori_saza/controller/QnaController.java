@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.dto.QnaDto;
 import project.woori_saza.model.service.QnaService;
 
@@ -78,13 +79,15 @@ public class QnaController {
 
     @ApiOperation(value = "1:1 문의 작성", notes = "회원이 1:1 문의글을 작성한다.")
     @PostMapping
-    public ResponseEntity<String> insertQna(@RequestBody @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto) {
+    public ResponseEntity<String> insertQna(@RequestPart @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto, @RequestPart(required = false) List<MultipartFile> multipartFiles) {
         HttpStatus status = null;
         try {
-            qnaService.insertQna(qnaDto);
+            qnaService.insertQna(qnaDto,multipartFiles);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return new ResponseEntity<>(status);
     }

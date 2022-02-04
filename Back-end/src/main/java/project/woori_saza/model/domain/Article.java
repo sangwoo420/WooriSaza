@@ -31,6 +31,7 @@ public class Article {
     private LocalDateTime createdAt;
 
     @NotNull
+    @Column(length = 50000)
     private String link;
 
     @ElementCollection

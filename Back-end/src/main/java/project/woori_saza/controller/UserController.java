@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.domain.UserAuth;
 import project.woori_saza.model.domain.UserProfile;
 import project.woori_saza.model.dto.UserProfileDto;
@@ -48,21 +49,19 @@ public class UserController {
 
     @ApiOperation(value = "회원가입")
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestBody UserProfileDto userProfileDto) {
+    public ResponseEntity<Map<String, Object>> register(@RequestPart UserProfileDto userProfileDto, @RequestPart(required = false) MultipartFile multipartFile) throws Exception {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = null;
         try {
-
-            userProfileDto = userService.register(userProfileDto);
+            System.out.println("여기오나?"+multipartFile.getOriginalFilename());
+            userProfileDto = userService.register(userProfileDto,multipartFile);
             result.put("profile", userProfileDto);
-            result.put("success", true);
-
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-            result.put("success", false);
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return new ResponseEntity<Map<String, Object>>(result, status);
     }

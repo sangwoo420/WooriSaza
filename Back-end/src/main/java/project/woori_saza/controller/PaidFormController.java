@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.dto.PaidFormRequestDto;
 import project.woori_saza.model.dto.PaidFormResponseDto;
 import project.woori_saza.model.service.PaidFormService;
@@ -40,14 +41,14 @@ public class PaidFormController {
 
     @ApiOperation(value = "결제 인증 폼 작성", notes = "결제 인증 폼을 작성한다.")
     @PostMapping
-    public ResponseEntity<Map<String, Object>> insert(@RequestBody @ApiParam(value = "인증폼 작성 모델") PaidFormRequestDto paidFormRequestDto) {
+    public ResponseEntity<Map<String, Object>> insert(@RequestPart @ApiParam(value = "인증폼 작성 모델") PaidFormRequestDto paidFormRequestDto, @RequestPart(required = false) MultipartFile multipartFile) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            paidFormService.insertPaidForm(paidFormRequestDto);
+            paidFormService.insertPaidForm(paidFormRequestDto,multipartFile);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
