@@ -76,8 +76,8 @@
 //        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party);
 //        memberInfoRepo.save(memberInfo);
 //
-//        // OK TODO: userProfile 삭제시 cascade (memberInfo, review, qna, userauth, zzim)
-//        // TODO: userProfile 삭제시 날리면 안되는거 null로 설정해주기 (comment, article)
+//        // userProfile 삭제시 cascade (memberInfo, review, qna, userauth, zzim)
+//        // userProfile 삭제시 날리면 안되는거 null로 설정해주기 (comment, article)
 //        // 위 두개는 한번에 해줘야함 (참조하고 있기때문)
 //
 //        /* * 회원 탈퇴 버튼 누름
@@ -105,7 +105,7 @@
 ////        userAuthRepo.deleteById(userAuth.getId());
 //
 //
-//        // OK TODO: comment, zzim 삭제
+//        // comment, zzim 삭제
 ////        articleRepo.deleteById(1L);
 //
 //    }
@@ -136,7 +136,7 @@
 //        MemberInfo memberInfo = new MemberInfo(1L,false,1,2500,"카카오페이",false,false,user,party);
 //        memberInfoRepo.save(memberInfo);
 //
-//        // OK TODO: 파티 삭제 -> (article -> comment, zzim), paid_form, member_info
+//        // OK 파티 삭제 -> (article -> comment, zzim), paid_form, member_info
 //        //  partyRepo.deleteById(1L);
 //
 //    }

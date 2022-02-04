@@ -80,7 +80,7 @@ public class InitDb {
             article2 = articleRepo.save(article2);
             party2.setArticle(article2);
 
-            ChatRoom chatRoom = new ChatRoom("room1",article,null,null);
+            ChatRoom chatRoom = new ChatRoom("room1",article.getTitle(),1,article,null,null);
             chatRoom = chatRoomRepo.save(chatRoom);
             article.setChatRoom(chatRoom);
 

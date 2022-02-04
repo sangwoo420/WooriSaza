@@ -8,6 +8,7 @@ import project.woori_saza.model.dto.UserProfileDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserProfile {
+public class UserProfile implements Serializable {
 
     @Id
     @Column(name = "profile_id")

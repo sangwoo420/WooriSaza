@@ -17,11 +17,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "chat_room")
-public class ChatRoom {
+public class ChatRoom implements Serializable{
+
+    private static final long serialVersionUID = 6494678977089006639L;
 
     @Id
     @Column(name="room_id")
     private String id;
+
+    private String name;
+
+    private int count;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
@@ -33,12 +39,13 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
-//    public static ChatRoom create(String name) {
-//        ChatRoom chatRoom = new ChatRoom();
-//        chatRoom.id = UUID.randomUUID().toString();
-//        chatRoom.name = name;
-//        return chatRoom;
-//    }
+    public static ChatRoom create(String articleName) {
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.id = UUID.randomUUID().toString();
+        chatRoom.name = articleName;
+        chatRoom.count = 1;
+        return chatRoom;
+    }
 //
 //    public void addChatMessages(ChatMessage chatMessage){
 //        this.chatMessageList.add(chatMessage);
