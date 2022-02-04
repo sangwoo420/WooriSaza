@@ -67,9 +67,8 @@ public class InitDb {
             Party party1db=partyRepo.save(party);
 
 
-            Party party2 = new Party(2L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false,50, null,null, null);
+            Party party2 = new Party(2L, false, LocalDateTime.now(), "bb", 20000, 20, 4, 5, false,50, null,null, null);
             Party party2db=partyRepo.save(party2);
-
 
             Article article = new Article(1L, "title", "content", LocalDateTime.now(), "link", null, user, party1db, null, null, new ArrayList<>(), new ArrayList<>(),null);
 
@@ -81,9 +80,9 @@ public class InitDb {
             article2 = articleRepo.save(article2);
             party2.setArticle(article2);
 
-//            ChatRoom chatRoom = new ChatRoom("room1",article,null,null);
-//            chatRoomRepo.save(chatRoom);
-//            article.setChatRoom(chatRoom);
+            ChatRoom chatRoom = new ChatRoom("room1",article,null,null);
+            chatRoom = chatRoomRepo.save(chatRoom);
+            article.setChatRoom(chatRoom);
 
             Qna qna1=new Qna(1L,"카테고리1","내용1","제목1","답변",null,user);
             qnaRepo.save(qna1); //저장
