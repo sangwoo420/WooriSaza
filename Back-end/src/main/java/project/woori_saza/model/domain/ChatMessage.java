@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "chat_message")
 public class ChatMessage {
 
     @Id
@@ -27,11 +28,11 @@ public class ChatMessage {
     @NotNull
     private LocalDateTime msg_time;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile userProfile;
 

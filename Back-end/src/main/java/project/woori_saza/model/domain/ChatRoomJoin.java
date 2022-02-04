@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "chat_room_join")
 public class ChatRoomJoin {
 
     @Id
@@ -19,11 +20,11 @@ public class ChatRoomJoin {
     @Column(name="join_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private UserProfile userProfile;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
 }
