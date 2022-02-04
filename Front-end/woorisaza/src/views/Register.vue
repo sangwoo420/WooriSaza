@@ -13,13 +13,13 @@
                                         <b-container>
                                             <div>
                                                 닉네임
-                                                <b-form-input v-model="nickname" placeholder="닉네임을 입력하세요."></b-form-input>
+                                                <b-form-input v-model="userProfile.nickname" placeholder="닉네임을 입력하세요."></b-form-input>
                                             </div>
                                             <div class="mt-4">
                                                 주소<br>
                                                 <b-form-input v-model="postcode" placeholder="우편번호" style="width:70%;display:inline" disabled></b-form-input>
                                                 <b-button variant="warning" @click="execDaumPostcode" class="ml-3" style="width:20%;display:inline">우편번호 찾기</b-button>
-                                                <b-form-input v-model="address" placeholder="주소" class="mt-1" disabled></b-form-input>
+                                                <b-form-input v-model="userProfile.address" placeholder="주소" class="mt-1" disabled></b-form-input>
                                             </div>
 
                                             <div class="mt-4">
@@ -54,19 +54,41 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'Register',
 
     data() {
         return {
-            nickname : null,
+            userProfile : {
+                address : null,
+                cnt : 0,
+                id : null,
+                joindDate : null,
+                nickname : null,
+                pic : null,
+                score : null, 
+            },
+            accesstoken : this.$cookie.get("Raccesstoken"),
             postcode:null,
-            address : null,
         };
     },
 
+    created(){
+        axios({
+            method : "get",
+            url : "https://cors-anywhere.herokuapp.com/https://kapi.kakao.com/v1/user/access_token_info",
+            headers : {
+                "Authorization" : "Bearer "+this.accesstoken,
+                "Content-type" : "application/x-www-form-urlencoded;charset=utf-8",
+            },
+        }).then(({data})=>{
+            // console.log(data)
+            this.userProfile.id = data.id;
+        })
+    },
     mounted() {
-        
+
     },
 
     methods: {
@@ -78,10 +100,10 @@ export default {
                 }
                 if (data.userSelectedType === "R") {
                     // 사용자가 도로명 주소를 선택했을 경우
-                    this.address = data.roadAddress;
+                    this.userProfile.address = data.roadAddress;
                 } else {
                     // 사용자가 지번 주소를 선택했을 경우(J)
-                    this.address = data.jibunAddress;
+                    this.userProfile.address = data.jibunAddress;
                 }
         
                 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
@@ -111,7 +133,15 @@ export default {
             }).open();
         },
         register(){
-            console.log("회원가입")
+            axios({
+                method : "post",
+                url : "http://localhost:8080/user/register",
+                data : this.userProfile,
+            }).then(({data})=>{
+                // console.log(data)
+                data;
+                this.$router.push("/");
+            })
         },
     },
 };

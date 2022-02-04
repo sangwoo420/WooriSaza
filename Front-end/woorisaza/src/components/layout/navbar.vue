@@ -54,6 +54,7 @@
 <script>
 import axios from "axios"
 import Kakaologin from "@/components/layout/kakaoLogin.vue"
+
 export default {
     name: 'Navbar',
     components:{
@@ -119,6 +120,7 @@ export default {
             }
         },
         getKakaoToken(){
+            const that = this;
             if(this.queryString!=null){
                 axios({
                     method : "post",
@@ -134,13 +136,14 @@ export default {
                     // this.$cookie.set("accesstoken",this.access_token, 1);
                     // console.log(this.access_token)
                     axios({
-                        mathod : "get",
+                        method : "get",
                         url : "https://cors-anywhere.herokuapp.com/https://kapi.kakao.com/v1/user/access_token_info",
                         headers : {
                             "Authorization" : "Bearer "+data.access_token,
                             "Content-type" : "application/x-www-form-urlencoded;charset=utf-8",
                         },
                     }).then(({data})=>{
+                        // console.log(data)
                         axios({
                             method : "post",
                             url : "http://localhost:8080/user/login",
@@ -149,14 +152,17 @@ export default {
                             },
                         }).then(({data})=>{
                             if(data.profile==null){
-                                console.log("회원가입하자")
+                                // console.log("회원가입하자")
+                                // console.log(token.access_token)
+                                this.$cookie.set("Raccesstoken",token.access_token, 1);
                                 this.$router.push("/register");
-                                console.log(this.accesstoken)
                             }
                             else{
-                                console.log("로그인하자")
-                                this.accesstoken = token.access_token;
-                                this.$cookie.set("accesstoken",this.access_token, 1);
+                                // console.log("로그인하자")
+                                // console.log(data)
+                                that.accesstoken = token.access_token;
+                                this.$cookie.set("accesstoken",token.access_token, 1);
+                                this.$cookie.set("id",data.profile.id, 1);
                             }
                         })
                     })
@@ -164,7 +170,9 @@ export default {
             }
         },
         logout(){
+            this.$cookie.delete("Raccesstoken");
             this.$cookie.delete("accesstoken");
+            this.$cookie.delete("id");
             this.$router.go();
         },
         toHome(){
