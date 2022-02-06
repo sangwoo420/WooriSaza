@@ -9,6 +9,8 @@
 
 <script>
 import Article from "@/components/MySaza/BossOfParty/Article.vue";
+import axios from "axios"
+
 export default {
     name: 'Memberofparty',
     components:{
@@ -16,10 +18,24 @@ export default {
     },
     data() {
         return {
-            articleNo:[1,2,3,4,5,6,7,8,9,10],
+            articleNo:[],
+            id : this.$route.params.id,
         };
     },
 
+    created() {
+        axios({
+            method : "get",
+            url : "http://localhost:8080/party/"+this.id,
+        }).then(({data})=>{
+            // console.log(data)
+            for (let index = 0; index < data.length; index++) {
+                if(data[index].isBoss){
+                    this.articleNo.push(data[index].id)
+                }
+            }
+        })
+    },
     mounted() {
         
     },

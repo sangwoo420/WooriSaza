@@ -52,7 +52,7 @@ const routes = [
     component: Request,
   },
   {
-    path: "/mysaza",
+    path: "/mysaza/:id",
     name: "MySaza",
     component: MySaza,
   },

@@ -95,6 +95,7 @@ export default {
     font-weight: 600;
 }
 .ans{
+    margin-top: 13px;
     text-align: right;
 }
 </style>
