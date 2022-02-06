@@ -5,8 +5,8 @@
                 <b-row>       
                     <b-col cols="8">
                         <div>
-                            <b-form-select v-model="category" :options="categories" size="sm" style="width:48%"></b-form-select>&nbsp;
-                            <b-form-select v-model="area" :options="areas" size="sm" style="width:48%"></b-form-select>
+                            <b-form-select v-model="category" :options="categories" size="sm" style="width:48%" @change="searchByOption"></b-form-select>&nbsp;
+                            <b-form-select v-model="area" :options="areas" size="sm" style="width:48%" @change="searchByOption"></b-form-select>
                         </div>
                     </b-col>
                     <b-col cols="4">
@@ -32,6 +32,7 @@
 <script>
 import Article from "@/components/ThisSaza/Article.vue";
 import InfiniteLoading from "vue-infinite-loading";
+import axios from "axios"
 
 export default {
     name: 'Board',
@@ -41,13 +42,16 @@ export default {
     },
     data() {
         return {
+            profileId : this.$cookie.get("id"),
             category : null,
             categories : [
                 {value:null, text:"카테고리를 선택하세요."},
-                {value:"food", text:"식품"},
-                {value:"daily", text:"생활 용품"},
-                {value:"fasion", text:"패션 잡화"},
-                {value:"other", text:"기타"}
+                {value:"FOOD", text:"식품"},
+                {value:"LIFETHINGS", text:"생활 용품"},
+                {value:"FASHION", text:"패션 잡화"},
+                {value:"ELECTRICITY", text:"전자 제품"},
+                {value:"DELIVERY", text:"배달"},
+                {value:"ETC", text:"기타"}
             ],
             area : null,
             areas : [
@@ -59,22 +63,27 @@ export default {
             ],
             search:null,
             scrollPostion : 0,
-            printedArticleNo:[1,2,3,4,5,6,7,8,9,10],
+            printedArticleNo:[],
             articleNo:[
-                1,2,3,4,5,6,7,8,9,10,
-                11,12,13,14,15,16,17,18,19,20,
-                21,22,23,24,25,26,27,28,29,30,
-                31,32,33,34,35,36,37,38,39,40,
-                41,42,43,44,45,46,47,48,49,50,
-                51,52,53,54,55,56,57,58,59,60,
-                61,62,63,64,65,66,67,68,69,70,
-                71,72,73,74,75,76,77,78,79,80,
-                81,82,83,84,85,86,87,88,89,90,
-                91,92,93,94,95,96,97,98,99,100,
             ],
         };
     },
+    created() {
+        axios({
+            method : "get",
+            url : "http://localhost:8080/article?profileId="+this.profileId,
+        }).then(({data})=>{
+            // console.log(data)
+            for (let index = 0; index < data.articleList.length; index++) {
+                // console.log(data.articleList[index])                
+                this.articleNo.push(data.articleList[index].id)
+            }
 
+            // for (let index = 0; index < 10; index++) {
+            //     this.printedArticleNo.push(this.articleNo[index])
+            // }
+        })
+    },
     mounted() {
         
     },
@@ -82,18 +91,51 @@ export default {
     methods: {
         infiniteHandler($state){
             // console.log($state);
-            if(this.printedArticleNo.length < this.articleNo.length){
-                let len = this.printedArticleNo.length;
-                for (let index = len; index < len+10; index++) {
+            const that = this;
+            setTimeout(function() {
+                if(that.printedArticleNo.length < that.articleNo.length){
+                    let len = that.printedArticleNo.length;
+                    let length = (len+10 < that.articleNo.length) ? len+10 : that.articleNo.length; 
+                    for (let index = len; index < length; index++) {
+                        that.printedArticleNo.push(that.articleNo[index])
+                    }
+                    // console.log(this.printedArticleNo.length)
+                    $state.loaded();
+                }
+                else{
+                    $state.complete();
+                }
+            }, 1000);
+        },
+
+        searchByOption(){
+            let urlOption = "http://localhost:8080/article?profileId="+this.profileId;
+            if(this.category !=null){
+                urlOption += "&category="+this.category;
+            }
+            if(this.area !=null){
+                urlOption += "&range="+this.area;
+            }
+            // console.log(urlOption)
+            this.printedArticleNo=[];
+            this.articleNo=[];
+            
+            axios({
+                method : "get",
+                url : urlOption,
+            }).then(({data})=>{
+                // console.log(data)
+                for (let index = 0; index < data.articleList.length; index++) {
+                    // console.log(data.articleList[index])                
+                    this.articleNo.push(data.articleList[index].id)
+                }
+
+                let length = (this.articleNo.length < 10) ?  this.articleNo.length : 10;
+                for (let index = 0; index < length; index++) {
                     this.printedArticleNo.push(this.articleNo[index])
                 }
-                // console.log(this.printedArticleNo.length)
-                $state.loaded();
-            }
-            else{
-                $state.complete();
-            }
-        }
+            })
+        },
     },
 };
 </script>
