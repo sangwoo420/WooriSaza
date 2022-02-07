@@ -20,6 +20,6 @@ public class ChatMessageDto {
         this.content = chatMessage.getContent();
         this.time = chatMessage.getTime();
         this.roomId = chatMessage.getChatRoom().getId();
-        this.sender = chatMessage.getUserProfile().getNickname();
+        this.sender = chatMessage.getSender();
     }
 }
