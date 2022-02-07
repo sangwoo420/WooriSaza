@@ -165,6 +165,7 @@ export default {
                                 that.accesstoken = token.access_token;
                                 this.$cookie.set("accesstoken",token.access_token, 1);
                                 this.$cookie.set("id",data.profile.id, 1);
+                                this.mysazaUrl = "/mysaza/"+this.$cookie.get("id");
                             }
                         })
                     })

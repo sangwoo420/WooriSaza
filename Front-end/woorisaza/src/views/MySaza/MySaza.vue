@@ -7,7 +7,7 @@
                         <b-col></b-col>
                         <b-col cols="7">
                             <div :class="{box:true}" style="overflow-y:auto;">
-                                <div class="p-5">
+                                <div class="p-5" v-if="id != 'null'">
                                     <!-- 신분증 -->
                                     <div style="text-align:center;" @click="moveToMypage">
                                         <my-profile/>
@@ -19,6 +19,18 @@
                                     <!-- 게시글 폼 -->
                                     <div class="mt-4">
                                         <component :is="selectComponent"> </component>
+                                    </div>
+                                </div>
+                                <div class="p-5" v-if="id == 'null'">
+                                    <div style="font-size : 1.5em">
+                                        파티에 가입하고 <br>
+                                        내가 필요한만큼만! 저렴한 가격에!<br>
+                                        물건을 구매해보세요!<br>
+                                    </div>
+                                    로그인 후 사용해주세요.
+                                    <div style="text-align:center">
+                                        <img src="@/assets/fin.png" alt=""><br>
+                                        <button :class="{p_button:true}" @click="$bvModal.show('signlogin')">로그인 | 회원가입</button>
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +67,7 @@ export default {
     data() {
         return {
             selectComponent : "MemberOfParty",
+            id : this.$route.params.id,
         };
     },
     created(){
@@ -106,6 +119,15 @@ export default {
         top:75%;
         
     }
-
-
+.p_button{
+        text-align: center;
+        background-color:#F1A501; 
+        color:white;
+        box-shadow: 0px 0.5px 3px 0.5px grey; 
+        border-radius: 0.1em;
+        border: 0px ;
+        width:50%;
+        margin: 1em;
+        padding: 0.25em;
+    }
 </style>

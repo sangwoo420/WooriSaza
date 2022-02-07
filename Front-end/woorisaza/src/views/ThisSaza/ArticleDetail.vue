@@ -6,7 +6,7 @@
             <!-- 글 제목 -->
             <div style="font-size:1em;font-weight:bold">{{article.title}}</div>
             <!-- 작성자 -->
-            <div style="text-align:right;font-size:0.7em">파티장 : 박상우</div>
+            <div style="text-align:right;font-size:0.7em;cursor:pointer" @click="moveToUserpage">파티장 : {{article.author}}</div>
             <!-- 상품 사진 -->
             <div>
                 <b-carousel
@@ -36,9 +36,9 @@
                     <div style="background-color:#D9E5FF;border-radius:0.3em;text-align:right;">
                         <div class="p-2">
                             <!-- 기간이 안나와요 -->
-                            기간 : 22.01.13~22.02.01 <br>
+                            기간 : {{article.createdAt[0]}}.{{article.createdAt[1]}}.{{article.createdAt[2]}}~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}} <br>
                             모집인원 : <b style="font-size:1.5em">{{article.currentRecruitMember}}</b> /{{article.totalRecruitMember}}<br>
-                            1인당 : 6개
+                            1인당 : {{article.totalProductCount/article.totalRecruitMember}}개
                         </div>
                     </div>    
                 </b-col>  
@@ -97,11 +97,14 @@
                         <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:10%" alt="">
                         <!-- 사용자 닉네임 -->
                         <a href="" style="color:black; width:10%;display:inline">{{comment.nickname}}</a>
-                        <b-button variant="danger" style="float:right">삭제</b-button>
-                        <b-button variant="success" style="float:right" class="mr-1">수정</b-button>
+                        <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
+                        <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id">수정</b-button>
                     </div>
-                    <div style="font-size:12px">
-                        {{comment.content}}
+                    <div style="font-size:12px;">
+                        <b-row>
+                            <b-col cols="9">{{comment.content}}</b-col>
+                            <b-col cols="3">{{comment.createAt[0]}}.{{comment.createAt[1]}}.{{comment.createAt[2]}} {{comment.createAt[3]}}:{{comment.createAt[4]}}</b-col>
+                        </b-row>
                     </div>
                     <hr>
                 </div>
@@ -127,6 +130,7 @@ export default {
             comment : null,
             commentList : null,
             commentRerender : 0,
+            id : this.$cookie.get("id"),
         };
     },
     created() {
@@ -202,8 +206,21 @@ export default {
             })
         },
 
+        deleteComment(comment){
+            axios({
+                method : "delete",
+                url : "http://localhost:8080/comment/"+comment.id,
+            }).then(({data})=>{
+                console.log(data);
+                this.$router.go();
+            })
+        },
         commentRerenderForce(){
             this.commentRerender +=1;
+        },
+
+        moveToUserpage(){
+            console.log("이동해")
         },
     },
 };

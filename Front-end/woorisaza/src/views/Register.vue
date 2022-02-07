@@ -26,10 +26,17 @@
                                                 프로필사진
                                                 <div style="text-align:center">
                                                     <div class="photo" style="display:inline-block"> 
-                                                        <br>
-                                                        기본 사진
-                                                        <br>
-                                                        <img src="@/assets/IDimage.png" alt="">
+                                                        <div v-if="image==null">
+                                                            <br><br>
+                                                            <img  src="@/assets/IDimage.png" alt="">
+                                                        </div>
+                                                        <div>
+                                                            <br>
+                                                            <img v-if="image!=null" :src="preImage" alt="" style="width : 140px; height:140px">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        <b-form-file v-model="image" plain @change="registerImage" accept=".jpg, .png"></b-form-file>
                                                     </div>
                                                 </div>
                                             </div>
@@ -71,6 +78,8 @@ export default {
             },
             accesstoken : this.$cookie.get("Raccesstoken"),
             postcode:null,
+            image : null,
+            preImage : null,
         };
     },
 
@@ -133,6 +142,7 @@ export default {
             }).open();
         },
         register(){
+            console.log(this.image)
             axios({
                 method : "post",
                 url : "http://localhost:8080/user/register",
@@ -142,6 +152,23 @@ export default {
                 data;
                 this.$router.push("/");
             })
+        },
+
+        registerImage(event){
+            var input = event.target;
+            if(input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onload = (e) =>{
+                    this.preImage = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+            console.log(event);
+            console.log(this.image);
+            const formData = new FormData();
+            formData.append('image', this.image);
+            console.log(formData);
         },
     },
 };
