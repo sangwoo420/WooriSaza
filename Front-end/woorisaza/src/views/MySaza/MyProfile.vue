@@ -41,7 +41,7 @@ export default {
       method : "get",
       url : "user/"+this.id,
     }).then(({data})=>{
-      // console.log(data)
+      console.log(data)
       this.profile = data.profile;
     })
   },
