@@ -21,7 +21,7 @@ export default {
     methods: {
         loginWithKakao() {
             const params = {
-                redirectUri: "http://localhost:8081/",
+                redirectUri: "http://i6c102.p.ssafy.io/",
             };
             window.Kakao.Auth.authorize(params);
         },

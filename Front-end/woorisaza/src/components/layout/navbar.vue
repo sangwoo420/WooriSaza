@@ -53,6 +53,7 @@
 
 <script>
 import axios from "axios"
+import {axios_contact} from "@/common.js"
 import Kakaologin from "@/components/layout/kakaoLogin.vue"
 
 export default {
@@ -70,7 +71,7 @@ export default {
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
-                    redirect_uri : "http://localhost:8081/",
+                    redirect_uri : "http://i6c102.p.ssafy.io/",
                     code : this.$route.query.code,
             },
             queryString : null,
@@ -146,9 +147,9 @@ export default {
                         },
                     }).then(({data})=>{
                         // console.log(data)
-                        axios({
+                        axios_contact({
                             method : "post",
-                            url : "http://localhost:8080/user/login",
+                            url : "/user/login",
                             data : {
                                 authid : data.id,
                             },
