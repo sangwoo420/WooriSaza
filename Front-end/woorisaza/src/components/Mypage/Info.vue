@@ -16,13 +16,23 @@
                 프로필사진
                 <div style="text-align:center">
                     <div class="photo" style="display:inline-block"> 
-                        사진 수정하기
+                        <div v-if="image==null">
+                            <br><br>
+                            <img  src="@/assets/IDimage.png" alt="">
+                        </div>
+                        <div>
+                            <br>
+                            <img v-if="image!=null" :src="preImage" alt="" style="width : 140px; height:140px">
+                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <b-form-file v-model="image" plain @change="registerImage" accept=".jpg, .png"></b-form-file>
                     </div>
                 </div>
             </div>
             <div class="mt-4" style="text-align:center">
                 <!-- 탈퇴 수정 버튼 -->
-                <b-button variant="secondary" class="mr-3">회원 탈퇴</b-button>
+                <b-button variant="secondary" class="mr-3" @click="deleteUser">회원 탈퇴</b-button>
                 <b-button variant="warning" class="ml-3">정보 수정</b-button>
             </div>
         </b-container>
@@ -31,6 +41,7 @@
 </template>
 
 <script>
+import {axios_contact} from "@/common.js"
 export default {
     name: 'Info',
 
@@ -39,7 +50,23 @@ export default {
             nickname : null,
             postcode:null,
             address : null,
+            id : this.$cookie.get("id"),
+            userProfile : null,
+            image : null,
+            preImage : null,
         };
+    },
+
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/user/"+this.id,
+        }).then(({data})=>{
+            console.log(data)
+            this.userProfile = data.profile;
+            this.nickname = this.userProfile.nickname;
+            this.address = this.userProfile.address;
+        })
     },
 
     mounted() {
@@ -87,6 +114,36 @@ export default {
                 },
             }).open();
         },
+
+        deleteUser(){
+            // console.log("응애 탈퇴")
+            axios_contact({
+                method : "delete",
+                url : "/user/delete",
+                data : {
+                    id : this.id
+                }
+            }).then(({data})=>{
+                console.log(data)
+            })
+        },
+
+        registerImage(event){
+            var input = event.target;
+            if(input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onload = (e) =>{
+                    this.preImage = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+            console.log(event);
+            console.log(this.image);
+            const formData = new FormData();
+            formData.append('image', this.image);
+            console.log(formData);
+        },
     },
 };
 </script>
@@ -111,8 +168,9 @@ export default {
     border-radius: 2em;
 }
 .photo{
-    background-color: gray;
+    background-color: white;
     width:180px;
     height: 180px;
+    border: 1px solid black;
 }
 </style>

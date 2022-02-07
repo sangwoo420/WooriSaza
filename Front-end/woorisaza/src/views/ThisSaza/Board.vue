@@ -32,7 +32,7 @@
 <script>
 import Article from "@/components/ThisSaza/Article.vue";
 import InfiniteLoading from "vue-infinite-loading";
-import axios from "axios"
+import {axios_contact} from "@/common.js"
 
 export default {
     name: 'Board',
@@ -69,9 +69,9 @@ export default {
         };
     },
     created() {
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/article?profileId="+this.profileId,
+            url : "/article?profileId="+this.profileId,
         }).then(({data})=>{
             // console.log(data)
             for (let index = 0; index < data.articleList.length; index++) {
@@ -109,7 +109,7 @@ export default {
         },
 
         searchByOption(){
-            let urlOption = "http://localhost:8080/article?profileId="+this.profileId;
+            let urlOption = "/article?profileId="+this.profileId;
             if(this.category !=null){
                 urlOption += "&category="+this.category;
             }
@@ -120,7 +120,7 @@ export default {
             this.printedArticleNo=[];
             this.articleNo=[];
             
-            axios({
+            axios_contact({
                 method : "get",
                 url : urlOption,
             }).then(({data})=>{

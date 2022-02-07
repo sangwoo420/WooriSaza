@@ -1,17 +1,17 @@
 <template>
     <div>
-        <!-- {{articleNo}} -->
+        <!-- {{comment}} -->
         <div class="box mt-3 p-3" style="cursor:pointer" @click="moveToArticle" >
             <b-row>
                 <b-col cols="8">
                     <div>
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" >물 24개 나누실 분</div>
-                        <div style="font-size:0.9em">그럼 아니겠어요?</div>
+                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" >글제목</div>
+                        <div style="font-size:0.9em">{{comment.content}}</div>
                     </div>
                 </b-col>
                 <b-col cols="4">
                     <div style="text-align:right" class="mt-5">
-                        <div style="font-size:1em;font-weight:bold;">2022.01.12</div>
+                        <div style="font-size:1em;font-weight:bold;">{{comment.createAt[0]}}.{{comment.createAt[1]}}.{{comment.createAt[2]}}</div>
                     </div>
                 </b-col>
             </b-row>
@@ -22,7 +22,9 @@
 <script>
 export default {
     name: 'Comment',
-    props:["commentNo"],
+    props:{
+        comment : Object
+    },
     data() {
         return {
             
@@ -35,7 +37,7 @@ export default {
 
     methods: {
         moveToArticle(){
-            console.log("게시글 페이지로 이동")
+            this.$router.push("/board/"+this.comment.articleId).catch(()=>{});
         },
     },
 };

@@ -84,11 +84,13 @@ export default {
     },
 
     created(){
+        const that = this;
         window.Kakao.Auth.setAccessToken(this.accesstoken);
         window.Kakao.API.request({
             url: '/v2/user/me',
             success: function(data) {
-                this.userProfile.id = data.id;
+                console.log(data)
+                that.userProfile.id = data.id;
             },
             fail: function(error) {
                 console.log(error);
@@ -144,10 +146,10 @@ export default {
             console.log(this.image)
             axios_contact({
                 method : "post",
-                url : "user/register",
+                url : "/user/register",
                 data : this.userProfile,
             }).then(({data})=>{
-                // console.log(data)
+                console.log(data)
                 data;
                 this.$router.push("/");
             })

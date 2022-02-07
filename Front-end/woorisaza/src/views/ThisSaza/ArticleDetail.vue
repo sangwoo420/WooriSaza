@@ -57,9 +57,10 @@
             
         </div>
         <!-- 찜버튼 + 참여하기 버튼 -->
-        <div style="text-align:right">
+        <div style="text-align:right" >
             <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
-            <b-button variant="warning" pill @click="requestParty">참여하기</b-button>
+            <b-button v-if="!inParty" variant="warning" pill @click="requestParty">참여하기</b-button>
+            <b-button v-if="inParty" variant="primary" pill @click="moveToPartyDetail">상세보기</b-button>
         </div>
         <!-- 글내용 -->
         <div class="mt-3">
@@ -118,7 +119,7 @@
 // import axios from "axios"
 // import ogs from "open-graph-scraper"
 // import {ogs} from "@/ogs.js"
-import axios from "axios"
+import {axios_contact} from "@/common.js"
 export default {
     name: 'Articledetail',
     data() {
@@ -131,20 +132,33 @@ export default {
             commentList : null,
             commentRerender : 0,
             id : this.$cookie.get("id"),
+            inParty : false,
         };
     },
     created() {
         // 이 부분은 글쓰기 부분에서 사진 필드에 바로 썸네일 사진 링크 넣어주기
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/article/"+this.articleNo,
+            url : "/article/"+this.articleNo,
         }).then(({data})=>{
+            // const that = this;
             this.article = data.article;
+            axios_contact({
+                method : "get",
+                url : "/party?partyId="+this.article.partyId,
+            }).then(({data})=>{
+                // console.log(data)
+                for (let index = 0; index < data.length; index++) {
+                    if(this.id == data[index].profileId){
+                        this.inParty=true;
+                    }
+                }
+            })
         })
 
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/comment?articleId="+this.articleNo,
+            url : "/comment?articleId="+this.articleNo,
         }).then(({data})=>{
             // console.log(data)
             this.commentList=data.commentList;
@@ -152,11 +166,11 @@ export default {
                 // console.log(this.commentList[index])
                 let nickname;
                 let pic;
-                axios({
+                axios_contact({
                     method : "get",
-                    url : "http://localhost:8080/user/"+this.commentList[index].profileId,
+                    url : "/user/"+this.commentList[index].profileId,
                 }).then(({data})=>{
-                    console.log(data)
+                    // console.log(data)
                     nickname = data.profile.nickname;
                     pic = data.profile.pic;
                     // console.log(nickname)
@@ -191,9 +205,9 @@ export default {
 
         registerComment(){
             console.log(this.comment+"등록해")
-            axios({
+            axios_contact({
                 method : "post",
-                url : "http://localhost:8080/comment",
+                url : "/comment",
                 data : {
                     "articleId": this.articleNo,
                     "content": this.comment,
@@ -201,15 +215,16 @@ export default {
                     "profileId": this.$cookie.get("id"),
                 },
             }).then(({data})=>{
-                console.log(data)
+                // console.log(data)
+                data
                 this.$router.go();
             })
         },
 
         deleteComment(comment){
-            axios({
+            axios_contact({
                 method : "delete",
-                url : "http://localhost:8080/comment/"+comment.id,
+                url : "/comment/"+comment.id,
             }).then(({data})=>{
                 console.log(data);
                 this.$router.go();
@@ -217,10 +232,15 @@ export default {
         },
         commentRerenderForce(){
             this.commentRerender +=1;
-        },
+        }, 
 
         moveToUserpage(){
-            console.log("이동해")
+            // console.log("이동해")
+            this.$router.push("/mysaza/"+this.id).catch(()=>{});
+        },
+
+        moveToPartyDetail(){
+            this.$router.push("/partydetail/"+this.article.partyId).catch(()=>{});
         },
     },
 };
@@ -233,6 +253,14 @@ export default {
     font-size : 0.5em;
     padding: 0.5em;
     border-color: #F1A501;
+}
+
+.btn-primary{
+    width : 8em;
+    background-color: #61C5FE  ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: #61C5FE ;
 }
 
 .btn-secondary{

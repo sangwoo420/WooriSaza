@@ -1,25 +1,38 @@
 <template>
     <div>
         <!-- 내가 쓴 댓글 -->
-        <div v-for="(item, index) in commentNo" :key="index">
-            <Comment :commentNo="item"></Comment>
+        <div v-for="(item, index) in comments" :key="index">
+            <Comment :comment="item"></Comment>
         </div>
     </div>
 </template>
 
 <script>
 import Comment from "@/components/MySaza/Comment/Comment.vue";
+import {axios_contact} from "@/common.js"
+
 export default {
-    name: 'Memberofparty',
+    name: 'Comments',
     components:{
         Comment,
     },
     data() {
         return {
-            commentNo:[1,2,3,4,5,6,7,8,9,10],
+            comments:[],
+            id : this.$cookie.get("id")
         };
     },
 
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/comment/"+this.id,
+        }).then(({data})=>{
+            for (let index = 0; index < data.myCommentList.length; index++) {
+                this.comments.push(data.myCommentList[index])
+            }
+        })
+    },
     mounted() {
         
     },
