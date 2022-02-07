@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import project.woori_saza.model.domain.ChatMessage;
 import project.woori_saza.model.domain.ChatRoom;
 import project.woori_saza.model.domain.MessageType;
@@ -39,7 +40,7 @@ public class ChatController {
      * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
      */
     @MessageMapping("/chat/message")
-    public void message(ChatMessageDto message, @RequestBody String userNickname) {
+    public void message(ChatMessageDto message, @RequestParam String userNickname) {
 
         // TODO: dto로 받아온 채팅 메시지 DB저장
         ChatRoom chatRoom = chatRoomRepo.getById(message.getRoomId());
@@ -52,6 +53,7 @@ public class ChatController {
             // TODO: 퇴장 만들기
 //            chatService.deleteById(message.getChatRoom());
         }
+        chatMessageRepo.save(chatMessage);
         chatRoom.addChatMessages(chatMessage);
 
         // Websocket에 발행된 메시지를 redis로 발행한다(publish)
