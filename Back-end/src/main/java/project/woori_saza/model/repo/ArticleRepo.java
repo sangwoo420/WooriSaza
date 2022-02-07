@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ArticleRepo extends JpaRepository<Article, Long>, ArticleRepoSupport{
 
-    List<Article> findAllOrderByCreatedAtDesc();
+    List<Article> findAllByOrderByCreatedAtDesc();
 
     List<Article> findByUserProfileOrderByCreatedAtDesc(UserProfile userProfile);
 

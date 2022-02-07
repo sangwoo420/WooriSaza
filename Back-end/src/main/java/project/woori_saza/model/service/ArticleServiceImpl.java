@@ -62,7 +62,7 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = null;
         //1. 전부 없을때
         if (category == null && range == null && keyword == null) {
-            articles = articleRepo.findAllOrderByCreatedAtDesc();
+            articles = articleRepo.findAllByOrderByCreatedAtDesc();
         }
         //2. 카테고리만 있을때
         else if (range == null && keyword == null) {
