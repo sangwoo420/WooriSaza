@@ -2,6 +2,7 @@ package project.woori_saza.model.service;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
@@ -142,6 +143,7 @@ public class ArticleServiceImpl implements ArticleService {
         ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
         chatRoomRepo.save(chatRoom);
         chatRoomJoinRepo.save(chatRoomJoin);
+        System.out.println("topic: "+chatRoomService.getTopic(chatRoom.getId()));
 
         return new ArticleResponseDto(article);
     }

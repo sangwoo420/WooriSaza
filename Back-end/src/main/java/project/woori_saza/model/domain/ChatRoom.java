@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import project.woori_saza.pubsub.RedisPublisher;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -46,9 +47,9 @@ public class ChatRoom implements Serializable{
         chatRoom.count = 1;
         return chatRoom;
     }
-//
-//    public void addChatMessages(ChatMessage chatMessage){
-//        this.chatMessageList.add(chatMessage);
-//    }
+
+    public void addChatMessages(ChatMessage chatMessage){
+        this.chatMessageList.add(chatMessage);
+    }
 
 }
