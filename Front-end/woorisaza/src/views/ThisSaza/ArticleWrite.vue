@@ -75,6 +75,8 @@
 
 <script>
 import axios from "axios"
+import {axios_contact} from "@/common.js"
+
 export default {
     name: 'Articlewrite',
 
@@ -192,9 +194,9 @@ export default {
         articleRegister(){
             console.log("글 쓰즈아~")
             console.log(this.articleAndParty)
-            axios({
+            axios_contact({
                 method : "post",
-                url : "http://localhost:8080/article",
+                url : "/article",
                 data : {
                     "amount": this.articleAndParty.amount,
                     "category": this.articleAndParty.category,
