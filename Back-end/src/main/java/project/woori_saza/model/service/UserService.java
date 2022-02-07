@@ -7,7 +7,7 @@ public interface UserService {
     UserProfileDto login(String userAuthId);
  //   UserProfileDto register(UserProfileDto userProfileDto, MultipartFile multipartFile) throws Exception;
     UserProfileDto register(UserProfileDto userProfileDto);
-    void upload(MultipartFile multipartFile) throws Exception;
+    String upload(MultipartFile uploadFile) throws Exception;
     UserProfileDto update(UserProfileDto userProfileDto);
     void delete(UserProfileDto userProfileDto);
 

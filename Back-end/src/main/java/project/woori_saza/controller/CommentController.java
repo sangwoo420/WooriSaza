@@ -51,7 +51,6 @@ public class CommentController {
     public ResponseEntity<Map<String, Object>> getMyCommentList(@PathVariable("profileId")
                                                                 @ApiParam(value = "내 프로필아이디", example = "hashwoori", required = true) String profileId) {
 
-
         Map<String, Object> result = new HashMap<>();
         List<CommentDto> myCommentList = null;
         HttpStatus status = null;

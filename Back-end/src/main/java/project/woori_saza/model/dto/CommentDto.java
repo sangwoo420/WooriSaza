@@ -25,7 +25,8 @@ public class CommentDto {
     private Long articleId;
     @ApiModelProperty(value = "댓글을 작성한 시간", example = "2022-01-02", required = true)
     private LocalDateTime createAt;
-
+    @ApiModelProperty(value = "글 제목", example = "title", required = true)
+    private String title;
 
 
     public CommentDto(Comment comment){
@@ -34,5 +35,6 @@ public class CommentDto {
         this.articleId = comment.getArticle().getId();
         this.profileId = comment.getUserProfile().getId();
         this.createAt=comment.getCreateAt();
+        this.title=comment.getArticle().getTitle();
     }
 }

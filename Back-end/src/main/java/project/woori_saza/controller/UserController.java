@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.domain.UserAuth;
 import project.woori_saza.model.domain.UserProfile;
+import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.UserProfileDto;
 import project.woori_saza.model.service.UserService;
 import project.woori_saza.model.service.UserServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -67,38 +69,21 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 
-    //    @ApiOperation(value = "회원가입")
-//    @PostMapping("/register")
-//    public ResponseEntity<Map<String, Object>> register(@RequestPart UserProfileDto userProfileDto, @RequestPart(required = false) MultipartFile multipartFile) throws Exception {
-//        Map<String, Object> result = new HashMap<>();
-//        HttpStatus status = null;
-//        try {
-//            System.out.println("여기오나?"+multipartFile.getOriginalFilename());
-//            userProfileDto = userService.register(userProfileDto,multipartFile);
-//            result.put("profile", userProfileDto);
-//            status = HttpStatus.OK;
-//        } catch (RuntimeException e) {
-//            e.printStackTrace();
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<Map<String, Object>>(result, status);
-//    }
-
     @ApiOperation(value = "회원 사진 업로드")
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, Object>> register(@RequestPart(required = false) MultipartFile multipartFile) throws Exception {
+    public ResponseEntity<Map<String, Object>> register(@RequestPart(required = false) MultipartFile uploadFile) throws Exception {
+
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = null;
         try {
-            userService.upload(multipartFile);
+            String url=userService.upload(uploadFile);
             status = HttpStatus.OK;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("url",url);
+            result.put("success", true);
         } catch (Exception e) {
             e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
         }
         return new ResponseEntity<Map<String, Object>>(result, status);
     }

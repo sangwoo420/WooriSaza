@@ -2,10 +2,8 @@ package project.woori_saza.model.service;
 
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -49,6 +47,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     CommentRepo commentRepo;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
+
     @Override
     public UserProfileDto login(String userAuthId) {
         UserAuth userAuth = userAuthRepo.getById(hashEncoder.encode(userAuthId));
@@ -72,6 +74,7 @@ public class UserServiceImpl implements UserService {
         userProfile.setLat(lnglat[1]);
         userProfile.setScore(0);
         userProfile.setCnt(0);
+        userProfile.setPic(userProfileDto.getPic());
 
         userProfile = userProfileRepo.save(userProfile);
 
@@ -79,98 +82,45 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    //    @Override
-//    public UserProfileDto register(UserProfileDto userProfileDto, MultipartFile multipartFile) throws Exception {
-//
-//        UserAuth userAuth = new UserAuth(hashEncoder.encode(userProfileDto.getId()), false, null);
-//        userAuth = userAuthRepo.save(userAuth);
-//
-//        UserProfile userProfile = new UserProfile(userProfileDto);
-//        userProfile.setId(hashEncoder.encode(userAuth.getId())); // double hashed id
-//        userProfile.setUserAuth(userAuth);
-//        userProfile.setJoinDate(LocalDateTime.now());
-//        Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfile.getAddress());
-//        userProfile.setLng(lnglat[0]);
-//        userProfile.setLat(lnglat[1]);
-//        userProfile.setScore(0);
-//        userProfile.setCnt(0);
-//
-//        //파일 저장
-//        if(multipartFile==null){
-//            userProfile.setPic(null);
-//        }else{
-//            //저장경로
-//            //  String savePath="i6c102.p.ssafy.io"+separ+"home"+separ+"ubuntu"+separ+"images";
-//            //   String savePath="i6c102.p.ssafy.io"+separ+"images";
-//           // String savaPath="http://i6c102.p.ssafy.io/upload";
-//            // "/home/ubuntu/images/"
-//            // 파일 정보
-//            String originFilename = multipartFile.getOriginalFilename();
-//            String extension = originFilename.substring(originFilename.length()-3);
-//
-//            if(!(extension.equals("jpg") || extension.equals("png"))){
-//                throw new FileUploadException("파일 확장자가 jpg나 png가 아닙니다.");
-//            }
-//            //파일이름 랜덤으로 만들기
-//            String saveFileName = UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
-//            System.out.println("랜덤이름 출력"+saveFileName);
-//         //      String filePath=savaPath+saveFileName;
-//
-////            HttpHeaders headers = new HttpHeaders();
-////            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-////
-////            MultiValueMap<String, Object> body= new LinkedMultiValueMap<>();
-////            body.add("file", getTestFile());
-////
-////            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-////
-////            String serverUrl = "http://localhost:8082/spring-rest/fileserver/singlefileupload/";
-////
-////            RestTemplate restTemplate = new RestTemplate();
-////            ResponseEntity<String> response = restTemplate
-////                    .postForEntity(serverUrl, requestEntity, String.class);
-//
-//
-//            // 파일 이름은 db에 저장
-//            userProfile.setPic(saveFileName);
-//        }
-//        userProfile = userProfileRepo.save(userProfile);
-//
-//        return new UserProfileDto(userProfile);
-//    }
-
-
     @Override
-    public void upload(MultipartFile multipartFile) throws Exception {
+    public String upload(MultipartFile uploadFile) throws Exception {
 
             // 파일 정보
-            String originFilename = multipartFile.getOriginalFilename(); //파일이름
+            String originFilename = uploadFile.getOriginalFilename(); //파일이름
             String extension = originFilename.substring(originFilename.length()-3); //확장자
 
             // 사진인지 체크
-            if(!(extension.equals("jpg") || extension.equals("png"))){
+            if(!(extension.equals("jpg") || extension.equals("png")|| extension.equals("PNG")|| extension.equals("JPG"))){
                 throw new FileUploadException("파일 확장자가 jpg나 png가 아닙니다.");
             }
            //파일이름 랜덤으로 만들기
-            String saveFileName = UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
-            System.out.println("랜덤이름 출력"+saveFileName);
-          //      String filePath=savaPath+saveFileName;
-//
+            String url="/profile/";
+            String saveFileName =UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
+            String saveFileName2=url+saveFileName;
+            System.out.println("랜덤이름 출력할래 "+saveFileName2);
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+            //파일 바이트
+            ByteArrayResource fileAsResource = new ByteArrayResource(uploadFile.getBytes()){
+                @Override
+                public String getFilename() {
+                    return saveFileName2;
+                }
+            };
 
-            MultiValueMap<String, Object> body= new LinkedMultiValueMap<>();
-            body.add("file", multipartFile.getResource());
+            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+            body.add("uploadFile", fileAsResource); //파일 바이트 저장
+            body.add("parentPath","profile");
 
+            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-//           HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-//
-//           String serverUrl = "http://i6c102.p.ssafy.io:3000/upload";
-//
-//            RestTemplate restTemplate = new RestTemplate();
-//            ResponseEntity<String> response = restTemplate
-//                    .postForEntity(serverUrl, requestEntity, String.class);
+           String serverUrl = "http://i6c102.p.ssafy.io:3000/upload";
 
+           ResponseEntity<String> response = restTemplate
+                    .postForEntity(serverUrl, requestEntity, String.class);
+
+           return "http://i6c102.p.ssafy.io/images"+saveFileName2;
 
     }
 
@@ -205,9 +155,7 @@ public class UserServiceImpl implements UserService {
             comment.setUserProfile(null);
             commentRepo.save(comment);
         }
-
         userProfileRepo.delete(user);
-
     }
 
     @Override

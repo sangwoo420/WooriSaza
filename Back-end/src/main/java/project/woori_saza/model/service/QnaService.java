@@ -11,7 +11,8 @@ public interface QnaService {
     List<QnaDto> getMyQnaList(String profileId);
     List<QnaDto> getQnaList();
     QnaDto getQnaDetail(Long qnaId);
-    void insertQna(QnaDto qnaDto, List<MultipartFile>multipartFiles) throws Exception;
+    void insertQna(QnaDto qnaDto) throws Exception;
+    List<String> upload(List<MultipartFile> uploadFiles) throws Exception;
     void updateQna(QnaDto qnaDto);
     void deleteQna(Long qnaId);
     void insertQnaComment(QnaDto qnaDto);

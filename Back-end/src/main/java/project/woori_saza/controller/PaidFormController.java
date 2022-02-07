@@ -40,12 +40,12 @@ public class PaidFormController {
     }
 
     @ApiOperation(value = "결제 인증 폼 작성", notes = "결제 인증 폼을 작성한다.")
-    @PostMapping
-    public ResponseEntity<Map<String, Object>> insert(@RequestPart @ApiParam(value = "인증폼 작성 모델") PaidFormRequestDto paidFormRequestDto, @RequestPart(required = false) MultipartFile multipartFile) {
+    @PostMapping public ResponseEntity<Map<String, Object>> insert(@RequestBody @ApiParam(value = "인증폼 작성 모델") PaidFormRequestDto paidFormRequestDto) {
+
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            paidFormService.insertPaidForm(paidFormRequestDto,multipartFile);
+            paidFormService.insertPaidForm(paidFormRequestDto);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (Exception e) {
@@ -54,6 +54,28 @@ public class PaidFormController {
         }
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
+
+
+    @ApiOperation(value = "신청서 사진 업로드")
+    @PostMapping("/upload")
+    public ResponseEntity<Map<String, Object>> register(@RequestPart(required = false) MultipartFile uploadFile) throws Exception {
+
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            String url=paidFormService.upload(uploadFile);
+            status = HttpStatus.OK;
+            result.put("url",url);
+            result.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
+
 
     @ApiOperation(value = "결제 인증 폼 수정", notes = "결제 인증 폼을 수정한다.", response = Map.class)
     @PutMapping("/{paidFormId}")

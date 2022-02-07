@@ -79,18 +79,39 @@ public class QnaController {
 
     @ApiOperation(value = "1:1 문의 작성", notes = "회원이 1:1 문의글을 작성한다.")
     @PostMapping
-    public ResponseEntity<String> insertQna(@RequestPart @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto, @RequestPart(required = false) List<MultipartFile> multipartFiles) {
+    public ResponseEntity<String> insertQna(@RequestBody @ApiParam(value = "1:1 문의 작성 모델") QnaDto qnaDto) {
         HttpStatus status = null;
         try {
-            qnaService.insertQna(qnaDto,multipartFiles);
+            qnaService.insertQna(qnaDto);
             status = HttpStatus.OK;
-        } catch (RuntimeException e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
         } catch (Exception e) {
             e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);
     }
+
+
+    @ApiOperation(value = "회원 사진 업로드")
+    @PostMapping("/upload")
+    public ResponseEntity<Map<String, Object>> register(@RequestPart(required = false) List<MultipartFile> uploadFiles) throws Exception {
+
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            List<String> url=qnaService.upload(uploadFiles);
+            status = HttpStatus.OK;
+            result.put("url",url);
+            result.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
+
 
     @ApiOperation(value = "1:1 문의 수정", notes = "회원이 자신이 작성한 1:1 문의를 수정한다.")
     @PutMapping
