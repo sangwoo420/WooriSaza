@@ -84,7 +84,4 @@ public class UserProfile implements Serializable {
     @OneToMany(mappedBy = "userProfile")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userProfile")
-    private List<ChatMessage> chatMessageList = new ArrayList<>();
-
 }

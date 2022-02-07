@@ -1,9 +1,6 @@
 package project.woori_saza.model.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "chat_message")
@@ -29,15 +26,29 @@ public class ChatMessage {
     private String content;
 
     @NotNull
+    private String sender;
+
+    @NotNull
     private LocalDateTime time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="profile_id")
-    private UserProfile userProfile;
+    public static ChatMessage createChatMessage(ChatRoom chatRoom, MessageType type, String content, String sender, LocalDateTime time){
+        ChatMessage chatMessage = ChatMessage.builder()
+                .chatRoom(chatRoom)
+                .type(type)
+                .content(content)
+                .sender(sender)
+                .time(time)
+                .build();
+        return chatMessage;
+    }
 
+    // 입장, 퇴장 메시지 변경을 위해
+    public void setContent(String content){
+        this.content=content;
+    }
 
 }
