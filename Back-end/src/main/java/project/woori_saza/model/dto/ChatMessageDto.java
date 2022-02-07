@@ -11,15 +11,11 @@ public class ChatMessageDto {
 
     private MessageType type;
     private String content;
-    private LocalDateTime time;
     private String roomId;
-    private String sender;
 
     public ChatMessageDto(ChatMessage chatMessage) {
         this.type = chatMessage.getType();
         this.content = chatMessage.getContent();
-        this.time = chatMessage.getTime();
         this.roomId = chatMessage.getChatRoom().getId();
-        this.sender = chatMessage.getSender();
     }
 }

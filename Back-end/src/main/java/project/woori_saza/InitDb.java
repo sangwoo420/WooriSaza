@@ -1,66 +1,66 @@
-//package project.woori_saza;
-//
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-//import org.springframework.transaction.annotation.Transactional;
-//import project.woori_saza.model.domain.*;
-//import project.woori_saza.model.repo.*;
-//
-//import javax.annotation.PostConstruct;
-//import java.time.LocalDateTime;
-//import java.util.ArrayList;
-//
-//@Component
-//@RequiredArgsConstructor
-//public class InitDb {
-//    private final InitService initService;
-//
-//    @PostConstruct
-//    public void init() {
-//        initService.dbInit1();
-//    }
-//
-//    @Component
-//    @Transactional
-//    @RequiredArgsConstructor
-//    static class InitService {
-//
-//        @Autowired
-//        UserAuthRepo userAuthRepo;
-//        @Autowired
-//        UserProfileRepo userProfileRepo;
-//        @Autowired
-//        CommentRepo commentRepo;
-//        @Autowired
-//        ReviewRepo reviewRepo;
-//        @Autowired
-//        QnaRepo qnaRepo; // 삭제
-//        @Autowired
-//        ZzimRepo zzimRepo; // 삭제
-//        @Autowired
-//        ArticleRepo articleRepo;
-//
-//        @Autowired
-//        PartyRepo partyRepo; // 삭제
-//        @Autowired
-//        MemberInfoRepo memberInfoRepo; // 삭제
-//        @Autowired
-//        PaidFormRepo paidFormRepo; // 삭제
-//        @Autowired
-//        ChatRoomRepo chatRoomRepo;
-//
-//        public void dbInit1() {
+package project.woori_saza;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import project.woori_saza.model.domain.*;
+import project.woori_saza.model.repo.*;
+
+import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+@Component
+@RequiredArgsConstructor
+public class InitDb {
+    private final InitService initService;
+
+    @PostConstruct
+    public void init() {
+        initService.dbInit1();
+    }
+
+    @Component
+    @Transactional
+    @RequiredArgsConstructor
+    static class InitService {
+
+        @Autowired
+        UserAuthRepo userAuthRepo;
+        @Autowired
+        UserProfileRepo userProfileRepo;
+        @Autowired
+        CommentRepo commentRepo;
+        @Autowired
+        ReviewRepo reviewRepo;
+        @Autowired
+        QnaRepo qnaRepo; // 삭제
+        @Autowired
+        ZzimRepo zzimRepo; // 삭제
+        @Autowired
+        ArticleRepo articleRepo;
+
+        @Autowired
+        PartyRepo partyRepo; // 삭제
+        @Autowired
+        MemberInfoRepo memberInfoRepo; // 삭제
+        @Autowired
+        PaidFormRepo paidFormRepo; // 삭제
+        @Autowired
+        ChatRoomRepo chatRoomRepo;
+
+        public void dbInit1() {
 //            UserAuth userAuth = new UserAuth("ssafyid", false, null);
 //            userAuthRepo.save(userAuth);
 //
 //            UserAuth userAuth2 = new UserAuth("wooriid", false, null);
 //            userAuthRepo.save(userAuth2);
 //
-//            UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48",126.9130945,35.1780739, "kim1", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null,null,null);
+//            UserProfile user = new UserProfile("hashssafy", "광주광역시 북구 면앙로6번길 48",126.9130945,35.1780739, "kim1", LocalDateTime.now(), null, null, null, null, userAuth, null, null, null, null, new ArrayList<>(), null,null);
 //            userProfileRepo.save(user);
 //
-//            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가",0.0,0.0, "Lee1", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null, null,null);
+//            UserProfile user2 = new UserProfile("hashwoori", "서울특별시 종로구 종로1가",0.0,0.0, "Lee1", LocalDateTime.now(), null, null, null, null, userAuth2, null, null, null, null, new ArrayList<>(), null, null);
 //            userProfileRepo.save(user2);
 //
 //            Party party = new Party(1L, false, LocalDateTime.now(), "ss", 10000, 40, 4, 5, false, 50,null, null,null);
@@ -113,12 +113,10 @@
 //
 //            MemberInfo memberInfo2 = new MemberInfo(null,false,1,2500,"카카오페이",false,false,user,party2);
 //            memberInfoRepo.save(memberInfo2);
-//
-//
-//
-//        }
-//
-//    }
-//
-//
-//}
+
+        }
+
+    }
+
+
+}

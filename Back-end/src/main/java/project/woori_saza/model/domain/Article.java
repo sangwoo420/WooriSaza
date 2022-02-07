@@ -32,7 +32,7 @@ public class Article implements Serializable {
     private LocalDateTime createdAt;
 
     @NotNull
-    @Column(length = 50000)
+//    @Column(length = 50000)
     private String link;
 
     @ElementCollection
