@@ -1,16 +1,19 @@
 package project.woori_saza.controller;
 
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.domain.ChatRoom;
+import project.woori_saza.model.dto.ChatRoomDto;
 import project.woori_saza.model.service.ChatRoomService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -42,15 +45,15 @@ public class ChatRoomController {
     @GetMapping("/room/enter/{roomId}")
     public ResponseEntity<Map<String, Object>> roomDetail(@PathVariable String roomId) {
         Map<String, Object> result = new HashMap<>();
-        ChatRoom chatRoom = null;
+        ChatRoomDto chatRoom = null;
         HttpStatus httpStatus = null;
 
         try{
             // 방들어가기
             chatRoom = chatRoomService.findRoomByRoomID(roomId);
-            System.out.println(chatRoom.getName());
+            System.out.println("roomName: " + chatRoom.getName());
             // TODO: 과거 채팅 내역 보여주기
-            System.out.println(chatRoom.getChatMessageList());
+            System.out.println("msgLis: "+chatRoom.getChatMessageList());
             httpStatus = HttpStatus.OK;
         }catch (RuntimeException e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;

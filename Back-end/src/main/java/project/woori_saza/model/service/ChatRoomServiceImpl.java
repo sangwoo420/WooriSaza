@@ -8,16 +8,13 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.*;
+import project.woori_saza.model.dto.ChatRoomDto;
+import project.woori_saza.model.repo.ChatRoomRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 import project.woori_saza.pubsub.RedisSubscriber;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static project.woori_saza.model.domain.QArticle.article;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -26,21 +23,26 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     @Autowired
     UserProfileRepo userProfileRepo;
 
+    @Autowired
+    ChatRoomRepo chatRoomRepo;
+
     // 채팅방(topic)에 발행되는 메시지를 처리할 Listner
     private final RedisMessageListenerContainer redisMessageListener;
     // 구독 처리 서비스
     private final RedisSubscriber redisSubscriber;
-    // Redis
-    private static final String CHAT_ROOMS = "CHAT_ROOM";
-    private final RedisTemplate<String, Object> redisTemplate;
-    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
+
+//    // Redis
+//    private static final String CHAT_ROOMS = "CHAT_ROOM";
+//    private final RedisTemplate<String, Object> redisTemplate;
+//    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
+
     // 채팅방의 대화 메시지를 발행하기 위한 redis topic 정보. 서버별로 채팅방에 매치되는 topic정보를 Map에 넣어 roomId로 찾을수 있도록 한다.
     private Map<String, ChannelTopic> topics;
 
     @PostConstruct
     @Override
     public void init() {
-        opsHashChatRoom = redisTemplate.opsForHash();
+//        opsHashChatRoom = redisTemplate.opsForHash();
         topics = new HashMap<>();
     }
 
@@ -60,11 +62,14 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     // 채팅방 이름 가져오기
     @Override
-    public ChatRoom findRoomByRoomID(String roomId) {
-        return opsHashChatRoom.get(CHAT_ROOMS, roomId);
+    public ChatRoomDto findRoomByRoomID(String roomId) {
+        ChatRoom findChatRoom = chatRoomRepo.getById(roomId);
+        ChatRoomDto chatRoomDto = new ChatRoomDto(findChatRoom);
+        return chatRoomDto;
+//        return opsHashChatRoom.get(CHAT_ROOMS, roomId);
     }
 
-    //  채팅방 생성 (article에서)
+    //  채팅방 생성 (article에서) - 파티장만
     /**
      * 채팅방 생성 : 서버간 채팅방 공유를 위해 redis hash에 저장한다.
      */
@@ -72,7 +77,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     public ChatRoom createChatRoom(Article article) {
         ChatRoom chatRoom = ChatRoom.create(article.getTitle());
         chatRoom.setArticle(article);
-        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getId(), chatRoom);
+//        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getId(), chatRoom);
         return chatRoom;
     }
 
@@ -84,11 +89,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     public ChatRoomJoin createChatRoomJoin(ChatRoom chatRoom, UserProfile user){
         ChatRoomJoin chatRoomJoin = ChatRoomJoin.create(chatRoom,user);
 
-//        ChatMessage chatMessage = new ChatMessage();
-//        chatMessage.setChatRoom(chatRoom);
-//        chatMessage.setUserProfile(user);
-//        chatMessage.setContent(user.getNickname()+"님이 입장하셨습니다.");
-
+        // 토픽 생성
         ChannelTopic topic = topics.get(chatRoom.getId());
         if (topic == null)
             topic = new ChannelTopic(chatRoom.getId());
