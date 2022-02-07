@@ -15,6 +15,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
  public class PartyDto {
+
+    //article
+    @ApiModelProperty(value = "게시판 아이디", example = "1", required = true)
+    private Long articleId; //게시판아이디
+
     //userProfile
     @ApiModelProperty(value = "프로필 아이디", example = "hashwoori", required = true)
     private String profileId; //프로필아이디
@@ -53,6 +58,8 @@ import java.time.LocalDateTime;
     private Boolean isConfirmed; //파티원 구매확정여부
 
     public PartyDto(UserProfile userProfile,Party party, MemberInfo memberInfo){
+        //==userprofile==//
+        articleId=party.getArticle().getId();
         //==userprofile==//
         address=userProfile.getAddress();
         nickname=userProfile.getNickname();
