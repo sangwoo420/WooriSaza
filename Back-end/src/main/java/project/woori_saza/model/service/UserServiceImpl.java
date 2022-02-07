@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
         UserProfile user = userProfileRepo.getById(userProfileDto.getId()); // hashwoori
 
         /* 회원과 관련된 글 목록과 댓글의 연관관계 끊기, 나머지는 삭제 */
-        List<Article> articleList = articleRepo.findByUserProfile(user);
+        List<Article> articleList = articleRepo.findByUserProfileOrderByCreatedAtDesc(user);
         for (Article article : articleList) {
             article.setUserProfile(null);
             articleRepo.save(article);
