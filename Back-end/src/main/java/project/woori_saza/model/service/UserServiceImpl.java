@@ -153,15 +153,16 @@ public class UserServiceImpl implements UserService {
             }
            //파일이름 랜덤으로 만들기
             String saveFileName = UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
-//            System.out.println("랜덤이름 출력"+saveFileName);
+            System.out.println("랜덤이름 출력"+saveFileName);
           //      String filePath=savaPath+saveFileName;
 //
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-//
-//           MultiValueMap<String, Object> body= new LinkedMultiValueMap<>();
-//           body.add("file", multipartFile.getResource());
-//
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+            MultiValueMap<String, Object> body= new LinkedMultiValueMap<>();
+            body.add("file", multipartFile.getResource());
+
+
 //           HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 //
 //           String serverUrl = "http://i6c102.p.ssafy.io:3000/upload";
