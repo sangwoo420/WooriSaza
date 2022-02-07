@@ -47,14 +47,15 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 
+
+
     @ApiOperation(value = "회원가입")
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestPart UserProfileDto userProfileDto, @RequestPart(required = false) MultipartFile multipartFile) throws Exception {
+    public ResponseEntity<Map<String, Object>> register(@RequestBody UserProfileDto userProfileDto) throws Exception {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = null;
         try {
-            System.out.println("여기오나?"+multipartFile.getOriginalFilename());
-            userProfileDto = userService.register(userProfileDto,multipartFile);
+            userProfileDto = userService.register(userProfileDto);
             result.put("profile", userProfileDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
@@ -65,6 +66,44 @@ public class UserController {
         }
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
+
+    //    @ApiOperation(value = "회원가입")
+//    @PostMapping("/register")
+//    public ResponseEntity<Map<String, Object>> register(@RequestPart UserProfileDto userProfileDto, @RequestPart(required = false) MultipartFile multipartFile) throws Exception {
+//        Map<String, Object> result = new HashMap<>();
+//        HttpStatus status = null;
+//        try {
+//            System.out.println("여기오나?"+multipartFile.getOriginalFilename());
+//            userProfileDto = userService.register(userProfileDto,multipartFile);
+//            result.put("profile", userProfileDto);
+//            status = HttpStatus.OK;
+//        } catch (RuntimeException e) {
+//            e.printStackTrace();
+//            status = HttpStatus.INTERNAL_SERVER_ERROR;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ResponseEntity<Map<String, Object>>(result, status);
+//    }
+
+    @ApiOperation(value = "회원 사진 업로드")
+    @PostMapping("/upload")
+    public ResponseEntity<Map<String, Object>> register(@RequestPart(required = false) MultipartFile multipartFile) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            userService.upload(multipartFile);
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
+
 
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 수정한다. 닉네임, 주소, 프로필 사진을 변경할 수 있다.")
     @PutMapping("/update")
