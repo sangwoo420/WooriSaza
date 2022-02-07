@@ -19,7 +19,7 @@ export default {
     data() {
         return {
             comments:[],
-            id : this.$cookie.get("id")
+            id : this.$params.id
         };
     },
 

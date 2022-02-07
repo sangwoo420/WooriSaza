@@ -133,6 +133,7 @@ export default {
             commentRerender : 0,
             id : this.$cookie.get("id"),
             inParty : false,
+            bossId : null,
         };
     },
     created() {
@@ -151,6 +152,9 @@ export default {
                 for (let index = 0; index < data.length; index++) {
                     if(this.id == data[index].profileId){
                         this.inParty=true;
+                    }
+                    if(data[index].isBoss){
+                        this.bossId = data[index].profileId;
                     }
                 }
             })
@@ -236,7 +240,7 @@ export default {
 
         moveToUserpage(){
             // console.log("이동해")
-            this.$router.push("/mysaza/"+this.id).catch(()=>{});
+            this.$router.push("/mysaza/"+this.bossId).catch(()=>{});
         },
 
         moveToPartyDetail(){

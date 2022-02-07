@@ -11,7 +11,7 @@
         </div>
         
         <div class="mt-3">
-            <b-button variant="warning" @click="toPartyDetail">결제하기</b-button>
+            <b-button variant="warning" @click="toPartyDetail">상세정보 보기</b-button>
         </div>
     </div>
 </template>
@@ -34,7 +34,7 @@ export default {
 
     methods: {
         toPartyDetail(){
-            console.log(11)
+            console.log("상세정보로 가!")
         }
     },
 };

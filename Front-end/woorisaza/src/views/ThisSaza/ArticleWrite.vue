@@ -185,15 +185,15 @@ export default {
                         "Authorization" : "Basic dG9teTk3MjlAbmF2ZXIuY29tOjhUYkdka2MxVnE3bnBYTzcyMkpC",
                     },
                 }).then(({data})=>{
-                    console.log(data)
+                    // console.log(data)
                     that.articleAndParty.pic.push(data.meta.image)
                 })
             })
         },
 
         articleRegister(){
-            console.log("글 쓰즈아~")
-            console.log(this.articleAndParty)
+            // console.log("글 쓰즈아~")
+            // console.log(this.articleAndParty)
             axios_contact({
                 method : "post",
                 url : "/article",
@@ -213,9 +213,11 @@ export default {
                     "totalRecruitMember": this.articleAndParty.totalRecruitMember
                 },
             }).then(({data})=>{
-                console.log(data)
+                // console.log(data)
+                data
             }).catch(({err})=>{
-                console.log(err)
+                // console.log(err)
+                err
             })
         },
     },

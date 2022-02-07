@@ -75,7 +75,7 @@ export default {
     data() {
         return {
             agree : false,
-            articleNo : this.$route.params.articleno,
+            partyId : this.$route.params.partyId,
             chooseNum : "1",
             temp : 1,
             result: 2,
