@@ -71,7 +71,7 @@ export default {
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
-                    redirect_uri : "http://i6c102.p.ssafy.io/",
+                    redirect_uri : "http://localhost:8081/",
                     code : this.$route.query.code,
             },
             queryString : null,
@@ -138,38 +138,39 @@ export default {
                     // this.accesstoken = data.access_token;
                     // this.$cookie.set("accesstoken",this.access_token, 1);
                     // console.log(this.access_token)
-                    axios({
-                        method : "get",
-                        url : "https://cors-anywhere.herokuapp.com/https://kapi.kakao.com/v1/user/access_token_info",
-                        headers : {
-                            "Authorization" : "Bearer "+data.access_token,
-                            "Content-type" : "application/x-www-form-urlencoded;charset=utf-8",
+                    window.Kakao.Auth.setAccessToken(data.access_token);
+                    window.Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: function(data) {
+                            // console.log(data);
+                            // console.log(that.data.code)
+                            axios_contact({
+                                method : "post",
+                                url : "/user/login",
+                                data : {
+                                    authid : data.id,
+                                },
+                            }).then(({data})=>{
+                                if(data.profile==null){
+                                    // console.log("회원가입하자")
+                                    // console.log(token.access_token)
+                                    that.$cookie.set("Raccesstoken",token.access_token, 1);
+                                    that.$router.push("/register");
+                                }
+                                else{
+                                    // console.log("로그인하자")
+                                    // console.log(data)
+                                    that.accesstoken = token.access_token;
+                                    that.$cookie.set("accesstoken",token.access_token, 1);
+                                    that.$cookie.set("id",data.profile.id, 1);
+                                    that.mysazaUrl = "/mysaza/"+that.$cookie.get("id");
+                                }
+                            })
                         },
-                    }).then(({data})=>{
-                        // console.log(data)
-                        axios_contact({
-                            method : "post",
-                            url : "/user/login",
-                            data : {
-                                authid : data.id,
-                            },
-                        }).then(({data})=>{
-                            if(data.profile==null){
-                                // console.log("회원가입하자")
-                                // console.log(token.access_token)
-                                this.$cookie.set("Raccesstoken",token.access_token, 1);
-                                this.$router.push("/register");
-                            }
-                            else{
-                                // console.log("로그인하자")
-                                // console.log(data)
-                                that.accesstoken = token.access_token;
-                                this.$cookie.set("accesstoken",token.access_token, 1);
-                                this.$cookie.set("id",data.profile.id, 1);
-                                this.mysazaUrl = "/mysaza/"+this.$cookie.get("id");
-                            }
-                        })
-                    })
+                        fail: function(error) {
+                            console.log(error);
+                        }
+                    });
                 })
             }
         },

@@ -1,15 +1,15 @@
 <template>
     <div>
         <!-- 내가 참가한 파티 목록 -->
-        <div v-for="(item, index) in articleNo" :key="index">
-            <Article :articleNo="item"></Article>
+        <div v-for="(item, index) in partyList" :key="index">
+            <Article :party="item"></Article>
         </div>
     </div>
 </template>
 
 <script>
 import Article from "@/components/MySaza/MemberOfParty/Article.vue";
-import axios from "axios"
+import {axios_contact} from "@/common.js"
 
 export default {
     name: 'Memberofparty',
@@ -18,20 +18,20 @@ export default {
     },
     data() {
         return {
-            articleNo:[],
+            partyList:[],
             id : this.$route.params.id,
         };
     },
 
     created() {
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/party/"+this.id,
+            url : "party/"+this.id,
         }).then(({data})=>{
             // console.log(data)
             for (let index = 0; index < data.length; index++) {
                 if(!data[index].isBoss){
-                    this.articleNo.push(data[index].id)
+                    this.partyList.push(data[index])
                 }
             }
         })

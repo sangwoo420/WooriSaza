@@ -1,21 +1,21 @@
 <template>
     <div>
         <!-- {{articleNo}} -->
-        <div v-if="article!=null">
+        <div>
             <b-row>
                 <b-col cols="8">
                     <div>
                         <!-- <div :class="{statebox:true}">거래 완료</div> -->
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div>
-                        <div style="font-size:0.9em">기간: ~데드라인</div>
-                        <div style="font-size:0.9em">모집인원: {{article.currentRecruitMember}}/{{article.totalRecruitMember}}</div>
+                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{party.title}}</div>
+                        <div style="font-size:0.9em">기간: ~{{party.deadline[0]}}.{{party.deadline[1]}}/{{party.deadline[2]}}</div>
+                        <div style="font-size:0.9em">모집인원:  {{party.currentRecruitMember}}/{{party.totalRecruitMember}}</div>
                         
                     </div>
                 </b-col>
                 <b-col cols="4">
                     <div style="text-align:right" class="mt-5">
-                        <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
-                        <div style="font-size:1.3em;font-weight:bold;">{{article.totalPrice/article.totalRecruitMember}}원</div>
+                        <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{party.totalPrice}}원</div>
+                        <div style="font-size:1.3em;font-weight:bold;">{{party.myPrice}}원</div>
                     </div>
                 </b-col>
             </b-row>
@@ -25,24 +25,16 @@
 </template>
 
 <script>
-import axios from "axios"
-
 export default {
     name: 'Article',
-    props:["articleNo"],
+    props:{
+        party:Object,
+    },
     data() {
         return {
-            partyId : 1,
-            article : null,
         };
     },
     created() {
-        axios({
-            method : "get",
-            url : "http://localhost:8080/article/"+this.articleNo,
-        }).then(({data})=>{
-            this.article = data.article;
-        })
     },
     
     mounted() {

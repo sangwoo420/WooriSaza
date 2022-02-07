@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import {axios_contact} from "@/common.js"
 export default {
   name : "MyProfile",
   props : {
@@ -37,9 +37,9 @@ export default {
     },
   
   created() {
-    axios({
+    axios_contact({
       method : "get",
-      url : "http://localhost:8080/user/"+this.id,
+      url : "user/"+this.id,
     }).then(({data})=>{
       // console.log(data)
       this.profile = data.profile;

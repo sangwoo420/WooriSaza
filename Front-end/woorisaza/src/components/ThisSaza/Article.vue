@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import {axios_contact} from "@/common.js"
 export default {
     name: 'Article',
     props:["articleNo"],
@@ -43,9 +43,9 @@ export default {
     },
 
     created() {
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/article/"+this.articleNo,
+            url : "article/"+this.articleNo,
         }).then(({data})=>{
             this.article=data.article;
         })
