@@ -101,4 +101,24 @@ public class UserController {
         }
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
+
+    @GetMapping("/{profileId}")
+    public ResponseEntity<Map<String, Object>> getProfileInfo(@PathVariable @ApiParam(value = "프로필 정보") String profileId) {
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = null;
+        try {
+            UserProfileDto userProfileDto = userService.getUserProfileInfo(profileId);
+            result.put("profile", userProfileDto);
+            result.put("success", true);
+
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
+        }
+
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
 }

@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface ArticleRepo extends JpaRepository<Article, Long>, ArticleRepoSupport{
 
-    List<Article> findByUserProfile(UserProfile userProfile);
+    List<Article> findAllOrderByCreatedAtDesc();
 
-    List<Article> findByCategory(Category category);
+    List<Article> findByUserProfileOrderByCreatedAtDesc(UserProfile userProfile);
 
-    List<Article> findByTitleContainingOrContentContaining(String title, String content);
+    List<Article> findByCategoryOrderByCreatedAtDesc(Category category);
+
+    List<Article> findByTitleContainingOrContentContainingOrderByCreatedAtDesc(String title, String content);
 }

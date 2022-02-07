@@ -29,7 +29,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
         jpqlQuery.fetchJoin();
         jpqlQuery.where(Expressions.stringTemplate("function('ST_Distance_Sphere', Point({0},{1}), Point({2},{3}))",
                         QUserProfile.userProfile.lng, QUserProfile.userProfile.lat, lnglat[0],lnglat[1])
-                .loe(range));
+                .loe(range)).orderBy(article.createdAt.desc());
         return jpqlQuery.fetch();
     }
 
@@ -43,7 +43,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
                         QUserProfile.userProfile.lng, QUserProfile.userProfile.lat, lnglat[0],lnglat[1])
                 .loe(range)
                 .and(article.title.contains(keyword)
-                        .or(article.content.contains(keyword))));
+                        .or(article.content.contains(keyword)))).orderBy(article.createdAt.desc());
         return jpqlQuery.fetch();
     }
 
@@ -52,7 +52,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
         QArticle article = QArticle.article;
         JPQLQuery<Article> jpqlQuery = from(article);
         jpqlQuery.where(article.category.eq(Category.valueOf(category))
-                .and(article.title.contains(keyword).or(article.content.contains(keyword))));
+                .and(article.title.contains(keyword).or(article.content.contains(keyword)))).orderBy(article.createdAt.desc());
         return jpqlQuery.fetch();
     }
 
@@ -65,7 +65,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
         jpqlQuery.where(Expressions.stringTemplate("function('ST_Distance_Sphere', Point({0},{1}), Point({2},{3}))",
                         QUserProfile.userProfile.lng, QUserProfile.userProfile.lat, lnglat[0],lnglat[1])
                 .loe(range)
-                .and(article.category.eq(Category.valueOf(category))));
+                .and(article.category.eq(Category.valueOf(category)))).orderBy(article.createdAt.desc());
         return jpqlQuery.fetch();
     }
 
@@ -79,7 +79,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
                         QUserProfile.userProfile.lng, QUserProfile.userProfile.lat, lnglat[0],lnglat[1])
                 .loe(range)
                 .and(article.category.eq(Category.valueOf(category)))
-                .and(article.title.contains(keyword).or(article.content.contains(keyword))));
+                .and(article.title.contains(keyword).or(article.content.contains(keyword)))).orderBy(article.createdAt.desc());
         return jpqlQuery.fetch();
     }
 }

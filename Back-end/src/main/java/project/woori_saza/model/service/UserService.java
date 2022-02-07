@@ -8,4 +8,6 @@ public interface UserService {
     UserProfileDto register(UserProfileDto userProfileDto, MultipartFile multipartFile) throws Exception;
     UserProfileDto update(UserProfileDto userProfileDto);
     void delete(UserProfileDto userProfileDto);
+
+    UserProfileDto getUserProfileInfo(String profileId);
 }

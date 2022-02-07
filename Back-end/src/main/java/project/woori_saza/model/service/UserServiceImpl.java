@@ -131,4 +131,9 @@ public class UserServiceImpl implements UserService {
         userProfileRepo.delete(user);
 
     }
+
+    @Override
+    public UserProfileDto getUserProfileInfo(String profileId) {
+        return new UserProfileDto(userProfileRepo.getById(profileId));
+    }
 }

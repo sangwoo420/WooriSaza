@@ -62,11 +62,11 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = null;
         //1. 전부 없을때
         if (category == null && range == null && keyword == null) {
-            articles = articleRepo.findAll();
+            articles = articleRepo.findAllOrderByCreatedAtDesc();
         }
         //2. 카테고리만 있을때
         else if (range == null && keyword == null) {
-            articles = articleRepo.findByCategory(Category.valueOf(category));
+            articles = articleRepo.findByCategoryOrderByCreatedAtDesc(Category.valueOf(category));
         }
         //3. 범위만 있을때
         else if (category == null && keyword == null) {
@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //4. 검색어만 있을때
         else if (category == null && range == null) {
-            articles = articleRepo.findByTitleContainingOrContentContaining(keyword, keyword);
+            articles = articleRepo.findByTitleContainingOrContentContainingOrderByCreatedAtDesc(keyword, keyword);
         }
         //5. 카테고리, 범위
         else if (keyword == null) {

@@ -11,9 +11,10 @@ import java.util.List;
 
 @Data
 public class ArticleResponseDto {
-// 보여줄때
+    // 보여줄때
     private Long id;
     private String title;
+    private String author;
     private String content;
     private String product;
     private LocalDateTime createdAt;
@@ -27,13 +28,14 @@ public class ArticleResponseDto {
     private Tag tag;
     private Category category;
     private Integer penalty;
-
+    private LocalDateTime deadline;
     // 찜 유무..
 
 
     public ArticleResponseDto(Article article) {
         id = article.getId();
         title = article.getTitle();
+        author = article.getUserProfile().getNickname();
         product = article.getParty().getProduct();
         content = article.getContent();
         createdAt = article.getCreatedAt();
@@ -42,9 +44,10 @@ public class ArticleResponseDto {
         totalPrice = article.getParty().getTotalPrice();
         totalRecruitMember = article.getParty().getTotalRecruitMember();
         currentRecruitMember = article.getParty().getCurrentRecruitMember();
-        myPrice = article.getParty().getTotalPrice()/totalRecruitMember;
+        myPrice = article.getParty().getTotalPrice() / totalRecruitMember;
         tag = article.getTag();
         category = article.getCategory();
-        penalty=article.getParty().getPenalty();
+        penalty = article.getParty().getPenalty();
+        deadline = article.getParty().getDeadline();
     }
 }
