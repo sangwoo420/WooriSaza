@@ -29,6 +29,7 @@ public class ArticleResponseDto {
     private Category category;
     private Integer penalty;
     private LocalDateTime deadline;
+    private Integer totalProductCount;
     // 찜 유무..
 
 
@@ -49,5 +50,6 @@ public class ArticleResponseDto {
         category = article.getCategory();
         penalty = article.getParty().getPenalty();
         deadline = article.getParty().getDeadline();
+        totalProductCount = article.getParty().getTotalProductCount();
     }
 }
