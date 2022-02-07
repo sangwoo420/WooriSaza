@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import {axios_contact} from "@/common.js"
 export default {
     name: 'Register',
 
@@ -84,17 +84,16 @@ export default {
     },
 
     created(){
-        axios({
-            method : "get",
-            url : "https://cors-anywhere.herokuapp.com/https://kapi.kakao.com/v1/user/access_token_info",
-            headers : {
-                "Authorization" : "Bearer "+this.accesstoken,
-                "Content-type" : "application/x-www-form-urlencoded;charset=utf-8",
+        window.Kakao.Auth.setAccessToken(this.accesstoken);
+        window.Kakao.API.request({
+            url: '/v2/user/me',
+            success: function(data) {
+                this.userProfile.id = data.id;
             },
-        }).then(({data})=>{
-            // console.log(data)
-            this.userProfile.id = data.id;
-        })
+            fail: function(error) {
+                console.log(error);
+            }
+        });
     },
     mounted() {
 
@@ -143,9 +142,9 @@ export default {
         },
         register(){
             console.log(this.image)
-            axios({
+            axios_contact({
                 method : "post",
-                url : "http://localhost:8080/user/register",
+                url : "user/register",
                 data : this.userProfile,
             }).then(({data})=>{
                 // console.log(data)
