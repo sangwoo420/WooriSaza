@@ -2,12 +2,12 @@
     <div>
         <!-- 나의 1:1 문의 -->
         <b-container>
-          <div style="text-align:center">
-            <b-button variant="warning" class="ml-3" style="width:15%;display:inline;font-size:0.8em">문의하기</b-button>
+          <div style="text-align:center" >
+            <b-button @click="toMyQuestion" variant="warning" class="ml-3" style="width:15%;display:inline;font-size:0.8em">문의하기</b-button>
           </div>
 
-          <div class="box mt-3 p-3" style="cursor:pointer" @click="moveToArticle" >
-            <b-button variant="warning" class="ml-3" style="width:20%;display:inline">답변 진행중</b-button>
+          <div class="box mt-3 p-3" style="cursor:pointer" @click="toMyAnswer" >
+            <b-button disabled variant="warning" class="ml-3" style="width:20%;display:inline">답변 진행중</b-button>
               <b-row>
                   <b-col cols="8">
                       <div class="mt-2">
@@ -22,8 +22,8 @@
               </b-row>
           </div>
 
-          <div class="box mt-3 p-3" style="cursor:pointer" @click="moveToArticle" >
-            <b-button variant="primary" class="ml-3" style="width:20%;display:inline">답변 완료</b-button>
+          <div class="box mt-3 p-3" style="cursor:pointer" @click="toMyAnswer" >
+            <b-button disabled variant="primary" class="ml-3" style="width:20%;display:inline">답변 완료</b-button>
               <b-row>
                   <b-col cols="8">
                       <div class="mt-2">
@@ -43,8 +43,12 @@
 </template>
 
 <script>
+
 export default {
     name: 'Qna',
+    components : {
+
+    },
     props:["QnaNo"],
     data() {
         return {
@@ -57,9 +61,12 @@ export default {
     },
 
     methods: {
-        moveToDetail(){
-            console.log("1:1 문의 작성 페이지로 이동")
-        },
+        toMyQuestion(){
+           this.$router.push("/mypage/question").catch(()=>{});;
+       },
+       toMyAnswer(){
+           this.$router.push("/mypage/answer").catch(()=>{});;
+       }
     },
 };
 </script>
