@@ -13,7 +13,7 @@
                         <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div>
                         <div style="font-size:0.9em">{{article.product}}</div>
                         <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
-                        <div>{{article.totalPrice/article.totalRecruitMember}}원</div>
+                        <div>{{article.myPrice}}원</div>
                     </div>
                 </b-col>
                 <b-col>

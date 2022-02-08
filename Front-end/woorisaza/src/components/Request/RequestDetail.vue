@@ -4,22 +4,22 @@
             신청서
         </span>
         <!-- 윗 부분 제품명 인원수 기간 등 -->
-        <div class="mt-5">
+        <div class="mt-5" v-if="article!=null">
             <div style="font-size : 1.2em">
-                제품 : 제주 삼다수
+                제품 : {{article.product}}
             </div>
-            <div>
+            <div> 
                 <b-row>
                     <b-col sm="8">
                         <div>
-                            선택 인원 수 : <b-form-input  type="number" :value="chooseNum" v-model="chooseNum" @change="sum" style="width:30%;display:inline" max="3" min="1"></b-form-input>
+                            선택 인원 수 : <b-form-input  type="number" :value="chooseNum" v-model="chooseNum" @change="sum" style="width:30%;display:inline" :max="article.totalRecruitMember-article.currentRecruitMember" min="1"></b-form-input>
                         </div>
                     </b-col>
                     <b-col sm="4">
                         <div style="font-size:0.9em">
-                            <div>기간 : ~22.2.1</div>
-                            <div>모집인원 : {{result}}/4</div>
-                            <div>위약금 : 100%</div>
+                            <div>기간 : ~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}}</div>
+                            <div>모집인원 : {{result}}/{{article.totalRecruitMember}}</div>
+                            <div>위약금 : {{article.penalty}}%</div>
                         </div>
                     </b-col>
                 </b-row>
@@ -28,16 +28,16 @@
             <div class="mt-5" style="border-bottom : 3px solid #F1A501">
                   <b-row style="font-size:0.8em; text-decoration:line-through">
                     <b-col sm="8">전체 구매시 필요한 금액</b-col>
-                    <b-col sm="4">10000원</b-col>
+                    <b-col sm="4">{{article.totalPrice}}원</b-col>
                 </b-row>
                 <b-row>
                     <b-col sm="8">사자들과 함께 사기</b-col>
-                    <b-col sm="4">2500원 X {{chooseNum}}</b-col>
+                    <b-col sm="4">{{article.myPrice}}원 X {{chooseNum}}</b-col>
                 </b-row>
             </div>
             <b-row>
                 <b-col sm="8"></b-col>
-                <b-col sm="4">총 {{chooseNum}}원</b-col>
+                <b-col sm="4">총 {{chooseNum*article.myPrice}}원</b-col>
             </b-row>
         </div>
         <!-- 유의사항-->
@@ -69,25 +69,33 @@
 
 <script>
 import {EventBus} from "@/event-bus.js"
+import {axios_contact} from "@/common.js"
 export default {
     name: 'Request',
 
     data() {
         return {
             agree : false,
-            partyId : this.$route.params.partyId,
+            articleNo : this.$route.params.articleNo,
             chooseNum : "1",
-            temp : 1,
             result: 2,
+            article : null,
         };
     },
-
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/article/"+this.articleNo,
+        }).then(({data})=>{
+            this.article = data.article;
+        })
+    },
     mounted() {
         
     },
     methods: {
         sum(){
-            this.result = parseInt(this.temp)+parseInt(this.chooseNum);
+            this.result = parseInt(this.article.currentRecruitMember)+parseInt(this.chooseNum);
         },
         checkAgree(){
             this.agree = !this.agree;

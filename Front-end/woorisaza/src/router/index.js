@@ -47,7 +47,7 @@ const routes = [
     component: ArticleWrite,
   },
   {
-    path: "/request/:partyId",
+    path: "/request/:articleNo",
     name: "Request",
     component: Request,
   },

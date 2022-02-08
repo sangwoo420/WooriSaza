@@ -52,7 +52,7 @@
             </b-row>
             <b-row style="font-size:1.1em; font-weight:bold">
                 <b-col>사자들과 함께 사기</b-col>
-                <b-col style="text-align:right">{{article.totalPrice/article.totalRecruitMember}}원</b-col>  
+                <b-col style="text-align:right">{{article.myPrice}}원</b-col>  
             </b-row>
             
         </div>
@@ -95,7 +95,8 @@
                 <div v-for="(comment, index) in commentList" :key="index">
                     <!-- {{comment}} -->
                     <div :key="commentRerender">
-                        <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:10%" alt="">
+                        <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px" alt="">
+                        <img v-if="comment.pic!=null" :src="comment.pic" style="width:30px; height : 30px" alt="">
                         <!-- 사용자 닉네임 -->
                         <a href="" style="color:black; width:10%;display:inline">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>

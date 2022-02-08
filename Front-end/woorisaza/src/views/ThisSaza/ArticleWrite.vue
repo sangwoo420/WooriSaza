@@ -215,6 +215,7 @@ export default {
             }).then(({data})=>{
                 // console.log(data)
                 data
+                this.$router.push("/board");
             }).catch(({err})=>{
                 // console.log(err)
                 err

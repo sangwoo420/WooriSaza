@@ -174,7 +174,7 @@ export default {
                         data : this.userProfile,
                     }).then(({data})=>{
                         data;
-                        this.$router.push("/");
+                        this.loginWithKakao();
                     })
                 })
             }
@@ -186,10 +186,18 @@ export default {
                 }).then(({data})=>{
                     console.log(data)
                     data;
-                    this.$router.push("/");
+                    this.loginWithKakao();
+                    // this.$router.push("/");
                 })
             }
-            
+        },
+
+        loginWithKakao() {
+            const params = {
+                redirectUri: "http://localhost:8081/",
+                // http://i6c102.p.ssafy.io/
+            };
+            window.Kakao.Auth.authorize(params);
         },
     },
 };

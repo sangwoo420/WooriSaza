@@ -128,6 +128,11 @@ export default {
                 }
             }).then(({data})=>{
                 console.log(data)
+                this.$cookie.delete("Raccesstoken");
+                this.$cookie.delete("accesstoken");
+                this.$cookie.delete("id");
+                this.$router.push("/");
+                this.$router.go("");
             })
         },
 

@@ -19,7 +19,7 @@ export default {
     data() {
         return {
             comments:[],
-            id : this.$params.id
+            id : this.$route.params.id
         };
     },
 

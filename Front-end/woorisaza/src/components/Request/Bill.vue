@@ -5,14 +5,15 @@
         </span>
         <b-container>
             <div style="text-align:center">
-                <div class="mt-3" style="font-size : 1.5em">
-                    내가 결제할 금액 : 5000원
+                <div class="mt-3" style="font-size : 1.5em" v-if="article != null">
+                    내가 결제할 금액 : {{article.myPrice*chooseNum}}원
                 </div>
                 <div class="mt-4">
                     <b-form-select v-model="selected" :options="paymentMethod" style="width:15em"></b-form-select>
                 </div>
                 <div class="mt-5">
-                    <b-button variant="warning" @click="toFin">결제하기</b-button>
+                    <b-button v-if="selected!=null" variant="warning" @click="toFin">결제하기</b-button>
+                    <b-button v-if="selected==null" variant="warning"  disabled>결제하기</b-button>
                 </div>
             </div>
         </b-container>
@@ -21,6 +22,8 @@
 
 <script>
 import {EventBus} from "@/event-bus.js"
+import {axios_contact} from "@/common.js"
+
 export default {
     name: 'Bill',
     props : {
@@ -37,16 +40,39 @@ export default {
                 {value:"account", text:"신용카드",disabled: true},
                 {value:"bankbook", text:"무통장입금",disabled: true},
             ],
+            articleNo : this.$route.params.articleNo,
+            article : null,
         };
     },
     created() {
+        axios_contact({
+            method : "get",
+            url : "/article/"+this.articleNo,
+        }).then(({data})=>{
+            this.article = data.article;
+        })
     },
     mounted() {
     },
 
     methods: {
         toFin(){
-            EventBus.$emit("fin",true);
+            EventBus
+            console.log("파티 입장!")
+            axios_contact({
+                method : "post",
+                url : "/memberinfo",
+                data : {
+                    "amount": this.chooseNum,
+                    "paidMethod": this.selected,
+                    "partyId": this.article.partyId,
+                    "price": this.article.myPrice*this.chooseNum,
+                    "profileId": this.$cookie.get("id")
+                },
+            }).then(({data})=>{
+                console.log(data)
+                EventBus.$emit("fin",true);
+            })
         },
     },
 };

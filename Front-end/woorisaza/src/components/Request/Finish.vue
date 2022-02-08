@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align:center">
+    <div style="text-align:center" v-if="article!=null">
         <span class="title">
             정산 완료
         </span>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import {axios_contact} from "@/common.js"
+
 export default {
     name: 'Finish',
     props : {
@@ -24,8 +26,18 @@ export default {
     },
     data() {
         return {
-            
+            articleNo : this.$route.params.articleNo,
+            article : null,
         };
+    },
+
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/article/"+this.articleNo,
+        }).then(({data})=>{
+            this.article = data.article;
+        })
     },
 
     mounted() {
@@ -34,7 +46,8 @@ export default {
 
     methods: {
         toPartyDetail(){
-            console.log("상세정보로 가!")
+            // console.log("상세정보로 가!")
+            this.$router.push("/partydetail/"+this.article.partyId)
         }
     },
 };
