@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.woori_saza.model.domain.ChatMessage;
 import project.woori_saza.model.domain.ChatRoom;
+import project.woori_saza.model.domain.MessageType;
+import project.woori_saza.model.dto.ChatMessageDto;
 import project.woori_saza.model.dto.ChatRoomDto;
 import project.woori_saza.model.service.ChatRoomService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,11 +28,15 @@ public class ChatRoomController {
     @GetMapping("/room/{profileId}")
             public ResponseEntity<Map<String, Object>> rooms(@PathVariable String profileId) {
                 Map<String, Object> result = new HashMap<>();
-                List<String> roomList = null;
+                List<String> roomIdList = null;
+                List<ChatRoomDto> roomList = new ArrayList<>();
                 HttpStatus httpStatus = null;
 
                 try{
-                    roomList = chatRoomService.findAllRoom(profileId);
+                    roomIdList = chatRoomService.findAllRoom(profileId);
+                    for (String roomId : roomIdList) {
+                        roomList.add(chatRoomService.findRoomByRoomID(roomId));
+                    }
                     httpStatus = HttpStatus.OK;
                 }catch (RuntimeException e) {
                     httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -53,9 +58,13 @@ public class ChatRoomController {
             chatRoom = chatRoomService.findRoomByRoomID(roomId);
             System.out.println("roomName: " + chatRoom.getName());
             // TODO: 과거 채팅 내역 보여주기
-            System.out.println("msgLis: "+chatRoom.getChatMessageList());
+            ChatMessage msg = ChatMessage.createChatMessage(chatRoom, MessageType.CHAT, "HIII", "나", LocalDateTime.now());
+            ChatMessageDto msgDto = new ChatMessageDto(msg);
+            chatRoom.getMsgList().add(msgDto);
+            System.out.println("msgList: "+chatRoom.getMsgList());
             httpStatus = HttpStatus.OK;
         }catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("chatRoom", chatRoom);
