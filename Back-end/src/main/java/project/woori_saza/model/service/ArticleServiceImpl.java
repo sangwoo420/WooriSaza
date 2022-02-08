@@ -131,7 +131,8 @@ public class ArticleServiceImpl implements ArticleService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setIsBoss(true);
         memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-        memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getAmount());
+        int calprice=(int)(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
+        memberInfo.setPrice(calprice);
         memberInfo.setParty(party);
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
