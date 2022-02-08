@@ -89,7 +89,7 @@ export default {
         window.Kakao.API.request({
             url: '/v2/user/me',
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 that.userProfile.id = data.id;
             },
             fail: function(error) {
@@ -159,41 +159,37 @@ export default {
             if(this.image != null){
                 const formData = new FormData();
                 formData.append('uploadFile', this.image);
-                // console.log(formData);
-
                 axios_contact({
                     method : "post",
-                    url : "/user/register",
+                    url : "/user/upload",
                     headers : {
                         'Content-Type': 'multipart/form-data',
                     },
                     data : formData,
                 }).then(({data})=>{
                     this.userProfile.pic = data.url;
-                    this.userProfile.address = this.address;
-                    this.userProfile.nickname = this.nickname;
                     axios_contact({
-                        method : "put",
+                        method : "post",
                         url : "/user/register",
                         data : this.userProfile,
                     }).then(({data})=>{
-                        console.log(data)
-                        this.$router.go();
+                        data;
+                        this.$router.push("/");
                     })
                 })
             }
             else{
-                this.userProfile.address = this.address;
-                this.userProfile.nickname = this.nickname;
                 axios_contact({
-                    method : "put",
+                    method : "post",
                     url : "/user/register",
                     data : this.userProfile,
                 }).then(({data})=>{
                     console.log(data)
-                    this.$router.go();
+                    data;
+                    this.$router.push("/");
                 })
             }
+            
         },
     },
 };
