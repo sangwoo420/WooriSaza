@@ -30,14 +30,22 @@ export default {
   props : {
         userId : String,
     },
-    data(){
-      return {
-        id : this.$route.params.id!=null ? this.$route.params.id : this.$cookie.get("id"),
-        profile : null,
-      }
-    },
+  data(){
+    return {
+      id : null,
+      // this.$route.params.id!=null ? this.$route.params.id : this.$cookie.get("id"),
+      profile : null,
+    }
+  },
   
   created() {
+    if(this.userId !=null){
+      this.id = this.userId
+    }else if(this.$route.params.id!=null){
+      this.id = this.$route.params.id;
+    }else{
+      this.id = this.$cookie.get("id");
+    }
     axios_contact({
       method : "get",
       url : "user/"+this.id,
@@ -46,6 +54,7 @@ export default {
       this.profile = data.profile;
     })
   },
+
   methods: {
     },
 };

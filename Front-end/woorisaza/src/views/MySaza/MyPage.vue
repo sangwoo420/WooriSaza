@@ -11,7 +11,7 @@
                                     <h2 style="text-align:center">마이페이지</h2>
                                     <!-- 신분증 -->
                                     <div style="text-align:center" class="mt-4">
-                                        <my-profile/>
+                                        <MyProfile/>
                                     </div>
                                     <!-- 마이페이지 네비게이션 바 -->
                                     <div>

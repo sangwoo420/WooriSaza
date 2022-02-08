@@ -9,7 +9,7 @@
                         <b-col cols="7">
                             <div :class="{box:true}" style="overflow-y:auto;">
                                 <div class="p-5">
-                                    <PartyDetail :partyIds = "partyIds"></PartyDetail>
+                                    <PartyDetailCom> </PartyDetailCom>
                                 </div>
                             </div>
                         </b-col>
@@ -23,19 +23,17 @@
 </template>
 
 <script>
-import PartyDetail from "@/components/PartyDetail/PartyDetail.vue";
+import PartyDetailCom from "@/components/PartyDetail/PartyDetail.vue";
+
 export default {
     name: 'Partydetail',
     components : {
-        PartyDetail,
+        PartyDetailCom,
     },
     data() {
         return {
-            partyId : this.$route.params.partyId,
-            partyIds : ["id1","id2","id3","id4"],
         };
     },
-
     mounted() {
         
     },

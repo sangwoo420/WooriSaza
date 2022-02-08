@@ -44,7 +44,8 @@ export default {
 
     methods: {
         moveToDetail(){
-            console.log("상세보기 페이지로 이동")
+            // console.log("상세보기 페이지로 이동")
+            // console.log(this.party)
             this.$router.push("/partydetail/"+this.party.id).catch(()=>{});
         },
     },

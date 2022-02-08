@@ -9,7 +9,10 @@
                             <div :class="{box:true}" style="overflow-y:auto;">
                                 <div class="p-5" v-if="id != 'null'">
                                     <!-- 신분증 -->
-                                    <div style="text-align:center;" @click="moveToMypage">
+                                    <div v-if="this.id == this.$cookie.get('id')" style="text-align:center;cursor:pointer" @click="moveToMypage">
+                                        <my-profile/>
+                                    </div>
+                                    <div v-if="this.id != this.$cookie.get('id')" style="text-align:center;">
                                         <my-profile/>
                                     </div>
                                     <!-- 마이사자 네비게이션 바 -->
