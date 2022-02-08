@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import {axios_contact} from "@/common.js"
 
 export default {
@@ -147,27 +146,17 @@ export default {
             }
             const that = this;
             const sublink = link.split("com");
-            const options = {
-                method: 'GET',
-                url: 'https://cors-anywhere.herokuapp.com/https://www.virustotal.com/vtapi/v2/url/report',
-                params: {
-                    apikey: '68614fc23b4200870247adf446056257420f8c45e525776827cf027c589e0cee',
-                    resource: sublink[0]+"com",
-                    allinfo: 'false',
-                    scan: '0'
-                },
-                headers: {Accept: 'application/json'}
-            };
-
-            axios.request(options).then(function (response) {
-                // console.log(response.data)
-                if(response.data.response_code!=1){
-                    //위험한 링크
-                    that.linkState = false;
+            axios_contact({
+                method : "get",
+                url : "/api/validation?sublink="+sublink[0],
+            }).then(({data})=>{
+                // console.log(data)
+                if(data.response_code!=1){
+                    this.linkState=false;
                     return;
                 }
                 else{
-                    for (const scan in response.data.scans) {
+                    for(const scan in data.scan){
                         if(scan.detected){
                             //위험한 링크
                             that.linkState = false;
@@ -175,18 +164,13 @@ export default {
                         }
                     }
                 }
-                //여기까지 왔다는 것은 안전한 링크
-                that.linkState = true;
-                //링크로부터 섬네일 사진 가져오기
-                axios({
+                this.linkState = true;
+                
+                axios_contact({
                     method : "get",
-                    url : "https://cors-anywhere.herokuapp.com/https://api.urlmeta.org/?url="+link,
-                    headers:{
-                        "Authorization" : "Basic dG9teTk3MjlAbmF2ZXIuY29tOjhUYkdka2MxVnE3bnBYTzcyMkpC",
-                    },
+                    url : "/api/thumbnail?url="+link,
                 }).then(({data})=>{
-                    // console.log(data)
-                    that.articleAndParty.pic.push(data.meta.image)
+                    console.log(data)
                 })
             })
         },
