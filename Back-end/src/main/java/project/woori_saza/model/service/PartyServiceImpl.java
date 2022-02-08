@@ -34,7 +34,7 @@ public class PartyServiceImpl implements PartyService{
     public List<PartyResponseDto> getPartyList(String id) {
         //1.받은 userProfile로 memberinfo찾기
         UserProfile userProfile=userProfileRepo.getById(id); //프로필 1개 나옴
-        List<MemberInfo>memberInfos=memberInfoRepo.findAllByUserProfile(userProfile); //배열 3개일듯
+        List<MemberInfo>memberInfos=memberInfoRepo.findAllByUserProfileOrderByPartyDesc(userProfile); //배열 3개일듯
 
         //2.그 memberInfos에 해당하는 파티들을 찾아서 parties에 넣어주기
         List<PartyResponseDto> parties=new ArrayList<>();
