@@ -49,4 +49,6 @@ public class ArticleAndPartyRequestDto {
     @ApiModelProperty(value = "내가 선택한 수량", example = "2")
     private Integer amount;
 
+
+
 }
