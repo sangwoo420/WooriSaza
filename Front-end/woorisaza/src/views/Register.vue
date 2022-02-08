@@ -163,7 +163,7 @@ export default {
 
                 axios_contact({
                     method : "post",
-                    url : "/user/upload",
+                    url : "/user/register",
                     headers : {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -174,7 +174,7 @@ export default {
                     this.userProfile.nickname = this.nickname;
                     axios_contact({
                         method : "put",
-                        url : "/user/update",
+                        url : "/user/register",
                         data : this.userProfile,
                     }).then(({data})=>{
                         console.log(data)
@@ -187,7 +187,7 @@ export default {
                 this.userProfile.nickname = this.nickname;
                 axios_contact({
                     method : "put",
-                    url : "/user/update",
+                    url : "/user/register",
                     data : this.userProfile,
                 }).then(({data})=>{
                     console.log(data)
