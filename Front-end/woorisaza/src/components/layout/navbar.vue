@@ -71,7 +71,8 @@ export default {
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
-                    redirect_uri : "http://localhost:8081/", //http://i6c102.p.ssafy.io/
+                    // redirect_uri : "http://localhost:8081/",
+                    redirect_uri : "http://i6c102.p.ssafy.io/", 
                     code : this.$route.query.code,
             },
             queryString : null,
