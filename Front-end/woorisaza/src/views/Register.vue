@@ -142,19 +142,7 @@ export default {
                 },
             }).open();
         },
-        register(){
-            console.log(this.image)
-            axios_contact({
-                method : "post",
-                url : "/user/register",
-                data : this.userProfile,
-            }).then(({data})=>{
-                console.log(data)
-                data;
-                this.$router.push("/");
-            })
-        },
-
+        
         registerImage(event){
             var input = event.target;
             if(input.files && input.files[0]){
@@ -164,12 +152,48 @@ export default {
                 }
                 reader.readAsDataURL(input.files[0]);
             }
+        },
 
-            console.log(event);
-            console.log(this.image);
-            const formData = new FormData();
-            formData.append('image', this.image);
-            console.log(formData);
+        register(){
+            console.log(this.image)
+            if(this.image != null){
+                const formData = new FormData();
+                formData.append('uploadFile', this.image);
+                // console.log(formData);
+
+                axios_contact({
+                    method : "post",
+                    url : "/user/upload",
+                    headers : {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    data : formData,
+                }).then(({data})=>{
+                    this.userProfile.pic = data.url;
+                    this.userProfile.address = this.address;
+                    this.userProfile.nickname = this.nickname;
+                    axios_contact({
+                        method : "put",
+                        url : "/user/update",
+                        data : this.userProfile,
+                    }).then(({data})=>{
+                        console.log(data)
+                        this.$router.go();
+                    })
+                })
+            }
+            else{
+                this.userProfile.address = this.address;
+                this.userProfile.nickname = this.nickname;
+                axios_contact({
+                    method : "put",
+                    url : "/user/update",
+                    data : this.userProfile,
+                }).then(({data})=>{
+                    console.log(data)
+                    this.$router.go();
+                })
+            }
         },
     },
 };

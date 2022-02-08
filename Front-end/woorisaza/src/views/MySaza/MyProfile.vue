@@ -2,6 +2,7 @@
   <div style="display:inline-block" v-if="profile != null">
     <div class="card mb-3 flex-row" style="font-size:1.1em;align-items:center;background-color:#FFF9EC; width:270px;" >
       <img v-if="profile.pic==null" src="@/assets/IDimage.png" style="width:80px;height:80px;background-color:white" alt="Card image" class="card-img-left p-1 ml-3">
+      <img v-if="profile.pic!=null" :src="profile.pic" style="width:80px;height:80px;background-color:white" alt="Card image" class="card-img-left p-1 ml-3">
       
       <div class="card-body" style="text-align:left">
         <div style="font-size:0.8em">

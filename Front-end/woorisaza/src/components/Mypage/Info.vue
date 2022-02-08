@@ -20,9 +20,9 @@
                             <br><br>
                             <img  src="@/assets/IDimage.png" alt="">
                         </div>
-                        <div>
+                        <div v-if="image!=null">
                             <br>
-                            <img v-if="image!=null" :src="preImage" alt="" style="width : 140px; height:140px">
+                            <img :src="preImage" alt="" style="width : 140px; height:140px">
                         </div>
                     </div>
                     <div class="mt-1">
@@ -33,7 +33,7 @@
             <div class="mt-4" style="text-align:center">
                 <!-- 탈퇴 수정 버튼 -->
                 <b-button variant="secondary" class="mr-3" @click="deleteUser">회원 탈퇴</b-button>
-                <b-button variant="warning" class="ml-3">정보 수정</b-button>
+                <b-button variant="warning" class="ml-3" @click="updateUser">정보 수정</b-button>
             </div>
         </b-container>
         
@@ -54,6 +54,7 @@ export default {
             userProfile : null,
             image : null,
             preImage : null,
+            imageChange : false,
         };
     },
 
@@ -66,6 +67,8 @@ export default {
             this.userProfile = data.profile;
             this.nickname = this.userProfile.nickname;
             this.address = this.userProfile.address;
+            this.image = this.userProfile.pic;
+            this.preImage = this.userProfile.pic;
         })
     },
 
@@ -137,12 +140,50 @@ export default {
                 }
                 reader.readAsDataURL(input.files[0]);
             }
+            this.imageChange = true;
+        },
 
-            console.log(event);
-            console.log(this.image);
-            const formData = new FormData();
-            formData.append('image', this.image);
-            console.log(formData);
+        updateUser(){
+            // console.log("수정해줘 벅벅");
+            // console.log(this.image);
+            if(this.imageChange){
+                const formData = new FormData();
+                formData.append('uploadFile', this.image);
+                // console.log(formData);
+
+                axios_contact({
+                    method : "post",
+                    url : "/user/upload",
+                    headers : {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    data : formData,
+                }).then(({data})=>{
+                    this.userProfile.pic = data.url;
+                    this.userProfile.address = this.address;
+                    this.userProfile.nickname = this.nickname;
+                    axios_contact({
+                        method : "put",
+                        url : "/user/update",
+                        data : this.userProfile,
+                    }).then(({data})=>{
+                        console.log(data)
+                        this.$router.go();
+                    })
+                })
+            }
+            else{
+                this.userProfile.address = this.address;
+                this.userProfile.nickname = this.nickname;
+                axios_contact({
+                    method : "put",
+                    url : "/user/update",
+                    data : this.userProfile,
+                }).then(({data})=>{
+                    console.log(data)
+                    this.$router.go();
+                })
+            }
         },
     },
 };
