@@ -11,6 +11,7 @@ import java.util.List;
 public interface MemberInfoRepo extends JpaRepository<MemberInfo,Long> {
 
     List<MemberInfo> findAllByUserProfileOrderByPartyDesc(UserProfile userProfile); //userprofile아이디로 찾기
+    List<MemberInfo> findAllByUserProfile(UserProfile userProfile);
     List<MemberInfo> findAllByParty(Party party);
 
 }

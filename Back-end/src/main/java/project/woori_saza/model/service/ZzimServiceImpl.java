@@ -51,7 +51,6 @@ public class ZzimServiceImpl implements ZzimService {
     public ZzimDto insertZzim(String profileId, Long articleId) {
         Zzim zzim = new Zzim(userProfileRepo.getById(profileId), articleRepo.getById(articleId));
         zzim = zzimRepo.save(zzim);
-
         return new ZzimDto(zzim);
     }
 

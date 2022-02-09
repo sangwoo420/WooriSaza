@@ -54,7 +54,7 @@ import java.time.LocalDateTime;
     private Integer totalamount; // 내가 선택 총 수량
     @ApiModelProperty(value = "해당 파티 내 결제 금액", example = "5000", required = true)
     private Integer price; // 결제금액
-    @ApiModelProperty(value = "사용자 구매 호가정 여부", example = "false", required = true)
+    @ApiModelProperty(value = "사용자 구매 확정 여부", example = "false", required = true)
     private Boolean isConfirmed; //파티원 구매확정여부
 
     public PartyDto(UserProfile userProfile,Party party, MemberInfo memberInfo){
@@ -78,7 +78,6 @@ import java.time.LocalDateTime;
         totalamount=memberInfo.getAmount();
         isConfirmed=memberInfo.getIsConfirmed();
         price=memberInfo.getPrice();
-
 
     }
 

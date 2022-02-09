@@ -56,5 +56,24 @@ public class PartyController {
         }
         return new ResponseEntity<Map<String,Object>>(result, httpStatus);
     }
+
+
+    @ApiOperation(value="파티 마감, 구매 확정",notes="파티를 마감하고 구매확정한다.")
+    @GetMapping("/finish/{partyId}")
+    public ResponseEntity<Map<String,Object>> finishParty(@PathVariable @ApiParam( value="파티 아이디",required = true) Long partyId){
+        Map<String,Object>result=new HashMap<>();
+        HttpStatus status=null;
+        try{
+            partyService.finishParty(partyId);
+            status=HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
 }
 

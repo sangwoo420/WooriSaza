@@ -44,7 +44,6 @@ public class ZzimController {
             result.put("success", false);
 
         }
-
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 
