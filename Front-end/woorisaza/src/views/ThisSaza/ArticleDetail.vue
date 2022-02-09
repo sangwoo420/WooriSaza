@@ -58,7 +58,8 @@
         </div>
         <!-- 찜버튼 + 참여하기 버튼 -->
         <div style="text-align:right" >
-            <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
+            <img v-if="isZzim" src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer" @click="deleteZZim">
+            <img v-if="!isZzim" src="@/assets/zzimOff.png" style="width:1.6em;cursor:pointer" @click="addZZim">&nbsp;
             <b-button v-if="!inParty" variant="warning" pill @click="requestParty">참여하기</b-button>
             <b-button v-if="inParty" variant="primary" pill @click="moveToPartyDetail">상세보기</b-button>
         </div>
@@ -135,6 +136,7 @@ export default {
             id : this.$cookie.get("id"),
             inParty : false,
             bossId : null,
+            isZzim : null,
         };
     },
     created() {
@@ -188,6 +190,15 @@ export default {
                     // console.log(this.commentList[index])
                 })
             }
+        })
+
+        axios_contact({
+            method : "get",
+            url : "/zzim?articleId="+this.articleNo+"&profileId="+this.id,
+        }).then((data)=>{
+            this.isZzim = data.data.success
+        }).catch((error)=>{
+            this.isZzim=error.response.data.success 
         })
     },
 
@@ -246,6 +257,35 @@ export default {
 
         moveToPartyDetail(){
             this.$router.push("/partydetail/"+this.article.partyId).catch(()=>{});
+        },
+
+        addZZim(){
+            this.isZzim = true;
+            axios_contact({
+                method : "post",
+                url : "/zzim",
+                data : {
+                    "profileid": this.id,
+                    "articleid": this.articleNo,
+                }
+            }).then(({data})=>{
+                data
+                // console.log(data)
+            })
+        },
+        deleteZZim(){
+            this.isZzim = false;
+            axios_contact({
+                method : "delete",
+                url : "/zzim",
+                data : {
+                    "profileid": this.id,
+                    "articleid": this.articleNo,
+                }
+            }).then(({data})=>{
+                data
+                // console.log(data)
+            })
         },
     },
 };

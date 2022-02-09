@@ -1,22 +1,20 @@
 <template>
     <div>
-        {{zzimNo[0]}}프로필id 
-        {{zzimNo[1]}}게시글id
-        <div>
+        <div v-if="article!=null">
             <b-row>
                 <b-col cols="8">
                     <div>
-                        <div :class="{statebox:true}">거래 완료</div>
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">물 24개 나누실 분</div>
-                        <div style="font-size:0.9em">기간: ~22.2.1</div>
-                        <div style="font-size:0.9em">모집인원: 4/4</div>
+                        <!-- <div :class="{statebox:true}">거래 완료</div> -->
+                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div>
+                        <div style="font-size:0.9em">기간: ~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}}</div>
+                        <div style="font-size:0.9em">모집인원: {{article.currentRecruitMember}}/{{article.totalRecruitMember}}</div>
                         
                     </div>
                 </b-col>
                 <b-col cols="4">
                     <div style="text-align:right" class="mt-5">
-                        <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">10000원</div>
-                        <div style="font-size:1.3em;font-weight:bold;">2500원</div>
+                        <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
+                        <div style="font-size:1.3em;font-weight:bold;">{{article.myPrice}}원</div>
                     </div>
                 </b-col>
             </b-row>
@@ -26,13 +24,26 @@
 </template>
 
 <script>
+import {axios_contact} from "@/common.js"
+
 export default {
     name: 'Zzim',
-    props:["zzimNo"],
+    props:{
+        zzim : Object,
+    },
     data() {
         return {
-            
+            article : null,
         };
+    },
+
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/article/"+this.zzim.articleId,
+        }).then(({data})=>{
+            this.article=data.article;
+        })
     },
 
     mounted() {

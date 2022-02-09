@@ -1,27 +1,36 @@
 <template>
     <div>
         <!-- 내가 참가한 파티 목록 -->
-        <div v-for="(item, index) in zzimNo" :key="index">
-            <Zzim :zzimNo="item"></Zzim>
-        </div>
+            <div v-for="(item, index) in zzimList" :key="index">
+                <Zzim :zzim="item"></Zzim>
+            </div>
     </div>
 </template>
 
 <script>
 import Zzim from "@/components/Mypage/Zzim/Zzim.vue";
+import {axios_contact} from "@/common.js"
+
 export default {
-    name: 'Memberofparty',
+    name: 'Zzims',
     components:{
         Zzim,
     },
     data() {
         return {
-            zzimNo:[
-                [1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],
-            ],
+            id : this.$cookie.get("id"),
+            zzimList :null,
         };
     },
 
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/zzim?profileId="+this.id,
+        }).then(({data})=>{
+            this.zzimList = data.zzimList;
+        })
+    },
     mounted() {
         
     },
