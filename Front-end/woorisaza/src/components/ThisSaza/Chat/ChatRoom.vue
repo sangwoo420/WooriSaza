@@ -11,7 +11,7 @@
                     <h6>시간: {{ item.time }}</h6>
                 </div>
             </b-row>
-            내용: <input v-model="message" type="text" @keyup.enter="sendMessage">
+            입력: <input v-model="message" type="text" @keyup.enter="sendMessage">
         </b-container>
     </div>
 </template>
@@ -20,7 +20,7 @@
 <script>
 import axios from 'axios';
 import SockJS from 'sockjs-client';
-import Stomp from 'webstomp-client';
+import Stomp from 'stomp-websocket';
 
 export default {
     name: 'ChatRoom',
@@ -32,17 +32,12 @@ export default {
             roomChat:[],
             myName:"",
             message:"",
-
-            sock : null,
-            ws : null,
-            reconnect : 0,
         };
     },
 
     created(){
-        this.sock = new SockJS("/ws-stomp");
-        this.ws = Stomp.over(this.sock);
-        this.reconnect = 0;
+        // 소켓 연결
+        this.connect();
 
         axios({
             method : "get",
@@ -61,7 +56,6 @@ export default {
             this.roomChat = data.chatRoom.msgList;
         })
 
-        this.connect();
     },
 
     mounted() {
@@ -69,26 +63,35 @@ export default {
 
     methods: {
         sendMessage: function() {
-            this.ws.send("/pub/chat/message?userNickname="+this.myName, {}, JSON.stringify({type:'CHAT', roomId:this.roomId, sender:this.myName, content:this.message}));
+            this.stompClient.send("/pub/chat/message?userNickname="+this.myName, {}, JSON.stringify({type:'CHAT', roomId:this.roomId, sender:this.myName, content:this.message}));
+            this.message = '';
         },
         recvMessage: function(recv) {
-            this.messages.unshift({"type":recv.type,"sender":recv.sender,"content":recv.content})
+            this.roomChat.unshift({"type":recv.type,"sender":recv.sender,"content":recv.content})
         },
         connect(){
-            this.ws.connect({}, function(frame) {
-                console.log(frame);
-                this.ws.subscribe("/sub/chat/room/"+this.roomId, function(message) {
+            const serverURL = "http://127.0.0.1:8080/ws-stomp";
+            let socket = new SockJS(serverURL);
+            // let socket = new SockJS("/ws-stomp");
+            this.stompClient = Stomp.over(socket);
+            this.reconnect = 0;
+
+            this.stompClient.connect({}, function(frame) {
+                console.log("Connected: " + frame);
+                this.stompClient.subscribe("/sub/chat/room/"+this.roomId, function(message) {
+                    console.log("구독으로 받은 메세지: " + message.body);
                     var recv = JSON.parse(message.body);
+                    // this.roomChat.push(recv);
                     this.recvMessage(recv);
                 });
-                this.ws.send("/pub/chat/message?userNickname="+this.myName, {}, JSON.stringify({type:'ENTER', roomId:this.roomId, sender:this.myName}));
+                this.stompClient.send("/pub/chat/message?userNickname="+this.myName, {}, JSON.stringify({type:'ENTER', roomId:this.roomId, sender:this.myName}));
             }, function(error) {
-                console.log(error);
+                console.log("Fail: " + error);
                 if(this.reconnect++ < 5) {
                     setTimeout(function() {
                         // console.log("connection reconnect");
-                        this.sock = new SockJS("/ws-stomp");
-                        this.ws = Stomp.over(this.sock);
+                        let socket = new SockJS(serverURL);
+                        this.stompClient = Stomp.over(socket);
                         this.connect();
                     },10*1000);
                 }
