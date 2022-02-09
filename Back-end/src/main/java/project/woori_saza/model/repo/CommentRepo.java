@@ -10,8 +10,7 @@ import java.util.List;
 public interface CommentRepo extends JpaRepository<Comment, Long> {
 
     List<Comment> findByArticle(Article article);
-
-
+    List<Comment> findByUserProfileOrderByCreateAtDesc(UserProfile userProfile);
     List<Comment> findByUserProfile(UserProfile userProfile);
 
 
