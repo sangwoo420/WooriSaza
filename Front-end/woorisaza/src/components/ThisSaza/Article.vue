@@ -5,7 +5,7 @@
             <b-row>
                 <b-col>
                     <div style="cursor:pointer">
-                        <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt=""></b-img>
+                        <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt="" style="width:150px;height:150px"></b-img>
                     </div>
                 </b-col>
                 <b-col>
