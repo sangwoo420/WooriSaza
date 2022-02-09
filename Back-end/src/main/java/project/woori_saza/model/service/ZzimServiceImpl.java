@@ -37,7 +37,7 @@ public class ZzimServiceImpl implements ZzimService {
     public List<ZzimDto> getZzimList(String profileId) {
         UserProfile userProfile = userProfileRepo.getById(profileId);
         //articles.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
-        return zzimRepo.findByUserProfile(userProfile).stream().map(ZzimDto::new).collect(Collectors.toList());
+        return zzimRepo.findByUserProfileOrderByArticleDesc(userProfile).stream().map(ZzimDto::new).collect(Collectors.toList());
     }
 
     @Override

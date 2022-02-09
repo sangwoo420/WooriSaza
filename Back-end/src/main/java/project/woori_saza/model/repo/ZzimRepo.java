@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ZzimRepo extends JpaRepository<Zzim, Zzim.ZzimId> {
 
-    List<Zzim> findByUserProfile(UserProfile userProfile);
+    List<Zzim> findByUserProfileOrderByArticleDesc(UserProfile userProfile);
 
     List<Zzim> findByArticle(Article article);
 
