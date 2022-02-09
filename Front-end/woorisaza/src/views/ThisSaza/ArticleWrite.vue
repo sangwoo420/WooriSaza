@@ -134,6 +134,8 @@ export default {
         };
     },
 
+    created() {
+    },
     mounted() {
         
     },
@@ -165,12 +167,13 @@ export default {
                     }
                 }
                 this.linkState = true;
-                
+                // console.log(link)
                 axios_contact({
                     method : "get",
                     url : "/api/thumbnail?url="+link,
                 }).then(({data})=>{
-                    console.log(data)
+                    // console.log(data)
+                    this.articleAndParty.pic.push(data.meta.image)
                 })
             })
         },
