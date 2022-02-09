@@ -37,9 +37,12 @@ public class ZzimController {
                 result.put("zzimList", zzimService.getZzimList(Long.parseLong(articleId)));
             }
             status = HttpStatus.OK;
+            result.put("success", true);
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
         }
 
         return new ResponseEntity<Map<String, Object>>(result, status);
