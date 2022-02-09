@@ -28,7 +28,7 @@ public class ReviewServiceImpl implements ReviewService{
     public List<ReviewResponseDto> getReviewList(String profileId) {
 
         UserProfile user = userProfileRepo.getById(profileId);
-        List<Review> reviews = reviewRepo.findByToUser(user);
+        List<Review> reviews = reviewRepo.findByToUserOrderByDateDesc(user);
         return reviews.stream().map(ReviewResponseDto::new).collect(Collectors.toList());
     }
 

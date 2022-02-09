@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentDto> getCommentList(Long articleId) {
         System.out.println("===파티 댓글 리스트===");
         Article article = articleRepo.getById(articleId);
-        List<Comment> comments = commentRepo.findByArticle(article);
+        List<Comment> comments = commentRepo.findByArticleOrderByCreateAtDesc(article);
         return comments.stream().map(CommentDto::new).collect(Collectors.toList());
     }
 
@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentDto> getMyCommentList(String profileId) {
         System.out.println("===파티 댓글 리스트===");
         UserProfile user = userProfileRepo.getById(profileId);
-        List<Comment> comments = commentRepo.findByUserProfile(user);
+        List<Comment> comments = commentRepo.findByUserProfileOrderByCreateAtDesc(user);
         return comments.stream().map(CommentDto::new).collect(Collectors.toList());
     }
 
