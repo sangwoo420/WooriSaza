@@ -56,10 +56,10 @@ export default {
             area : null,
             areas : [
                 {value:null, text:"지역범위를 선택하세요."},
-                {value:"walk5", text:"걸어서 5분 이내"},
-                {value:"walk10", text:"걸어서 10분 이내"},
-                {value:"car5", text:"차타고 5분 이내"},
-                {value:"car10", text:"차타고 10분 이내"}
+                {value:400, text:"걸어서 5분 이내"},
+                {value:800, text:"걸어서 10분 이내"},
+                {value:2000, text:"차타고 5분 이내"},
+                {value:4000, text:"차타고 10분 이내"}
             ],
             search:null,
             scrollPostion : 0,
