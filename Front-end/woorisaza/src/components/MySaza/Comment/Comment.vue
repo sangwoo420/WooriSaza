@@ -5,7 +5,7 @@
             <b-row>
                 <b-col cols="8">
                     <div>
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" >{{comment.title}}}</div>
+                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" >{{comment.title}}</div>
                         <div style="font-size:0.9em">{{comment.content}}</div>
                     </div>
                 </b-col>
