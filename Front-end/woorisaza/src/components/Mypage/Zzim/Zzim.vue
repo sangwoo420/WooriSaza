@@ -53,6 +53,7 @@ export default {
     methods: {
         moveToDetail(){
             console.log("상세보기 페이지로 이동")
+            this.$router.push("/board/"+this.articleId)
         },
     },
 };
