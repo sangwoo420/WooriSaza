@@ -61,6 +61,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleResponseDto> getArticleList(String profileId, String category, String range, String keyword) {
 
+        if (profileId.equals("null")) {
+            return articleRepo.findAllByOrderByCreatedAtDesc().stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+        }
+
         Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfileRepo.getById(profileId).getAddress());
         List<Article> articles = null;
         //1. 전부 없을때
@@ -133,7 +137,7 @@ public class ArticleServiceImpl implements ArticleService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setIsBoss(true);
         memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-        int calprice=(int)(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
+        int calprice = (int) (articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
         memberInfo.setPrice(calprice);
         memberInfo.setParty(party);
         memberInfo.setUserProfile(userProfile);
@@ -146,7 +150,7 @@ public class ArticleServiceImpl implements ArticleService {
         ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
         chatRoomRepo.save(chatRoom);
         chatRoomJoinRepo.save(chatRoomJoin);
-        System.out.println("topic: "+chatRoomService.getTopic(chatRoom.getId()));
+        System.out.println("topic: " + chatRoomService.getTopic(chatRoom.getId()));
 
         return new ArticleResponseDto(article);
     }
