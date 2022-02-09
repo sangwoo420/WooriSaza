@@ -14,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.domain.PaidForm;
+import project.woori_saza.model.domain.Party;
 import project.woori_saza.model.dto.PaidFormRequestDto;
 import project.woori_saza.model.dto.PaidFormResponseDto;
 import project.woori_saza.model.repo.PaidFormRepo;
@@ -47,9 +48,10 @@ public class PaidFormServiceImpl implements PaidFormService{
     public void insertPaidForm(PaidFormRequestDto paidFormRequestDto) {
 
             PaidForm paidForm = paidFormRequestDto.toEntity();
-            paidForm.setParty(partyRepo.getById(paidFormRequestDto.getParty()));
+            Party party=partyRepo.getById(paidFormRequestDto.getPartyId());
+            party.setFormChecked(true);
+            paidForm.setParty(party);
             paidFormRepo.save(paidForm);
-
     }
 
     @Override

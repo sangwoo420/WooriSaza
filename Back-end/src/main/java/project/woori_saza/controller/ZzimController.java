@@ -41,7 +41,6 @@ public class ZzimController {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 
