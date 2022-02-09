@@ -1,5 +1,14 @@
 <template>
     <div v-if="article!=null">
+        <div v-if="myInfo == null">
+            <div style="font-size : 1.5em">
+                내가 참여한 파티가 아니에요!<br>
+            </div>
+            <div style="text-align:center">
+                <img src="@/assets/fin.png" alt=""><br>
+            </div>
+        </div>
+        <div v-if="myInfo!=null">
         <span class="title">
              상세 정보
         </span>
@@ -73,6 +82,7 @@
                 <b-button variant="danger" >물건을 못 받았어요</b-button>
                 <b-button variant="success" >구매 확정하기</b-button>
             </div>
+        </div>
         </div>
     </div>
 </template>
