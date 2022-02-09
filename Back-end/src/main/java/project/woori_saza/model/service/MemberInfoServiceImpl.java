@@ -76,7 +76,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
         for (MemberInfo memberInfo : memberInfos) {
             if (memberInfo.getParty().getId() == partyId) {
-                party.setCurrentRecruitMember(party.getCurrentRecruitMember() - 1);
+                party.setCurrentRecruitMember(party.getCurrentRecruitMember() - memberInfo.getAmount());
                 memberInfoRepo.deleteById(memberInfo.getId());
             }
         }
