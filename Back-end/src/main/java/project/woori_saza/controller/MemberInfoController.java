@@ -40,14 +40,31 @@ public class MemberInfoController {
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 
+    @ApiOperation(value="사용자 구매확정 여부",notes="사용자가 물건을 받고 구매확정을 한다.")
+    @GetMapping
+    public ResponseEntity<Map<String,Object>> confirmMemberInfo(@RequestParam  @ApiParam(value="파티 아이디",required = true) Long partyId,@RequestParam  @ApiParam(value="유저프로필 아이디",required = true) String profileId){
+        Map<String,Object>result=new HashMap<>();
+        HttpStatus status=null;
+        try{
+            memberInfoService.confirmMemberInfo(partyId,profileId);
+            status=HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
 
     @ApiOperation(value="파티원 파티참가 취소",notes="파티원이 파티를 나간다.")
-    @DeleteMapping("/{memberinfoId}")
-    public ResponseEntity<Map<String, Object>> deleteMemberInfo(@PathVariable  @ApiParam(value="memberinfo 아이디",required = true) Long memberinfoId){
+    @DeleteMapping()
+    public ResponseEntity<Map<String, Object>> deleteMemberInfo(@RequestParam  @ApiParam(value="파티 아이디",required = true) Long partyId,@RequestParam  @ApiParam(value="유저프로필 아이디",required = true) String profileId){
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try{
-            memberInfoService.deleteMemberInfo(memberinfoId);
+            memberInfoService.deleteMemberInfo(partyId,profileId);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         }catch (RuntimeException e){
@@ -55,7 +72,6 @@ public class MemberInfoController {
             result.put("success", false);
         }
         return new ResponseEntity<Map<String,Object>>(result, httpStatus);
-
     }
 
 }
