@@ -23,6 +23,8 @@ import project.woori_saza.util.HashEncoder;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
         UserProfile userProfile = new UserProfile(userProfileDto);
         userProfile.setId(hashEncoder.encode(userAuth.getId())); // double hashed id
         userProfile.setUserAuth(userAuth);
-        userProfile.setJoinDate(LocalDateTime.now());
+        userProfile.setJoinDate(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfile.getAddress());
         userProfile.setLng(lnglat[0]);
         userProfile.setLat(lnglat[1]);

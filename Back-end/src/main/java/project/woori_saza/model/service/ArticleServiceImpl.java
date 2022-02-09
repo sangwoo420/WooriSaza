@@ -15,6 +15,8 @@ import project.woori_saza.util.GeoLocationUtil;
 
 import java.lang.reflect.Member;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -122,7 +124,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setContent(articleAndPartyRequestDto.getContent());
         article.setLink(articleAndPartyRequestDto.getLink());
         article.setPic(articleAndPartyRequestDto.getPic());
-        article.setCreatedAt(LocalDateTime.now());
+        article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
