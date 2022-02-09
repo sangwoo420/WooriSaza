@@ -10,7 +10,7 @@
                 <b-navbar-nav class="ml-auto">
                     <!-- 로그인-->
                     <div v-if="accesstoken==null">
-                        <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">로그인</b-button>  &nbsp; &nbsp;
+                        <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">로그인 | 회원가입</b-button>  &nbsp; &nbsp;
                         <!-- <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">회원가입</b-button>&nbsp; &nbsp; -->
                         <b-modal id="signlogin" hide-footer size="sm">
                             <template #modal-title>
