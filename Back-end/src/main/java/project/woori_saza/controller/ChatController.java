@@ -3,7 +3,11 @@ package project.woori_saza.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.converter.MessageConversionException;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.domain.ChatMessage;
 import project.woori_saza.model.domain.ChatRoom;
@@ -14,7 +18,6 @@ import project.woori_saza.model.repo.ChatMessageRepo;
 import project.woori_saza.model.repo.ChatRoomRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 import project.woori_saza.model.service.ChatRoomService;
-import project.woori_saza.pubsub.RedisPublisher;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class ChatController {
 
-    private final RedisPublisher redisPublisher;
     private final ChatRoomService chatRoomService;
 
     @Autowired
@@ -35,6 +37,8 @@ public class ChatController {
 
     @Autowired
     UserProfileRepo userProfileRepo;
+
+    private final SimpMessagingTemplate template; // 특정 브로커로 메시지 전달
 
     /**
      * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
@@ -53,8 +57,10 @@ public class ChatController {
         chatMessageRepo.save(chatMessage);
 //        chatRoom.addChatMessages(chatMessage);
 
+        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), chatMessage);
+
         // Websocket에 발행된 메시지를 redis로 발행한다(publish)
-        System.out.println("send message get topic: " + chatRoomService.getTopic(chatRoom.getId()));
-        redisPublisher.publish(chatRoomService.getTopic(chatRoom.getId()), message);
+//        System.out.println("send message get topic: " + chatRoomService.getTopic(chatRoom.getId()));
+//        redisPublisher.publish(chatRoomService.getTopic(chatRoom.getId()), message);
     }
 }

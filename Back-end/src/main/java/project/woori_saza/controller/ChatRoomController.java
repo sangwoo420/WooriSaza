@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.dto.ChatRoomDto;
 import project.woori_saza.model.service.ChatRoomService;
-import project.woori_saza.pubsub.RedisSubscriber;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -21,6 +20,7 @@ public class ChatRoomController {
 
     @Autowired
     ChatRoomService chatRoomService;
+
 
     // 내 채팅방 목록 띄우기
     @GetMapping("/room/{profileId}")
@@ -57,8 +57,8 @@ public class ChatRoomController {
             System.out.println("roomName: " + chatRoom.getName());
             // TODO: 과거 채팅 내역 보여주기
 
-            chatRoomService.enterChatRoom(roomId);
-            System.out.println("enter get topic: " + chatRoomService.getTopic(roomId));
+//            chatRoomService.enterChatRoom(roomId);
+//            System.out.println("enter get topic: " + chatRoomService.getTopic(roomId));
 
             httpStatus = HttpStatus.OK;
         }catch (RuntimeException e) {

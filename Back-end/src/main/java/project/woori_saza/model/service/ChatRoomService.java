@@ -16,10 +16,10 @@ public interface ChatRoomService {
     // 특정 채팅방 조회 -> 어떤 채팅방인지 찾아주기만함 (이름설정)
     ChatRoomDto findRoomByRoomID(String roomId);
     // 채팅방 생성 -> article에서 생성
-    ChatRoom createChatRoom(Article article);
+    ChatRoom createChatRoom(Long articleId, String articleTitle);
     // 채팅-유저 조인 생성 + 입장
     ChatRoomJoin createChatRoomJoin(ChatRoom chatRoom, UserProfile userProfile);
-    void enterChatRoom(String roomId);
-    ChannelTopic getTopic(String roomId);
+//    void enterChatRoom(String roomId);
+//    ChannelTopic getTopic(String roomId);
 
 }

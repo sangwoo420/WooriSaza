@@ -59,6 +59,7 @@ export default {
     },
 
     mounted() {
+        this.connect();
     },
 
     methods: {
@@ -67,7 +68,7 @@ export default {
             this.message = '';
         },
         recvMessage: function(recv) {
-            this.roomChat.unshift({"type":recv.type,"sender":recv.sender,"content":recv.content})
+            this.roomChat.push({"sender":recv.sender,"content":recv.content})
         },
         connect(){
             const serverURL = "http://127.0.0.1:8080/ws-stomp";
@@ -79,11 +80,9 @@ export default {
 
             this.stompClient.connect({}, (frame) => {
                 console.log("Connected: " + frame);
-                // console.log(that.stompClient);
                 this.stompClient.subscribe("/sub/chat/room/"+this.roomId, (message) => {
-                    console.log("구독으로 받은 메세지: " + message.body);
                     var recv = JSON.parse(message.body);
-                    // this.roomChat.push(recv);
+                    console.log("구독으로 받은 메세지: " +recv.message);
                     this.recvMessage(recv);
                 });
                 // this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', content:this.myName + "님이 입장하셨습니다.", roomId:this.roomId, sender:this.myName}));
