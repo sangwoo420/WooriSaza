@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.woori_saza.model.domain.Review;
-import project.woori_saza.model.domain.UserProfile;
 
 import java.time.LocalDateTime;
 

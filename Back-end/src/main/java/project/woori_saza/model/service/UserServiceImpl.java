@@ -21,8 +21,6 @@ import project.woori_saza.model.repo.UserProfileRepo;
 import project.woori_saza.util.GeoLocationUtil;
 import project.woori_saza.util.HashEncoder;
 
-import java.io.File;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -99,7 +97,6 @@ public class UserServiceImpl implements UserService {
             String url="/profile/";
             String saveFileName =UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
             String saveFileName2=url+saveFileName;
-            System.out.println("랜덤이름 출력할래 "+saveFileName2);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);

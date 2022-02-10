@@ -12,7 +12,6 @@ import project.woori_saza.model.dto.PaidFormResponseDto;
 import project.woori_saza.model.service.PaidFormService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController

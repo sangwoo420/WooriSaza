@@ -1,15 +1,16 @@
 <template>
     <div class="mb-2">
-        <!-- {{partyNo}} -->
+        <!-- {{room}} -->
         <b-container class="bv-example-row">
-            <b-row>
+            <b-row @click="clickRoom">
                 <b-col cols="3"><b-img  :src="data" v-bind="mainProps" rounded="circle" alt="Circle image" thumbnail ></b-img></b-col>
                 <b-col cols="6">
                     <div>
-                        물 24개 나누실 분
+                        {{room.name}}
                     </div>
                     <div style="font-size:10px">
-                        운송장 번호도 나중에 등록해..
+                        <!--마지막 댓글 보여주기-->
+                        마지막 댓글 입니당
                     </div>
                 </b-col>
                 <b-col cols="3">
@@ -30,16 +31,18 @@
 
 <script>
 import Identicon from "identicon.js"
+import { EventBus } from "@/event-bus.js"
+
 export default {
     name: 'Chatpreview',
-    props:["partyNo"],
+    props:["room"],
     data() {
         return {
             mainProps: { blank: false, blankColor: '#777', width: 50, height: 50, class: 'm1' },
-            base64 : btoa(this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()+this.partyNo.toString()),
+            base64 : btoa(this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()+this.room.toString()),
             data : "",
             options : {
-                foreground: [this.partyNo%256,(this.partyNo+50)%256,(this.partyNo+120)%256,(this.partyNo+200)%256],               // rgba black
+                foreground: [this.room%256,(this.room+50)%256,(this.room+120)%256,(this.room+200)%256],               // rgba black
                 background: [255, 255, 255, 255],         // rgba white
                 margin: 0.2,                              // 20% margin
                 size: 50,                                // 420px square
@@ -53,7 +56,9 @@ export default {
     },
 
     methods: {
-        
+        clickRoom(){
+            EventBus.$emit("selectRoom",this.room.id);
+        }
     },
 };
 </script>

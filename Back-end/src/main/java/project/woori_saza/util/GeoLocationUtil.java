@@ -2,7 +2,6 @@ package project.woori_saza.util;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;

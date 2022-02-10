@@ -1,19 +1,14 @@
 package project.woori_saza.model.service;
 
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
-import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
-import project.woori_saza.model.dto.PartyRequestDto;
 import project.woori_saza.model.repo.*;
 import project.woori_saza.util.GeoLocationUtil;
 
-import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -40,13 +35,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private GeoLocationUtil geoLocationUtil;
 
+    @Autowired
+    private ChatRoomRepo chatRoomRepo;
+
+    @Autowired
+    private ChatRoomJoinRepo chatRoomJoinRepo;
+
+    @Autowired
+    private ChatRoomService chatRoomService;
 
     @Autowired
     private CommentRepo commentRepo;
 
     @Autowired
     private ZzimRepo zzimRepo;
-
 
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
@@ -142,6 +144,14 @@ public class ArticleServiceImpl implements ArticleService {
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
 
+        /**
+         * 채팅방 생성
+         */
+        ChatRoom chatRoom = chatRoomService.createChatRoom(article.getId(), article.getTitle());
+        ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
+        chatRoomRepo.save(chatRoom);
+        chatRoomJoinRepo.save(chatRoomJoin);
+
         return new ArticleResponseDto(article);
     }
 
@@ -194,7 +204,5 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         articleRepo.deleteById(articleId);
-
-
     }
 }

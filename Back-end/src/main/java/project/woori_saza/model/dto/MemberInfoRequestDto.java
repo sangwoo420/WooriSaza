@@ -4,8 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.woori_saza.model.domain.MemberInfo;
-import project.woori_saza.model.domain.Party;
 
 @Data
 @NoArgsConstructor

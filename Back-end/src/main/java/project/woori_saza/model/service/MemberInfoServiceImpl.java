@@ -8,7 +8,6 @@ import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.repo.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,7 +21,14 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     @Autowired
     MemberInfoRepo memberInfoRepo;
 
+    @Autowired
+    ChatRoomJoinRepo chatRoomJoinRepo;
 
+    @Autowired
+    ChatRoomService chatRoomService;
+
+   @Autowired
+   ChatRoomRepo chatRoomRepo;
 
 
 
@@ -47,7 +53,12 @@ public class MemberInfoServiceImpl implements MemberInfoService{
                 .build();
         memberInfoRepo.save(memberInfo);
 
-
+        // 채팅방 입장
+        List<ChatRoom> chatRoomList = chatRoomRepo.findChatRoomByArticleId(party.getArticle().getId());
+        ChatRoom chatRoom = chatRoomList.get(0);
+        chatRoom.setCount(chatRoom.getCount()+1);
+        ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
+        chatRoomJoinRepo.save(chatRoomJoin);
     }
 
     //회원 삭제
