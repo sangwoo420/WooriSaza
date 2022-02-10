@@ -8,7 +8,9 @@ import project.woori_saza.model.domain.UserProfile;
 import java.util.List;
 
 public interface ChatRoomJoinRepo extends JpaRepository<ChatRoomJoin, Long> {
+    //  ChatRoom findByArticle(Article article);
 
+    List<ChatRoomJoin> findByChatRoom(ChatRoom chatRoom);
 
 
 }
