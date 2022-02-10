@@ -27,7 +27,7 @@ public class ChatRoom implements Serializable{
 
     private String name;
 
-    private Long article_id;
+    private Long articleId;
 
     private int count;
 
@@ -40,7 +40,7 @@ public class ChatRoom implements Serializable{
     public static ChatRoom create(String articleName, Long articleId) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.id = UUID.randomUUID().toString();
-        chatRoom.article_id = articleId;
+        chatRoom.articleId = articleId;
         chatRoom.name = articleName;
         chatRoom.count = 1;
         return chatRoom;

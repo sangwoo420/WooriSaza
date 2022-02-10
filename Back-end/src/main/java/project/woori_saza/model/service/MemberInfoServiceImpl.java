@@ -7,6 +7,8 @@ import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.repo.*;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class MemberInfoServiceImpl implements MemberInfoService{
@@ -51,7 +53,9 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         memberInfoRepo.save(memberInfo);
 
         // 채팅방 입장
-        ChatRoom chatRoom = chatRoomRepo.findChatRoomByArticle_id(party.getArticle().getId());
+        List<ChatRoom> chatRoomList = chatRoomRepo.findChatRoomByArticleId(party.getArticle().getId());
+        ChatRoom chatRoom = chatRoomList.get(0);
+        System.out.println("맞는 채팅방?: "+chatRoom.getName());
         chatRoom.setCount(chatRoom.getCount()+1);
         ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
         chatRoomJoinRepo.save(chatRoomJoin);

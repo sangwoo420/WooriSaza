@@ -31,7 +31,7 @@ public class ChatMessage {
     @NotNull
     private String time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
 
