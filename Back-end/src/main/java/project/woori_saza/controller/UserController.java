@@ -8,16 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import project.woori_saza.model.domain.UserAuth;
-import project.woori_saza.model.domain.UserProfile;
-import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.UserProfileDto;
 import project.woori_saza.model.service.UserService;
-import project.woori_saza.model.service.UserServiceImpl;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController

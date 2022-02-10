@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import project.woori_saza.model.domain.Category;
 
 import javax.persistence.ElementCollection;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data

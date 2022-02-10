@@ -11,7 +11,6 @@ import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.CommentRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;

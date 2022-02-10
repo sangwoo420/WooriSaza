@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
-import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.dto.PartyDto;
 import project.woori_saza.model.dto.PartyResponseDto;
 import project.woori_saza.model.repo.*;

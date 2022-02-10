@@ -1,9 +1,7 @@
 package project.woori_saza.model.service;
 
 import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
-import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
-import project.woori_saza.model.dto.PartyRequestDto;
 
 import java.util.List;
 

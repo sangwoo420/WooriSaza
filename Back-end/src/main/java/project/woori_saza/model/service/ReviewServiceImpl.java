@@ -10,7 +10,6 @@ import project.woori_saza.model.dto.ReviewResponseDto;
 import project.woori_saza.model.repo.ReviewRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;

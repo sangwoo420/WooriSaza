@@ -1,6 +1,5 @@
 package project.woori_saza.model.repo;
 
-import org.springframework.data.geo.Point;
 import project.woori_saza.model.domain.Article;
 
 import java.util.List;

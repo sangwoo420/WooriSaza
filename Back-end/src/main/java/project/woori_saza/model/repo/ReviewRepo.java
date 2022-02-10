@@ -7,8 +7,7 @@ import project.woori_saza.model.domain.UserProfile;
 import java.util.List;
 
 public interface ReviewRepo extends JpaRepository<Review, Long> {
-   // findByUserProfile
-   // findByArticleOrderByCreateAtDesc
+
     List<Review> findByToUserOrderByDateDesc(UserProfile userProfile);
 
 }

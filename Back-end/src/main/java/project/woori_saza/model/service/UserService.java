@@ -5,7 +5,6 @@ import project.woori_saza.model.dto.UserProfileDto;
 
 public interface UserService {
     UserProfileDto login(String userAuthId);
- //   UserProfileDto register(UserProfileDto userProfileDto, MultipartFile multipartFile) throws Exception;
     UserProfileDto register(UserProfileDto userProfileDto);
     String upload(MultipartFile uploadFile) throws Exception;
     UserProfileDto update(UserProfileDto userProfileDto);

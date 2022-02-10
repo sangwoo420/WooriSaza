@@ -1,14 +1,10 @@
 package project.woori_saza.model.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.woori_saza.model.domain.ChatMessage;
 import project.woori_saza.model.domain.MessageType;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
