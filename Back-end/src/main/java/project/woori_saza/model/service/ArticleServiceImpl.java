@@ -44,6 +44,12 @@ public class ArticleServiceImpl implements ArticleService {
     private ChatRoomRepo chatRoomRepo;
 
     @Autowired
+    private CommentRepo commentRepo;
+
+    @Autowired
+    private ZzimRepo zzimRepo;
+
+    @Autowired
     private ChatRoomJoinRepo chatRoomJoinRepo;
 
     @Autowired
@@ -192,6 +198,19 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(Long articleId) {
+        Article article=articleRepo.getById(articleId);
+        List<Comment> comments=commentRepo.findByArticle(article);
+        List<Zzim> Zzims=zzimRepo.findByArticle(article);
+
+        for (Comment comment : comments) {
+            commentRepo.deleteById(comment.getId());
+        }
+        for (Zzim zzim : Zzims) {
+           zzimRepo.deleteById(zzim.getZzimId());
+        }
+
         articleRepo.deleteById(articleId);
+
+
     }
 }
