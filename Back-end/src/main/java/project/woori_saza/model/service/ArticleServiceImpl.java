@@ -40,8 +40,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private GeoLocationUtil geoLocationUtil;
 
-    @Autowired
-    private ChatRoomRepo chatRoomRepo;
 
     @Autowired
     private CommentRepo commentRepo;
@@ -49,11 +47,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ZzimRepo zzimRepo;
 
-    @Autowired
-    private ChatRoomJoinRepo chatRoomJoinRepo;
-
-    @Autowired
-    private ChatRoomService chatRoomService;
 
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
@@ -148,15 +141,6 @@ public class ArticleServiceImpl implements ArticleService {
         memberInfo.setParty(party);
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
-
-        /**
-         * 채팅방 생성
-         */
-        ChatRoom chatRoom = chatRoomService.createChatRoom(article);
-        ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
-        chatRoomRepo.save(chatRoom);
-        chatRoomJoinRepo.save(chatRoomJoin);
-        System.out.println("topic: " + chatRoomService.getTopic(chatRoom.getId()));
 
         return new ArticleResponseDto(article);
     }

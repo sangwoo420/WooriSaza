@@ -28,14 +28,6 @@ public class PartyServiceImpl implements PartyService{
     @Autowired
     ArticleRepo articleRepo;
 
-    @Autowired
-    ChatRoomRepo chatRoomRepo;
-
-    @Autowired
-    ChatRoomJoinRepo chatRoomJoinRepo;
-
-    @Autowired
-    ChatMessageRepo chatMessageRepo;
 
     //    내 파티리스트 전체 조회
     @Override
