@@ -19,7 +19,7 @@
                 @sliding-end="onSlideEnd"
                 >
                     <b-carousel-slide v-for="(item, index) in article.pic" :key="index" :img-src="item"></b-carousel-slide>
-                    <b-carousel-slide img-src="/src/assets/fin.png"></b-carousel-slide>
+                    <!-- <b-carousel-slide img-src="@/assets/fin.png"></b-carousel-slide> -->
                 </b-carousel>
             </div>
         </div>

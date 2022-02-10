@@ -168,12 +168,20 @@ export default {
                 }
                 this.linkState = true;
                 // console.log(link)
+                // axios_contact({
+                //     method : "get",
+                //     url : "/api/thumbnail?url="+link,
+                // }).then(({data})=>{
+                //     console.log(data)
+                //     this.articleAndParty.pic.push(data.meta.image)
+                // })
+
                 axios_contact({
                     method : "get",
-                    url : "/api/thumbnail?url="+link,
+                    url : "http://url-metadata.herokuapp.com/api/metadata?url="+link,
                 }).then(({data})=>{
                     // console.log(data)
-                    this.articleAndParty.pic.push(data.meta.image)
+                    this.articleAndParty.pic.push(data.data.image)
                 })
             })
         },
