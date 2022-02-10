@@ -40,14 +40,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private GeoLocationUtil geoLocationUtil;
 
-    @Autowired
-    private ChatRoomRepo chatRoomRepo;
 
     @Autowired
-    private ChatRoomJoinRepo chatRoomJoinRepo;
+    private CommentRepo commentRepo;
 
     @Autowired
-    private ChatRoomService chatRoomService;
+    private ZzimRepo zzimRepo;
+
 
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
@@ -143,15 +142,6 @@ public class ArticleServiceImpl implements ArticleService {
         memberInfo.setUserProfile(userProfile);
         memberInfoRepo.save(memberInfo);
 
-        /**
-         * 채팅방 생성
-         */
-        ChatRoom chatRoom = chatRoomService.createChatRoom(article);
-        ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
-        chatRoomRepo.save(chatRoom);
-        chatRoomJoinRepo.save(chatRoomJoin);
-        System.out.println("topic: " + chatRoomService.getTopic(chatRoom.getId()));
-
         return new ArticleResponseDto(article);
     }
 
@@ -192,6 +182,19 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(Long articleId) {
+        Article article=articleRepo.getById(articleId);
+        List<Comment> comments=commentRepo.findByArticle(article);
+        List<Zzim> Zzims=zzimRepo.findByArticle(article);
+
+        for (Comment comment : comments) {
+            commentRepo.deleteById(comment.getId());
+        }
+        for (Zzim zzim : Zzims) {
+           zzimRepo.deleteById(zzim.getZzimId());
+        }
+
         articleRepo.deleteById(articleId);
+
+
     }
 }
