@@ -71,8 +71,8 @@ export default {
             this.roomChat.push({"sender":recv.sender,"content":recv.content,"time":recv.time})
         },
         connect(){
-            // const serverURL = "http://i6c102.p.ssafy.io/ws-stomp";
-            const serverURL = "http://127.0.0.1:8080/ws-stomp";
+            const serverURL = "http://i6c102.p.ssafy.io/ws-stomp";
+            // const serverURL = "http://127.0.0.1:8080/ws-stomp";
             let socket = new SockJS(serverURL);
             // let socket = new SockJS("/ws-stomp");
             // const that = this;
