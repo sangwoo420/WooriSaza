@@ -3,15 +3,11 @@ package project.woori_saza.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.woori_saza.model.domain.MemberInfo;
-import project.woori_saza.model.domain.Party;
-import project.woori_saza.model.domain.UserProfile;
+import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.dto.PartyDto;
 import project.woori_saza.model.dto.PartyResponseDto;
-import project.woori_saza.model.repo.MemberInfoRepo;
-import project.woori_saza.model.repo.PartyRepo;
-import project.woori_saza.model.repo.UserProfileRepo;
+import project.woori_saza.model.repo.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +24,18 @@ public class PartyServiceImpl implements PartyService{
 
     @Autowired
     MemberInfoRepo memberInfoRepo;
+
+    @Autowired
+    ArticleRepo articleRepo;
+
+    @Autowired
+    ChatRoomRepo chatRoomRepo;
+
+    @Autowired
+    ChatRoomJoinRepo chatRoomJoinRepo;
+
+    @Autowired
+    ChatMessageRepo chatMessageRepo;
 
     //    내 파티리스트 전체 조회
     @Override
@@ -69,7 +77,31 @@ public class PartyServiceImpl implements PartyService{
     @Override
     @Transactional
     public void deleteParty(Long partyId) {
+        Party party=partyRepo.getById(partyId); //파티 찾고
+
+        List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
+        Article article=articleRepo.findByParty(party);
+//        ChatRoom chatRoom=chatRoomRepo.findByArticle(article);
+//        List<ChatRoomJoin> chatRoomJoins=chatRoomJoinRepo.findByChatRoom(chatRoom);
+
+        for (MemberInfo memberInfo : memberInfos) {
+//            for (ChatRoomJoin chatRoomJoin : chatRoomJoins) {
+//                if(chatRoomJoin.getUserProfile().getId().equals(memberInfo.getUserProfile().getId())){
+//                   chatRoomJoinRepo.delete(chatRoomJoin);
+//                }
+//            }
+            memberInfoRepo.deleteById(memberInfo.getId());
+        }
+
+//        List<ChatMessage> chatMessage=chatMessageRepo.findByChatRoom(chatRoom);
+//        for (ChatMessage message : chatMessage) {
+//            chatMessageRepo.deleteById(message.getId());
+//        }
+
+//        chatRoomRepo.deleteById(chatRoom.getId());
+        articleRepo.deleteById(article.getId());
         partyRepo.deleteById(partyId);
+
     }
 
     @Override
