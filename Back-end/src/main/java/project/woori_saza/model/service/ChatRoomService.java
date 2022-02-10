@@ -1,12 +1,9 @@
 package project.woori_saza.model.service;
 
-import org.springframework.data.redis.listener.ChannelTopic;
 import project.woori_saza.model.domain.*;
-import project.woori_saza.model.dto.ChatMessageDto;
 import project.woori_saza.model.dto.ChatRoomDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ChatRoomService {
 

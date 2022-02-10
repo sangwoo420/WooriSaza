@@ -21,18 +21,12 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     @Autowired
     ChatRoomRepo chatRoomRepo;
 
-    // 채팅방(topic)에 발행되는 메시지를 처리할 Listener
-//    private final RedisMessageListenerContainer redisMessageListener;
-    // 구독 처리 서비스
-//    private final RedisSubscriber redisSubscriber;
-
-    // 채팅방의 대화 메시지를 발행하기 위한 redis topic 정보. 서버별로 채팅방에 매치되는 topic정보를 Map에 넣어 roomId로 찾을수 있도록 한다.
-    private Map<String, ChatRoom> chatRoomMap;
+//    private Map<String, ChatRoom> chatRoomMap;
 
     @PostConstruct
     @Override
     public void init() {
-        chatRoomMap = new LinkedHashMap<>();
+//        chatRoomMap = new LinkedHashMap<>();
     }
 
     // 내가 가진 채팅방 가져오기
@@ -55,18 +49,16 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         ChatRoom findChatRoom = chatRoomRepo.getById(roomId);
         ChatRoomDto chatRoomDto = new ChatRoomDto(findChatRoom);
         return chatRoomDto;
-//        return opsHashChatRoom.get(CHAT_ROOMS, roomId);
     }
 
-    //  채팅방 생성 (article에서) - 파티장만
     /**
-     * 채팅방 생성 : 서버간 채팅방 공유를 위해 redis hash에 저장한다.
+     * 채팅방 생성 (article에서) - 파티장만
      */
     @Override
     public ChatRoom createChatRoom(Long articleId, String articleTitle) {
-        ChatRoom chatRoom = ChatRoom.create(articleTitle, articleId);
+        ChatRoom chatRoom = ChatRoom.create(articleId, articleTitle);
 
-        chatRoomMap.put(chatRoom.getId(), chatRoom);
+//        chatRoomMap.put(chatRoom.getId(), chatRoom);
         return chatRoom;
     }
 
@@ -75,26 +67,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     public ChatRoomJoin createChatRoomJoin(ChatRoom chatRoom, UserProfile user){
         ChatRoomJoin chatRoomJoin = ChatRoomJoin.create(chatRoom,user);
 
-//        enterChatRoom(chatRoom.getId());
-
         return chatRoomJoin;
     }
-
-//    /**
-//     * 채팅방 입장 : redis에 topic을 만들고 pub/sub 통신을 하기 위해 리스너를 설정한다.
-//     */
-//    @Override
-//    public void enterChatRoom(String roomId){
-//        ChannelTopic topic = topics.get(roomId);
-//        if (topic == null)
-//            topic = new ChannelTopic(roomId);
-////        redisMessageListener.addMessageListener(redisSubscriber, topic);
-//        topics.put(roomId, topic);
-//    }
-//
-//    @Override
-//    public ChannelTopic getTopic(String roomId) {
-//        return topics.get(roomId);
-//    }
 
 }

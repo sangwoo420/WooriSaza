@@ -23,11 +23,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 @Slf4j
 public class ChatController {
-
-    private final ChatRoomService chatRoomService;
 
     @Autowired
     ChatMessageRepo chatMessageRepo;
@@ -52,15 +50,12 @@ public class ChatController {
 
         String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
         ChatMessage chatMessage = ChatMessage.createChatMessage(chatRoom, message.getType(), message.getContent(), message.getSender(), time);
+        message.setTime(time);
 
         log.info(">>>>>>>>>채팅 메시지<<<<<<<<<");
         chatMessageRepo.save(chatMessage);
-//        chatRoom.addChatMessages(chatMessage);
 
-        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), chatMessage);
+        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
 
-        // Websocket에 발행된 메시지를 redis로 발행한다(publish)
-//        System.out.println("send message get topic: " + chatRoomService.getTopic(chatRoom.getId()));
-//        redisPublisher.publish(chatRoomService.getTopic(chatRoom.getId()), message);
     }
 }

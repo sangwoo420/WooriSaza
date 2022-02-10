@@ -2,15 +2,12 @@ package project.woori_saza.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.dto.ChatRoomDto;
 import project.woori_saza.model.service.ChatRoomService;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -20,7 +17,6 @@ public class ChatRoomController {
 
     @Autowired
     ChatRoomService chatRoomService;
-
 
     // 내 채팅방 목록 띄우기
     @GetMapping("/room/{profileId}")
@@ -55,10 +51,7 @@ public class ChatRoomController {
             // 방들어가기
             chatRoom = chatRoomService.findRoomByRoomID(roomId);
             System.out.println("roomName: " + chatRoom.getName());
-            // TODO: 과거 채팅 내역 보여주기
-
-//            chatRoomService.enterChatRoom(roomId);
-//            System.out.println("enter get topic: " + chatRoomService.getTopic(roomId));
+            // 과거 채팅 내역 보여주기
 
             httpStatus = HttpStatus.OK;
         }catch (RuntimeException e) {
