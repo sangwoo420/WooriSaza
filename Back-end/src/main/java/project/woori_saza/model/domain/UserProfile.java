@@ -81,7 +81,5 @@ public class UserProfile implements Serializable {
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userProfile")
-    private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
 }

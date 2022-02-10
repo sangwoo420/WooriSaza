@@ -47,8 +47,6 @@ public class InitDb {
         MemberInfoRepo memberInfoRepo; // 삭제
         @Autowired
         PaidFormRepo paidFormRepo; // 삭제
-        @Autowired
-        ChatRoomRepo chatRoomRepo;
 
         public void dbInit1() {
 //            UserAuth userAuth = new UserAuth("ssafyid", false, null);
