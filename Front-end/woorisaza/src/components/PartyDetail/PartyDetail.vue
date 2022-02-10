@@ -65,7 +65,7 @@
         <div style="text-align:center" class="mt-3">
             <!-- 파티장 + 마감 전 -->
             <div v-if="myInfo.isBoss && !myInfo.isClosed">
-                <b-button variant="warning" >파티 마감하고 구매 진행하기</b-button>
+                <b-button variant="warning" @click="partyFinAndBill">파티 마감하고 구매 진행하기</b-button>
                 <b-button variant="danger" >파티 삭제하기</b-button>
             </div>
             <!-- 파티장 + 마감 후 -->
@@ -139,6 +139,17 @@ export default {
         },
         partyLeave(){
             console.log("파티 나갈래")
+            axios_contact({
+                method : "delete",
+                url : "/memberinfo?partyId="+this.article.partyId+"&profileId="+this.myId
+            }).then(({data})=>{
+                // console.log(data)
+                data;
+                this.$router.go();
+            })
+        },
+        partyFinAndBill(){
+            
         },
     },
 };

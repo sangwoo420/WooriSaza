@@ -19,6 +19,7 @@
                 @sliding-end="onSlideEnd"
                 >
                     <b-carousel-slide v-for="(item, index) in article.pic" :key="index" :img-src="item"></b-carousel-slide>
+                    <b-carousel-slide img-src="/src/assets/fin.png"></b-carousel-slide>
                 </b-carousel>
             </div>
         </div>
@@ -78,7 +79,8 @@
 
         <!-- 목록버튼 -->
         <div style="text-align:right" class="mt-2">
-            <b-button variant="warning" pill @click="toBoard">목록</b-button>
+            <b-button variant="warning" pill @click="toBoard" class="mr-1">목록</b-button>
+            <b-button v-if="bossId==id" variant="info" pill @click="deleteArticle">삭제</b-button>
         </div>
         <!-- 댓글 -->
         <hr>
@@ -287,11 +289,28 @@ export default {
                 // console.log(data)
             })
         },
+
+        deleteArticle(){
+            axios_contact({
+                method : "delete",
+                url : "/article/"+this.articleNo,
+            }).then(({data})=>{
+                console.log(data)
+            })
+        },
     },
 };
 </script>
 
 <style scoped>
+.btn-info{
+    width : 8em;
+    background-color: red ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: red;
+}
+
 .btn-warning{
     width : 8em;
     background-color: #F1A501 ;
