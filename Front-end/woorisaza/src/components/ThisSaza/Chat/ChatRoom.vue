@@ -59,7 +59,6 @@ export default {
     },
 
     mounted() {
-        this.connect();
     },
 
     methods: {
@@ -68,10 +67,11 @@ export default {
             this.message = '';
         },
         recvMessage: function(recv) {
-            this.roomChat.push({"sender":recv.sender,"content":recv.content})
+            console.log(recv);
+            this.roomChat.push({"sender":recv.sender,"content":recv.content,"time":recv.time})
         },
         connect(){
-            const serverURL = "http://127.0.0.1:8080/ws-stomp";
+            const serverURL = "http://i6c102.p.ssafy.io/ws-stomp";
             let socket = new SockJS(serverURL);
             // let socket = new SockJS("/ws-stomp");
             // const that = this;
@@ -85,7 +85,6 @@ export default {
                     console.log("구독으로 받은 메세지: " +recv.message);
                     this.recvMessage(recv);
                 });
-                // this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', content:this.myName + "님이 입장하셨습니다.", roomId:this.roomId, sender:this.myName}));
             }, (error) => {
                 console.log("Fail: " + error);
                 if(this.reconnect++ < 5) {
