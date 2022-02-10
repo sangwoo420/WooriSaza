@@ -81,24 +81,24 @@ public class PartyServiceImpl implements PartyService{
 
         List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
         Article article=articleRepo.findByParty(party);
-        ChatRoom chatRoom=chatRoomRepo.findByArticle(article);
-        List<ChatRoomJoin> chatRoomJoins=chatRoomJoinRepo.findByChatRoom(chatRoom);
+//        ChatRoom chatRoom=chatRoomRepo.findByArticle(article);
+//        List<ChatRoomJoin> chatRoomJoins=chatRoomJoinRepo.findByChatRoom(chatRoom);
 
         for (MemberInfo memberInfo : memberInfos) {
-            for (ChatRoomJoin chatRoomJoin : chatRoomJoins) {
-                if(chatRoomJoin.getUserProfile().getId().equals(memberInfo.getUserProfile().getId())){
-                   chatRoomJoinRepo.delete(chatRoomJoin);
-                }
-            }
+//            for (ChatRoomJoin chatRoomJoin : chatRoomJoins) {
+//                if(chatRoomJoin.getUserProfile().getId().equals(memberInfo.getUserProfile().getId())){
+//                   chatRoomJoinRepo.delete(chatRoomJoin);
+//                }
+//            }
             memberInfoRepo.deleteById(memberInfo.getId());
         }
 
-        List<ChatMessage> chatMessage=chatMessageRepo.findByChatRoom(chatRoom);
-        for (ChatMessage message : chatMessage) {
-            chatMessageRepo.deleteById(message.getId());
-        }
+//        List<ChatMessage> chatMessage=chatMessageRepo.findByChatRoom(chatRoom);
+//        for (ChatMessage message : chatMessage) {
+//            chatMessageRepo.deleteById(message.getId());
+//        }
 
-        chatRoomRepo.deleteById(chatRoom.getId());
+//        chatRoomRepo.deleteById(chatRoom.getId());
         articleRepo.deleteById(article.getId());
         partyRepo.deleteById(partyId);
 
