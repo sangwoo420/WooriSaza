@@ -28,6 +28,12 @@ public class PartyServiceImpl implements PartyService{
     @Autowired
     ArticleRepo articleRepo;
 
+    @Autowired
+    CommentRepo commentRepo;
+
+    @Autowired
+    ZzimRepo zzimRepo;
+
 
     //    내 파티리스트 전체 조회
     @Override
@@ -91,9 +97,20 @@ public class PartyServiceImpl implements PartyService{
 //        }
 
 //        chatRoomRepo.deleteById(chatRoom.getId());
-        articleRepo.deleteById(article.getId());
-        partyRepo.deleteById(partyId);
 
+        List<Comment> comments=commentRepo.findByArticle(article);
+        List<Zzim> Zzims=zzimRepo.findByArticle(article);
+
+        for (Comment comment : comments) {
+            commentRepo.deleteById(comment.getId());
+        }
+        for (Zzim zzim : Zzims) {
+            zzimRepo.deleteById(zzim.getZzimId());
+        }
+
+        articleRepo.deleteById(article.getId());
+
+        partyRepo.deleteById(partyId);
     }
 
     @Override
