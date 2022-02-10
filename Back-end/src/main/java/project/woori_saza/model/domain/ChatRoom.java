@@ -28,11 +28,13 @@ public class ChatRoom implements Serializable{
 
     private String name;
 
+    private Long articleId;
+
     private int count;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "article_id")
+//    private Article article;
 
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatMessage> chatMessageList = new ArrayList<>();
