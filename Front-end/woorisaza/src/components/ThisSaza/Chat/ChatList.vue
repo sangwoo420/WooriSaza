@@ -6,32 +6,68 @@
                 사자 채팅
                 <b-icon-x-circle @click="offChat" style="cursor:pointer"></b-icon-x-circle>
             </div>
-            <!-- 검색창 -->
-            <div class="mt-2">
-                <b-form-input v-model="party" placeholder="검색"></b-form-input>
-            </div>
-            <hr>
-            <!-- 파티 채팅 리스트 -->
-            <div>
-                <div v-for="(item, index) in chatList" :key="index" >
-                    <Chatpreview :partyNo=item></Chatpreview>
+
+            <!-- 채팅방 리스트 -->
+            <div v-if="chatRoomId==null">
+                <!-- 검색창 -->
+                <div class="mt-2">
+                    <b-form-input v-model="party" placeholder="검색"></b-form-input>
+                </div>
+                <hr>
+                <!-- 파티 채팅 리스트 -->
+                <div>
+                    <div v-for="(item, index) in rooms" :key="index" >
+                        <Chatpreview :room=item></Chatpreview>
+                    </div>
                 </div>
             </div>
+
+            <!-- 채팅 방 -->
+            <div v-if="chatRoomId!=null">
+                <ChatRoom :roomId=chatRoomId></ChatRoom>
+            </div>
+
     </div>
 </template>
 
 <script>
 import Chatpreview from "@/components/ThisSaza/Chat/ChatPreview.vue"
+import ChatRoom from "@/components/ThisSaza/Chat/ChatRoom.vue"
+import { EventBus } from "@/event-bus.js"
+import {axios_contact} from "@/common.js"
+
 export default {
     name: 'Chatlist',
     components :{
         Chatpreview,
+        ChatRoom,
     },
     data() {
         return {
+            profileId : this.$cookie.get("id"),
             party : "",
             chatList : [512,156,4185,1651,1244,1237,845,1034,15762,1265],
+            rooms:[],
+            chatRoomId:null,
         };
+    },
+
+    created(){
+        EventBus.$on("selectRoom",selectRoom=>{
+            // console.log(selectRoom)
+            this.chatRoomId = selectRoom
+        })
+
+        axios_contact({
+            method : "get",
+            url : "/chat/room/"+this.profileId,
+        }).then(({data})=>{
+            // console.log(data.roomList)
+            for(let index = 0; index<data.roomList.length; index++){
+                // console.log(data.roomList[index])
+                this.rooms.push(data.roomList[index])
+            }
+        })
     },
 
     mounted() {
