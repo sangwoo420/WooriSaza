@@ -13,5 +13,4 @@ public interface CommentRepo extends JpaRepository<Comment, Long> {
     List<Comment> findByUserProfileOrderByCreateAtDesc(UserProfile userProfile);
     List<Comment> findByUserProfile(UserProfile userProfile);
 
-
 }

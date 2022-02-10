@@ -13,4 +13,6 @@ public interface ZzimRepo extends JpaRepository<Zzim, Zzim.ZzimId> {
 
     List<Zzim> findByArticle(Article article);
 
+    void deleteByArticleId(String id);
+
 }
