@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import project.woori_saza.pubsub.RedisPublisher;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,11 +27,9 @@ public class ChatRoom implements Serializable{
 
     private String name;
 
-    private int count;
+    private Long article_id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    private int count;
 
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatMessage> chatMessageList = new ArrayList<>();
@@ -40,16 +37,13 @@ public class ChatRoom implements Serializable{
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
-    public static ChatRoom create(String articleName) {
+    public static ChatRoom create(String articleName, Long articleId) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.id = UUID.randomUUID().toString();
+        chatRoom.article_id = articleId;
         chatRoom.name = articleName;
         chatRoom.count = 1;
         return chatRoom;
-    }
-
-    public void addChatMessages(ChatMessage chatMessage){
-        this.chatMessageList.add(chatMessage);
     }
 
 }

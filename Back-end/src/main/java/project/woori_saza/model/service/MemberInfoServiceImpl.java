@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.MemberInfoRequestDto;
-import project.woori_saza.model.repo.ChatRoomJoinRepo;
-import project.woori_saza.model.repo.MemberInfoRepo;
-import project.woori_saza.model.repo.PartyRepo;
-import project.woori_saza.model.repo.UserProfileRepo;
+import project.woori_saza.model.repo.*;
 
 @Service
 @Transactional
@@ -27,6 +24,9 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
     @Autowired
     ChatRoomService chatRoomService;
+
+   @Autowired
+   ChatRoomRepo chatRoomRepo;
 
 
 
@@ -51,7 +51,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         memberInfoRepo.save(memberInfo);
 
         // 채팅방 입장
-        ChatRoom chatRoom =party.getArticle().getChatRoom();
+        ChatRoom chatRoom = chatRoomRepo.findChatRoomByArticle_id(party.getArticle().getId());
         chatRoom.setCount(chatRoom.getCount()+1);
         ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
         chatRoomJoinRepo.save(chatRoomJoin);

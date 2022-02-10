@@ -140,11 +140,10 @@ public class ArticleServiceImpl implements ArticleService {
         /**
          * 채팅방 생성
          */
-        ChatRoom chatRoom = chatRoomService.createChatRoom(article);
+        ChatRoom chatRoom = chatRoomService.createChatRoom(article.getId(), article.getTitle());
         ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
         chatRoomRepo.save(chatRoom);
         chatRoomJoinRepo.save(chatRoomJoin);
-        System.out.println("topic: "+chatRoomService.getTopic(chatRoom.getId()));
 
         return new ArticleResponseDto(article);
     }
