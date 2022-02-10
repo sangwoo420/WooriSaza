@@ -32,19 +32,20 @@ export default {
             roomChat:[],
             myName:"",
             message:"",
+
+            stompClient:null,
         };
     },
 
     created(){
-        // 소켓 연결
-        this.connect();
-
         axios({
             method : "get",
             url : "http://localhost:8080/user/"+this.profileId,
         }).then(({data})=>{
             // console.log(data.profile.nickname)
             this.myName = data.profile.nickname;
+            // 소켓 연결
+            this.connect();
         })
         
         axios({
@@ -55,7 +56,6 @@ export default {
             this.roomName = data.chatRoom.name;
             this.roomChat = data.chatRoom.msgList;
         })
-
     },
 
     mounted() {
@@ -63,7 +63,7 @@ export default {
 
     methods: {
         sendMessage: function() {
-            this.stompClient.send("/pub/chat/message?userNickname="+this.myName, {}, JSON.stringify({type:'CHAT', roomId:this.roomId, sender:this.myName, content:this.message}));
+            this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'CHAT', content:this.message, roomId:this.roomId, sender:this.myName}));
             this.message = '';
         },
         recvMessage: function(recv) {
@@ -73,19 +73,21 @@ export default {
             const serverURL = "http://127.0.0.1:8080/ws-stomp";
             let socket = new SockJS(serverURL);
             // let socket = new SockJS("/ws-stomp");
+            // const that = this;
             this.stompClient = Stomp.over(socket);
             this.reconnect = 0;
 
-            this.stompClient.connect({}, function(frame) {
+            this.stompClient.connect({}, (frame) => {
                 console.log("Connected: " + frame);
-                this.stompClient.subscribe("/sub/chat/room/"+this.roomId, function(message) {
+                // console.log(that.stompClient);
+                this.stompClient.subscribe("/sub/chat/room/"+this.roomId, (message) => {
                     console.log("구독으로 받은 메세지: " + message.body);
                     var recv = JSON.parse(message.body);
                     // this.roomChat.push(recv);
                     this.recvMessage(recv);
                 });
-                this.stompClient.send("/pub/chat/message?userNickname="+this.myName, {}, JSON.stringify({type:'ENTER', roomId:this.roomId, sender:this.myName}));
-            }, function(error) {
+                // this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', content:this.myName + "님이 입장하셨습니다.", roomId:this.roomId, sender:this.myName}));
+            }, (error) => {
                 console.log("Fail: " + error);
                 if(this.reconnect++ < 5) {
                     setTimeout(function() {

@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.ChatMessage;
+import project.woori_saza.model.dto.ChatMessageDto;
 
 @RequiredArgsConstructor
 @Service
@@ -14,7 +15,7 @@ public class RedisPublisher {
 
     // 메시지를 작성하면 해당 메시지를 redis topic에 발행하는 기능
     // 이 서비스를 통해 메시지를 발행하면 대기하고 있던 redis 구독 서비스가 메시지를 처리
-    public void publish(ChannelTopic topic, ChatMessage message) {
+    public void publish(ChannelTopic topic, ChatMessageDto message) {
         redisTemplate.convertAndSend(topic.getTopic(), message);
     }
 }

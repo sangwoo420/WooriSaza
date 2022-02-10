@@ -1,8 +1,8 @@
 package project.woori_saza.model.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -31,7 +31,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     // 구독 처리 서비스
     private final RedisSubscriber redisSubscriber;
 
-//    // Redis
+    // Redis
 //    private static final String CHAT_ROOMS = "CHAT_ROOM";
 //    private final RedisTemplate<String, Object> redisTemplate;
 //    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
@@ -82,21 +82,25 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     }
 
     // 채팅-유저 조인 생성 (article에서) + 채팅방 입장(enterChatRoom)
-    /**
-     * 채팅방 입장 : redis에 topic을 만들고 pub/sub 통신을 하기 위해 리스너를 설정한다.
-     */
     @Override
     public ChatRoomJoin createChatRoomJoin(ChatRoom chatRoom, UserProfile user){
         ChatRoomJoin chatRoomJoin = ChatRoomJoin.create(chatRoom,user);
 
-        // 토픽 생성
-        ChannelTopic topic = topics.get(chatRoom.getId());
-        if (topic == null)
-            topic = new ChannelTopic(chatRoom.getId());
-        redisMessageListener.addMessageListener(redisSubscriber, topic);
-        topics.put(chatRoom.getId(), topic);
+//        enterChatRoom(chatRoom.getId());
 
         return chatRoomJoin;
+    }
+
+    /**
+     * 채팅방 입장 : redis에 topic을 만들고 pub/sub 통신을 하기 위해 리스너를 설정한다.
+     */
+    @Override
+    public void enterChatRoom(String roomId){
+        ChannelTopic topic = topics.get(roomId);
+        if (topic == null)
+            topic = new ChannelTopic(roomId);
+        redisMessageListener.addMessageListener(redisSubscriber, topic);
+        topics.put(roomId, topic);
     }
 
     @Override

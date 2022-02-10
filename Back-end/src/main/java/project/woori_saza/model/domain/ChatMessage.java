@@ -29,13 +29,13 @@ public class ChatMessage {
     private String sender;
 
     @NotNull
-    private LocalDateTime time;
+    private String time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
 
-    public static ChatMessage createChatMessage(ChatRoom chatRoom, MessageType type, String content, String sender, LocalDateTime time){
+    public static ChatMessage createChatMessage(ChatRoom chatRoom, MessageType type, String content, String sender, String time){
         ChatMessage chatMessage = ChatMessage.builder()
                 .chatRoom(chatRoom)
                 .type(type)

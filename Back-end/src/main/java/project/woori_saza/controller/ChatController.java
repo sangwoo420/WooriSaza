@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.domain.ChatMessage;
 import project.woori_saza.model.domain.ChatRoom;
 import project.woori_saza.model.domain.MessageType;
+import project.woori_saza.model.domain.UserProfile;
 import project.woori_saza.model.dto.ChatMessageDto;
 import project.woori_saza.model.repo.ChatMessageRepo;
 import project.woori_saza.model.repo.ChatRoomRepo;
@@ -18,9 +17,10 @@ import project.woori_saza.model.service.ChatRoomService;
 import project.woori_saza.pubsub.RedisPublisher;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 @Slf4j
 public class ChatController {
 
@@ -40,23 +40,21 @@ public class ChatController {
      * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
      */
     @MessageMapping("/chat/message")
-    public void message(ChatMessageDto message, @RequestParam String userNickname) {
+    public void message(ChatMessageDto message) {
+        System.out.println(message);
 
         // TODO: dto로 받아온 채팅 메시지 DB저장
         ChatRoom chatRoom = chatRoomRepo.getById(message.getRoomId());
-        ChatMessage chatMessage = ChatMessage.createChatMessage(chatRoom, message.getType(), message.getContent(), userNickname,LocalDateTime.now());
+
+        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+        ChatMessage chatMessage = ChatMessage.createChatMessage(chatRoom, message.getType(), message.getContent(), message.getSender(), time);
+
         log.info(">>>>>>>>>채팅 메시지<<<<<<<<<");
-        if (MessageType.ENTER.equals(message.getType())) {
-            message.setContent(userNickname + "님이 입장하셨습니다.");
-        }else if(MessageType.QUIT.equals(message.getType())){
-            message.setContent(userNickname + "님이 퇴장하셨습니다.");
-            // TODO: 퇴장 만들기
-//            chatService.deleteById(message.getChatRoom());
-        }
         chatMessageRepo.save(chatMessage);
-        chatRoom.addChatMessages(chatMessage);
+//        chatRoom.addChatMessages(chatMessage);
 
         // Websocket에 발행된 메시지를 redis로 발행한다(publish)
-        redisPublisher.publish(chatRoomService.getTopic(chatRoom.getId()), chatMessage);
+        System.out.println("send message get topic: " + chatRoomService.getTopic(chatRoom.getId()));
+        redisPublisher.publish(chatRoomService.getTopic(chatRoom.getId()), message);
     }
 }

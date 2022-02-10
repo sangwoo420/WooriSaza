@@ -2,6 +2,7 @@ package project.woori_saza.model.service;
 
 import org.springframework.data.redis.listener.ChannelTopic;
 import project.woori_saza.model.domain.*;
+import project.woori_saza.model.dto.ChatMessageDto;
 import project.woori_saza.model.dto.ChatRoomDto;
 
 import java.util.List;
@@ -18,9 +19,7 @@ public interface ChatRoomService {
     ChatRoom createChatRoom(Article article);
     // 채팅-유저 조인 생성 + 입장
     ChatRoomJoin createChatRoomJoin(ChatRoom chatRoom, UserProfile userProfile);
+    void enterChatRoom(String roomId);
     ChannelTopic getTopic(String roomId);
-
-    // 채팅방 입장
-//    ChatRoom enterChatRoom(ChatRoom chatRoom);
 
 }

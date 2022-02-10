@@ -1,19 +1,17 @@
 package project.woori_saza.controller;
 
-import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.domain.ChatMessage;
-import project.woori_saza.model.domain.ChatRoom;
-import project.woori_saza.model.domain.MessageType;
-import project.woori_saza.model.dto.ChatMessageDto;
 import project.woori_saza.model.dto.ChatRoomDto;
 import project.woori_saza.model.service.ChatRoomService;
+import project.woori_saza.pubsub.RedisSubscriber;
 
-import java.time.LocalDateTime;
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -58,10 +56,10 @@ public class ChatRoomController {
             chatRoom = chatRoomService.findRoomByRoomID(roomId);
             System.out.println("roomName: " + chatRoom.getName());
             // TODO: 과거 채팅 내역 보여주기
-            ChatMessage msg = ChatMessage.createChatMessage(chatRoom, MessageType.CHAT, "HIII", "나", LocalDateTime.now());
-            ChatMessageDto msgDto = new ChatMessageDto(msg);
-            chatRoom.getMsgList().add(msgDto);
-            System.out.println("msgList: "+chatRoom.getMsgList());
+
+            chatRoomService.enterChatRoom(roomId);
+            System.out.println("enter get topic: " + chatRoomService.getTopic(roomId));
+
             httpStatus = HttpStatus.OK;
         }catch (RuntimeException e) {
             e.printStackTrace();
