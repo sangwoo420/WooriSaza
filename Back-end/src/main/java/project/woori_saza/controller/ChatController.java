@@ -13,6 +13,8 @@ import project.woori_saza.model.repo.ChatRoomRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
@@ -43,7 +45,7 @@ public class ChatController {
         String content = message.getContent().trim(); // 공백제거
         // 내용이 비어있으면 DB 저장 및 전송 안함
         if(!content.equals("")){
-            String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+            String time = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
             ChatMessage chatMessage = ChatMessage.createChatMessage(chatRoom, message.getType(), message.getContent(), message.getSender(), time);
             message.setTime(time);
 
