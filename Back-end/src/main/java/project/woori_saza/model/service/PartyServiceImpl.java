@@ -113,9 +113,11 @@ public class PartyServiceImpl implements PartyService{
     }
 
     @Override
+    @Transactional
     public void finishParty(Long partyId) {
         Party party=partyRepo.getById(partyId);
-        party.setIsClosed(true); //파티를 마감으로 변경하기
+        party.setIsClosed(true);
+        partyRepo.save(party);
     }
 
 

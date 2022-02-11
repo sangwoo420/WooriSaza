@@ -22,7 +22,8 @@
                     </b-col>
                     <b-col cols="4">
                         총 인원
-                        <b-form-input id="input-small" size="sm" placeholder="인원수를 입력하세요." type="number" v-model="articleAndParty.totalRecruitMember" min=2 :state="totalRecruitMemberState"></b-form-input>
+                        <b-form-input id="input-small" size="sm" placeholder="인원수를 입력하세요." type="number" v-model="articleAndParty.totalRecruitMember" min=2 :state="totalRecruitMemberState" @change="countValid"></b-form-input>
+                        <b-form-invalid-feedback id="valueFalse">값이 음수일 수 없습니다.</b-form-invalid-feedback>
                     </b-col>
                 </b-row>
                 <b-row class="mt-3">
@@ -79,7 +80,6 @@ import {axios_contact} from "@/common.js"
 
 export default {
     name: 'Articlewrite',
-
     data() {
         return {
             articleAndParty : {
@@ -131,7 +131,9 @@ export default {
             titleState : null,
             totalPriceState : null,
             totalProductCountState : null,
-            totalRecruitMemberState : null
+            totalRecruitMemberState : null,
+
+            check:null,
         };
     },
 
@@ -194,6 +196,9 @@ export default {
 
             })
         },
+        countValid(){
+
+        },
 
         articleRegister(){
             // console.log("글 쓰즈아~")
@@ -223,6 +228,7 @@ export default {
             }).catch(({err})=>{
                 // console.log(err)
                 err
+                alert("입력하지 않은 항목이 있습니다.");
             })
         },
     },
