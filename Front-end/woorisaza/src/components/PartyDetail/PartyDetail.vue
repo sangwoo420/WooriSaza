@@ -173,7 +173,13 @@ export default {
             })
         },
         finishDeal(){
-            console.log("물건 받앗당!")
+            axios_contact({
+                method : "get",
+                url  : "/memberinfo?partyId="+this.partyId+"&profileId="+this.myId,
+            }).then(({data})=>{
+                console.log(data)
+                this.$router.push("/review/"+this.partyId);
+            })
         },
     },
 };
