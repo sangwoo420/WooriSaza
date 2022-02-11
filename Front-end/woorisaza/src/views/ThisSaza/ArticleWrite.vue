@@ -180,6 +180,9 @@ export default {
                 axios_contact({
                     method : "post",
                     url : "/api/metaimage?url="+link, 
+                    headres : {
+                        "Context-type" : "text/plain"
+                    }
                 }).then(({data})=>{
                     console.log(data)
                     this.articleAndParty.pic.push(data) 
