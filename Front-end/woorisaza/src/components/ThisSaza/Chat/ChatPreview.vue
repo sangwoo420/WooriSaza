@@ -11,7 +11,12 @@
                     </div>
                     <div style="font-size:10px">
                         <!--마지막 댓글 보여주기-->
-                        {{room.msgList[lastChat].content}}
+                        <div v-if="this.lastChat >= 0">
+                            {{room.msgList[lastChat].content}}
+                        </div>
+                        <div v-if="this.lastChat < 0">
+                            대화가 시작되지 않은 방입니다.
+                        </div>
                     </div>
                 </b-col>
                 <b-col cols="3">
@@ -20,8 +25,9 @@
                             <b-icon icon="chat-fill" variant="danger"></b-icon>
                         </div>
                         <div style="font-size:10px">
-                            <!-- 마지막 채팅 시간 -->
-                            {{room.msgList[lastChat].time}}
+                            <div v-if="this.lastChat >= 0">
+                                {{room.msgList[lastChat].time}}
+                            </div>
                         </div>
                     </div>
                 </b-col>
