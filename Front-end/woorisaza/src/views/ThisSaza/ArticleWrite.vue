@@ -179,11 +179,11 @@ export default {
 
                 axios_contact({
                     method : "post",
-                    url : "/api/metaimage?url="+link,
+                    url : "/api/metaimage?url="+link, 
                 }).then(({data})=>{
                     console.log(data)
-                    this.articleAndParty.pic.push(data)
-                    this.linkState = true;
+                    this.articleAndParty.pic.push(data) 
+                    this.linkState = true
                 })
 
             })
