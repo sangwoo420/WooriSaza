@@ -34,14 +34,14 @@
 
 <p align="center">
   <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="30%"/></div>
-  <div align="center"><img src="/uploads/65c3e0689b03a2d45042953be7c22053/우리사자.PNG" width="30%"/></div>
+  <div align="center"><img src="/uploads/65c3e0689b03a2d45042953be7c22053/우리사자.PNG" width="20%"/></div>
 </p>
 
 ## 목차 
 
-1. [팀소개](##1.-팀소개)
+1. [**팀소개**](#1)
 
-2. [프로젝트 소개](#2.-프로젝트-소개)
+2. [**프로젝트 소개**](#2)
 
    - 홈
    - 이거사자
@@ -52,9 +52,10 @@
 
    
 
-3. [프로젝트 명세](#3.-프로젝트-명세)
+3. [**프로젝트 명세**](#3)
 
    - 아키텍처
+
    - ERD
    - UI 프토로타입
    - Usecase Diagram
@@ -62,7 +63,7 @@
 
    
 
-   
+<div id="1"></div>
 
 ## 1. 팀소개
 
@@ -79,7 +80,7 @@
     </tr>
 </table>
 
-
+<div id="2"></div>
 
 ## 2. 프로젝트 소개
 
@@ -146,7 +147,7 @@
 
 - 유저들이 파티에 같이 참여하고 있는 파티원들과 함께 채팅을 주고 받을 수 있는 공간입니다.
 
-
+<div id="3"></div>
 
 ## 3. 프로젝트 명세
 
