@@ -188,8 +188,8 @@ export default {
                     else{
                         console.log(data)
                         this.articleAndParty.pic.push(data)
-                        this.linkState = true;
                     }
+                    this.linkState = true;
                 })
 
             })
