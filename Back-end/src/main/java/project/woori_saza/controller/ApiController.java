@@ -36,7 +36,7 @@ public class ApiController {
         return restTemplate.getForObject(uri.toUri(), Map.class);
     }
 
-    @GetMapping("/metaimage")
+    @PostMapping("/metaimage")
     public String getMetaImage(@RequestParam String url){
         try {
             Document doc = Jsoup.connect(url).get();

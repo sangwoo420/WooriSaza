@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.ChatRoomDto;
+import project.woori_saza.model.repo.ChatRoomJoinRepo;
 import project.woori_saza.model.repo.ChatRoomRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
@@ -19,6 +20,9 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Autowired
     ChatRoomRepo chatRoomRepo;
+
+    @Autowired
+    ChatRoomJoinRepo chatRoomJoinRepo;
 
     // 내가 가진 채팅방 가져오기
     @Override
@@ -42,9 +46,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         return chatRoomDto;
     }
 
-    /**
-     * 채팅방 생성 (article에서) - 파티장만
-     */
+    // 채팅방 생성하기
     @Override
     public ChatRoom createChatRoom(Long articleId, String articleTitle) {
         ChatRoom chatRoom = ChatRoom.create(articleId, articleTitle);
@@ -58,6 +60,11 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         ChatRoomJoin chatRoomJoin = ChatRoomJoin.create(chatRoom,user);
 
         return chatRoomJoin;
+    }
+
+    @Override
+    public void deleteChatRoomJoin(ChatRoom chatRoom, UserProfile userProfile) {
+        chatRoomJoinRepo.deleteChatRoomJoinByChatRoomAndUserProfile(chatRoom, userProfile);
     }
 
 }
