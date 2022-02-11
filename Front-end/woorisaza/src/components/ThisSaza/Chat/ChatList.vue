@@ -1,30 +1,32 @@
 <template>
-    <div class="chat p-2" style="overflow-y:scroll">
+    <div class="chat p-2">
             <!-- 채팅창 헤더 -->
-            <div>
+            <div style="position: fixed;">
                 <img src="@/assets/saza.png" style="width:30px">
                 사자 채팅
                 <b-icon-x-circle @click="offChat" style="cursor:pointer"></b-icon-x-circle>
             </div>
 
-            <!-- 채팅방 리스트 -->
-            <div v-if="chatRoomId==null">
-                <!-- 검색창 -->
-                <div class="mt-2">
-                    <b-form-input v-model="party" placeholder="검색"></b-form-input>
-                </div>
-                <hr>
-                <!-- 파티 채팅 리스트 -->
-                <div>
-                    <div v-for="(item, index) in rooms" :key="index" >
-                        <Chatpreview :room=item></Chatpreview>
+            <div class="pt-5">
+                <!-- 채팅방 리스트 -->
+                <div v-if="chatRoomId==null">
+                    <!-- 검색창 -->
+                    <div class="mt-2">
+                        <b-form-input v-model="party" placeholder="검색"></b-form-input>
+                    </div>
+                    <hr>
+                    <!-- 파티 채팅 리스트 -->
+                    <div style="overflow-y:scroll" class="clist">
+                        <div v-for="(item, index) in rooms" :key="index" >
+                            <Chatpreview :room=item></Chatpreview>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 채팅 방 -->
-            <div v-if="chatRoomId!=null">
-                <ChatRoom :roomId=chatRoomId></ChatRoom>
+                <!-- 채팅 방 -->
+                <div v-if="chatRoomId!=null">
+                    <ChatRoom :roomId=chatRoomId></ChatRoom>
+                </div>
             </div>
 
     </div>
@@ -84,13 +86,21 @@ export default {
 
 <style scoped>
 .chat{
-        background-color:white; 
-        box-shadow: 0px 0px 5px 0.1px grey; 
-        border-radius: 0.5em;
-        width:300px;
-        height:500px;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-    }
-    .chat::-webkit-scrollbar{ display:none; }
+    background-color:white; 
+    box-shadow: 0px 0px 5px 0.1px grey; 
+    border-radius: 0.5em;
+    width:300px;
+    height:500px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    
+}
+.chat::-webkit-scrollbar{ display:none; }
+
+.clist{
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    height:500px;
+}
+.clist::-webkit-scrollbar{ display:none; }
 </style>

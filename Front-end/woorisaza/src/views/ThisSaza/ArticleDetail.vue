@@ -222,7 +222,7 @@ export default {
         },
 
         registerComment(){
-            console.log(this.comment+"등록해")
+            // console.log(this.comment+"등록해")
             axios_contact({
                 method : "post",
                 url : "/comment",

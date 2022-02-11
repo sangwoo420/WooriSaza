@@ -75,7 +75,7 @@
 
 <script>
 import {axios_contact} from "@/common.js"
-import axios from "axios";
+// import axios from "axios";
 
 export default {
     name: 'Articlewrite',
@@ -176,14 +176,22 @@ export default {
                 //     this.articleAndParty.pic.push(data.meta.image)
                 // })
 
-                axios({
+                axios_contact({
                     method : "get",
-                    url : "http://url-metadata.herokuapp.com/api/metadata?url="+link,
+                    url : "/api/metaimage?url="+link,
                 }).then(({data})=>{
-                    // console.log(data)
-                    this.articleAndParty.pic.push(data.data.image)
+                    console.log(data)
+                    if(data==null){
+                        console.log(null)
+                        this.articleAndParty.pic.push(null)
+                    }
+                    else{
+                        console.log(data)
+                        this.articleAndParty.pic.push(data)
+                    }
                     this.linkState = true;
                 })
+
             })
         },
 
@@ -214,9 +222,29 @@ export default {
                 this.$router.push("/board");
             }).catch(({err})=>{
                 // console.log(err)
-                err
+                 err
+                let err2 = true;
+                let msg = "";
+                
+                !this.title  &&
+                    ((msg = "제목 입력해주세요"),
+                    (err2 = false),
+                    this.$refs.subject.focus());
+                err2 &&
+                    !this.content &&
+                    ((msg = "내용 입력해주세요"),
+                    (err2 = false),
+                    this.$refs.content.focus());
+
+
+                if (!err2) alert(msg);
+
+
             })
         },
+        
+
+
     },
 };
 </script>

@@ -66,7 +66,7 @@
             <!-- 파티장 + 마감 전 -->
             <div v-if="myInfo.isBoss && !myInfo.isClosed">
                 <b-button variant="warning" @click="partyFinAndBill">파티 마감하고 구매 진행하기</b-button>
-                <b-button variant="danger" >파티 삭제하기</b-button>
+                <b-button variant="danger" @click="deleteParty">파티 삭제하기</b-button>
             </div>
             <!-- 파티장 + 마감 후 -->
             <div v-if="myInfo.isBoss && myInfo.isClosed">
@@ -108,7 +108,14 @@ export default {
     },
 
     created() {
-        axios_contact({
+        this.getInfo();
+    },
+    mounted() {
+    },
+
+    methods: {
+        getInfo(){
+            axios_contact({
             method : "get",
             url : "/party?partyId="+this.partyId,
         }).then(({data})=>{
@@ -126,11 +133,7 @@ export default {
                 this.article = data.article;
             })
         })
-    },
-    mounted() {
-    },
-
-    methods: {
+        },
         member(index){
             this.memberInfo = this.party[index]
         },
@@ -149,7 +152,24 @@ export default {
             })
         },
         partyFinAndBill(){
-            
+            console.log("마감 구매")
+            axios_contact({
+                method : "get",
+                url : "/party/finish/"+this.article.partyId,
+            }).then(({data})=>{
+                console.log(data)
+                this.getInfo();
+            })
+        },
+        deleteParty(){
+            console.log("파티 삭제")
+            axios_contact({
+                method : "delete",
+                url : "/party/"+this.article.partyId,
+            }).then(({data})=>{
+                console.log(data)
+                this.$router.push("/mysaza/"+this.myId);
+            })
         },
     },
 };
