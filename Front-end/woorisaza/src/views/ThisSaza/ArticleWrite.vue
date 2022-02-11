@@ -75,6 +75,7 @@
 
 <script>
 import {axios_contact} from "@/common.js"
+import axios from "axios";
 
 export default {
     name: 'Articlewrite',
@@ -175,7 +176,7 @@ export default {
                 //     this.articleAndParty.pic.push(data.meta.image)
                 // })
 
-                axios_contact({
+                axios({
                     method : "get",
                     url : "http://url-metadata.herokuapp.com/api/metadata?url="+link,
                 }).then(({data})=>{
