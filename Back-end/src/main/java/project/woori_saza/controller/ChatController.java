@@ -1,7 +1,6 @@
 package project.woori_saza.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -18,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 @Controller
-@Slf4j
 public class ChatController {
 
     @Autowired
@@ -39,17 +37,19 @@ public class ChatController {
     public void message(ChatMessageDto message) {
         System.out.println(message);
 
-        // TODO: dto로 받아온 채팅 메시지 DB저장
+        // dto로 받아온 채팅 메시지 DB저장 및 전송
         ChatRoom chatRoom = chatRoomRepo.getById(message.getRoomId());
 
-        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-        ChatMessage chatMessage = ChatMessage.createChatMessage(chatRoom, message.getType(), message.getContent(), message.getSender(), time);
-        message.setTime(time);
+        String content = message.getContent().trim(); // 공백제거
+        // 내용이 비어있으면 DB 저장 및 전송 안함
+        if(!content.equals("")){
+            String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+            ChatMessage chatMessage = ChatMessage.createChatMessage(chatRoom, message.getType(), message.getContent(), message.getSender(), time);
+            message.setTime(time);
 
-        log.info(">>>>>>>>>채팅 메시지<<<<<<<<<");
-        chatMessageRepo.save(chatMessage);
+            chatMessageRepo.save(chatMessage);
 
-        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
-
+            template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        }
     }
 }
