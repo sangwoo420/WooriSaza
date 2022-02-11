@@ -43,8 +43,8 @@ import java.time.LocalDateTime;
     private String product; //상품
     @ApiModelProperty(value = "파티 마감 기한일", example = "2022-02-01-23:59:59", required = true)
     private LocalDateTime deadline; //진행기간
-//    @ApiModelProperty(value = "파티 마감여부", example = "false", required = true)
-//    private Boolean isClosed; //파티 마감 여부
+    @ApiModelProperty(value = "파티 마감여부", example = "false", required = true)
+    private Boolean isClosed; //파티 마감 여부
 
     //memberinfo
     @ApiModelProperty(value = "파티장 여부", example = "false", required = true)
@@ -71,7 +71,7 @@ import java.time.LocalDateTime;
         title=party.getArticle().getTitle();
         product=party.getProduct();
         deadline=party.getDeadline();
-//        isClosed=party.getIsClosed();
+        isClosed=party.getIsClosed();
         //==memberinfo==//
         profileId=memberInfo.getUserProfile().getId();
         isBoss=memberInfo.getIsBoss();
