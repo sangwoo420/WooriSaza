@@ -32,10 +32,8 @@
 
 # 공구의 시작, 우리사자 🦁
 
-![icon](/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png)
-
 <p align="center">
-  <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="10%"/></div>
+  <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="30%"/></div>
 </p>
 
 ## 목차 
