@@ -214,9 +214,29 @@ export default {
                 this.$router.push("/board");
             }).catch(({err})=>{
                 // console.log(err)
-                err
+                 err
+                let err2 = true;
+                let msg = "";
+                
+                !this.title  &&
+                    ((msg = "제목 입력해주세요"),
+                    (err2 = false),
+                    this.$refs.subject.focus());
+                err2 &&
+                    !this.content &&
+                    ((msg = "내용 입력해주세요"),
+                    (err2 = false),
+                    this.$refs.content.focus());
+
+
+                if (!err2) alert(msg);
+
+
             })
         },
+        
+
+
     },
 };
 </script>
