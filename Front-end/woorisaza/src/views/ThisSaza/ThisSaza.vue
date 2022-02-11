@@ -146,9 +146,9 @@ export default {
     .chat {
         position: fixed;
         bottom: 5%;
-        left: 70%;
-        width: 300px;
-        height: 500px;
+        left: 60%;
+        width: 400px;
+        height: 600px;
     }
     
     .fade-enter-active, .fade-leave-active {

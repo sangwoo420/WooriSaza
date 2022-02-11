@@ -3,12 +3,6 @@
             <!-- 채팅창 헤더 -->
             <div style="position: fixed;">
                 <img src="@/assets/saza.png" style="width:30px">
-                <!-- <p v-if="chatRoomId==null">
-                    사자 채팅
-                </p>
-                <p v-if="chatRoomId!=null">
-                    
-                </p> -->
                 사자 채팅
                 <b-icon-x-circle @click="offChat" style="cursor:pointer"></b-icon-x-circle>
             </div>
@@ -106,10 +100,7 @@ export default {
 .clist{
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    height:300px;
+    height:500px;
 }
 .clist::-webkit-scrollbar{ display:none; }
-.pt-5{
-    margin-top: -15px;
-}
 </style>
