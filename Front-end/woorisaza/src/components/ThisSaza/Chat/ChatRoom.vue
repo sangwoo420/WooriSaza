@@ -186,6 +186,4 @@ export default {
     width : 180px;
     height:100%;
 }
-.inputMessage{
-}
 </style>
