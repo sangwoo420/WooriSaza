@@ -178,18 +178,11 @@ export default {
                 // })
 
                 axios_contact({
-                    method : "get",
+                    method : "post",
                     url : "/api/metaimage?url="+link,
                 }).then(({data})=>{
                     console.log(data)
-                    if(data==null){
-                        console.log(null)
-                        this.articleAndParty.pic.push(null)
-                    }
-                    else{
-                        console.log(data)
-                        this.articleAndParty.pic.push(data)
-                    }
+                    this.articleAndParty.pic.push(data)
                     this.linkState = true;
                 })
 

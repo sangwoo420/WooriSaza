@@ -62,6 +62,7 @@
                 </b-row>
             </b-container>
         </div>
+
         <div style="text-align:center" class="mt-3">
             <!-- 파티장 + 마감 전 -->
             <div v-if="myInfo.isBoss && !myInfo.isClosed">
@@ -80,7 +81,7 @@
             <div v-if="!myInfo.isBoss && myInfo.isClosed">
                 <b-button variant="warning" >구매 인증 폼 확인하기</b-button>
                 <b-button variant="danger" >물건을 못 받았어요</b-button>
-                <b-button variant="success" >구매 확정하기</b-button>
+                <b-button variant="success" @click="finishDeal">구매 확정하기</b-button>
             </div>
         </div>
         </div>
@@ -170,6 +171,9 @@ export default {
                 console.log(data)
                 this.$router.push("/mysaza/"+this.myId);
             })
+        },
+        finishDeal(){
+            console.log("물건 받앗당!")
         },
     },
 };
