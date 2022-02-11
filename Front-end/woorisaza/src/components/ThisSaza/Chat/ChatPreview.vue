@@ -6,11 +6,12 @@
                 <b-col cols="3"><b-img  :src="data" v-bind="mainProps" rounded="circle" alt="Circle image" thumbnail ></b-img></b-col>
                 <b-col cols="6">
                     <div>
+                        <!-- 채팅방 이름 (파티 제목) -->
                         {{room.name}}
                     </div>
                     <div style="font-size:10px">
                         <!--마지막 댓글 보여주기-->
-                        마지막 댓글 입니당
+                        {{room.msgList[lastChat].content}}
                     </div>
                 </b-col>
                 <b-col cols="3">
@@ -19,7 +20,8 @@
                             <b-icon icon="chat-fill" variant="danger"></b-icon>
                         </div>
                         <div style="font-size:10px">
-                            2:14 PM
+                            <!-- 마지막 채팅 시간 -->
+                            {{room.msgList[lastChat].time}}
                         </div>
                     </div>
                 </b-col>
@@ -48,6 +50,7 @@ export default {
                 size: 50,                                // 420px square
                 format: 'png'                             // use SVG instead of PNG
             },
+            lastChat : this.room.msgList.length-1,
         };
     },
 
