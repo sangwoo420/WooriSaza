@@ -2,9 +2,7 @@ package project.woori_saza.model.repo;
 
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPQLQuery;
-import org.springframework.data.geo.Point;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.springframework.expression.Expression;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.Category;

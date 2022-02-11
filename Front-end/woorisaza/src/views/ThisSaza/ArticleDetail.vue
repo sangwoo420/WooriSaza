@@ -19,6 +19,7 @@
                 @sliding-end="onSlideEnd"
                 >
                     <b-carousel-slide v-for="(item, index) in article.pic" :key="index" :img-src="item"></b-carousel-slide>
+                    <!-- <b-carousel-slide img-src="@/assets/fin.png"></b-carousel-slide> -->
                 </b-carousel>
             </div>
         </div>
@@ -58,7 +59,8 @@
         </div>
         <!-- 찜버튼 + 참여하기 버튼 -->
         <div style="text-align:right" >
-            <img src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer">&nbsp;
+            <img v-if="isZzim" src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer" @click="deleteZZim">
+            <img v-if="!isZzim" src="@/assets/zzimOff.png" style="width:1.6em;cursor:pointer" @click="addZZim">&nbsp;
             <b-button v-if="!inParty" variant="warning" pill @click="requestParty">참여하기</b-button>
             <b-button v-if="inParty" variant="primary" pill @click="moveToPartyDetail">상세보기</b-button>
         </div>
@@ -77,7 +79,8 @@
 
         <!-- 목록버튼 -->
         <div style="text-align:right" class="mt-2">
-            <b-button variant="warning" pill @click="toBoard">목록</b-button>
+            <b-button variant="warning" pill @click="toBoard" class="mr-1">목록</b-button>
+            <b-button v-if="bossId==id" variant="info" pill @click="deleteArticle">삭제</b-button>
         </div>
         <!-- 댓글 -->
         <hr>
@@ -135,6 +138,7 @@ export default {
             id : this.$cookie.get("id"),
             inParty : false,
             bossId : null,
+            isZzim : null,
         };
     },
     created() {
@@ -188,6 +192,15 @@ export default {
                     // console.log(this.commentList[index])
                 })
             }
+        })
+
+        axios_contact({
+            method : "get",
+            url : "/zzim?articleId="+this.articleNo+"&profileId="+this.id,
+        }).then((data)=>{
+            this.isZzim = data.data.success
+        }).catch((error)=>{
+            this.isZzim=error.response.data.success 
         })
     },
 
@@ -247,11 +260,57 @@ export default {
         moveToPartyDetail(){
             this.$router.push("/partydetail/"+this.article.partyId).catch(()=>{});
         },
+
+        addZZim(){
+            this.isZzim = true;
+            axios_contact({
+                method : "post",
+                url : "/zzim",
+                data : {
+                    "profileid": this.id,
+                    "articleid": this.articleNo,
+                }
+            }).then(({data})=>{
+                data
+                // console.log(data)
+            })
+        },
+        deleteZZim(){
+            this.isZzim = false;
+            axios_contact({
+                method : "delete",
+                url : "/zzim",
+                data : {
+                    "profileid": this.id,
+                    "articleid": this.articleNo,
+                }
+            }).then(({data})=>{
+                data
+                // console.log(data)
+            })
+        },
+
+        deleteArticle(){
+            axios_contact({
+                method : "delete",
+                url : "/article/"+this.articleNo,
+            }).then(({data})=>{
+                console.log(data)
+            })
+        },
     },
 };
 </script>
 
 <style scoped>
+.btn-info{
+    width : 8em;
+    background-color: red ;
+    font-size : 0.5em;
+    padding: 0.5em;
+    border-color: red;
+}
+
 .btn-warning{
     width : 8em;
     background-color: #F1A501 ;

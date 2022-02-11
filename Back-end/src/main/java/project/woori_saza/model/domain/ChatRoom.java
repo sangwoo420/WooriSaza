@@ -27,7 +27,7 @@ public class ChatRoom implements Serializable{
 
     private String name;
 
-    private Long article_id;
+    private Long articleId;
 
     private int count;
 
@@ -37,11 +37,11 @@ public class ChatRoom implements Serializable{
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
-    public static ChatRoom create(String articleName, Long articleId) {
+    public static ChatRoom create(Long articleId, String articleName) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.id = UUID.randomUUID().toString();
-        chatRoom.article_id = articleId;
         chatRoom.name = articleName;
+        chatRoom.articleId = articleId;
         chatRoom.count = 1;
         return chatRoom;
     }

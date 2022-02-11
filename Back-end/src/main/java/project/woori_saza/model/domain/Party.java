@@ -1,6 +1,5 @@
 package project.woori_saza.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +24,9 @@ public class Party implements Serializable {
     @Column(name = "party_id")
     private Long id;
 
+    // 구매폼 작성여부
     @NotNull
+    @Column(columnDefinition = "boolean default false")
     private Boolean formChecked;
 
     @NotNull
@@ -47,6 +48,7 @@ public class Party implements Serializable {
     private Integer currentRecruitMember; //현재 인원수
 
     @NotNull
+    @Column(columnDefinition = "boolean default false")
     private Boolean isClosed; //마감
 
     @NotNull

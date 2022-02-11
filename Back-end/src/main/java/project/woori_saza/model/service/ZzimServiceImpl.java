@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.UserProfile;
 import project.woori_saza.model.domain.Zzim;
-import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.ZzimDto;
 import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
@@ -37,7 +36,7 @@ public class ZzimServiceImpl implements ZzimService {
     public List<ZzimDto> getZzimList(String profileId) {
         UserProfile userProfile = userProfileRepo.getById(profileId);
         //articles.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
-        return zzimRepo.findByUserProfile(userProfile).stream().map(ZzimDto::new).collect(Collectors.toList());
+        return zzimRepo.findByUserProfileOrderByArticleDesc(userProfile).stream().map(ZzimDto::new).collect(Collectors.toList());
     }
 
     @Override
@@ -51,7 +50,6 @@ public class ZzimServiceImpl implements ZzimService {
     public ZzimDto insertZzim(String profileId, Long articleId) {
         Zzim zzim = new Zzim(userProfileRepo.getById(profileId), articleRepo.getById(articleId));
         zzim = zzimRepo.save(zzim);
-
         return new ZzimDto(zzim);
     }
 

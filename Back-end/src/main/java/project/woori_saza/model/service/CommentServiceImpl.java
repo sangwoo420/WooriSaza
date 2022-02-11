@@ -11,7 +11,8 @@ import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.CommentRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentDto> getMyCommentList(String profileId) {
         System.out.println("===파티 댓글 리스트===");
         UserProfile user = userProfileRepo.getById(profileId);
-        List<Comment> comments = commentRepo.findByUserProfile(user);
+        List<Comment> comments = commentRepo.findByUserProfileOrderByCreateAtDesc(user);
         return comments.stream().map(CommentDto::new).collect(Collectors.toList());
     }
 
@@ -60,7 +61,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = new Comment();
         comment.setId(commentDto.getId());
         comment.setContent(commentDto.getContent());
-        comment.setCreateAt(LocalDateTime.now());
+        comment.setCreateAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         comment.setArticle(article);
         comment.setUserProfile(user);
         commentRepo.save(comment);
@@ -75,7 +76,7 @@ public class CommentServiceImpl implements CommentService{
         System.out.println("===댓글 수정===");
         Comment comment = commentRepo.getById(commentDto.getId());
         comment.setContent(commentDto.getContent());
-        comment.setCreateAt(LocalDateTime.now());
+        comment.setCreateAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         commentRepo.save(comment);
     }
 

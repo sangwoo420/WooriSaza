@@ -11,7 +11,7 @@
               <h1>내가 원하는 물건을</h1>
               <h1>이웃과 함께</h1>
               <h1>저렴한 가격으로!</h1>
-              <button :class="{p_button:true}">시작하기</button>
+              <button :class="{p_button:true}" @click="moveToGuide">시작하기</button>
             </b-col>
           </b-row>
         </b-container>
@@ -134,7 +134,9 @@ export default {
   components: {
   },
   methods:{
-    
+    moveToGuide(){
+      this.$router.push("/guide")
+    }
   },
 };
 </script>

@@ -7,6 +7,8 @@ import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.repo.*;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class MemberInfoServiceImpl implements MemberInfoService{
@@ -38,8 +40,9 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         UserProfile userProfile = userProfileRepo.getById(memberInfoRequestDto.getProfileId());
         //파티찾기
         Party party=partyRepo.getById(memberInfoRequestDto.getPartyId());
-        //해당 파티 인원수 1명 늘려주기
-        party.setCurrentRecruitMember(party.getCurrentRecruitMember()+1);
+        //해당 파티 인원수 선택 수량만큼 + 해주기
+        party.setCurrentRecruitMember(party.getCurrentRecruitMember()+memberInfoRequestDto.getAmount());
+        partyRepo.save(party);
         //memberinfo에 저장
         MemberInfo memberInfo=MemberInfo.builder()
                 .userProfile(userProfile)
@@ -51,7 +54,8 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         memberInfoRepo.save(memberInfo);
 
         // 채팅방 입장
-        ChatRoom chatRoom = chatRoomRepo.findChatRoomByArticle_id(party.getArticle().getId());
+        List<ChatRoom> chatRoomList = chatRoomRepo.findChatRoomByArticleId(party.getArticle().getId());
+        ChatRoom chatRoom = chatRoomList.get(0);
         chatRoom.setCount(chatRoom.getCount()+1);
         ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
         chatRoomJoinRepo.save(chatRoomJoin);
@@ -59,10 +63,35 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
     //회원 삭제
     @Override
-    public void deleteMemberInfo(Long memberinfoId) {
-        MemberInfo memberInfo=memberInfoRepo.getById(memberinfoId);
-        Party party=memberInfo.getParty();
-        party.setCurrentRecruitMember(party.getCurrentRecruitMember()-1);
-        memberInfoRepo.deleteById(memberinfoId);
+    public void deleteMemberInfo(Long partyId,String profileId) {
+//        MemberInfo memberInfo=memberInfoRepo.getById(memberinfoId);
+//        Party party=memberInfo.getParty();
+//        party.setCurrentRecruitMember(party.getCurrentRecruitMember()-1);
+//        memberInfoRepo.deleteById(memberinfoId);
+
+          UserProfile userProfile=userProfileRepo.getById(profileId);
+
+          List<MemberInfo> memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
+          Party party=partyRepo.getById(partyId);
+
+        for (MemberInfo memberInfo : memberInfos) {
+            if (memberInfo.getParty().getId() == partyId) {
+                party.setCurrentRecruitMember(party.getCurrentRecruitMember() - memberInfo.getAmount());
+                memberInfoRepo.deleteById(memberInfo.getId());
+            }
+        }
+    }
+    //멤버 구매확정여부
+    @Override
+    public void confirmMemberInfo(Long partyId,String profileId) {
+        UserProfile userProfile=userProfileRepo.getById(profileId);
+
+        List<MemberInfo> memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
+
+        for (MemberInfo memberInfo : memberInfos) {
+            if (memberInfo.getParty().getId() == partyId) {
+                memberInfo.setIsConfirmed(true);
+            }
+        }
     }
 }

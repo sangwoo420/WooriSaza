@@ -1,13 +1,8 @@
 package project.woori_saza.controller;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -54,18 +49,15 @@ public class ApiController {
     @GetMapping("/thumbnail")
     public Object getThumbnail(@RequestParam String url) {
         UriComponents uri = UriComponentsBuilder
-                .newInstance()
-                .scheme("https")
-                .host("api.urlmeta.org")
-                .port(443)
+                .fromHttpUrl("https://api.urlmeta.org")
                 .queryParam("url", url)
                 .build();
         HttpHeaders headers = new HttpHeaders();
-        headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" +
-                " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+        headers.set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36");
         headers.setBasicAuth("dG9teTk3MjlAbmF2ZXIuY29tOjhUYkdka2MxVnE3bnBYTzcyMkpC");
         HttpEntity request = new HttpEntity<>(headers);
-        System.out.println(uri.toUriString());
-        return restTemplate.exchange(uri.toUri(), HttpMethod.GET, request, Map.class);
+        ResponseEntity<Map> result = restTemplate.exchange(uri.toUri(), HttpMethod.GET, request, Map.class);
+        System.out.println("Access-Control-Allow-Origin : " + result.getHeaders().get("Access-Control-Allow-Origin"));
+        return result.getBody();
     }
 }

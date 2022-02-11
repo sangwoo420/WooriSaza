@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface ReviewRepo extends JpaRepository<Review, Long> {
 
-    List<Review> findByToUser(UserProfile userProfile);
-
+    List<Review> findByToUserOrderByDateDesc(UserProfile userProfile);
 
 }

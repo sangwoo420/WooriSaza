@@ -1,6 +1,5 @@
 package project.woori_saza.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,7 +31,7 @@ public class Article implements Serializable {
     private LocalDateTime createdAt;
 
     @NotNull
-//    @Column(length = 50000)
+    @Column(length = 1000)
     private String link;
 
     @ElementCollection
@@ -62,6 +61,9 @@ public class Article implements Serializable {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Zzim> zzims = new ArrayList<>();
+
+//    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
+//    private ChatRoom chatRoom;
 
 //    @Builder
 //    public Article(Long id, String title, String content, LocalDateTime createdAt, String link, List<String> pic, UserProfile userProfile, Party party, Tag tag, Category category, List<Comment> comments, List<Zzim> zzims) {

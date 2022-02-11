@@ -5,12 +5,12 @@
             <b-row>
                 <b-col>
                     <div style="cursor:pointer">
-                        <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt=""></b-img>
+                        <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt="" style="width:150px;height:150px"></b-img>
                     </div>
                 </b-col>
                 <b-col>
+                    <b-row><div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div></b-row>
                     <div>
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div>
                         <div style="font-size:0.9em">{{article.product}}</div>
                         <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
                         <div>{{article.myPrice}}원</div>
@@ -18,10 +18,13 @@
                 </b-col>
                 <b-col>
                     <div style="text-align:right" class="mt-5">
-                        <img src="@/assets/zzimOn.png" style="width:20px;cursor:pointer"><br>
+
+                        <div v-if="isZzim"><img src="@/assets/zzimOn.png" style="width:20px;cursor:pointer" @click="deleteZZim"></div>
+                        <div v-if="!isZzim"><img src="@/assets/zzimOff.png" style="width:20px;cursor:pointer" @click="addZZim"></div>
+
                         <div style="font-size:0.7em" class="mt-2">
                             {{article.currentRecruitMember}}명/{{article.totalRecruitMember}}명<br>
-                            모집기간
+                            기간 : ~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}}
                         </div>
                     </div>
                 </b-col>
@@ -39,6 +42,8 @@ export default {
     data() {
         return {
             article : null,
+            isZzim : null,
+            id : this.$cookie.get("id"),
         };
     },
 
@@ -49,6 +54,15 @@ export default {
         }).then(({data})=>{
             this.article=data.article;
         })
+
+        axios_contact({
+            method : "get",
+            url : "/zzim?articleId="+this.articleNo+"&profileId="+this.id,
+        }).then((data)=>{
+            this.isZzim = data.data.success
+        }).catch((error)=>{
+            this.isZzim=error.response.data.success 
+        })
     },
     mounted() {
         
@@ -57,6 +71,34 @@ export default {
     methods: {
         moveToDetail(){
             this.$router.push("/board/"+this.articleNo).catch(()=>{});
+        },
+        addZZim(){
+            this.isZzim = true;
+            axios_contact({
+                method : "post",
+                url : "/zzim",
+                data : {
+                    "profileid": this.id,
+                    "articleid": this.articleNo,
+                }
+            }).then(({data})=>{
+                data
+                // console.log(data)
+            })
+        },
+        deleteZZim(){
+            this.isZzim = false;
+            axios_contact({
+                method : "delete",
+                url : "/zzim",
+                data : {
+                    "profileid": this.id,
+                    "articleid": this.articleNo,
+                }
+            }).then(({data})=>{
+                data
+                // console.log(data)
+            })
         },
     },
 };

@@ -34,8 +34,7 @@
 import Chatpreview from "@/components/ThisSaza/Chat/ChatPreview.vue"
 import ChatRoom from "@/components/ThisSaza/Chat/ChatRoom.vue"
 import { EventBus } from "@/event-bus.js"
-// import {axios_contact} from "@/common.js"
-import axios from "axios"
+import {axios_contact} from "@/common.js"
 
 export default {
     name: 'Chatlist',
@@ -59,9 +58,9 @@ export default {
             this.chatRoomId = selectRoom
         })
 
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/chat/room/"+this.profileId,
+            url : "/chat/room/"+this.profileId,
         }).then(({data})=>{
             // console.log(data.roomList)
             for(let index = 0; index<data.roomList.length; index++){

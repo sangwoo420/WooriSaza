@@ -1,20 +1,17 @@
 package project.woori_saza.model.service;
 
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.ArticleAndPartyRequestDto;
-import project.woori_saza.model.dto.ArticleRequestDto;
 import project.woori_saza.model.dto.ArticleResponseDto;
-import project.woori_saza.model.dto.PartyRequestDto;
 import project.woori_saza.model.repo.*;
 import project.woori_saza.util.GeoLocationUtil;
 
-import java.lang.reflect.Member;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +44,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ChatRoomService chatRoomService;
 
+    @Autowired
+    private CommentRepo commentRepo;
+
+    @Autowired
+    private ZzimRepo zzimRepo;
+
     @Override
     public ArticleResponseDto getArticle(Long articleId) {
         Article article = articleRepo.getById(articleId);
@@ -58,6 +61,10 @@ public class ArticleServiceImpl implements ArticleService {
     // 게시글 전체 조회
     @Override
     public List<ArticleResponseDto> getArticleList(String profileId, String category, String range, String keyword) {
+
+        if (profileId.equals("null")) {
+            return articleRepo.findAllByOrderByCreatedAtDesc().stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+        }
 
         Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfileRepo.getById(profileId).getAddress());
         List<Article> articles = null;
@@ -122,7 +129,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setContent(articleAndPartyRequestDto.getContent());
         article.setLink(articleAndPartyRequestDto.getLink());
         article.setPic(articleAndPartyRequestDto.getPic());
-        article.setCreatedAt(LocalDateTime.now());
+        article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         article.setCategory(articleAndPartyRequestDto.getCategory());
         article.setTag(null);
         article.setParty(party);
@@ -131,7 +138,7 @@ public class ArticleServiceImpl implements ArticleService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setIsBoss(true);
         memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-        int calprice=(int)(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
+        int calprice = (int) (articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
         memberInfo.setPrice(calprice);
         memberInfo.setParty(party);
         memberInfo.setUserProfile(userProfile);
@@ -185,6 +192,17 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(Long articleId) {
+        Article article=articleRepo.getById(articleId);
+        List<Comment> comments=commentRepo.findByArticle(article);
+        List<Zzim> Zzims=zzimRepo.findByArticle(article);
+
+        for (Comment comment : comments) {
+            commentRepo.deleteById(comment.getId());
+        }
+        for (Zzim zzim : Zzims) {
+           zzimRepo.deleteById(zzim.getZzimId());
+        }
+
         articleRepo.deleteById(articleId);
     }
 }

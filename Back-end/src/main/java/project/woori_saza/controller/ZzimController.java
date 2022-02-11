@@ -1,7 +1,6 @@
 package project.woori_saza.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +36,13 @@ public class ZzimController {
                 result.put("zzimList", zzimService.getZzimList(Long.parseLong(articleId)));
             }
             status = HttpStatus.OK;
+            result.put("success", true);
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+            result.put("success", false);
 
+        }
         return new ResponseEntity<Map<String, Object>>(result, status);
     }
 

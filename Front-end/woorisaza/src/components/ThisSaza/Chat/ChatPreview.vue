@@ -10,7 +10,7 @@
                     </div>
                     <div style="font-size:10px">
                         <!--마지막 댓글 보여주기-->
-                        운송장 번호도 나중에 등록해..
+                        마지막 댓글 입니당
                     </div>
                 </b-col>
                 <b-col cols="3">

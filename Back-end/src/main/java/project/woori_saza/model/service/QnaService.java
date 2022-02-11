@@ -1,7 +1,6 @@
 package project.woori_saza.model.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import project.woori_saza.model.domain.Qna;
 import project.woori_saza.model.dto.QnaDto;
 
 import java.util.List;

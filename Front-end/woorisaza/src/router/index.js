@@ -3,7 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Guide from "../views/Guide.vue"
 import MySaza from "../views/MySaza/MySaza.vue";
-import MyPage from "../views/MySaza/MyPage.vue"
+import MyPage from "../views/MySaza/MyPage.vue";
+import MyQuestion from "../views/MySaza/MyQuestion.vue";
+import MyAnswer from "../views/MySaza/MyAnswer.vue";
 
 import Board from "../views/ThisSaza/ThisSaza.vue";
 import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
@@ -60,6 +62,16 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
+  },
+  {
+    path: "/mypage/question",
+    name: "MyQuestion",
+    component: MyQuestion,
+  },
+  {
+    path: "/mypage/answer",
+    name: "MyAnswer",
+    component: MyAnswer,
   },
   {
     path: "/partydetail/:partyId",

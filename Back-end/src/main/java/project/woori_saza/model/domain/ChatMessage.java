@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -31,7 +30,7 @@ public class ChatMessage {
     @NotNull
     private String time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="room_id")
     private ChatRoom chatRoom;
 

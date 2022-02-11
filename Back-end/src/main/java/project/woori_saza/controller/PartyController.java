@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.dto.PartyDto;
 import project.woori_saza.model.dto.PartyResponseDto;
 import project.woori_saza.model.service.PartyService;
@@ -51,10 +50,30 @@ public class PartyController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         }catch (RuntimeException e){
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
         return new ResponseEntity<Map<String,Object>>(result, httpStatus);
     }
+
+
+    @ApiOperation(value="파티 마감, 구매 확정",notes="파티를 마감하고 구매확정한다.")
+    @GetMapping("/finish/{partyId}")
+    public ResponseEntity<Map<String,Object>> finishParty(@PathVariable @ApiParam( value="파티 아이디",required = true) Long partyId){
+        Map<String,Object>result=new HashMap<>();
+        HttpStatus status=null;
+        try{
+            partyService.finishParty(partyId);
+            status=HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        return new ResponseEntity<Map<String, Object>>(result, status);
+    }
+
 }
 

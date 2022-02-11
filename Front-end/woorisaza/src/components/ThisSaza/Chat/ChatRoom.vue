@@ -18,9 +18,9 @@
 
 
 <script>
-import axios from 'axios';
 import SockJS from 'sockjs-client';
 import Stomp from 'stomp-websocket';
+import {axios_contact} from "@/common.js"
 
 export default {
     name: 'ChatRoom',
@@ -38,9 +38,9 @@ export default {
     },
 
     created(){
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/user/"+this.profileId,
+            url : "/user/"+this.profileId,
         }).then(({data})=>{
             // console.log(data.profile.nickname)
             this.myName = data.profile.nickname;
@@ -48,9 +48,9 @@ export default {
             this.connect();
         })
         
-        axios({
+        axios_contact({
             method : "get",
-            url : "http://localhost:8080/chat/room/enter/"+this.roomId,
+            url : "/chat/room/enter/"+this.roomId,
         }).then(({data})=>{
             console.log(data)
             this.roomName = data.chatRoom.name;
@@ -59,7 +59,6 @@ export default {
     },
 
     mounted() {
-        this.connect();
     },
 
     methods: {
@@ -68,10 +67,12 @@ export default {
             this.message = '';
         },
         recvMessage: function(recv) {
-            this.roomChat.push({"sender":recv.sender,"content":recv.content})
+            console.log(recv);
+            this.roomChat.push({"sender":recv.sender,"content":recv.content,"time":recv.time})
         },
         connect(){
-            const serverURL = "http://127.0.0.1:8080/ws-stomp";
+            const serverURL = "http://i6c102.p.ssafy.io:8080/ws-stomp";
+            // const serverURL = "http://127.0.0.1:8080/ws-stomp";
             let socket = new SockJS(serverURL);
             // let socket = new SockJS("/ws-stomp");
             // const that = this;
@@ -85,7 +86,6 @@ export default {
                     console.log("구독으로 받은 메세지: " +recv.message);
                     this.recvMessage(recv);
                 });
-                // this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', content:this.myName + "님이 입장하셨습니다.", roomId:this.roomId, sender:this.myName}));
             }, (error) => {
                 console.log("Fail: " + error);
                 if(this.reconnect++ < 5) {

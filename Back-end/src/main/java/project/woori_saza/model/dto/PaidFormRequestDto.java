@@ -20,15 +20,15 @@ public class PaidFormRequestDto {
     @ApiModelProperty(value = "예상 수령일", example = "2022-02-01")
     private LocalDate receiptDate;
     @ApiModelProperty(value = "파티 id", example = "1")
-    private Long party;
+    private Long partyId;
 
     @Builder
-    public PaidFormRequestDto(String pic, Integer billingNo, LocalDate deliveryDate, LocalDate receiptDate, Long party) {
+    public PaidFormRequestDto(String pic, Integer billingNo, LocalDate deliveryDate, LocalDate receiptDate, Long partyId) {
         this.pic = pic;
         this.billingNo = billingNo;
         this.deliveryDate = deliveryDate;
         this.receiptDate = receiptDate;
-        this.party = party;
+        this.partyId = partyId;
     }
 
     public PaidForm toEntity() {

@@ -10,7 +10,8 @@ import project.woori_saza.model.dto.ReviewResponseDto;
 import project.woori_saza.model.repo.ReviewRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class ReviewServiceImpl implements ReviewService{
     public List<ReviewResponseDto> getReviewList(String profileId) {
 
         UserProfile user = userProfileRepo.getById(profileId);
-        List<Review> reviews = reviewRepo.findByToUser(user);
+        List<Review> reviews = reviewRepo.findByToUserOrderByDateDesc(user);
         return reviews.stream().map(ReviewResponseDto::new).collect(Collectors.toList());
     }
 
@@ -36,7 +37,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Transactional
     public void insertReview(ReviewRequestDto reviewRequestDto) {
         Review review = reviewRequestDto.toEntity();
-        review.setDate(LocalDateTime.now());
+        review.setDate(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         review.setFromUser(userProfileRepo.getById(reviewRequestDto.getFromUser()));
 
         UserProfile toUser = userProfileRepo.getById(reviewRequestDto.getToUser());
