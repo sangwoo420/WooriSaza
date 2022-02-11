@@ -22,7 +22,7 @@
                     </b-col>
                     <b-col cols="4">
                         총 인원
-                        <b-form-input id="input-small" size="sm" placeholder="인원수를 입력하세요." type="number" v-model="articleAndParty.totalRecruitMember" min=2 :state="totalRecruitMemberState"></b-form-input>
+                        <b-form-input id="input-small" size="sm" placeholder="인원수를 입력하세요." type="number" v-model="articleAndParty.totalRecruitMember" min="2" :state="totalRecruitMemberState" aria-describedby="countCheck"></b-form-input>
                     </b-col>
                 </b-row>
                 <b-row class="mt-3">
@@ -34,7 +34,7 @@
                     </b-col>
                     <b-col cols="4">
                         총 금액
-                        <b-form-input id="input-small" size="sm" placeholder="총 금액을 입력하세요." type="number" v-model="articleAndParty.totalPrice" min=0 :state="totalPriceState"></b-form-input>
+                        <b-form-input id="input-small" size="sm" placeholder="총 금액을 입력하세요." type="number" v-model="articleAndParty.totalPrice" min="0" :state="totalPriceState"></b-form-input>
                     </b-col>
                 </b-row>
                 <b-row class="mt-3">
@@ -45,11 +45,11 @@
                     <b-col cols="4">
                         <div>
                             총 물건 개수
-                            <b-form-input id="input-small" size="sm" placeholder="총 물건 개수를 입력하세요" type="number" v-model="articleAndParty.totalProductCount" min=1 :state="totalProductCountState"></b-form-input>
+                            <b-form-input id="input-small" size="sm" placeholder="총 물건 개수를 입력하세요" type="number" v-model="articleAndParty.totalProductCount" min="1" :state="totalProductCountState"></b-form-input>
                         </div>
                         <div class="mt-2">
                             내 선택 수량(인원 수)
-                            <b-form-input id="input-small" size="sm" placeholder="구매 할 수량을 입력하세요" type="number" v-model="articleAndParty.amount" min=1 :state="amountState"></b-form-input>
+                            <b-form-input id="input-small" size="sm" placeholder="구매 할 수량을 입력하세요" type="number" v-model="articleAndParty.amount" min="1" :state="amountState"></b-form-input>
                         </div>
                         <div class="mt-2">
                             위약금
@@ -79,7 +79,6 @@ import {axios_contact} from "@/common.js"
 
 export default {
     name: 'Articlewrite',
-
     data() {
         return {
             articleAndParty : {
@@ -131,7 +130,9 @@ export default {
             titleState : null,
             totalPriceState : null,
             totalProductCountState : null,
-            totalRecruitMemberState : null
+            totalRecruitMemberState : null,
+
+            check:null,
         };
     },
 
@@ -194,7 +195,7 @@ export default {
 
             })
         },
-
+        
         articleRegister(){
             // console.log("글 쓰즈아~")
             // console.log(this.articleAndParty)
@@ -221,25 +222,9 @@ export default {
                 data
                 this.$router.push("/board");
             }).catch(({err})=>{
-                // console.log(err)
-                 err
-                let err2 = true;
-                let msg = "";
-                
-                !this.title  &&
-                    ((msg = "제목 입력해주세요"),
-                    (err2 = false),
-                    this.$refs.subject.focus());
-                err2 &&
-                    !this.content &&
-                    ((msg = "내용 입력해주세요"),
-                    (err2 = false),
-                    this.$refs.content.focus());
-
-
-                if (!err2) alert(msg);
-
-
+                err
+                 // console.log(err)
+                alert("잘못된 값을 입력하였거나 입력되지 않은 항목이 있습니다.");
             })
         },
         

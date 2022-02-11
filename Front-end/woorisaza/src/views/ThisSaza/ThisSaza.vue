@@ -18,17 +18,17 @@
                 </b-container>
 
                 <!-- 채팅창 글쓰기 버튼 -->
-                <div class="chat">
+                <div class="chat" v-if="!chatShow">
                     <transition name="fade">
-                        <div v-if="!chatShow">
+                        <div >
                             <ChatList @chatShowFromChild="chatOff"></ChatList>
                         </div>
                     </transition>
                 </div>
                 <div class="button" v-if="accesstoken!=null">
-                    <div>
+                    <div v-if="chatShow">
                         <transition name="fade">
-                            <div v-if="chatShow">
+                            <div>
                                 <div>
                                     <b-button variant="secondary" @click="toArticleWrite">
                                         <img src="@/assets/write.png" alt="" style="width:80%">

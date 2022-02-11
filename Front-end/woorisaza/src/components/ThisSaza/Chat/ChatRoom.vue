@@ -2,8 +2,8 @@
     <div class="mb-2">
         <!-- {{room}} -->
         <div class="title">{{roomName}}</div><br><hr>
-        <div class="chat">
-            <div v-for="(item, index) in roomChat" :key="index" class="mt-1" ref="chatMessages">
+        <div class="chat" ref="chatMessages">
+            <div v-for="(item, index) in roomChat" :key="index" class="mt-1">
                 <!-- 내가 보낸거 -->
                 <div v-if="item.sender == myName">
                     <b-row style="display:table">
@@ -21,6 +21,7 @@
                 <div v-if="item.sender != myName">
                     <b-row style="display:table">
                         <b-col>
+                            {{item.sender}}
                             <div class="box2">
                                 {{ item.content }}
                             </div>
@@ -32,8 +33,10 @@
                 </div>
             </div>
         </div>
-        <b-form-input v-model="message" placeholder="" @keyup.enter="sendMessage" style="width : 90%; display:inline" class="mr-1"></b-form-input>
-        <img src="@/assets/sendMessage.png" alt="" style="width : 30px" @click="sendMessage">
+        <div class="inputMessage">
+            <b-form-input v-model="message" placeholder="" @keyup.enter="sendMessage" style="width : 90%; display:inline" class="mr-1" @click="scrollDown"></b-form-input>
+            <img src="@/assets/sendMessage.png" alt="" style="width : 30px" @click="sendMessage">
+        </div>
     </div>
 </template>
 
@@ -57,7 +60,16 @@ export default {
             stompClient:null,
         };
     },
-
+    watch : {
+        roomChat(){
+            const that = this;
+            setTimeout(function() {
+                that.scrollDown();
+            }, 100);
+            
+            console.log(2)
+        }
+    },
     created(){
         axios_contact({
             method : "get",
@@ -73,22 +85,28 @@ export default {
             method : "get",
             url : "/chat/room/enter/"+this.roomId,
         }).then(({data})=>{
-            console.log(data)
+            // console.log(data)
             this.roomName = data.chatRoom.name;
             this.roomChat = data.chatRoom.msgList;
         })
     },
 
     mounted() {
+        this.scrollDown()
     },
 
     methods: {
+        scrollDown(){
+            console.log(this.$refs.chatMessages)
+            this.$refs.chatMessages.scrollTo({top : this.$refs.chatMessages.scrollHeight, behavior : 'smooth'})
+            console.log(11)
+        },
         sendMessage: function() {
             this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'CHAT', content:this.message, roomId:this.roomId, sender:this.myName}));
             this.message = '';
         },
         recvMessage: function(recv) {
-            console.log(recv);
+            // console.log(recv);
             this.roomChat.push({"sender":recv.sender,"content":recv.content,"time":recv.time})
         },
         connect(){
@@ -99,12 +117,13 @@ export default {
             // const that = this;
             this.stompClient = Stomp.over(socket);
             this.reconnect = 0;
-
+            
             this.stompClient.connect({}, (frame) => {
-                console.log("Connected: " + frame);
+                // console.log("Connected: " + frame);
+                frame
                 this.stompClient.subscribe("/sub/chat/room/"+this.roomId, (message) => {
                     var recv = JSON.parse(message.body);
-                    console.log("구독으로 받은 메세지: " +recv.message);
+                    // console.log("구독으로 받은 메세지: " +recv.message);
                     this.recvMessage(recv);
                 });
             }, (error) => {
@@ -144,7 +163,7 @@ export default {
     height:440px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    overflow-y:scroll;
+    overflow: auto;
 }
 .chat::-webkit-scrollbar{ display:none; }
 
