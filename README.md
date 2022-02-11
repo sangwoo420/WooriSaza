@@ -47,7 +47,7 @@
 
 # 공구의 시작, 우리사자 🦁
 
-![icon](.\images\icon.png)
+![icon](/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png)
 
 ## 목차 
 
@@ -101,7 +101,7 @@
 - 사이트 소개와 함께 파티장과 파티원의 간단한 역할과 개념을 설명해줍니다.
 - `시작하기` 버튼을 클릭하면 더 자세한 사이트 이용 가이드 페이지로 이동합니다.
 
-![main](.\images\main.gif)
+![main](/uploads/b5b446a454e4345765e5362269dfd054/main.gif)
 
 
 
@@ -134,7 +134,9 @@
 
 - 사용자들이 `우리사자`를 쉽게 이용할 수 있도록 가이드를 제공합니다.
 
-![guide](.\images\guide.gif)
+![guide](/uploads/a21129e20d86d2fdb2242be7f2fb717a/guide.gif)
+
+
 
 ### 2.5 마이페이지
 
@@ -161,7 +163,7 @@
 
 - https://www.figma.com/file/89ipYukI0aTZRnJ7tCbhpQ/%EC%88%98%EC%83%81%ED%95%9C%EC%82%AC%EB%9E%8C%EB%93%A4-team-library?node-id=0%3A1
 
-![image-20220211135208483](.\images\UI)
+![UI](/uploads/0ae0b0899f81ddcfbf9df96f6a5885af/UI.PNG)
 
 
 
@@ -169,7 +171,7 @@
 
 - https://app.diagrams.net/#G141ohjTX3GOldM-FH4RdT4x81qykGr-Qv
 
-![수상한사람들-Page-2.drawio](.\images\Usecase)
+![usecase](/uploads/78f50c3d2b3a47760c3123480419233a/usecase.png)
 
 
 
