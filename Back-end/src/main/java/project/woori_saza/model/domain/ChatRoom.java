@@ -37,11 +37,11 @@ public class ChatRoom implements Serializable{
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
-    public static ChatRoom create(String articleName, Long articleId) {
+    public static ChatRoom create(Long articleId, String articleName) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.id = UUID.randomUUID().toString();
-        chatRoom.articleId = articleId;
         chatRoom.name = articleName;
+        chatRoom.articleId = articleId;
         chatRoom.count = 1;
         return chatRoom;
     }

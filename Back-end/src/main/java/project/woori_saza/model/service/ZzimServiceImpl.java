@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import project.woori_saza.model.domain.Article;
 import project.woori_saza.model.domain.UserProfile;
 import project.woori_saza.model.domain.Zzim;
-import project.woori_saza.model.dto.ArticleResponseDto;
 import project.woori_saza.model.dto.ZzimDto;
 import project.woori_saza.model.repo.ArticleRepo;
 import project.woori_saza.model.repo.UserProfileRepo;

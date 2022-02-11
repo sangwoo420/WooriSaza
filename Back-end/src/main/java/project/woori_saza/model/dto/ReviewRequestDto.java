@@ -2,16 +2,10 @@ package project.woori_saza.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.h2.engine.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import project.woori_saza.model.domain.Review;
-import project.woori_saza.model.domain.UserProfile;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor

@@ -20,7 +20,6 @@ import project.woori_saza.model.dto.PaidFormResponseDto;
 import project.woori_saza.model.repo.PaidFormRepo;
 import project.woori_saza.model.repo.PartyRepo;
 
-import java.io.File;
 import java.util.UUID;
 
 @Service

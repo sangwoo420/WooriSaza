@@ -1,7 +1,6 @@
 package project.woori_saza.model.service;
 
 
-import project.woori_saza.model.dto.MemberInfoRequestDto;
 import project.woori_saza.model.dto.PartyDto;
 import project.woori_saza.model.dto.PartyResponseDto;
 
