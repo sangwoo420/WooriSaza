@@ -1,21 +1,17 @@
 <template>
     <div class="mb-2">
         <!-- {{room}} -->
-        <div class="title">{{roomName}}
+        <div class="title">{{roomName}}</div><br><hr>
+        <div class="chat">
+            
+            <div v-for="(item, index) in roomChat" :key="index" >
+                유저이름: {{ item.sender }}<br>
+                내용: {{ item.content }}<br>
+                시간: {{ item.time }}<br>
+            </div>
         </div>
-        <b-container class="bv-example-row" >
-            <br>
-            <b-row class="chat">
-                <div v-for="(item, index) in roomChat" :key="index" >
-                    <h6>유저이름: {{ item.sender }}</h6>
-                    <h6>내용: {{ item.content }}</h6>
-                    <h6>시간: {{ item.time }}</h6>
-                </div>
-            </b-row>
-           
-        </b-container>
         <input v-model="message" type="text" @keyup.enter="sendMessage">
-        <button>전송</button>
+        <button @click="sendMessage">전송</button>
     </div>
 </template>
 
@@ -118,8 +114,8 @@ export default {
 
 .chat{
     background-color:white; 
-    width:280px;
-    height:400px;
+    width:100%;
+    height:460px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     overflow-y:scroll;
