@@ -222,8 +222,8 @@ export default {
                 data
                 this.$router.push("/board");
             }).catch(({err})=>{
-                // console.log(err)
                 err
+                 // console.log(err)
                 alert("잘못된 값을 입력하였거나 입력되지 않은 항목이 있습니다.");
             })
         },
