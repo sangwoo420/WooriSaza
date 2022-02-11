@@ -2,13 +2,13 @@
 
 | Application | Domain | Language | Framework |
 | ---- | ---- | ---- | ---- |
-| :black_square_button: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
-| :white_check_mark: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
+| :white_check_mark: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
+| :black_square_button: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
 | :black_square_button: Responsive Web | :black_square_button: Blockchain | :black_square_button: C/C++ | :black_square_button: Angular |
-| :black_square_button: Android App | :black_square_button: IoT | :black_square_button: C# | :black_square_button: Node.js |
-| :black_square_button: iOS App | :black_square_button: AR/VR/Metaverse | :black_square_button: Python | :white_check_mark: Flask/Django |
+| :black_square_button: Android App | :black_square_button: IoT | :black_square_button: C# | :white_check_mark: Node.js |
+| :black_square_button: iOS App | :black_square_button: AR/VR/Metaverse | :black_square_button: Python | :black_square_button: Flask/Django |
 | :black_square_button: Desktop App | :black_square_button: Game | :white_check_mark: Java | :white_check_mark: Spring/Springboot |
-| | | :black_square_button: Kotlin | |
+| | | :black_square_button: Kotlin | :white_check_mark: Jpa |
 
 
 
@@ -28,39 +28,31 @@
   - Rest API
 
 
-## 팀 소개
-- 김현수 : Front-end(main), 팀장
-- 박상우 : Back-end(main)
-- 박소진 : Back-end(sub)
-- 윤지영 : Full-stack
-- 장영하 : Back-end(sub), 부팀장
-- 최윤석 : Front-end(sub)
-
-
-
-## 프로젝트 상세 설명
-// 개발 환경, 기술 스택, 시스템 구성도, ERD, 기능 상세 설명 등
-
-
-
 
 
 # 공구의 시작, 우리사자 🦁
 
-![icon](/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png)
+<p align="center">
+  <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="30%"/></div>
+  <div align="center"><img src="/uploads/65c3e0689b03a2d45042953be7c22053/우리사자.PNG" width="30%"/></div>
+</p>
 
 ## 목차 
 
-1. 팀소개
+1. [팀소개](##1.-팀소개)
 
-2. 프로젝트 소개
+2. [프로젝트 소개](#2.-프로젝트-소개)
+
    - 홈
    - 이거사자
    - 마이사자
    - 가이드
    - 마이페이지
+   - 채팅
 
-3. 프로젝트 명세
+   
+
+3. [프로젝트 명세](#3.-프로젝트-명세)
 
    - 아키텍처
    - ERD
@@ -70,25 +62,26 @@
 
    
 
-## 1. 팀소개 🙋‍♂️
+   
+
+## 1. 팀소개
 
 > 팀명 : 수상한 사람들
 
-- 김현수 : Front-end(main), 팀장
-
-- 박상우 : Back-end(main)
-
-- 박소진 : Back-end(sub)
-
-- 윤지영 : Full-stack
-
-- 장영하 : Back-end(sub), 부팀장
-
-- 최윤석 : Front-end(sub)
-
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/tomy9729"><img src="https://avatars.githubusercontent.com/u/52230306?v=4" width="100px;" alt=""/><br /><sub><b>김현수<br>Front-end(main), 팀장</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/sangwoo420"><img src="https://avatars.githubusercontent.com/u/31755437?v=4" width="100px;" alt=""/><br /><sub><b>박상우<br>Back-end(main)</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/sojin0706"><img src="https://avatars.githubusercontent.com/u/87872966?v=4" width="100px;" alt=""/><br /><sub><b>박소진<br>Back-end(sub)</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/jiyeong-yun"><img src="https://avatars.githubusercontent.com/u/70522500?v=4" width="100px;" alt=""/><br /><sub><b>윤지영<br>Full-stack</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/yeongsummer"><img src="https://avatars.githubusercontent.com/u/87457128?v=4" width="100px;" alt=""/><br /><sub><b>장영하<br>Back-end(sub)</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/choiys1995"><img src="https://avatars.githubusercontent.com/u/77048597?v=4" width="100px;" alt=""/><br /><sub><b>최윤석<br>Front-end(sub)</b></sub></a><br /></td>
+    </tr>
+</table>
 
 
-## 2. 프로젝트 소개 🎁
+
+## 2. 프로젝트 소개
 
 >내가 원하는 물건을 이웃과 함께 저렴한 가격으로!
 >물건을 수령하면 대금이 전달되는 시스템으로 더욱 안전한 거래를 보장합니다!
@@ -121,11 +114,11 @@
 - 해당 유저의 정보, 참가한 파티, 개설한 파티, 댓글, 후기를 볼 수 있는 공간입니다.
 - 해당 유저의 등급과, 이름, 주소와 가입날짜가 담긴 카드를 볼 수 있습니다.
   카드는 본인이었을 경우에만 누를 수 있고 누르면 마이페이지로 이동합니다.
-- `참가한 파티 ` 탭에서는 해당 유저가 현재 참가하고 있는 파티 리스트를 볼 수 있습니다.
+- `참가한 파티` 탭에서는 해당 유저가 현재 참가하고 있는 파티 리스트를 볼 수 있습니다.
   파티를 누르면 해당 파티의 파티 디테일 페이지로 이동합니다.
 - `개설한 파티`  탭에서는 해당 유저가 개설한 파티 리스트를 볼 수 있습니다.
   파티를 누르면 해당 파티의 파티 디테일 페이지로 이동합니다.
-- `댓글 ` 탭에서는 해당 유저가 단 댓글 리스트를 볼 수 있습니다. 댓글을 누르면 해당 댓글이 달린 게시글로 이동합니다.
+- `댓글` 탭에서는 해당 유저가 단 댓글 리스트를 볼 수 있습니다. 댓글을 누르면 해당 댓글이 달린 게시글로 이동합니다.
 - `후기` 탭에서는 해당 유저에게 달린 후기 리스트를 볼 수 있습니다.
 
 
@@ -149,19 +142,27 @@
 
 
 
-## 3. 프로젝트 명세 🛠
+### 2.6 채팅
+
+- 유저들이 파티에 같이 참여하고 있는 파티원들과 함께 채팅을 주고 받을 수 있는 공간입니다.
+
+
+
+## 3. 프로젝트 명세
 
 ### 3.1 아키텍처
 
-![아키텍처](./images/아키텍처.png)
+![아키텍처](/uploads/d8e41e09e3c659370361c650d58bde07/아키텍처.png)
 
 ### 3.2 ERD
 
+> [Entity-Relationship Diagram](https://www.erdcloud.com/d/fQPhoGfc9uvhgeEqL)
 
+![ERD](/uploads/4f45af1f48a8e2ac6d5997e426f5dae7/ERD.png)
 
 ### 3.3 UI 프로토타입
 
-- https://www.figma.com/file/89ipYukI0aTZRnJ7tCbhpQ/%EC%88%98%EC%83%81%ED%95%9C%EC%82%AC%EB%9E%8C%EB%93%A4-team-library?node-id=0%3A1
+> [ UI Prototype](https://www.figma.com/file/89ipYukI0aTZRnJ7tCbhpQ/%EC%88%98%EC%83%81%ED%95%9C%EC%82%AC%EB%9E%8C%EB%93%A4-team-library?node-id=0%3A1)
 
 ![UI](/uploads/0ae0b0899f81ddcfbf9df96f6a5885af/UI.PNG)
 
@@ -169,7 +170,7 @@
 
 ### 3.4 Usecase Diagram
 
-- https://app.diagrams.net/#G141ohjTX3GOldM-FH4RdT4x81qykGr-Qv
+> [Usecase Diagram](https://app.diagrams.net/#G141ohjTX3GOldM-FH4RdT4x81qykGr-Qv)
 
 ![usecase](/uploads/78f50c3d2b3a47760c3123480419233a/usecase.png)
 
@@ -265,4 +266,3 @@
 |      |             |                        |                                       |                                                              |          |
 | 68   | F18-01      | 채팅                   | 채팅방 리스트                         | 현재 내가 참가하고 있는 채팅방을 보여준다.                   | 상       |
 | 69   | F18-02      | 채팅                   | 채팅하기                              | 채팅방을 클릭하여 들어가면 현재까지의 채팅글이 보이고, 채팅 글을 입력할 수 있다. | 상       |
-| 70   | F18-03      | 채팅                   | 채팅방 나가기                         | 채팅방 나가기 버튼을 누르면 채팅방에서 나가지고 채팅방 리스트에서도 삭제된다. | 상       |
