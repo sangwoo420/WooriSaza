@@ -224,7 +224,7 @@ export default {
             }).catch(({err})=>{
                 // console.log(err)
                 err
-                alert("입력하지 않은 항목이 있습니다.");
+                alert("잘못된 값을 입력하였거나 입력되지 않은 항목이 있습니다.");
             })
         },
     },
