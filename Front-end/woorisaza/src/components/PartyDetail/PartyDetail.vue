@@ -66,7 +66,7 @@
             <!-- 파티장 + 마감 전 -->
             <div v-if="myInfo.isBoss && !myInfo.isClosed">
                 <b-button variant="warning" @click="partyFinAndBill">파티 마감하고 구매 진행하기</b-button>
-                <b-button variant="danger" >파티 삭제하기</b-button>
+                <b-button variant="danger" @click="deleteParty">파티 삭제하기</b-button>
             </div>
             <!-- 파티장 + 마감 후 -->
             <div v-if="myInfo.isBoss && myInfo.isClosed">
@@ -150,6 +150,9 @@ export default {
         },
         partyFinAndBill(){
             
+        },
+        deleteParty(){
+            console.log("파티 삭제")
         },
     },
 };

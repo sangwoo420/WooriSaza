@@ -1,7 +1,7 @@
 <template>
     <div class="mb-2">
         <!-- {{room}} -->
-        <b-container class="bv-example-row">
+        <b-container class="chat bv-example-row" >
             <b-row>
                 <p>{{roomName}}</p>
                 <br>
@@ -11,8 +11,9 @@
                     <h6>시간: {{ item.time }}</h6>
                 </div>
             </b-row>
-            입력: <input v-model="message" type="text" @keyup.enter="sendMessage">
+           
         </b-container>
+         입력: <input v-model="message" type="text" @keyup.enter="sendMessage">
     </div>
 </template>
 
@@ -112,5 +113,17 @@ export default {
     padding-right: 0;
     padding-left: 0;
 }
+
+.chat{
+        background-color:white; 
+        box-shadow: 0px 0px 5px 0.1px grey; 
+        border-radius: 0.5em;
+        width:280px;
+        height:400px;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        overflow-y:scroll;
+    }
+    .chat::-webkit-scrollbar{ display:none; }
 
 </style>

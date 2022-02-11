@@ -180,7 +180,7 @@ export default {
                     method : "get",
                     url : "/api/metaimage?url="+link,
                 }).then(({data})=>{
-                    // console.log(data)
+                    console.log(data)
                     if(data==null){
                         console.log(null)
                         this.articleAndParty.pic.push(null)
