@@ -2,8 +2,8 @@
     <div class="mb-2">
         <!-- {{room}} -->
         <div class="title">{{roomName}}</div><br><hr>
-        <div class="chat">
-            <div v-for="(item, index) in roomChat" :key="index" class="mt-1" ref="chatMessages">
+        <div class="chat pb-5" ref="chatMessages">
+            <div v-for="(item, index) in roomChat" :key="index" class="mt-1">
                 <!-- 내가 보낸거 -->
                 <div v-if="item.sender == myName">
                     <b-row style="display:table">
@@ -21,6 +21,7 @@
                 <div v-if="item.sender != myName">
                     <b-row style="display:table">
                         <b-col>
+                            {{item.sender}}
                             <div class="box2">
                                 {{ item.content }}
                             </div>
@@ -31,8 +32,9 @@
                     </b-row>
                 </div>
             </div>
+
         </div>
-        <b-form-input v-model="message" placeholder="" @keyup.enter="sendMessage" style="width : 90%; display:inline" class="mr-1"></b-form-input>
+        <b-form-input v-model="message" placeholder="" @keyup.enter="sendMessage" style="width : 90%; display:inline" class="mr-1" @click="scrollDown"></b-form-input>
         <img src="@/assets/sendMessage.png" alt="" style="width : 30px" @click="sendMessage">
     </div>
 </template>
@@ -76,6 +78,7 @@ export default {
             console.log(data)
             this.roomName = data.chatRoom.name;
             this.roomChat = data.chatRoom.msgList;
+            this.$refs.chatMessages.scrollTo({top : this.$refs.chatMessages.scrollHeight, behavior : 'smooth'})
         })
     },
 
@@ -83,13 +86,18 @@ export default {
     },
 
     methods: {
+        scrollDown(){
+            this.$refs.chatMessages.scrollTo({top : this.$refs.chatMessages.scrollHeight, behavior : 'smooth'})
+        },
         sendMessage: function() {
             this.stompClient.send("/pub/chat/message", {}, JSON.stringify({type:'CHAT', content:this.message, roomId:this.roomId, sender:this.myName}));
             this.message = '';
+            this.$refs.chatMessages.scrollTo({top : this.$refs.chatMessages.scrollHeight, behavior : 'smooth'})
         },
         recvMessage: function(recv) {
             console.log(recv);
             this.roomChat.push({"sender":recv.sender,"content":recv.content,"time":recv.time})
+            this.$refs.chatMessages.scrollTo({top : this.$refs.chatMessages.scrollHeight, behavior : 'smooth'})
         },
         connect(){
             const serverURL = "http://i6c102.p.ssafy.io:8080/ws-stomp";
@@ -99,7 +107,7 @@ export default {
             // const that = this;
             this.stompClient = Stomp.over(socket);
             this.reconnect = 0;
-
+            
             this.stompClient.connect({}, (frame) => {
                 console.log("Connected: " + frame);
                 this.stompClient.subscribe("/sub/chat/room/"+this.roomId, (message) => {
@@ -144,7 +152,7 @@ export default {
     height:440px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    overflow-y:scroll;
+    overflow: auto;
 }
 .chat::-webkit-scrollbar{ display:none; }
 
