@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,20 +32,25 @@ public class Party implements Serializable {
     private Boolean formChecked;
 
     @NotNull
+    @FutureOrPresent
     private LocalDateTime deadline;
 
     @NotNull
     private String product;
 
+    @Positive
     @NotNull
     private Integer totalPrice; //총금액
 
+    @Positive
     @NotNull
     private Integer totalProductCount; //총 물건수량
 
+    @Positive
     @NotNull
     private Integer totalRecruitMember; //총 모집인원수
 
+    @Positive
     @NotNull
     private Integer currentRecruitMember; //현재 인원수
 

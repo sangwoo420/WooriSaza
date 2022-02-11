@@ -5,7 +5,9 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Getter
@@ -25,9 +27,11 @@ public class MemberInfo {
     @Column(columnDefinition = "boolean default false")
     private Boolean isBoss; //파티장 여부
 
+    @Positive
     @NotNull
     private Integer amount; // 파티원 선택수량
 
+    @Positive
     @NotNull
     private Integer price; // 파티원 부담금액
 
