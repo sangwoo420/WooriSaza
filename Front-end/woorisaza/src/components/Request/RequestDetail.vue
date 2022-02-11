@@ -12,7 +12,11 @@
                 <b-row>
                     <b-col sm="8">
                         <div>
-                            선택 인원 수 : <b-form-input  type="number" :value="chooseNum" v-model="chooseNum" @change="sum" style="width:30%;display:inline" :max="article.totalRecruitMember-article.currentRecruitMember" min="1"></b-form-input>
+                            선택 인원 수 : 
+                            <b-form-input  type="number" aria-describedby="input-live-feedback" :state="nameState" :value="chooseNum" v-model="chooseNum" @change="sum" style="width:30%;display:inline" :max="article.totalRecruitMember-article.currentRecruitMember" min="1"></b-form-input>
+                            <b-form-invalid-feedback id="input-live-feedback">
+                                선택할 수 없는 인원입니다.
+                            </b-form-invalid-feedback>
                         </div>
                     </b-col>
                     <b-col sm="4">
@@ -53,14 +57,14 @@
                     </div>
                     <div class="mt-4" style="text-align:center">
                         <span  style="font-size:0.5em;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다. </span>
-                        <b-icon v-if="!agree" icon="check-circle" variant="primary" @click="checkAgree"></b-icon>
-                        <b-icon v-if="agree" icon="check-circle-fill" variant="primary" @click="checkAgree"></b-icon>
+                        <b-icon v-if="!agree || !nameState" icon="check-circle" variant="primary" @click="checkAgree"></b-icon>
+                        <b-icon v-if="agree && nameState" icon="check-circle-fill" variant="primary" @click="checkAgree"></b-icon>
                     </div>
                 </b-container>
             </div>
             <div class="mt-4" style="text-align : center">
-                <b-button v-if="agree" variant="warning" @click="toBill">정산하기</b-button>
-                <b-button v-if="!agree" variant="warning" disabled>정산하기</b-button>
+                <b-button v-if="!agree || !nameState" variant="warning" disabled>정산하기</b-button>
+                <b-button v-if="agree && nameState" variant="warning" @click="toBill">정산하기</b-button>
             </div>
         </b-container>
         
@@ -72,12 +76,16 @@ import {EventBus} from "@/event-bus.js"
 import {axios_contact} from "@/common.js"
 export default {
     name: 'Request',
-
+    computed: {
+      nameState() {
+        return this.chooseNum >= 1 &&  this.chooseNum <= this.article.totalRecruitMember-this.article.currentRecruitMember ? true : false
+      }
+    },
     data() {
         return {
             agree : false,
             articleNo : this.$route.params.articleNo,
-            chooseNum : "1",
+            chooseNum : 1,
             result: 2,
             article : null,
         };
