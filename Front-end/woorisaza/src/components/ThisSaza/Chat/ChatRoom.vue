@@ -3,15 +3,37 @@
         <!-- {{room}} -->
         <div class="title">{{roomName}}</div><br><hr>
         <div class="chat">
-            
-            <div v-for="(item, index) in roomChat" :key="index" >
-                유저이름: {{ item.sender }}<br>
-                내용: {{ item.content }}<br>
-                시간: {{ item.time }}<br>
+            <div v-for="(item, index) in roomChat" :key="index" class="mt-1" ref="chatMessages">
+                <!-- 내가 보낸거 -->
+                <div v-if="item.sender == myName">
+                    <b-row style="display:table">
+                        <b-col style="vertical-align: bottom;text-align:right;display:table-cell">
+                            {{ item.time }}
+                        </b-col>
+                        <b-col>
+                            <div class="box">
+                                {{ item.content }}
+                            </div>
+                        </b-col>
+                    </b-row>
+                    
+                </div>
+                <div v-if="item.sender != myName">
+                    <b-row style="display:table">
+                        <b-col>
+                            <div class="box2">
+                                {{ item.content }}
+                            </div>
+                        </b-col>
+                        <b-col style="vertical-align: bottom;text-align:left;display:table-cell">
+                            {{ item.time }}
+                        </b-col>
+                    </b-row>
+                </div>
             </div>
         </div>
-        <input v-model="message" type="text" @keyup.enter="sendMessage">
-        <button @click="sendMessage">전송</button>
+        <b-form-input v-model="message" placeholder="" @keyup.enter="sendMessage" style="width : 90%; display:inline" class="mr-1"></b-form-input>
+        <img src="@/assets/sendMessage.png" alt="" style="width : 30px" @click="sendMessage">
     </div>
 </template>
 
@@ -111,11 +133,15 @@ export default {
     padding-right: 0;
     padding-left: 0;
 }
+.col{
+    max-width: 49%;
+}
 
 .chat{
     background-color:white; 
+    padding-bottom: 10px;
     width:100%;
-    height:460px;
+    height:440px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     overflow-y:scroll;
@@ -125,5 +151,20 @@ export default {
 .title{
     position: fixed;
 }
-
+.box{
+    padding: 5px;
+    background-color:white; 
+    box-shadow: 0px 0px 5px 0.1px grey; 
+    border-radius: 0.5em;
+    width : 180px;
+    height:100%;
+}
+.box2{
+    padding: 5px;
+    background-color:gray; 
+    box-shadow: 0px 0px 5px 0.1px grey; 
+    border-radius: 0.5em;
+    width : 180px;
+    height:100%;
+}
 </style>

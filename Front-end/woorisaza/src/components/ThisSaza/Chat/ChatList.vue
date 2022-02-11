@@ -103,7 +103,4 @@ export default {
     height:500px;
 }
 .clist::-webkit-scrollbar{ display:none; }
-.pt-5{
-    margin-top: -15px;
-}
 </style>
