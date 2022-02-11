@@ -2,8 +2,8 @@
 
 | Application | Domain | Language | Framework |
 | ---- | ---- | ---- | ---- |
-| :black_square_button: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
-| :white_check_mark: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
+| :white_check_mark: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
+| :black_square_button: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
 | :black_square_button: Responsive Web | :black_square_button: Blockchain | :black_square_button: C/C++ | :black_square_button: Angular |
 | :black_square_button: Android App | :black_square_button: IoT | :black_square_button: C# | :white_check_mark: Node.js |
 | :black_square_button: iOS App | :black_square_button: AR/VR/Metaverse | :black_square_button: Python | :black_square_button: Flask/Django |
@@ -33,7 +33,8 @@
 # 공구의 시작, 우리사자 🦁
 
 <p align="center">
-  <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="50%"/></div>
+  <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="30%"/></div>
+  <div align="center"><img src="/uploads/65c3e0689b03a2d45042953be7c22053/우리사자.PNG" width="100%"/></div>
 </p>
 
 ## 목차 
