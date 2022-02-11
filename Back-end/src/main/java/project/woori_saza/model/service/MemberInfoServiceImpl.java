@@ -30,6 +30,8 @@ public class MemberInfoServiceImpl implements MemberInfoService{
    @Autowired
    ChatRoomRepo chatRoomRepo;
 
+   @Autowired
+   ArticleRepo articleRepo;
 
 
     //회원이 신청서 작성
@@ -68,11 +70,10 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 //        Party party=memberInfo.getParty();
 //        party.setCurrentRecruitMember(party.getCurrentRecruitMember()-1);
 //        memberInfoRepo.deleteById(memberinfoId);
+        UserProfile userProfile=userProfileRepo.getById(profileId);
 
-          UserProfile userProfile=userProfileRepo.getById(profileId);
-
-          List<MemberInfo> memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
-          Party party=partyRepo.getById(partyId);
+        List<MemberInfo> memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
+        Party party=partyRepo.getById(partyId);
 
         for (MemberInfo memberInfo : memberInfos) {
             if (memberInfo.getParty().getId() == partyId) {
@@ -80,6 +81,14 @@ public class MemberInfoServiceImpl implements MemberInfoService{
                 memberInfoRepo.deleteById(memberInfo.getId());
             }
         }
+
+        // 채팅방 퇴장
+        Article article = articleRepo.findByParty(party);
+        List<ChatRoom> chatRoomList = chatRoomRepo.findChatRoomByArticleId(article.getId());
+        System.out.println("chatRoomList = " + chatRoomList);
+        System.out.println("userProfile.getId() = " + userProfile.getId());
+        chatRoomJoinRepo.deleteChatRoomJoinByChatRoomAndUserProfile(chatRoomList.get(0), userProfile);
+
     }
     //멤버 구매확정여부
     @Override
