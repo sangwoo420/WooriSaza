@@ -8,7 +8,6 @@ import project.woori_saza.model.dto.ChatRoomDto;
 import project.woori_saza.model.repo.ChatRoomRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -20,12 +19,6 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Autowired
     ChatRoomRepo chatRoomRepo;
-
-
-    @PostConstruct
-    @Override
-    public void init() {
-    }
 
     // 내가 가진 채팅방 가져오기
     @Override
