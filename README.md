@@ -34,7 +34,7 @@
 
 <p align="center">
   <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="30%"/></div>
-  <div align="center"><img src="/uploads/65c3e0689b03a2d45042953be7c22053/우리사자.PNG" width="100%"/></div>
+  <div align="center"><img src="/uploads/65c3e0689b03a2d45042953be7c22053/우리사자.PNG" width="30%"/></div>
 </p>
 
 ## 목차 
@@ -44,7 +44,6 @@
 2. [프로젝트 소개](#2.-프로젝트-소개 🎁)
 
    - 홈
-
    - 이거사자
    - 마이사자
    - 가이드
