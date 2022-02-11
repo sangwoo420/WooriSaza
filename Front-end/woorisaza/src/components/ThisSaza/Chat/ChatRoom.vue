@@ -1,10 +1,11 @@
 <template>
     <div class="mb-2">
         <!-- {{room}} -->
-        <b-container class="chat bv-example-row" >
-            <b-row>
-                <p>{{roomName}}</p>
-                <br>
+        <div class="title">{{roomName}}
+        </div>
+        <b-container class="bv-example-row" >
+            <br>
+            <b-row class="chat">
                 <div v-for="(item, index) in roomChat" :key="index" >
                     <h6>유저이름: {{ item.sender }}</h6>
                     <h6>내용: {{ item.content }}</h6>
@@ -13,7 +14,8 @@
             </b-row>
            
         </b-container>
-         입력: <input v-model="message" type="text" @keyup.enter="sendMessage">
+        <input v-model="message" type="text" @keyup.enter="sendMessage">
+        <button>전송</button>
     </div>
 </template>
 
@@ -115,15 +117,17 @@ export default {
 }
 
 .chat{
-        background-color:white; 
-        box-shadow: 0px 0px 5px 0.1px grey; 
-        border-radius: 0.5em;
-        width:280px;
-        height:400px;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-        overflow-y:scroll;
-    }
-    .chat::-webkit-scrollbar{ display:none; }
+    background-color:white; 
+    width:280px;
+    height:400px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow-y:scroll;
+}
+.chat::-webkit-scrollbar{ display:none; }
+
+.title{
+    position: fixed;
+}
 
 </style>

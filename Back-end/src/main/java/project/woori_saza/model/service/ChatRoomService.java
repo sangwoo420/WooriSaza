@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ChatRoomService {
 
-    void init();
     // 사용자의 모든 채팅방 조회
     List<String> findAllRoom(String profileId);
     // 특정 채팅방 조회 -> 어떤 채팅방인지 찾아주기만함 (이름설정)
