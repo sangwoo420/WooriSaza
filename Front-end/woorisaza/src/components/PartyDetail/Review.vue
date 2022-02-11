@@ -49,6 +49,10 @@
                 no-resize
                 ></b-form-textarea>
             </div>
+            <div class="mt-3" style="text-align : center">  
+                <b-button variant="secondary" class = "mr-4">나중에 하기</b-button>
+                <b-button variant="warning" class = "ml-4">작성 완료</b-button>
+            </div>
         </div>
     </div>
 </template>
@@ -144,5 +148,22 @@ export default {
 }
 .col{
     width : 20px
+}
+.btn-warning{
+    background-color: #F1A501 ;
+    font-size : 0.7em;
+    padding: 0.5em;
+    border-color: #F1A501;
+    border-radius : 2em;
+    color : white;
+    width : 100px;
+}
+.btn-secondary{
+    background-color: #C4C4C4     ;
+    font-size : 0.7em;
+    padding: 0.5em;
+    border-color: #C4C4C4 ;
+    border-radius : 2em;
+    width : 100px;
 }
 </style>
