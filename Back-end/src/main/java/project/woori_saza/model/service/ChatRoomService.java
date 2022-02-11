@@ -16,4 +16,6 @@ public interface ChatRoomService {
     // 채팅-유저 조인 생성 + 입장
     ChatRoomJoin createChatRoomJoin(ChatRoom chatRoom, UserProfile userProfile);
 
+    //채팅방 퇴장
+    void deleteChatRoomJoin(ChatRoom chatRoom, UserProfile userProfile);
 }
