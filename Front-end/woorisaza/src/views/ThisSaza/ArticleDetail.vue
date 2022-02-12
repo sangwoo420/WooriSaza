@@ -101,7 +101,7 @@
                         <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px" alt="">
                         <img v-if="comment.pic!=null" :src="comment.pic" style="width:30px; height : 30px" alt="">
                         <!-- 사용자 닉네임 -->
-                        <a href="" style="color:black; width:10%;display:inline">{{comment.nickname}}</a>
+                        <a href="" style="color:black; width:10%;display:inline" class="ml-1">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
                         <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id">수정</b-button>
                     </div>
@@ -198,9 +198,11 @@ export default {
             method : "get",
             url : "/zzim?articleId="+this.articleNo+"&profileId="+this.id,
         }).then((data)=>{
-            this.isZzim = data.data.success
-        }).catch((error)=>{
-            this.isZzim=error.response.data.success 
+            if(data.data.zzim!=null){
+                this.isZzim=true;
+            }else{
+                this.isZzim=false;
+            }
         })
     },
 

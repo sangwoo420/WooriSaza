@@ -71,12 +71,13 @@ export default {
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
-                    // redirect_uri : "http://localhost:8081/",
-                    redirect_uri : "http://i6c102.p.ssafy.io/", 
+                    redirect_uri : "http://localhost:8081/",
+                    // redirect_uri : "http://i6c102.p.ssafy.io/", 
                     code : this.$route.query.code,
             },
             queryString : null,
             mysazaUrl : null,
+            active : this.$cookie.get("active"),
         };
     },
     watch:{
@@ -84,6 +85,20 @@ export default {
     created(){
         this.accesstoken = this.$cookie.get("accesstoken");
         this.mysazaUrl = "/mysaza/"+this.$cookie.get("id");
+
+        console.log(this.active)
+        if(this.active == "homeActive"){
+            this.getHomeActive()
+        }
+        else if(this.active == "thisSazaActive"){
+            this.getThisSazaActive()
+        }
+        else if(this.active == "mySazaActive"){
+            this.getMySazaActive()
+        }
+        else if(this.active == "guideActive"){
+            this.getGuideActive()
+        }
     },
     mounted() {
         this.getKakaoQuery();
@@ -96,24 +111,28 @@ export default {
             this.thisSazaActive=null;
             this.mySazaActive=null;
             this.guideActive=null;
+            this.$cookie.set("active","homeActive", 1);
         },
         getThisSazaActive(){
             this.homeActive=null;
             this.thisSazaActive="active";
             this.mySazaActive=null;
             this.guideActive=null;
+            this.$cookie.set("active","thisSazaActive", 1);
         },
         getMySazaActive(){
             this.homeActive=null;
             this.thisSazaActive=null;
             this.mySazaActive="active";
             this.guideActive=null;
+            this.$cookie.set("active","mySazaActive", 1);
         },
         getGuideActive(){
             this.homeActive=null;
             this.thisSazaActive=null;
             this.mySazaActive=null;
             this.guideActive="active";
+            this.$cookie.set("active","guideActive", 1);
         },
 
         getKakaoQuery(){

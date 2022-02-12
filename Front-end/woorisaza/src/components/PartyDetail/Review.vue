@@ -50,8 +50,8 @@
                 ></b-form-textarea>
             </div>
             <div class="mt-3" style="text-align : center">  
-                <b-button variant="secondary" class = "mr-4">나중에 하기</b-button>
-                <b-button variant="warning" class = "ml-4">작성 완료</b-button>
+                <b-button variant="secondary" class = "mr-4" @click="notNow">나중에 하기</b-button>
+                <b-button variant="warning" class = "ml-4" @click="registerReview">작성 완료</b-button>
             </div>
         </div>
     </div>
@@ -136,6 +136,14 @@ export default {
         
         updateScore(){
             this.reviewList[this.index].score = this.score;
+        },
+        
+        registerReview(){
+            console.log("리뷰 썻어요")
+        },
+
+        notNow(){
+            console.log("나주엥 쓸게요")
         },
     },
 };
