@@ -1,7 +1,7 @@
 <template>
     <div v-if="article!=null">
         <div v-if="myInfo == null">
-            <div style="font-size : 1.5em">
+            <div style="font-size : 1.5em;">
                 내가 참여한 파티가 아니에요!<br>
             </div>
             <div style="text-align:center">
@@ -12,6 +12,9 @@
         <span class="title">
              상세 정보
         </span>
+        <div v-if="myInfo.isConfirmed" class="mt-3" style="text-align:center">
+            <p class="finParty">거래가 완료된 파티입니다!</p>
+        </div>
         <b-container fluid="sm" v-if="memberInfo != null">
             <b-row>
                 <b-col class="list">글제목</b-col>
@@ -63,7 +66,7 @@
             </b-container>
         </div>
 
-        <div style="text-align:center" class="mt-3">
+        <div v-if="!myInfo.isConfirmed" style="text-align:center" class="mt-3">
             <!-- 파티장 + 마감 전 -->
             <div v-if="myInfo.isBoss && !myInfo.isClosed">
                 <b-button variant="warning" @click="partyFinAndBill">파티 마감하고 구매 진행하기</b-button>
@@ -83,6 +86,9 @@
                 <b-button variant="danger" >물건을 못 받았어요</b-button>
                 <b-button variant="success" @click="finishDeal">구매 확정하기</b-button>
             </div>
+        </div>
+        <div v-if="myInfo.isConfirmed && myInfo.isBoss" style="text-align:center" class="mt-3">
+            <b-button variant="warning" @click="finishDeal">후기 쓰러 가기</b-button>
         </div>
         </div>
     </div>
@@ -122,10 +128,17 @@ export default {
         }).then(({data})=>{
             this.party = data;
             this.memberInfo = this.party[0];
+            let isConfirm = true;
             for (let index = 0; index < data.length; index++) {
                 if(data[index].profileId == this.myId){
                     this.myInfo = data[index]
                 }
+                else if(!data[index].isConfirmed){
+                    isConfirm = true;
+                }
+            }
+            if(isConfirm){
+                this.myInfo.isConfirmed=true;
             }
             axios_contact({
                 method : "get",
@@ -246,5 +259,11 @@ export default {
     /* border-color: #F1A501; */
     color : white;
     border-radius: 1em;
+}
+
+.finParty{
+    font-weight: bold;   
+    background-color: #fdd000;
+    font-size: 25px;
 }
 </style>

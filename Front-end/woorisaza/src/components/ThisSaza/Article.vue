@@ -59,9 +59,11 @@ export default {
             method : "get",
             url : "/zzim?articleId="+this.articleNo+"&profileId="+this.id,
         }).then((data)=>{
-            this.isZzim = data.data.success
-        }).catch((error)=>{
-            this.isZzim=error.response.data.success 
+            if(data.data.zzim!=null){
+                this.isZzim=true;
+            }else{
+                this.isZzim=false;
+            }
         })
     },
     mounted() {
