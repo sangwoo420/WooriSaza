@@ -23,6 +23,8 @@ public class ReviewResponseDto {
     private int score;
     @ApiModelProperty(value = "후기 작성자", example = "hashssafy")
     private String fromUser;
+    @ApiModelProperty(value = "후기 당사자", example = "hashssafy")
+    private String ToUser;
 
     public ReviewResponseDto(Review review){
         id = review.getId();
