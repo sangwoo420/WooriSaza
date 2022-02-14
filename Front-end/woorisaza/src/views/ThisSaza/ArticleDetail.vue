@@ -103,7 +103,7 @@
                         <!-- 사용자 닉네임 -->
                         <a href="" style="color:black; width:10%;display:inline" class="ml-1">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
-                        <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id">수정</b-button>
+                        <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id" @click="modifyComment(comment)">수정</b-button>
                     </div>
                     <div style="font-size:12px;">
                         <b-row>
@@ -238,6 +238,21 @@ export default {
                 // console.log(data)
                 data
                 this.$router.go();
+            })
+        },
+
+        modifyComment(comment){
+            axios_contact({
+                method : "put",
+                url : "/comment",
+                data : {
+                    "id": comment.id,
+                    "content": comment.content,
+                },
+            }).then(({data})=>{
+                console.log(data)
+                // data
+                // this.$router.go();
             })
         },
 
