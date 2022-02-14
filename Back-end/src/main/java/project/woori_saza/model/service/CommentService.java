@@ -1,15 +1,16 @@
 package project.woori_saza.model.service;
 
-import project.woori_saza.model.dto.CommentDto;
+import project.woori_saza.model.dto.CommentRequestDto;
+import project.woori_saza.model.dto.CommentResponseDto;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<CommentDto> getCommentList(Long articleId);
-    List<CommentDto> getMyCommentList(String profileId);
-    void insertComment(CommentDto commentDto);
-    void updateComment(CommentDto commentDto);
+    List<CommentResponseDto> getCommentList(Long articleId);
+    List<CommentResponseDto> getMyCommentList(String profileId);
+    void insertComment(CommentRequestDto commentRequestDto);
+    void updateComment(CommentRequestDto commentRequestDto);
     void deleteComment(Long commentId);
 
 }

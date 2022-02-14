@@ -7,13 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.woori_saza.model.domain.Comment;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "댓글 관련 모델")
-public class CommentDto {
+@ApiModel(description = "댓글 작성 관련 모델")
+public class CommentRequestDto {
 
     @ApiModelProperty(value = "댓글 번호", example = "null", required = true)
     private Long id;
@@ -23,18 +21,11 @@ public class CommentDto {
     private String profileId;
     @ApiModelProperty(value = "댓글을 작성한 게시글 번호", example = "1", required = true)
     private Long articleId;
-    @ApiModelProperty(value = "댓글을 작성한 시간", example = "2022-01-02", required = true)
-    private LocalDateTime createAt;
-    @ApiModelProperty(value = "글 제목", example = "title", required = true)
-    private String title;
 
-
-    public CommentDto(Comment comment){
+    public CommentRequestDto(Comment comment){
         this.id = comment.getId();
         this.content = comment.getContent();
-        this.articleId = comment.getArticle().getId();
         this.profileId = comment.getUserProfile().getId();
-        this.createAt=comment.getCreateAt();
-        this.title=comment.getArticle().getTitle();
+        this.articleId = comment.getArticle().getId();
     }
 }
