@@ -209,6 +209,7 @@ export default {
 </script>
 
 <style scoped>
+
 .nav-link{
         color:black;
         font-size: 20px;
@@ -218,4 +219,5 @@ export default {
 .nav-link.active{
       color:#F1A501;
     }
+
 </style>

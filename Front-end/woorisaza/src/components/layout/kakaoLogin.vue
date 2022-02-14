@@ -17,7 +17,6 @@ export default {
     mounted() {
         
     },
-
     methods: {
         loginWithKakao() {
             const params = {
