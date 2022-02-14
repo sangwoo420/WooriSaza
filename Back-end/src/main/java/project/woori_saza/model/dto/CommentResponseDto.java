@@ -23,8 +23,8 @@ public class CommentResponseDto {
     private LocalDateTime createAt;
 
     public CommentResponseDto(Comment comment) {
-        this.content = content;
-        this.profileId = profileId;
-        this.createAt = createAt;
+        this.content = comment.getContent();
+        this.profileId = comment.getUserProfile().getId();
+        this.createAt = comment.getCreateAt();
     }
 }
