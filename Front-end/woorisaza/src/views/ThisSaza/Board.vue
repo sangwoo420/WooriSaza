@@ -45,7 +45,7 @@ export default {
             profileId : this.$cookie.get("id"),
             category : null,
             categories : [
-                {value:null, text:"카테고리를 선택하세요."},
+                {value:null, text:"전체 카테고리"},
                 {value:"FOOD", text:"식품"},
                 {value:"LIFETHINGS", text:"생활 용품"},
                 {value:"FASHION", text:"패션 잡화"},
@@ -55,7 +55,7 @@ export default {
             ],
             area : null,
             areas : [
-                {value:null, text:"지역범위를 선택하세요."},
+                {value:null, text:"전체 지역범위"},
                 {value:400, text:"걸어서 5분 이내"},
                 {value:800, text:"걸어서 10분 이내"},
                 {value:2000, text:"차타고 5분 이내"},

@@ -36,8 +36,9 @@ public class PaidFormServiceImpl implements PaidFormService{
     RestTemplate restTemplate;
 
     @Override
-    public PaidFormResponseDto getPaidForm(Long paidFormId) {
-        PaidForm paidForm = paidFormRepo.getById(paidFormId);
+    public PaidFormResponseDto getPaidForm(Long partyId) {
+        Party party=partyRepo.getById(partyId);
+        PaidForm paidForm=paidFormRepo.findByParty(party);
         PaidFormResponseDto paidFormResponseDto = new PaidFormResponseDto(paidForm);
         return paidFormResponseDto;
     }
@@ -98,17 +99,20 @@ public class PaidFormServiceImpl implements PaidFormService{
 
     @Override
     @Transactional
-    public void updatePaidForm(Long paidFormId, PaidFormRequestDto paidFormRequestDto) {
-        PaidForm paidForm = paidFormRepo.getById(paidFormId);
+    public void updatePaidForm(Long partyId, PaidFormRequestDto paidFormRequestDto) {
+
+        Party party=partyRepo.getById(partyId);
+        PaidForm paidForm=paidFormRepo.findByParty(party);
         paidForm.setPic(paidFormRequestDto.getPic());
         paidForm.setBillingNo(paidFormRequestDto.getBillingNo());
         paidForm.setDeliveryDate(paidFormRequestDto.getDeliveryDate());
         paidForm.setReceiptDate(paidFormRequestDto.getReceiptDate());
+        paidFormRepo.save(paidForm);
     }
 
-    @Override
-    @Transactional
-    public void deletePaidForm(Long paidFormId) {
-        paidFormRepo.deleteById(paidFormId);
-    }
+//    @Override
+//    @Transactional
+//    public void deletePaidForm(Long paidFormId) {
+//        paidFormRepo.deleteById(paidFormId);
+//    }
 }

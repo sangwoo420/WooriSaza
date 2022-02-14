@@ -22,14 +22,14 @@ public class PaidFormController {
     PaidFormService paidFormService;
 
     @ApiOperation(value = "결제 인증 폼 조회", notes = "결제 인증 폼을 조회한다.", response = Map.class)
-    @GetMapping("/{paidFormId}")
+    @GetMapping("/{partyId}")
     public ResponseEntity<Map<String, Object>> getPaidForm(@PathVariable
-                                                               @ApiParam(value = "조회할 인증 폼 아이디", example = "1", required = true) Long paidFormId) {
+                                                               @ApiParam(value = "조회할 파티 아이디", example = "1", required = true) Long partyId) {
         Map<String, Object> result = new HashMap<>();
         PaidFormResponseDto paidForm = null;
         HttpStatus httpStatus = null;
         try {
-            paidForm = paidFormService.getPaidForm(paidFormId);
+            paidForm = paidFormService.getPaidForm(partyId);
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -77,38 +77,39 @@ public class PaidFormController {
 
 
     @ApiOperation(value = "결제 인증 폼 수정", notes = "결제 인증 폼을 수정한다.", response = Map.class)
-    @PutMapping("/{paidFormId}")
-    public ResponseEntity<Map<String, Object>> updatePaidForm(@PathVariable("paidFormId")
-                                                                  @ApiParam(value = "수정할 인증 폼 아이디", example = "1", required = true) Long paidFormId,
+    @PutMapping("/{partyId}")
+    public ResponseEntity<Map<String, Object>> updatePaidForm(@PathVariable("partyId")
+                                                                  @ApiParam(value = "수정할 인증 폼 아이디", example = "1", required = true) Long partyId,
                                                               @RequestBody @ApiParam(value = "인증폼 수정 모델") PaidFormRequestDto paidFormRequestDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
-            paidFormService.updatePaidForm(paidFormId, paidFormRequestDto);
+            paidFormService.updatePaidForm(partyId, paidFormRequestDto);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
-    @ApiOperation(value = "후기 삭제", notes = "파티원들의 후기를 삭제한다.", response = Map.class)
-    @DeleteMapping("/{paidFormId}")
-    public ResponseEntity<Map<String, Object>> deletePaidForm(@PathVariable("paidFormId") 
-                                                                  @ApiParam(value = "삭제할 인증 폼 아이디", example = "1", required = true) Long paidFormId) {
-        Map<String, Object> result = new HashMap<>();
-        HttpStatus httpStatus = null;
-        try {
-            paidFormService.deletePaidForm(paidFormId);
-            httpStatus = HttpStatus.OK;
-            result.put("success", true);
-        } catch (RuntimeException e) {
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            result.put("success", false);
-        }
-        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
-    }
+//    @ApiOperation(value = "구매폼 삭제", notes = "구매폼을 삭제한다.", response = Map.class)
+//    @DeleteMapping("/{paidFormId}")
+//    public ResponseEntity<Map<String, Object>> deletePaidForm(@PathVariable("paidFormId")
+//                                                                  @ApiParam(value = "삭제할 인증 폼 아이디", example = "1", required = true) Long paidFormId) {
+//        Map<String, Object> result = new HashMap<>();
+//        HttpStatus httpStatus = null;
+//        try {
+//            paidFormService.deletePaidForm(paidFormId);
+//            httpStatus = HttpStatus.OK;
+//            result.put("success", true);
+//        } catch (RuntimeException e) {
+//            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+//            result.put("success", false);
+//        }
+//        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+//    }
 
 }
