@@ -21,7 +21,6 @@ export default {
             window.Kakao.Auth.authorize(params);
         },
     },
-  },
 };
 </script>
 
