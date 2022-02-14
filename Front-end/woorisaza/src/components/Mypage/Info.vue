@@ -67,7 +67,7 @@ export default {
             this.userProfile = data.profile;
             this.nickname = this.userProfile.nickname;
             this.address = this.userProfile.address;
-            this.image = this.userProfile.pic;
+            // this.image = this.userProfile.pic;
             this.preImage = this.userProfile.pic;
         })
     },

@@ -86,7 +86,7 @@ const routes = [
     component: Review,
   },
   {
-    path: "/paidform/:partyId",
+    path: "/paidform/:partyId/:bm",
     name: "PaidForm",
     component: PaidForm,
   },

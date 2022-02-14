@@ -74,7 +74,7 @@
             </div>
             <!-- 파티장 + 마감 후 -->
             <div v-if="myInfo.isBoss && myInfo.isClosed">
-                <b-button variant="warning" >구매 인증 폼 등록하기</b-button>
+                <b-button variant="warning" @click="paidformBoss">구매 인증 폼 등록하기</b-button>
             </div>
             <!-- 파티원 + 마감 전 -->
             <div v-if="!myInfo.isBoss && !myInfo.isClosed">
@@ -82,7 +82,7 @@
             </div>
             <!-- 파티원 + 마감 후 -->
             <div v-if="!myInfo.isBoss && myInfo.isClosed">
-                <b-button variant="warning" @click="paidform">구매 인증 폼 확인하기</b-button>
+                <b-button variant="warning" @click="paidformMember">구매 인증 폼 확인하기</b-button>
                 <b-button variant="danger" >물건을 못 받았어요</b-button>
                 <b-button variant="success" @click="finishDeal">구매 확정하기</b-button>
             </div>
@@ -196,8 +196,11 @@ export default {
         moveToReview(){
             this.$router.push("/review/"+this.partyId);
         },
-        paidform(){
-            this.$router.push("/paidform/"+this.partyId);
+        paidformBoss(){
+            this.$router.push("/paidform/"+this.partyId+"/0");
+        },
+        paidformMember(){
+            this.$router.push("/paidform/"+this.partyId+"/1");
         },
     },
 };
