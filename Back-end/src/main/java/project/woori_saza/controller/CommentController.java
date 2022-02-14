@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.woori_saza.model.dto.CommentDto;
+import project.woori_saza.model.dto.CommentRequestDto;
+import project.woori_saza.model.dto.CommentResponseDto;
 import project.woori_saza.model.service.ArticleService;
 import project.woori_saza.model.service.CommentService;
 
@@ -29,7 +30,7 @@ public class CommentController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getCommentList(@RequestParam("articleId") @ApiParam(value = "게시글 번호", required = true) Long articleId) {
         Map<String, Object> result = new HashMap<>();
-        List<CommentDto> commentList = null;
+        List<CommentResponseDto> commentList = null;
         HttpStatus status = null;
         try {
             commentList = commentService.getCommentList(articleId);
@@ -48,7 +49,7 @@ public class CommentController {
                                                                 @ApiParam(value = "내 프로필아이디", example = "hashwoori", required = true) String profileId) {
 
         Map<String, Object> result = new HashMap<>();
-        List<CommentDto> myCommentList = null;
+        List<CommentResponseDto> myCommentList = null;
         HttpStatus status = null;
         try {
             myCommentList = commentService.getMyCommentList(profileId);
@@ -63,10 +64,10 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 작성", notes = "게시글 내에 댓글을 작성한다.")
     @PostMapping
-    public ResponseEntity<String> insertComment(@RequestBody @ApiParam(value = "댓글 작성 모델") CommentDto commentDto) {
+    public ResponseEntity<String> insertComment(@RequestBody @ApiParam(value = "댓글 작성 모델") CommentRequestDto commentRequestDto) {
         HttpStatus status = null;
         try {
-            commentService.insertComment(commentDto);
+            commentService.insertComment(commentRequestDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -76,10 +77,10 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 수정", notes = "게시글 내의 내가 쓴 댓글을 수정한다.")
     @PutMapping
-    public ResponseEntity<String> updateComment(@RequestBody @ApiParam(value = "댓글 수정 모델") CommentDto commentDto) {
+    public ResponseEntity<String> updateComment(@RequestBody @ApiParam(value = "댓글 수정 모델") CommentRequestDto commentRequestDto) {
         HttpStatus status = null;
         try {
-            commentService.updateComment(commentDto);
+            commentService.updateComment(commentRequestDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
