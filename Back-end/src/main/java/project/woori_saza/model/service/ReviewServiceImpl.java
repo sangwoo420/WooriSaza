@@ -44,6 +44,7 @@ public class ReviewServiceImpl implements ReviewService{
         review.setToUser(toUser);
         toUser.setScore(toUser.getScore() + review.getScore());
         toUser.setCnt(toUser.getCnt()+1);
+        reviewRepo.save(review);
     }
 
     @Override
