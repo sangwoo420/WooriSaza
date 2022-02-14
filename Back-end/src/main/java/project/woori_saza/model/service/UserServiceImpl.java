@@ -9,15 +9,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import project.woori_saza.model.domain.Article;
-import project.woori_saza.model.domain.Comment;
-import project.woori_saza.model.domain.UserAuth;
-import project.woori_saza.model.domain.UserProfile;
+import project.woori_saza.model.domain.*;
 import project.woori_saza.model.dto.UserProfileDto;
-import project.woori_saza.model.repo.ArticleRepo;
-import project.woori_saza.model.repo.CommentRepo;
-import project.woori_saza.model.repo.UserAuthRepo;
-import project.woori_saza.model.repo.UserProfileRepo;
+import project.woori_saza.model.repo.*;
 import project.woori_saza.util.GeoLocationUtil;
 import project.woori_saza.util.HashEncoder;
 
@@ -46,6 +40,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     CommentRepo commentRepo;
+
+    @Autowired
+    ChatRoomJoinRepo chatRoomJoinRepo;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -154,6 +151,13 @@ public class UserServiceImpl implements UserService {
             comment.setUserProfile(null);
             commentRepo.save(comment);
         }
+
+        List<ChatRoomJoin> joinList = chatRoomJoinRepo.findAllByUserProfile(user);
+        for (ChatRoomJoin chatRoomJoin : joinList) {
+            chatRoomJoin.setUserProfile(null);
+            chatRoomJoinRepo.save(chatRoomJoin);
+        }
+
         userProfileRepo.delete(user);
     }
 
