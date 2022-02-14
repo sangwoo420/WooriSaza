@@ -60,7 +60,7 @@ public class UserProfile implements Serializable {
     private List<MemberInfo> memberInfos = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auth_id")
+    @JoinColumn(name = "auth_id", unique = true)
     private UserAuth userAuth;
 
     @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
