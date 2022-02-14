@@ -66,7 +66,7 @@ export default {
             method : "get",
             url : "/paidForm/"+this.partyId,
         }).then(({data})=>{
-            console.log(data)
+            // console.log(data)
             this.image = data.paidForm.pic;
             this.preImage = data.paidForm.pic;
             this.billingNO=data.paidForm.billingNo;
@@ -100,7 +100,7 @@ export default {
 
             if(this.updateOrNot){
                 axios_contact({
-                    method : "put",
+                    method : "post",
                     url : "/paidForm/upload",
                     headers : {
                         'Content-Type': 'multipart/form-data',
@@ -108,8 +108,8 @@ export default {
                     data : formData,
                 }).then(({data})=>{
                     axios_contact({
-                        method : "post",
-                        url : "/paidForm",
+                        method : "put",
+                        url : "/paidForm/"+that.partyId,
                         data : {
                             "billingNo": that.billingNO,
                             "deliveryDate": that.deliveryDate,
