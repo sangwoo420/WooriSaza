@@ -1,8 +1,13 @@
 <template>
     <div>
-        <!-- 내가 참가한 파티 목록 -->
-        <div v-for="(item, index) in partyList" :key="index">
-            <Article :party="item"></Article>
+        <!-- 내가 개설한 파티 목록 -->
+        <div v-if="partyList.length == 0">
+            개설한 파티가 없습니다. 파티를 개설해보세요!
+        </div>
+        <div v-if="partyList.length > 0">
+            <div v-for="(item, index) in partyList" :key="index">
+                <Article :party="item"></Article>
+            </div>
         </div>
     </div>
 </template>
@@ -46,6 +51,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
