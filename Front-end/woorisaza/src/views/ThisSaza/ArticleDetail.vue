@@ -39,7 +39,7 @@
                             <!-- 기간이 안나와요 -->
                             기간 : {{article.createdAt[0]}}.{{article.createdAt[1]}}.{{article.createdAt[2]}}~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}} <br>
                             모집인원 : <b style="font-size:1.5em">{{article.currentRecruitMember}}</b> /{{article.totalRecruitMember}}<br>
-                            1인당 : {{article.totalProductCount/article.totalRecruitMember}}개
+                            최소 주문 수량 : {{article.totalProductCount/article.totalRecruitMember}}개
                         </div>
                     </div>    
                 </b-col>  

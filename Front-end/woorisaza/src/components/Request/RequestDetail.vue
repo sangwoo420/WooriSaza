@@ -12,7 +12,7 @@
                 <b-row>
                     <b-col sm="8">
                         <div>
-                            선택 인원 수 : 
+                            인원 수 선택 : 
                             <b-form-input  type="number" aria-describedby="input-live-feedback" :state="nameState" :value="chooseNum" v-model="chooseNum" @change="sum" style="width:30%;display:inline" :max="article.totalRecruitMember-article.currentRecruitMember" min="1"></b-form-input>
                             <b-form-invalid-feedback id="input-live-feedback">
                                 선택할 수 없는 인원입니다.
@@ -53,11 +53,11 @@
                         <li>예상 수령일부터 7일 내에 연락이 두절될 경우 위약금은 받을 수 없습니다. 위에 고지된 위약금을 꼭 확인해주세요.</li>
                         <li>이의신청은 구매확정 페이지에서 가능합니다.</li>
                         <li>구매 취소는 파티 마감 전에만 가능하며, 취소가 반복될 시 이용에 불이익이 있을 수 있습니다.</li>
-                        <li>식품의 경우 유통기한을 꼭 확인해주시고, 구메에 유의해주세요.</li>
+                        <li>식품의 경우 유통기한을 꼭 확인해주시고, 구매에 유의해주세요.</li>
                     </div>
                     <div class="mt-4" style="text-align:center">
-                        <span  style="font-size:0.5em;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다. </span>
-                        <b-icon v-if="!agree" icon="check-circle" variant="primary" @click="checkAgree"></b-icon>
+                        <span  style="font-size:0.8em; color:#f2293c">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다. </span>
+                        <b-icon v-if="!agree" icon="check-circle" variant="secondary" @click="checkAgree"></b-icon>
                         <b-icon v-if="agree" icon="check-circle-fill" variant="primary" @click="checkAgree"></b-icon>
                     </div>
                 </b-container>
