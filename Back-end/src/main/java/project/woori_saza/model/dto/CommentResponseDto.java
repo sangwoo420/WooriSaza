@@ -23,12 +23,14 @@ public class CommentResponseDto {
     private String profileId;
     @ApiModelProperty(value = "댓글을 작성한 시간", example = "2022-01-02", required = true)
     private LocalDateTime createAt;
+    @ApiModelProperty(value = "댓글을 작성한 게시글 번호", example = "1", required = true)
+    private Long articleId;
 
     public CommentResponseDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.profileId = comment.getUserProfile().getId();
         this.createAt = comment.getCreateAt();
-
+        this.articleId = comment.getArticle().getId();
     }
 }
