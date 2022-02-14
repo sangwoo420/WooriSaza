@@ -5,8 +5,8 @@
       <img v-if="profile.pic!=null" :src="profile.pic" style="width:80px;height:80px;background-color:white" alt="Card image" class="card-img-left p-1 ml-3">
       
       <div class="card-body" style="text-align:left">
-        <div style="font-size:0.8em">
-          등급 : A
+        <div style="font-size:0.8em" v-if="grade!=null">
+          등급 : {{grade}}
         </div>
         <div>
           {{profile.nickname}}
@@ -35,6 +35,7 @@ export default {
       id : null,
       // this.$route.params.id!=null ? this.$route.params.id : this.$cookie.get("id"),
       profile : null,
+      grade : null,
     }
   },
   
@@ -52,6 +53,21 @@ export default {
     }).then(({data})=>{
       // console.log(data)
       this.profile = data.profile;
+      let s = this.profile.score/this.profile.cnt;
+      if(this.profile.cnt==0){
+        this.grade = "B"
+      }
+      else if(s>4){
+        this.grade = "S";
+      }else if(s>3){
+        this.grade="A"
+      }else if(s>2){
+        this.grade="B"
+      }else if(s>1){
+        this.grade="C"
+      }else if(s>0){
+        this.grade="F"
+      }
     })
   },
 
