@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
         UserProfile user = userProfileRepo.getById(userProfileDto.getId()); // hashwoori
 
         /* 회원과 관련된 글 목록과 댓글의 연관관계 끊기, 나머지는 삭제 */
-        List<Article> articleList = articleRepo.findByUserProfileOrderByCreatedAtDesc(user);
+        List<Article> articleList = articleRepo.findByUserProfileIsNotNullAndUserProfileOrderByCreatedAtDesc(user);
         for (Article article : articleList) {
             article.setUserProfile(null);
             articleRepo.save(article);
@@ -150,12 +150,6 @@ public class UserServiceImpl implements UserService {
         for (Comment comment : commentList) {
             comment.setUserProfile(null);
             commentRepo.save(comment);
-        }
-
-        List<ChatRoomJoin> joinList = chatRoomJoinRepo.findAllByUserProfile(user);
-        for (ChatRoomJoin chatRoomJoin : joinList) {
-            chatRoomJoin.setUserProfile(null);
-            chatRoomJoinRepo.save(chatRoomJoin);
         }
 
         userProfileRepo.delete(user);

@@ -64,18 +64,18 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleResponseDto> getArticleList(String profileId, String category, String range, String keyword) {
 
         if (profileId.equals("null")) {
-            return articleRepo.findAllByOrderByCreatedAtDesc().stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+            return articleRepo.findAllByUserProfileIsNotNullOrderByCreatedAtDesc().stream().map(ArticleResponseDto::new).collect(Collectors.toList());
         }
 
         Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfileRepo.getById(profileId).getAddress());
         List<Article> articles = null;
         //1. 전부 없을때
         if (category == null && range == null && keyword == null) {
-            articles = articleRepo.findAllByOrderByCreatedAtDesc();
+            articles = articleRepo.findAllByUserProfileIsNotNullOrderByCreatedAtDesc();
         }
         //2. 카테고리만 있을때
         else if (range == null && keyword == null) {
-            articles = articleRepo.findByCategoryOrderByCreatedAtDesc(Category.valueOf(category));
+            articles = articleRepo.findByUserProfileIsNotNullAndCategoryOrderByCreatedAtDesc(Category.valueOf(category));
         }
         //3. 범위만 있을때
         else if (category == null && keyword == null) {
@@ -83,7 +83,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //4. 검색어만 있을때
         else if (category == null && range == null) {
-            articles = articleRepo.findByTitleContainingOrContentContainingOrderByCreatedAtDesc(keyword, keyword);
+            articles = articleRepo.findByUserProfileIsNotNullAndTitleContainingOrContentContainingOrderByCreatedAtDesc(keyword, keyword);
         }
         //5. 카테고리, 범위
         else if (keyword == null) {

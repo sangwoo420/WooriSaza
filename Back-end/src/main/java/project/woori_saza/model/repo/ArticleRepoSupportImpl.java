@@ -23,6 +23,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
     public List<Article> findByRange(Double[] lnglat, String range) {
         QArticle article = QArticle.article;
         JPQLQuery<Article> jpqlQuery = from(article);
+        jpqlQuery.where(article.userProfile.isNotNull());
         jpqlQuery.leftJoin(article.userProfile, QUserProfile.userProfile);
         jpqlQuery.fetchJoin();
         jpqlQuery.where(Expressions.stringTemplate("function('ST_Distance_Sphere', Point({0},{1}), Point({2},{3}))",
@@ -35,6 +36,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
     public List<Article> findByKeywordAndRange(String keyword, Double[] lnglat, String range) {
         QArticle article = QArticle.article;
         JPQLQuery<Article> jpqlQuery = from(article);
+        jpqlQuery.where(article.userProfile.isNotNull());
         jpqlQuery.leftJoin(article.userProfile, QUserProfile.userProfile);
         jpqlQuery.fetchJoin();
         jpqlQuery.where(Expressions.stringTemplate("function('ST_Distance_Sphere', Point({0},{1}), Point({2},{3}))",
@@ -49,6 +51,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
     public List<Article> findByKeywordAndCategory(String keyword, String category) {
         QArticle article = QArticle.article;
         JPQLQuery<Article> jpqlQuery = from(article);
+        jpqlQuery.where(article.userProfile.isNotNull());
         jpqlQuery.where(article.category.eq(Category.valueOf(category))
                 .and(article.title.contains(keyword).or(article.content.contains(keyword)))).orderBy(article.createdAt.desc());
         return jpqlQuery.fetch();
@@ -58,6 +61,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
     public List<Article> findByCategoryAndRange(String category, Double[] lnglat, String range) {
         QArticle article = QArticle.article;
         JPQLQuery<Article> jpqlQuery = from(article);
+        jpqlQuery.where(article.userProfile.isNotNull());
         jpqlQuery.leftJoin(article.userProfile, QUserProfile.userProfile);
         jpqlQuery.fetchJoin();
         jpqlQuery.where(Expressions.stringTemplate("function('ST_Distance_Sphere', Point({0},{1}), Point({2},{3}))",
@@ -71,6 +75,7 @@ public class ArticleRepoSupportImpl extends QuerydslRepositorySupport implements
     public List<Article> findByAllCondition(String keyword, String category, Double[] lnglat, String range) {
         QArticle article = QArticle.article;
         JPQLQuery<Article> jpqlQuery = from(article);
+        jpqlQuery.where(article.userProfile.isNotNull());
         jpqlQuery.leftJoin(article.userProfile, QUserProfile.userProfile);
         jpqlQuery.fetchJoin();
         jpqlQuery.where(Expressions.stringTemplate("function('ST_Distance_Sphere', Point({0},{1}), Point({2},{3}))",

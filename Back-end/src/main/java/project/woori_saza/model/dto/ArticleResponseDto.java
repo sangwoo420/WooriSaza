@@ -37,7 +37,7 @@ public class ArticleResponseDto {
     public ArticleResponseDto(Article article) {
         id = article.getId();
         title = article.getTitle();
-        author = article.getUserProfile().getNickname();
+        author = article.getUserProfile() == null ? "탈퇴한 사용자입니다" :article.getUserProfile().getNickname();
         product = article.getParty().getProduct();
         content = article.getContent();
         createdAt = article.getCreatedAt();
