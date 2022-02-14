@@ -87,8 +87,8 @@
                 <b-button variant="success" @click="finishDeal">구매 확정하기</b-button>
             </div>
         </div>
-        <div v-if="myInfo.isConfirmed && myInfo.isBoss" style="text-align:center" class="mt-3">
-            <b-button variant="warning" @click="finishDeal">후기 쓰러 가기</b-button>
+        <div v-if="myInfo.isConfirmed" style="text-align:center" class="mt-3">
+            <b-button variant="warning" @click="moveToReview">후기 쓰러 가기</b-button>
         </div>
         </div>
     </div>
@@ -134,7 +134,7 @@ export default {
                     this.myInfo = data[index]
                 }
                 else if(!data[index].isConfirmed){
-                    isConfirm = true;
+                    isConfirm = false;
                 }
             }
             if(isConfirm){
@@ -191,8 +191,10 @@ export default {
                 url  : "/memberinfo?partyId="+this.partyId+"&profileId="+this.myId,
             }).then(({data})=>{
                 console.log(data)
-                this.$router.push("/review/"+this.partyId);
             })
+        },
+        moveToReview(){
+            this.$router.push("/review/"+this.partyId);
         },
     },
 };
