@@ -16,11 +16,11 @@
                 프로필사진
                 <div style="text-align:center">
                     <div class="photo" style="display:inline-block"> 
-                        <div v-if="image==null">
+                        <div v-if="preImage==null">
                             <br><br>
                             <img  src="@/assets/IDimage.png" alt="">
                         </div>
-                        <div v-if="image!=null">
+                        <div v-if="preImage!=null">
                             <br>
                             <img :src="preImage" alt="" style="width : 140px; height:140px">
                         </div>
@@ -63,7 +63,8 @@ export default {
             method : "get",
             url : "/user/"+this.id,
         }).then(({data})=>{
-            console.log(data)
+            // console.log(data)
+            data
             this.userProfile = data.profile;
             this.nickname = this.userProfile.nickname;
             this.address = this.userProfile.address;
