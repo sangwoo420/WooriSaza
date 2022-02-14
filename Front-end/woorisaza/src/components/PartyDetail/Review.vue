@@ -1,5 +1,5 @@
 <template>
-    <div v-if="myInfo!=null">
+    <div v-if="party!=null">
         <span class="title">
              후기 남기기
         </span>
@@ -97,6 +97,7 @@ export default {
         }).then(({data})=>{
             for (let index = 0; index < data.length; index++) {
                 if(data[index].profileId == this.myId){
+                    // console.log(data[index])
                     this.myInfo = data[index]
                 }
                 else{
@@ -108,9 +109,9 @@ export default {
                         "toUser" : data[index].profileId
                     })
                 }
-                this.memberInfo = this.party[0];
-                this.toUser=this.party[0].profileId;
             }
+            this.memberInfo = this.party[0];
+            this.toUser=this.party[0].profileId;
             axios_contact({
                 method : "get",
                 url : "/article/"+this.memberInfo.articleId,
@@ -140,10 +141,27 @@ export default {
         
         registerReview(){
             console.log("리뷰 썻어요")
+            for (let index = 0; index < this.reviewList.length; index++) {
+                console.log(this.reviewList[index].content)
+                axios_contact({
+                    method : "post",
+                    url : "/review",
+                    data : {
+                        "content": this.reviewList[index].content,
+                        "fromUser": this.reviewList[index].fromuser,
+                        "score": this.reviewList[index].score,
+                        "toUser": this.reviewList[index].toUser
+                    }
+                }).then(({data})=>{
+                    // console.log(data)
+                    data
+                    this.$router.push("/partydetail/"+this.partyId);
+                })
+            }
         },
 
         notNow(){
-            console.log("나주엥 쓸게요")
+            this.$router.push("/partydetail/"+this.partyId);
         },
     },
 };
