@@ -57,6 +57,7 @@ export default {
             receiptDate : null,
             partyId : this.$route.params.partyId,
             bm : this.$route.params.bm,
+            updateOrNot : false,
         };
     },
 
@@ -71,6 +72,7 @@ export default {
             this.billingNO=data.paidForm.billingNo;
             this.deliveryDate = data.paidForm.deliveryDate[0]+"-"+data.paidForm.deliveryDate[1]+"-"+data.paidForm.deliveryDate[2];
             this.receiptDate = data.paidForm.receiptDate[0]+"-"+data.paidForm.receiptDate[1]+"-"+data.paidForm.receiptDate[2];
+            this.updateOrNot=true;
         })
     },
 
@@ -96,29 +98,55 @@ export default {
             const formData = new FormData();
             formData.append('uploadFile', this.image);
 
-            axios_contact({
-                method : "post",
-                url : "/paidForm/upload",
-                headers : {
-                    'Content-Type': 'multipart/form-data',
-                },
-                data : formData,
-            }).then(({data})=>{
+            if(this.updateOrNot){
+                axios_contact({
+                    method : "put",
+                    url : "/paidForm/upload",
+                    headers : {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    data : formData,
+                }).then(({data})=>{
+                    axios_contact({
+                        method : "post",
+                        url : "/paidForm",
+                        data : {
+                            "billingNo": that.billingNO,
+                            "deliveryDate": that.deliveryDate,
+                            "partyId": that.partyId,
+                            "pic": data.url,
+                            "receiptDate": that.receiptDate
+                        }
+                    }).then(({data})=>{
+                        data
+                        this.$router.push("/partydetail/"+that.partyId)
+                    })
+                })
+            }else{
                 axios_contact({
                     method : "post",
-                    url : "/paidForm",
-                    data : {
-                        "billingNo": that.billingNO,
-                        "deliveryDate": that.deliveryDate,
-                        "partyId": that.partyId,
-                        "pic": data.url,
-                        "receiptDate": that.receiptDate
-                    }
+                    url : "/paidForm/upload",
+                    headers : {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    data : formData,
                 }).then(({data})=>{
-                    data
-                    this.$router.push("/partydetail/"+that.partyId)
+                    axios_contact({
+                        method : "post",
+                        url : "/paidForm",
+                        data : {
+                            "billingNo": that.billingNO,
+                            "deliveryDate": that.deliveryDate,
+                            "partyId": that.partyId,
+                            "pic": data.url,
+                            "receiptDate": that.receiptDate
+                        }
+                    }).then(({data})=>{
+                        data
+                        this.$router.push("/partydetail/"+that.partyId)
+                    })
                 })
-            })
+            }
         },
 
         goback(){
