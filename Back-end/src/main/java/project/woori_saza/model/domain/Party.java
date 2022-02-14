@@ -38,15 +38,12 @@ public class Party implements Serializable {
     @NotNull
     private String product;
 
-    @Positive
     @NotNull
     private Integer totalPrice; //총금액
 
-    @Positive
     @NotNull
     private Integer totalProductCount; //총 물건수량
 
-    @Positive
     @NotNull
     private Integer totalRecruitMember; //총 모집인원수
 
