@@ -26,5 +26,6 @@ public class CommentResponseDto {
         this.content = comment.getContent();
         this.profileId = comment.getUserProfile().getId();
         this.createAt = comment.getCreateAt();
+
     }
 }
