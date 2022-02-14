@@ -32,5 +32,6 @@ public class ReviewResponseDto {
         date = review.getDate();
         score = review.getScore();
         fromUser = review.getFromUser().getNickname();
+        ToUser = review.getToUser().getNickname();
     }
 }
