@@ -18,11 +18,14 @@ public class PaidFormResponseDto {
     private LocalDate deliveryDate;
     @ApiModelProperty(value = "예상 수령일", example = "2022-02-01-23:59:59")
     private LocalDate receiptDate;
+    @ApiModelProperty(value = "파티 id", example = "1")
+    private Long partyId;
 
     public PaidFormResponseDto(PaidForm paidForm) {
         pic = paidForm.getPic();
         billingNo = paidForm.getBillingNo();
         deliveryDate = paidForm.getDeliveryDate();
         receiptDate = paidForm.getReceiptDate();
+        partyId=paidForm.getParty().getId();
     }
 }

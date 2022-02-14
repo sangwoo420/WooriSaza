@@ -22,14 +22,14 @@ public class PaidFormController {
     PaidFormService paidFormService;
 
     @ApiOperation(value = "결제 인증 폼 조회", notes = "결제 인증 폼을 조회한다.", response = Map.class)
-    @GetMapping("/{paidFormId}")
+    @GetMapping("/{partyId}")
     public ResponseEntity<Map<String, Object>> getPaidForm(@PathVariable
-                                                               @ApiParam(value = "조회할 인증 폼 아이디", example = "1", required = true) Long paidFormId) {
+                                                               @ApiParam(value = "조회할 파티 아이디", example = "1", required = true) Long partyId) {
         Map<String, Object> result = new HashMap<>();
         PaidFormResponseDto paidForm = null;
         HttpStatus httpStatus = null;
         try {
-            paidForm = paidFormService.getPaidForm(paidFormId);
+            paidForm = paidFormService.getPaidForm(partyId);
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
