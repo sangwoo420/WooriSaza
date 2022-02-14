@@ -57,8 +57,8 @@
                     </div>
                     <div class="mt-4" style="text-align:center">
                         <span  style="font-size:0.5em;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다. </span>
-                        <b-icon v-if="!agree || !nameState" icon="check-circle" variant="primary" @click="checkAgree"></b-icon>
-                        <b-icon v-if="agree && nameState" icon="check-circle-fill" variant="primary" @click="checkAgree"></b-icon>
+                        <b-icon v-if="!agree" icon="check-circle" variant="primary" @click="checkAgree"></b-icon>
+                        <b-icon v-if="agree" icon="check-circle-fill" variant="primary" @click="checkAgree"></b-icon>
                     </div>
                 </b-container>
             </div>

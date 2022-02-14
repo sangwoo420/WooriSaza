@@ -11,6 +11,8 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Map;
 
 @RestController
@@ -37,9 +39,19 @@ public class ApiController {
     }
 
     @GetMapping("/metaimage")
-    public String getMetaImage(@RequestParam String url){
+    public String getMetaImage(@RequestParam String url) {
         try {
-            Document doc = Jsoup.connect(url).get();
+            int index = url.indexOf('?');
+            Document doc;
+            if (index > 0) {
+                String prefix = url.substring(0, index + 1);
+                String queryString = url.substring(index + 1);
+                queryString = URLEncoder.encode(queryString, "UTF-8");
+                doc = Jsoup.connect(prefix + queryString).get();
+            } else {
+                doc = Jsoup.connect(url).get();
+            }
+
             return doc.select("meta[property=og:image]").get(0).attr("content");
         } catch (IOException e) {
             e.printStackTrace();

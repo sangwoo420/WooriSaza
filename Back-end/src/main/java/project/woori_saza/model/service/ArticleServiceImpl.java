@@ -1,5 +1,6 @@
 package project.woori_saza.model.service;
 
+import org.springframework.beans.NotWritablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,52 +108,57 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public ArticleResponseDto insertArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto) {
 
-        Party party = new Party();
-        party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
-        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
-        party.setProduct(articleAndPartyRequestDto.getProduct());
-        party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
-        party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
-        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
-        party.setPenalty(articleAndPartyRequestDto.getPenalty());
-        party.setCurrentRecruitMember(articleAndPartyRequestDto.getAmount());
-        party.setFormChecked(false);
-        party.setIsClosed(false);
-        party = partyRepo.save(party);
+        if(articleAndPartyRequestDto.getTotalRecruitMember() <= articleAndPartyRequestDto.getAmount()){
+            throw new RuntimeException("전체 인원수보다 선택 인원수가 더 많습니다.");
+        }else{
+            Party party = new Party();
+            party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
+            party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+            party.setProduct(articleAndPartyRequestDto.getProduct());
+            party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
+            party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
+            party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+            party.setPenalty(articleAndPartyRequestDto.getPenalty());
+            party.setCurrentRecruitMember(articleAndPartyRequestDto.getAmount());
+            party.setFormChecked(false);
+            party.setIsClosed(false);
+            party = partyRepo.save(party);
 
 
-        Article article = new Article();
+            Article article = new Article();
 
-        UserProfile userProfile = userProfileRepo.getById(articleAndPartyRequestDto.getProfileId());
-        article.setUserProfile(userProfile);
-        article.setTitle(articleAndPartyRequestDto.getTitle());
-        article.setContent(articleAndPartyRequestDto.getContent());
-        article.setLink(articleAndPartyRequestDto.getLink());
-        article.setPic(articleAndPartyRequestDto.getPic());
-        article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
-        article.setCategory(articleAndPartyRequestDto.getCategory());
-        article.setTag(null);
-        article.setParty(party);
-        article = articleRepo.save(article);
+            UserProfile userProfile = userProfileRepo.getById(articleAndPartyRequestDto.getProfileId());
+            article.setUserProfile(userProfile);
+            article.setTitle(articleAndPartyRequestDto.getTitle());
+            article.setContent(articleAndPartyRequestDto.getContent());
+            article.setLink(articleAndPartyRequestDto.getLink());
+            article.setPic(articleAndPartyRequestDto.getPic());
+            article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
+            article.setCategory(articleAndPartyRequestDto.getCategory());
+            article.setTag(null);
+            article.setParty(party);
+            article = articleRepo.save(article);
 
-        MemberInfo memberInfo = new MemberInfo();
-        memberInfo.setIsBoss(true);
-        memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-        int calprice = (int) (articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
-        memberInfo.setPrice(calprice);
-        memberInfo.setParty(party);
-        memberInfo.setUserProfile(userProfile);
-        memberInfoRepo.save(memberInfo);
+            MemberInfo memberInfo = new MemberInfo();
+            memberInfo.setIsBoss(true);
+            memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
+            int calprice = (int) (articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
+            memberInfo.setPrice(calprice);
+            memberInfo.setParty(party);
+            memberInfo.setUserProfile(userProfile);
+            memberInfoRepo.save(memberInfo);
 
-        /**
-         * 채팅방 생성
-         */
-        ChatRoom chatRoom = chatRoomService.createChatRoom(article.getId(), article.getTitle());
-        ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
-        chatRoomRepo.save(chatRoom);
-        chatRoomJoinRepo.save(chatRoomJoin);
+            /**
+             * 채팅방 생성
+             */
+            ChatRoom chatRoom = chatRoomService.createChatRoom(article.getId(), article.getTitle());
+            ChatRoomJoin chatRoomJoin = chatRoomService.createChatRoomJoin(chatRoom, userProfile);
+            chatRoomRepo.save(chatRoom);
+            chatRoomJoinRepo.save(chatRoomJoin);
 
-        return new ArticleResponseDto(article);
+            return new ArticleResponseDto(article);
+
+        }
     }
 
 

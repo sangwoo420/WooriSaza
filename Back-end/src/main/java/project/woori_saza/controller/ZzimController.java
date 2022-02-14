@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import project.woori_saza.model.dto.ZzimDto;
 import project.woori_saza.model.service.ZzimService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,10 @@ public class ZzimController {
             } else {
                 result.put("zzimList", zzimService.getZzimList(Long.parseLong(articleId)));
             }
+            status = HttpStatus.OK;
+            result.put("success", true);
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
             status = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {

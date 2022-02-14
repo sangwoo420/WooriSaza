@@ -27,11 +27,11 @@ public class MemberInfo {
     @Column(columnDefinition = "boolean default false")
     private Boolean isBoss; //파티장 여부
 
-    @Positive
+//    @Positive
     @NotNull
     private Integer amount; // 파티원 선택수량
 
-    @Positive
+//    @Positive
     @NotNull
     private Integer price; // 파티원 부담금액
 

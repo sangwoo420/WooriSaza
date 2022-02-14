@@ -1,22 +1,16 @@
 <template>
-    <div>
-        <img src="@/assets/kakaoLogin.png" style="cursor:pointer" @click="loginWithKakao">
-    </div>
+  <div>
+    <img src="@/assets/kakaoLogin.png" style="cursor: pointer" @click="loginWithKakao" />
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Kakaologin',
-    
-    data() {
-        return {
-            
-        };
-    },
+  name: "Kakaologin",
 
-    mounted() {
-        
-    },
+  data() {
+    return {};
+  },
 
     methods: {
         loginWithKakao() {
@@ -27,9 +21,8 @@ export default {
             window.Kakao.Auth.authorize(params);
         },
     },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import PartyDetailCom from "@/components/PartyDetail/PartyDetail.vue";
-    
+import PartyDetailCom from "@/components/PartyDetail/Review.vue";
+
 export default {
-    name: 'Partydetail',
+    name: 'Review',
     components : {
         PartyDetailCom,
     },
