@@ -36,8 +36,9 @@ public class PaidFormServiceImpl implements PaidFormService{
     RestTemplate restTemplate;
 
     @Override
-    public PaidFormResponseDto getPaidForm(Long paidFormId) {
-        PaidForm paidForm = paidFormRepo.getById(paidFormId);
+    public PaidFormResponseDto getPaidForm(Long partyId) {
+        Party party=partyRepo.getById(partyId);
+        PaidForm paidForm=paidFormRepo.findByParty(party);
         PaidFormResponseDto paidFormResponseDto = new PaidFormResponseDto(paidForm);
         return paidFormResponseDto;
     }

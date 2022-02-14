@@ -6,7 +6,7 @@ import project.woori_saza.model.dto.PaidFormResponseDto;
 
 public interface PaidFormService {
 
-    PaidFormResponseDto getPaidForm(Long paidFormId);
+    PaidFormResponseDto getPaidForm(Long partyId);
     void insertPaidForm(PaidFormRequestDto paidFormRequestDto);
     String upload(MultipartFile uploadFile) throws Exception;
     void updatePaidForm(Long paidFormId, PaidFormRequestDto paidFormRequestDto);
