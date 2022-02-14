@@ -5,8 +5,8 @@
         </span>
         <div style="text-align:center" class="mt-3">
             <div class="photo" style="display:inline-block">
-                <img  v-if="image==null" src="@/assets/fin.png" alt=""  style="width : 240px; height:280px">
-                <img  v-if="image!=null" :src="preImage" alt="" style="width : 295px; height:295px">
+                <img  v-if="preImage==null" src="@/assets/fin.png" alt=""  style="width : 240px; height:280px">
+                <img  v-if="preImage!=null" :src="preImage" alt="" style="width : 295px; height:295px">
             </div>
             <div class="mt-1" v-if="bm==0">
                 <b-form-file v-model="image" plain @change="registerImage" accept=".jpg, .png"></b-form-file>
@@ -67,7 +67,7 @@ export default {
             url : "/paidForm/"+this.partyId,
         }).then(({data})=>{
             // console.log(data)
-            this.image = data.paidForm.pic;
+            // this.image = data.paidForm.pic;
             this.preImage = data.paidForm.pic;
             this.billingNO=data.paidForm.billingNo;
             this.deliveryDate = data.paidForm.deliveryDate[0]+"-"+data.paidForm.deliveryDate[1]+"-"+data.paidForm.deliveryDate[2];
@@ -97,31 +97,47 @@ export default {
             const that = this;
             const formData = new FormData();
             formData.append('uploadFile', this.image);
-
             if(this.updateOrNot){
-                axios_contact({
-                    method : "post",
-                    url : "/paidForm/upload",
-                    headers : {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                    data : formData,
-                }).then(({data})=>{
+                if(this.image==null){
                     axios_contact({
                         method : "put",
                         url : "/paidForm/"+that.partyId,
                         data : {
-                            "billingNo": that.billingNO,
+                            "billingNo": String(that.billingNO),
                             "deliveryDate": that.deliveryDate,
                             "partyId": that.partyId,
-                            "pic": data.url,
+                            "pic": that.preImage,
                             "receiptDate": that.receiptDate
                         }
                     }).then(({data})=>{
                         data
                         this.$router.push("/partydetail/"+that.partyId)
                     })
-                })
+                }else{
+                    axios_contact({
+                        method : "post",
+                        url : "/paidForm/upload",
+                        headers : {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                        data : formData,
+                    }).then(({data})=>{
+                        axios_contact({
+                            method : "put",
+                            url : "/paidForm/"+that.partyId,
+                            data : {
+                                "billingNo": String(that.billingNO),
+                                "deliveryDate": that.deliveryDate,
+                                "partyId": that.partyId,
+                                "pic": data.url,
+                                "receiptDate": that.receiptDate
+                            }
+                        }).then(({data})=>{
+                            data
+                            this.$router.push("/partydetail/"+that.partyId)
+                        })
+                    })
+                }
             }else{
                 axios_contact({
                     method : "post",

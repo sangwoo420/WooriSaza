@@ -166,7 +166,6 @@ export default {
             })
         },
         partyFinAndBill(){
-            console.log("마감 구매")
             axios_contact({
                 method : "get",
                 url : "/party/finish/"+this.article.partyId,
@@ -176,7 +175,6 @@ export default {
             })
         },
         deleteParty(){
-            console.log("파티 삭제")
             axios_contact({
                 method : "delete",
                 url : "/party/"+this.article.partyId,
@@ -190,7 +188,9 @@ export default {
                 method : "get",
                 url  : "/memberinfo?partyId="+this.partyId+"&profileId="+this.myId,
             }).then(({data})=>{
-                console.log(data)
+                // console.log(data)
+                data
+                this.$router.go();
             })
         },
         moveToReview(){
