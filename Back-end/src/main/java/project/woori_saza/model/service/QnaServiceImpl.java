@@ -19,6 +19,9 @@ import project.woori_saza.model.dto.QnaDto;
 import project.woori_saza.model.repo.QnaRepo;
 import project.woori_saza.model.repo.UserProfileRepo;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -80,6 +83,7 @@ public class QnaServiceImpl implements QnaService{
         qna.setCategory(qnaDto.getCategory());
         qna.setContent(qnaDto.getContent());
         qna.setTitle(qnaDto.getTitle());
+        qna.setDate(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         qna.setUserProfile(user);
         List<String>list=new ArrayList<>();
 
