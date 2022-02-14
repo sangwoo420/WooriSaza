@@ -10,5 +10,6 @@ import java.util.List;
 public interface ChatRoomJoinRepo extends JpaRepository<ChatRoomJoin, Long> {
 
     void deleteChatRoomJoinByChatRoomAndUserProfile(ChatRoom chatRoom, UserProfile userProfile);
-    List<ChatRoomJoin> findAllByChatRoom(ChatRoom chatRooml);
+    List<ChatRoomJoin> findAllByChatRoom(ChatRoom chatRoom);
+    List<ChatRoomJoin> findAllByUserProfile(UserProfile userProfile);
 }
