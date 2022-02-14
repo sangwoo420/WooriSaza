@@ -82,7 +82,7 @@
             </div>
             <!-- 파티원 + 마감 후 -->
             <div v-if="!myInfo.isBoss && myInfo.isClosed">
-                <b-button variant="warning" >구매 인증 폼 확인하기</b-button>
+                <b-button variant="warning" @click="paidform">구매 인증 폼 확인하기</b-button>
                 <b-button variant="danger" >물건을 못 받았어요</b-button>
                 <b-button variant="success" @click="finishDeal">구매 확정하기</b-button>
             </div>
@@ -137,7 +137,7 @@ export default {
                     isConfirm = false;
                 }
             }
-            if(isConfirm){
+            if(isConfirm && this.myInfo.isClosed){
                 this.myInfo.isConfirmed=true;
             }
             axios_contact({
@@ -195,6 +195,9 @@ export default {
         },
         moveToReview(){
             this.$router.push("/review/"+this.partyId);
+        },
+        paidform(){
+            this.$router.push("/paidform/"+this.partyId);
         },
     },
 };

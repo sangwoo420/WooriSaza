@@ -14,6 +14,7 @@ import Request from "../views/Request/Request.vue";
 
 import PartyDetail from "../views/PartyDetail/PartyDetail.vue";
 import Review from "../views/PartyDetail/Review.vue";
+import PaidForm from "../views/PartyDetail/PaidForm.vue";
 import Register from "../views/Register.vue";
 
 Vue.use(VueRouter);
@@ -83,6 +84,11 @@ const routes = [
     path: "/review/:partyId",
     name: "Review",
     component: Review,
+  },
+  {
+    path: "/paidform/:partyId",
+    name: "PaidForm",
+    component: PaidForm,
   },
   {
     path: "/about",
