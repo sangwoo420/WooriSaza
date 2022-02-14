@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import project.woori_saza.model.domain.Qna;
 
 import javax.persistence.ElementCollection;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class QnaDto {
     private String title;
     @ApiModelProperty(value = "답변 내용(댓글)")
     private String comment;
+    @ApiModelProperty(value = "문의 날짜 및 시간")
+    private LocalDateTime date;
     @ElementCollection
     @ApiModelProperty(value = "문의 사진")
     private List<String> pic=new ArrayList<>();
@@ -39,6 +43,7 @@ public class QnaDto {
         this.category = qna.getCategory();
         this.content = qna.getContent();
         this.title = qna.getTitle();
+        this.date = qna.getDate();
         this.comment = qna.getComment();
         this.pic = qna.getPic();
         this.profileId = qna.getUserProfile().getId();

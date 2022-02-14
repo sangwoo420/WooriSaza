@@ -37,6 +37,23 @@ public class ReviewController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
+    @ApiOperation(value = "내가 쓴 후기 조회", notes = "나에게 달린 후기들을 불러온다.", response = Map.class)
+    @GetMapping("/to/{profileId}")
+    public ResponseEntity<Map<String, Object>> getMyReviewList(@PathVariable("profileId")
+                                                             @ApiParam(value = "내 프로필아이디", example = "hashwoori", required = true) String profileId) {
+        Map<String, Object> result = new HashMap<>();
+        List<ReviewResponseDto> reviewList = null;
+        HttpStatus httpStatus = null;
+        try {
+            reviewList = reviewService.getMyReviewList(profileId);
+            httpStatus = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("reviewList", reviewList);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+    }
+
     @ApiOperation(value = "후기 작성", notes = "파티원들의 후기를 작성한다.")
     @PostMapping
     public ResponseEntity<Map<String, Object>> insertReview(@RequestBody @ApiParam(value = "후기 작성 모델") ReviewRequestDto reviewRequestDto) {

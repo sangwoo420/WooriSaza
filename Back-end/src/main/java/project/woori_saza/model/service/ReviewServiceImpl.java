@@ -34,6 +34,15 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
+    public List<ReviewResponseDto> getMyReviewList(String profileId) {
+
+        UserProfile user = userProfileRepo.getById(profileId);
+        List<Review> reviews = reviewRepo.findByFromUserOrderByDateDesc(user);
+        return reviews.stream().map(ReviewResponseDto::new).collect(Collectors.toList());
+    }
+
+
+    @Override
     @Transactional
     public void insertReview(ReviewRequestDto reviewRequestDto) {
         Review review = reviewRequestDto.toEntity();
@@ -58,6 +67,10 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     @Transactional
     public void deleteReview(Long reviewId) {
+        Review review=reviewRepo.getById(reviewId);
+        UserProfile toUser=review.getToUser();
+        toUser.setScore(toUser.getScore() - review.getScore());
+        toUser.setCnt(toUser.getCnt()-1);
         reviewRepo.deleteById(reviewId);
     }
 }
