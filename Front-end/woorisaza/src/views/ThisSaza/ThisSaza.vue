@@ -2,7 +2,7 @@
     <div class="mt-3" style="background-color : #FFFDF2; width:100%;height:100%">
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
-                <b-container >
+                <b-container v-if="windowWidth>=1000">
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
@@ -12,10 +12,15 @@
                                 </div>
                             </div>
                         </b-col>
-                        <b-col>
-                        </b-col>
+                        <b-col> </b-col>
                     </b-row>
                 </b-container>
+
+                <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth<1000"> 
+                    <div class="p-5">
+                        <component :is="selectComponent"></component>
+                    </div>
+                </div>
 
                 <!-- 채팅창 글쓰기 버튼 -->
                 <div class="chat" v-if="!chatShow">
@@ -68,6 +73,7 @@ export default {
             chatShow: true,
             selectComponent : "Board",
             accesstoken : null,
+            windowWidth: window.innerWidth
         };
     },
     created(){
@@ -102,7 +108,9 @@ export default {
         },
     },
     mounted() {
-        
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
+        }
     },
 
     methods: {

@@ -6,7 +6,7 @@
             <b-row>
                 <b-col cols="8">
                     <div>
-                        <div style="font-size:1.1em;font-weight:bold;" >{{review.touser}}</div>
+                        <div style="font-size:1.1em;font-weight:bold;" >{{review.toUser}}</div>
                         <div style="font-size:0.9em">{{review.content}}</div>
                     </div>
                 </b-col>
@@ -18,8 +18,8 @@
                 
             </b-row>
             <div style="text-align:right">
-              <b-button variant="danger" class="ml-3" style="width:15%;display:inline">삭제</b-button>
-              <b-button variant="warning" class="ml-3" style="width:15%;display:inline">수정</b-button>
+              <b-button variant="danger" class="ml-3" style="width:15%;display:inline" @click="deleteReview">삭제</b-button>
+              <!-- <b-button variant="warning" class="ml-3" style="width:15%;display:inline">수정</b-button> -->
             </div>
           </div>
         </b-container>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import {axios_contact} from "@/common.js"
 export default {
     name: 'Review',
     props:["review"],
@@ -42,9 +43,16 @@ export default {
     },
 
     methods: {
-        moveToDetail(){
-            console.log("1:1 문의 작성 페이지로 이동")
-        },
+        deleteReview(){
+            // console.log("진짜 삭제함?")
+            axios_contact({
+                method : "delete",
+                url : "/review/"+this.review.id
+            }).then(({data})=>{
+                data
+                this.$router.go();
+            })
+        }
     },
 };
 </script>

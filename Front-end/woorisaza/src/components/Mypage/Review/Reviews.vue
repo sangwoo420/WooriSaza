@@ -26,7 +26,7 @@ export default {
     created() {
         axios_contact({
             method : "get",
-            url : "/review/"+this.id,
+            url : "/review/to/"+this.id,
         }).then(({data})=>{
             console.log(data)
            this.reviewList = data.reviewList;

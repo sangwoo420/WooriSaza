@@ -2,7 +2,7 @@
     <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%">
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
-                <b-container >
+                <b-container v-if="windowWidth>=1000">
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
@@ -39,12 +39,42 @@
                             </div>
                         </b-col>
                         <b-col>
-                          
                         </b-col>
                     </b-row>
                 </b-container>
                 <!-- 모바일버전 -->
                 <!-- <Board></Board> -->
+                <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth<1000">
+                    <div class="p-5" v-if="id != 'null'">
+                        <!-- 신분증 -->
+                        <div v-if="this.id == this.$cookie.get('id')" style="text-align:center;" @click="moveToMypage">
+                            <my-profile style="cursor:pointer"/>
+                        </div>
+                        <div v-if="this.id != this.$cookie.get('id')" style="text-align:center;">
+                            <my-profile/>
+                        </div>
+                        <!-- 마이사자 네비게이션 바 -->
+                        <div>
+                            <my-navbar/>
+                        </div>
+                        <!-- 게시글 폼 -->
+                        <div class="mt-4">
+                            <component :is="selectComponent"> </component>
+                        </div>
+                    </div>
+                    <div class="p-5" v-if="id == 'null'">
+                        <div style="font-size : 1.5em">
+                            파티에 가입하고 <br>
+                            내가 필요한만큼만! 저렴한 가격에!<br>
+                            물건을 구매해보세요!<br>
+                        </div>
+                        로그인 후 사용해주세요.
+                        <div style="text-align:center">
+                            <img src="@/assets/fin.png" alt=""><br>
+                            <button :class="{p_button:true}" @click="$bvModal.show('signlogin')">로그인 | 회원가입</button>
+                        </div>
+                    </div>
+                </div>
             </div>
     </div>
 </template>
@@ -71,6 +101,7 @@ export default {
         return {
             selectComponent : "MemberOfParty",
             id : this.$route.params.id,
+            windowWidth: window.innerWidth,
         };
     },
     created(){
@@ -83,7 +114,9 @@ export default {
     watch:{
     },
     mounted() {
-        
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
+        }
     },
 
     methods: {

@@ -8,10 +8,12 @@
               <img src="@/assets/home_1.png" style="width:100%; backgroun-size : cover">
             </b-col>
             <b-col cols="5">
-              <h1>내가 원하는 물건을</h1>
-              <h1>이웃과 함께</h1>
-              <h1>저렴한 가격으로!</h1>
-              <button :class="{p_button:true}" @click="moveToGuide">시작하기</button>
+              <div style="font-size:3.3vw">
+                내가 원하는 물건을<br>
+                이웃과 함께<br>
+                저렴한 가격으로!<br>
+              </div>
+              <button :class="{p_button:true}" @click="moveToGuide" style="font-size:2vw">시작하기</button>
             </b-col>
           </b-row>
         </b-container>
@@ -29,8 +31,11 @@
             </b-col>
             <b-col cols="8">
               <img src="@/assets/icon.png" style="width:10%">
-              <h1>물건을 수령하면 대금이 전달되는</h1>
-              <h1>시스템으로 더욱 안전한 거래!</h1>
+              <div style="font-size:3vw">
+                물건을 수령하면 대금이 전달되는<br>
+                시스템으로 더욱 안전한 거래!<br>
+              </div>
+              
             </b-col>
           </b-row>
         </b-container>
@@ -39,17 +44,17 @@
 
     <div>
       <div class="py-5 container">
-        <h1>어떻게 이용하나요?</h1>
+        <div style="font-size:4vw">어떻게 이용하나요?</div>
         <img src="@/assets/home_crown.png" style="width:10%">
-        <h1>파티장</h1>
+        <div style="font-size:3vw">파티장</div>
       </div>
     </div>
 
     <div style="background-color : #F6FBF6 ; width:100%">
-      <div class="py-5 container">
+      <div class="py-5 container" >
         <b-container>
-          <h1 class="my-5">파티 만들기</h1>
-          <b-row align-v="center" class="my-5">
+          <h1 class="my-5" style="font-size:3vw">파티 만들기</h1>
+          <b-row align-v="center" class="my-5" style="font-size:1.5vw">
             <b-col cols="3">
               <img :class="{t_img:true}" src="@/assets/home_glass.png" style="height:4.5em">
               <div :class="{d_card:true}">
@@ -83,15 +88,15 @@
     <div>
       <div class="py-5 container">
         <img src="@/assets/home_corn.png" style="width:10%">
-        <h1>파티원</h1>
+        <h1 style="font-size:3vw">파티원</h1>
       </div>
     </div>
 
     <div style="background-color : #F6FBF6 ; width:100%">
       <div class="py-5 container">
         <b-container>
-          <h1 class="my-5">파티 참여하기</h1>
-          <b-row align-v="center" class="my-5">
+          <h1 class="my-5" style="font-size:3vw">파티 참여하기</h1>
+          <b-row align-v="center" class="my-5" style="font-size:1.5vw">
             <b-col cols="3">
               <img :class="{t_img:true}" src="@/assets/home_glass.png" style="height:4.5em">
               <div :class="{d_card:true}">

@@ -2,37 +2,16 @@
     <div>
         <!-- 나의 1:1 문의 -->
         <b-container>
-          <div style="text-align:center" >
-            <b-button @click="toMyQuestion" variant="warning" class="ml-3" style="width:15%;display:inline;font-size:0.8em">문의하기</b-button>
-          </div>
-
           <div class="box mt-3 p-3" style="cursor:pointer" @click="toMyAnswer" >
-            <b-button disabled variant="warning" class="ml-3" style="width:20%;display:inline">답변 진행중</b-button>
               <b-row>
                   <b-col cols="8">
                       <div class="mt-2">
-                          <div style="font-size:1.1em;font-weight:bold;margin-left:1em" >흥 문희는 포도가 먹고싶어!</div>
+                          <div style="font-size:1.1em;font-weight:bold;margin-left:1em" >{{Qna.title}}</div>
                       </div>
                   </b-col>
                   <b-col cols="4">
                       <div style="text-align:right" class="mt-2">
-                          <div style="font-size:1.1em;font-weight:bold;">2022.01.12</div>
-                      </div>
-                  </b-col>
-              </b-row>
-          </div>
-
-          <div class="box mt-3 p-3" style="cursor:pointer" @click="toMyAnswer" >
-            <b-button disabled variant="primary" class="ml-3" style="width:20%;display:inline">답변 완료</b-button>
-              <b-row>
-                  <b-col cols="8">
-                      <div class="mt-2">
-                          <div style="font-size:1.1em;font-weight:bold;margin-left:1em" >파티장 관련 문의입니다.</div>
-                      </div>
-                  </b-col>
-                  <b-col cols="4">
-                      <div style="text-align:right" class="mt-2">
-                          <div style="font-size:1.1em;font-weight:bold;">2022.01.10</div>
+                          <div style="font-size:0.75em;font-weight:bold;">{{Qna.category}}</div>
                       </div>
                   </b-col>
               </b-row>
@@ -49,7 +28,7 @@ export default {
     components : {
 
     },
-    props:["QnaNo"],
+    props:["Qna"],
     data() {
         return {
             
@@ -61,9 +40,6 @@ export default {
     },
 
     methods: {
-        toMyQuestion(){
-           this.$router.push("/mypage/question").catch(()=>{});;
-       },
        toMyAnswer(){
            this.$router.push("/mypage/answer").catch(()=>{});;
        }

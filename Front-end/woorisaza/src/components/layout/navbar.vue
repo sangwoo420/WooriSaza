@@ -2,40 +2,41 @@
     <div style="">
         <div>
             <b-navbar toggleable="lg" type="white" >
-
-                <img src="@/assets/icon.png" style="width:70px">
-                <img src="@/assets/name.png" style="width:120px; cursor:pointer" @click="toHome" >
-                <b-collapse id="nav-collapse" is-nav>
-
-                <b-navbar-nav class="ml-auto">
-                    <!-- 로그인-->
-                    <div v-if="accesstoken==null">
-                        <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">로그인 | 회원가입</b-button>  &nbsp; &nbsp;
-                        <!-- <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">회원가입</b-button>&nbsp; &nbsp; -->
-                        <b-modal id="signlogin" hide-footer size="sm">
-                            <template #modal-title>
-                            로그인
-                            </template>
-                            <div class="d-block text-center">
-                                <Kakaologin></Kakaologin>
-                            </div>
-                        </b-modal>
-                    </div>
-                    
-                    <!-- 마이페이지 -->
-                    <div v-if="accesstoken!=null">
-                         <b-nav-item-dropdown right>
-                        <template #button-content>
-                            <em><img src="@/assets/saza.png" style="width:40px"></em>
-                        </template>
-                        <b-dropdown-item router-link to="/mypage">마이페이지</b-dropdown-item>
-                        <b-dropdown-item router-link to="/" @click="logout">로그아웃</b-dropdown-item>
-                        </b-nav-item-dropdown>
-                    </div>
-                   
-
+                <b-navbar-nav>
+                    <img src="@/assets/icon.png" style="width:70px">
                 </b-navbar-nav>
-                </b-collapse>
+                <b-navbar-nav>
+                <img src="@/assets/name.png" style="width:120px; cursor:pointer" @click="toHome" >
+                </b-navbar-nav>
+                
+                    <b-navbar-nav class="ml-auto">
+                        <!-- 로그인-->
+                        <div v-if="accesstoken==null">
+                            <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">로그인 | 회원가입</b-button>  &nbsp; &nbsp;
+                            <!-- <b-button pill style="background-color:#F1A501;border:0;" @click="$bvModal.show('signlogin')">회원가입</b-button>&nbsp; &nbsp; -->
+                            <b-modal id="signlogin" hide-footer size="sm">
+                                <template #modal-title>
+                                로그인
+                                </template>
+                                <div class="d-block text-center">
+                                    <Kakaologin></Kakaologin>
+                                </div>
+                            </b-modal>
+                        </div>
+                        
+                        <!-- 마이페이지 -->
+                        <div v-if="accesstoken!=null">
+                            <b-nav-item-dropdown right>
+                            <template #button-content>
+                                <em><img src="@/assets/saza.png" style="width:40px"></em>
+                            </template>
+                            <b-dropdown-item router-link to="/mypage">마이페이지</b-dropdown-item>
+                            <b-dropdown-item router-link to="/" @click="logout">로그아웃</b-dropdown-item>
+                            </b-nav-item-dropdown>
+                        </div>
+                    
+
+                    </b-navbar-nav>
             </b-navbar>
         </div>
         <div>
@@ -71,8 +72,8 @@ export default {
             data:{
                     grant_type : "authorization_code",
                     client_id : "067178783202c62976d9ac82175e67cd",
-                    // redirect_uri : "http://localhost:8081/",
-                    redirect_uri : "http://i6c102.p.ssafy.io/", 
+                    redirect_uri : "http://localhost:8081/",
+                    // redirect_uri : "http://i6c102.p.ssafy.io/", 
                     code : this.$route.query.code,
             },
             queryString : null,

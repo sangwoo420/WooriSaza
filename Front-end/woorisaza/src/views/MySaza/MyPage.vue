@@ -40,7 +40,7 @@ import MyProfile from "@/views/MySaza/MyProfile.vue";
 import MyNavbar from "@/components/Mypage/MyNavbar.vue";
 import Zzim from "@/components/Mypage/Zzim/Zzims.vue";
 import Info from "@/components/Mypage/Info.vue"
-import Qna from "@/components/Mypage/Qna/Qna.vue"
+import Qna from "@/components/Mypage/Qna/Qnas.vue"
 import Review from "@/components/Mypage/Review/Reviews.vue"
 import { EventBus } from "@/event-bus.js"
 

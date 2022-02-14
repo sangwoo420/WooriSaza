@@ -61,8 +61,9 @@
         <div style="text-align:right" >
             <img v-if="isZzim" src="@/assets/zzimOn.png" style="width:1.6em;cursor:pointer" @click="deleteZZim">
             <img v-if="!isZzim" src="@/assets/zzimOff.png" style="width:1.6em;cursor:pointer" @click="addZZim">&nbsp;
-            <b-button v-if="!inParty" variant="warning" pill @click="requestParty">참여하기</b-button>
+            <b-button v-if="!inParty && article.currentRecruitMember<article.totalRecruitMember" variant="warning" pill @click="requestParty">참여하기</b-button>
             <b-button v-if="inParty" variant="primary" pill @click="moveToPartyDetail">상세보기</b-button>
+            
         </div>
         <!-- 글내용 -->
         <div class="mt-3">
@@ -101,7 +102,7 @@
                         <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px" alt="">
                         <img v-if="comment.pic!=null" :src="comment.pic" style="width:30px; height : 30px" alt="">
                         <!-- 사용자 닉네임 -->
-                        <a href="" style="color:black; width:10%;display:inline" class="ml-1">{{comment.nickname}}</a>
+                        <a style="color:black; width:10%;display:inline" class="ml-1" @click="moveToMypage(comment.profileId)">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
                         <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id" @click="modifyComment(comment)">수정</b-button>
                     </div>
@@ -313,7 +314,12 @@ export default {
                 url : "/article/"+this.articleNo,
             }).then(({data})=>{
                 console.log(data)
+                this.$router.push("/board")
             })
+        },
+
+        moveToMypage(id){
+            this.$router.push("/mysaza/"+id)
         },
     },
 };
