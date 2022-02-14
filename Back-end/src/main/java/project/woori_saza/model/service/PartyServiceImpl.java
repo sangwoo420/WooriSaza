@@ -33,6 +33,12 @@ public class PartyServiceImpl implements PartyService{
     @Autowired
     ZzimRepo zzimRepo;
 
+    @Autowired
+    ChatRoomJoinRepo chatRoomJoinRepo;
+
+    @Autowired
+    ChatRoomRepo chatRoomRepo;
+
 
     //    내 파티리스트 전체 조회
     @Override
@@ -96,6 +102,13 @@ public class PartyServiceImpl implements PartyService{
 //        }
 
 //        chatRoomRepo.deleteById(chatRoom.getId());
+
+        //파티원들 파티 삭제 시키기
+        List<ChatRoom> chatRoom = chatRoomRepo.findChatRoomByArticleId(article.getId());
+        List<ChatRoomJoin> allByChatRoom = chatRoomJoinRepo.findAllByChatRoom(chatRoom.get(0));
+        for (ChatRoomJoin chatRoomJoin : allByChatRoom) {
+            chatRoomJoinRepo.delete(chatRoomJoin);
+        }
 
         List<Comment> comments=commentRepo.findByArticle(article);
         List<Zzim> Zzims=zzimRepo.findByArticle(article);
