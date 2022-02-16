@@ -74,19 +74,14 @@ export default {
                 method : "get",
                 url : "/party?partyId="+data.article.partyId,
             }).then(({data})=>{
-                console.log(data)
                 this.party=data;
                 let count = 0;
-                let bossCount = 0;
                 for (let index = 0; index < data.length; index++) {
-                    if(data[index].isConfirmed){
+                    if(data[index].isConfirmed || data[index].isBoss){
                         count+=data[index].totalamount;
                     }
-                    if(data[index].isBoss){
-                        bossCount = data[index].totalamount;
-                    }
                 }
-                if(this.article.totalRecruitMember==count-bossCount && data.length > 1){
+                if(this.article.totalRecruitMember==count && data.length > 1){
                     this.finDeal=true;
                 }
             })

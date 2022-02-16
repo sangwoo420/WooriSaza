@@ -85,7 +85,7 @@ export default {
         return {
             agree : false,
             articleNo : this.$route.params.articleNo,
-            chooseNum : 1,
+            chooseNum : "1",
             result: 2,
             article : null,
         };

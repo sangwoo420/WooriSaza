@@ -163,14 +163,21 @@ export default {
         }).then(({data})=>{
             // const that = this;
             this.article = data.article;
-            if(this.article.currentRecruitMember == this.article.totalRecruitMember){
-                this.finDeal=true;
-            }
             axios_contact({
                 method : "get",
                 url : "/party?partyId="+this.article.partyId,
             }).then(({data})=>{
                 // console.log(data)
+                this.party=data;
+                let count = 0;
+                for (let index = 0; index < data.length; index++) {
+                    if(data[index].isConfirmed || data[index].isBoss){
+                        count+=data[index].totalamount;
+                    }
+                }
+                if(this.article.totalRecruitMember==count && data.length > 1){
+                    this.finDeal=true;
+                }
                 for (let index = 0; index < data.length; index++) {
                     if(this.id == data[index].profileId){
                         this.inParty=true;
