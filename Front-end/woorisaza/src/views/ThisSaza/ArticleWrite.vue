@@ -198,7 +198,11 @@ export default {
         articleRegister(){
             // console.log("글 쓰즈아~")
             // console.log(this.articleAndParty)
-            
+            if(this.articleAndParty.category=="DELIVERY"){
+                this.articleAndParty.pic.push("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FnMjVP%2FbtrtsVDTjqZ%2FAKAjyysiZXL0JdtlJS8kr0%2Fimg.png")
+            }else if(this.articleAndParty.pic[0]==""){
+                 this.articleAndParty.pic[0]="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0654c%2Fbtrtt5lVhlq%2FouTPxWDaPGuOqSRE5QWQdk%2Fimg.png"
+            }
             axios_contact({
                 method : "post",
                 url : "/article",
