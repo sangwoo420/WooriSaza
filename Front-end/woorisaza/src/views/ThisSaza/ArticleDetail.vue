@@ -34,7 +34,7 @@
         <div class="mt-2">
             <b-row>
                 <b-col >
-                    <b-link target='_blank' :href="article.link" >링크 바로가기</b-link>
+                    <b-link target='_blank' :href="article.link" v-if="article.category!='DELIVERY'">링크 바로가기</b-link>
                 </b-col>
                 <b-col>
                     <div style="background-color:#D9E5FF;border-radius:0.3em;text-align:right;">

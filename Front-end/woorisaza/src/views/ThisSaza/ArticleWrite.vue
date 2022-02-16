@@ -28,7 +28,8 @@
                 <b-row class="mt-3">
                     <b-col cols="8">
                         구매링크
-                        <b-form-input id="input-small" size="sm" placeholder="구매링크를 입력하세요." :state="linkState" aria-describedby="linkFalse linkTrue" v-model="articleAndParty.link" @change="checkLink"></b-form-input>
+                        <b-form-input id="input-small" size="sm" placeholder="구매링크를 입력하세요." :state="linkState" aria-describedby="linkFalse linkTrue" v-model="articleAndParty.link" @change="checkLink" v-if="articleAndParty.category!='DELIVERY'"></b-form-input>
+                        <b-form-input id="input-small" size="sm" placeholder="구매링크를 입력하세요." :state="linkState" aria-describedby="linkFalse linkTrue" v-model="articleAndParty.link" @change="checkLink" disabled v-if="articleAndParty.category=='DELIVERY'"></b-form-input>
                         <b-form-invalid-feedback id="linkFalse">안전하지 않은 링크입니다.</b-form-invalid-feedback>
                         <b-form-valid-feedback id="linkTrue">안전한 링크입니다.</b-form-valid-feedback>
                     </b-col>
