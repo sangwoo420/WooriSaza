@@ -149,6 +149,10 @@ export default {
                 this.articleAndParty.link = "배달링크는 없어요!"
                 this.linkState=true;
             }
+            else{
+                this.articleAndParty.link = ""
+                this.linkState=false;
+            }
         },
         checkLink(link){
             if(link==""){
