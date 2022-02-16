@@ -1,8 +1,13 @@
 <template>
     <div>
-        <!-- 내가 쓴 댓글 -->
-        <div v-for="(item, index) in reviewList" :key="index">
-            <Review :review="item"></Review>
+        <!-- 나에게 달린 후기 -->
+        <div v-if="reviewList.length == 0" style="text-align:center">
+            아직 나에게 달린 후기가 없습니다.
+        </div>
+        <div v-if="reviewList.length > 0">
+            <div v-for="(item, index) in reviewList" :key="index">
+                <Review :review="item"></Review>
+            </div>
         </div>
     </div>
 </template>

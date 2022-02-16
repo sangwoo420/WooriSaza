@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 내가 개설한 파티 목록 -->
-        <div v-if="partyList.length == 0">
+        <div v-if="partyList.length == 0" style="text-align:center">
             개설한 파티가 없습니다. 파티를 개설해보세요!
         </div>
         <div v-if="partyList.length > 0">
