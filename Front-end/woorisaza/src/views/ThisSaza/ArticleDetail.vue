@@ -155,6 +155,9 @@ export default {
         }).then(({data})=>{
             // const that = this;
             this.article = data.article;
+            if(this.article.currentRecruitMember == this.article.totalRecruitMember){
+                this.finDeal=true;
+            }
             axios_contact({
                 method : "get",
                 url : "/party?partyId="+this.article.partyId,
@@ -167,15 +170,6 @@ export default {
                     if(data[index].isBoss){
                         this.bossId = data[index].profileId;
                     }
-                }
-                let count = 0;
-                for (let index = 0; index < data.length; index++) {
-                    if(data[index].isConfirmed){
-                        count+=1;
-                    }
-                }
-                if(count==data.length-1 && data.length > 1){
-                    this.finDeal=true;
                 }
             })
         })

@@ -12,7 +12,7 @@
                     </b-col>
                     <b-col cols="4">
                         카테고리
-                        <b-form-select :options="category" size="sm" v-model="articleAndParty.category" :state="categoryState"></b-form-select>
+                        <b-form-select :options="category" size="sm" v-model="articleAndParty.category" :state="categoryState" @change="categoryChange"></b-form-select>
                     </b-col>
                 </b-row>
                 <b-row class="mt-3">
@@ -143,6 +143,12 @@ export default {
     },
 
     methods: {
+        categoryChange(category){
+            if(category=="DELIVERY"){
+                this.articleAndParty.link = "배달링크는 없어요!"
+                this.linkState=true;
+            }
+        },
         checkLink(link){
             if(link==""){
                 this.linkState=null;
@@ -192,6 +198,7 @@ export default {
         articleRegister(){
             // console.log("글 쓰즈아~")
             // console.log(this.articleAndParty)
+            
             axios_contact({
                 method : "post",
                 url : "/article",
