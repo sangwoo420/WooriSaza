@@ -8,7 +8,7 @@
               <img src="@/assets/home_1.png" style="width:100%; backgroun-size : cover">
             </b-col>
             <b-col cols="5">
-              <div style="font-size:3vw">
+              <div style="font-size:2vw">
                 내가 원하는 물건을<br>
                 이웃과 함께<br>
                 저렴한 가격으로!<br>

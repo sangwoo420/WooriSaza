@@ -45,6 +45,8 @@ export default {
 
 <style scoped>
 .box{
-    background-color: rgb(231, 231, 231);
+    border-radius:1em;
+    background-color: #F6F9FB;
+    box-shadow: 0.1em 0.1em gray;
 }
 </style>

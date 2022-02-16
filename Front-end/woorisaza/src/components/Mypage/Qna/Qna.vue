@@ -12,6 +12,7 @@
                   <b-col cols="4">
                       <div style="text-align:right" class="mt-2">
                           <div style="font-size:0.75em;font-weight:bold;">{{Qna.category}}</div>
+                          <div style="font-size:0.75em;font-weight:bold;">{{Qna.date[0]}}.{{Qna.date[1]}}.{{Qna.date[2]}}</div>
                       </div>
                   </b-col>
               </b-row>
