@@ -105,7 +105,7 @@
                         <b-collapse :id="String(comment.id)" class="mt-2">
                             <div class="p-2" style="border-radius: 2em;">
                                 <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment.content"></b-form-textarea>
-                                <b-button style="display:inline;width:9%;" @click="modifyComment(comment)">수정</b-button>
+                                <b-button style="display:inline;width:9%;" @click="modifyComment(comment)">등록</b-button>
                             </div>
                         </b-collapse>
 
