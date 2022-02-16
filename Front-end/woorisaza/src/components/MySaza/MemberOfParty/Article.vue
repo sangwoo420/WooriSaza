@@ -45,7 +45,12 @@ export default {
         moveToDetail(){
             // console.log("상세보기 페이지로 이동")
             // console.log(this.party)
-            this.$router.push("/partydetail/"+this.party.id).catch(()=>{}); 
+            if(this.party.title=="원글이 삭제된 파티입니다."){
+                alert("삭제된 게시글입니다.")
+            }
+            else{
+                this.$router.push("/partydetail/"+this.party.id).catch(()=>{});
+            }
         },
     },
 };
