@@ -11,7 +11,7 @@
                     </b-col>
                     <b-col cols="4">
                         <div>
-                            <b-form-input v-model="search" placeholder="검색어를 입력하세요." size="sm" style="width:75%;display:inline"></b-form-input>
+                            <b-form-input v-model="search" placeholder="검색어를 입력하세요." size="sm" style="width:75%;display:inline" @change="searchByKeyword"></b-form-input>
                             <b-icon icon="search" style="width:25%;cursor:pointer;"></b-icon>
                         </div>
                     </b-col>    
@@ -116,6 +116,37 @@ export default {
             if(this.area !=null){
                 urlOption += "&range="+this.area;
             }
+            // console.log(urlOption)
+            this.printedArticleNo=[];
+            this.articleNo=[];
+            
+            axios_contact({
+                method : "get",
+                url : urlOption,
+            }).then(({data})=>{
+                // console.log(data)
+                for (let index = 0; index < data.articleList.length; index++) {
+                    // console.log(data.articleList[index])                
+                    this.articleNo.push(data.articleList[index].id)
+                }
+
+                let length = (this.articleNo.length < 10) ?  this.articleNo.length : 10;
+                for (let index = 0; index < length; index++) {
+                    this.printedArticleNo.push(this.articleNo[index])
+                }
+            })
+        },
+
+        searchByKeyword(data){
+            console.log(data)
+            let urlOption = "/article?profileId="+this.profileId;
+            if(this.category !=null){
+                urlOption += "&category="+this.category;
+            }
+            if(this.area !=null){
+                urlOption += "&range="+this.area;
+            }
+             urlOption += "&keyword="+data;
             // console.log(urlOption)
             this.printedArticleNo=[];
             this.articleNo=[];
