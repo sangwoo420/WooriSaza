@@ -2,7 +2,7 @@
     <div>
         <!-- 내가 참가한 파티 목록 -->
         <div v-if="partyList.length == 0" style="text-align:center">
-            참가한 파티가 없습니다. 파티에 참가해보세요!
+            아직 참가한 파티가 없습니다. 파티에 참가해보세요!
         </div>
         <div v-if="partyList.length > 0">
             <div v-for="(item, index) in partyList" :key="index">

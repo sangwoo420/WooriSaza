@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- 내가 쓴 댓글 -->
+        <!-- 내가 작성한 댓글 -->
         <div v-if="comments.length == 0" style="text-align:center">
             작성한 댓글이 없습니다.
         </div>

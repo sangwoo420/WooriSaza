@@ -2,7 +2,7 @@
     <div>
         <!-- 내가 찜한 파티 목록 -->
         <div v-if="zzimList.length == 0" style="text-align:center"> 
-            찜한 목록이 없습니다. 마음에 드는 물건을 찜해보세요!
+            찜한 목록이 없습니다. 마음에 드는 파티를 찜해보세요!
         </div>
         <div v-if="zzimList.length > 0">
             <div v-for="(item, index) in zzimList" :key="index">

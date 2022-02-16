@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- 내가 쓴 후기 -->
+        <!-- 내가 작성한 후기 -->
         <div v-if="reviewList.length == 0" style="text-align:center">
             아직 작성한 후기가 없습니다. 거래를 한적이 있다면 후기를 남겨보세요!
         </div>
