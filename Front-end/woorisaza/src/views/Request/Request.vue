@@ -6,7 +6,7 @@
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
-                            <div :class="{box:true}" style="overflow-y:auto;">
+                            <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth>=1000">
                                 <div class="p-5">
                                     <component v-if="!fin" :is="selectComponent" :chooseNum="chooseNum"></component>
                                     <Finish v-if="fin" :chooseNum="chooseNum"></Finish>
@@ -17,6 +17,12 @@
                         </b-col>
                     </b-row>
                 </b-container>
+                <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth<1000">
+                    <div class="p-5">
+                        <component v-if="!fin" :is="selectComponent" :chooseNum="chooseNum"></component>
+                        <Finish v-if="fin" :chooseNum="chooseNum"></Finish>
+                    </div>
+                </div>
             </div>
     </div>
 </template>
@@ -38,6 +44,7 @@ export default {
             fin : false,
             selectComponent : "RequestDetail",
             chooseNum : null,
+            windowWidth: window.innerWidth
         };
     },
     created(){
@@ -62,7 +69,9 @@ export default {
         }
     },
     mounted() {
-
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
+        }
     },
 
     methods: {

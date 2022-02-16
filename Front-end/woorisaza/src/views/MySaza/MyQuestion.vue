@@ -2,7 +2,7 @@
     <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%">
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
-                <b-container >
+                <b-container v-if="windowWidth>=1000">
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
@@ -62,6 +62,54 @@
                     </b-row>
                     
                 </b-container>
+                <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth<1000">
+                    <div class="p-5">
+                        <h2>1:1 문의</h2>
+                        <div class="my-5">
+                            <b-row>       
+                            <b-col cols="2">
+                                <div>
+                                    
+                                </div>
+                            </b-col>
+                            <b-col cols="8">
+                                <div class="my-3">
+                                    <p>문의 유형</p>
+                                    <b-form-select v-model="category" :options="categories" size="sm" style="width:60%"></b-form-select>
+                                </div>
+                                <div class="my-3">
+                                    <p>문의 제목</p>
+                                    <b-form-textarea
+                                        id="title"
+                                        v-model="title"
+                                        size="sm"
+                                        placeholder="제목을 입력하세요"
+                                    ></b-form-textarea>
+                                </div>
+                                <div class="my-3">
+                                    <p>문의 내용</p>
+                                    <b-form-textarea
+                                        id="context"
+                                        placeholder="내용을 입력하세요"
+                                        v-model="content"
+                                        rows="8"
+                                    ></b-form-textarea>
+                                </div>
+                                
+                            </b-col>    
+                            <b-col cols="2">
+                                <div>
+                                </div>
+                            </b-col>  
+                            </b-row>                                        
+                        </div>
+                        <div class="mt-5" style="text-align:center">
+                            <!-- 취소 완료 버튼 -->
+                            <b-button variant="secondary" class="mr-3" @click="cancelQuestion">작성 취소</b-button>
+                            <b-button variant="warning" class="ml-3" @click="createQuestion">작성 완료</b-button>
+                        </div>
+                    </div>
+                </div>
                 <!-- 모바일버전 -->
                 <!-- <Board></Board> -->
             </div>
@@ -87,9 +135,14 @@ export default {
             content : null,
             profileId : this.$cookie.get('id'),
             pic : [],
+            windowWidth: window.innerWidth
         };
     },
-
+    mounted() {
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
+        }
+    },
   methods: {
     cancelQuestion(){
         this.$router.push("/mypage")
