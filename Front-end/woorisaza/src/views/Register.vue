@@ -1,8 +1,8 @@
 <template>
-    <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%">
+    <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%" >
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
-                <b-container v-if="windowWidth>=1000">
+                <b-container >
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
@@ -117,7 +117,7 @@ export default {
                 nickname : null,
                 pic : null,
                 score : null, 
-                windowWidth: window.innerWidth
+                windowWidth: window.innerWidth,
             },
             accesstoken : this.$cookie.get("Raccesstoken"),
             postcode:null,

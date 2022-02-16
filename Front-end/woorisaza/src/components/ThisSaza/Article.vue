@@ -67,9 +67,29 @@ export default {
             url : "article/"+this.articleNo,
         }).then(({data})=>{
             this.article=data.article;
-            if(this.article.currentRecruitMember == this.article.totalRecruitMember){
-                this.finDeal=true;
-            }
+            // if(this.article.currentRecruitMember == this.article.totalRecruitMember){
+            //     this.finDeal=true;
+            // }
+            axios_contact({
+                method : "get",
+                url : "/party?partyId="+data.article.partyId,
+            }).then(({data})=>{
+                console.log(data)
+                this.party=data;
+                let count = 0;
+                let bossCount = 0;
+                for (let index = 0; index < data.length; index++) {
+                    if(data[index].isConfirmed){
+                        count+=data[index].totalamount;
+                    }
+                    if(data[index].isBoss){
+                        bossCount = data[index].totalamount;
+                    }
+                }
+                if(this.article.totalRecruitMember==count-bossCount && data.length > 1){
+                    this.finDeal=true;
+                }
+            })
         })
 
         axios_contact({
