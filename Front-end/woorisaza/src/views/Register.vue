@@ -6,7 +6,7 @@
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
-                            <div :class="{box:true}" style="overflow-y:auto;">
+                            <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth>=1000">
                                 <div class="p-5">
                                     <h2 style="text-align:center">회원가입</h2>
                                     <div class="mt-4">
@@ -117,12 +117,12 @@ export default {
                 nickname : null,
                 pic : null,
                 score : null, 
-                windowWidth: window.innerWidth,
             },
             accesstoken : this.$cookie.get("Raccesstoken"),
             postcode:null,
             image : null,
             preImage : null,
+            windowWidth: window.innerWidth,
         };
     },
 
