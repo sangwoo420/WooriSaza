@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            id : this.$cookie.get('id'),
+            id : this.$route.params.id,
             reviewList:[],
         };
     },

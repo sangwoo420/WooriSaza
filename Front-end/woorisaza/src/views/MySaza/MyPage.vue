@@ -2,7 +2,7 @@
     <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%">
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
-                <b-container >
+                <b-container v-if="windowWidth>=1000">
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
@@ -31,6 +31,23 @@
                 </b-container>
                 <!-- 모바일버전 -->
                 <!-- <Board></Board> -->
+                <div :class="{box:true}" style="overflow-y:auto;"  v-if="windowWidth<1000">
+                    <div class="p-5">
+                        <h2 style="text-align:center">마이페이지</h2>
+                        <!-- 신분증 -->
+                        <div style="text-align:center" class="mt-4">
+                            <MyProfile/>
+                        </div>
+                        <!-- 마이페이지 네비게이션 바 -->
+                        <div>
+                            <my-navbar/>
+                        </div>
+                        <!-- 게시글 목록 -->
+                        <div class="mt-4">
+                            <component :is="selectComponent"></component>
+                        </div>
+                    </div>
+                </div>
             </div>
     </div>
 </template>
@@ -57,7 +74,7 @@ export default {
     data() {
         return {
             selectComponent : "Info",
-            
+            windowWidth: window.innerWidth,
         };
     },
     created(){
@@ -70,7 +87,9 @@ export default {
     watch:{
     },
     mounted() {
-        
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
+        }
     },
 
     methods: {
