@@ -101,18 +101,19 @@
                 <!-- 각 댓글 -->
                 <div v-for="(comment, index) in commentList" :key="index">
                     <!-- {{comment}} -->
-                    <div :key="commentRerender">
-                        <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px" alt="">
+                    <div :key="commentRerender" style="margin-right:15px; margin-left:15px">
+                        <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px;" alt="">
                         <img v-if="comment.pic!=null" :src="comment.pic" style="width:30px; height : 30px" alt="">
                         <!-- 사용자 닉네임 -->
-                        <a style="color:black; width:10%;display:inline" class="ml-1" @click="moveToMypage(comment.profileId)">{{comment.nickname}}</a>
+                        <a style="color:gray; width:10%; display:inline; font-size:14px;" class="ml-1" @click="moveToMypage(comment.profileId)">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
                         <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id" @click="modifyComment(comment)">수정</b-button>
                     </div>
-                    <div style="font-size:12px;">
+                    <div >
                         <b-row>
-                            <b-col cols="9">{{comment.content}}</b-col>
-                            <b-col cols="3">{{comment.createAt[0]}}.{{comment.createAt[1]}}.{{comment.createAt[2]}} {{comment.createAt[3]}}:{{comment.createAt[4]}}</b-col>
+                            <b-col cols="1"></b-col>
+                            <b-col cols="8" style="color:black; font-size:14px">{{comment.content}}</b-col>
+                            <b-col cols="3" style="font-size:12px; text-align: center;">{{comment.createAt[0]}}.{{comment.createAt[1]}}.{{comment.createAt[2]}} {{comment.createAt[3]}}:{{comment.createAt[4]}}</b-col>
                         </b-row>
                     </div>
                     <hr>
@@ -373,17 +374,17 @@ export default {
 }
 .btn-success{
     width : 5em;
-    background-color: #22C55E      ;
+    background-color: #34a853      ;
     font-size : 0.5em;
     padding: 0.5em;
-    border-color: #22C55E  ;
+    border-color: #34a853  ;
 }
 .btn-danger{
     width : 5em;
-    background-color: #FF0000      ;
+    background-color: #ec2f21      ;
     font-size : 0.5em;
     padding: 0.5em;
-    border-color: #FF0000  ;
+    border-color: #ec2f21  ;
 }
 
 .finParty{
