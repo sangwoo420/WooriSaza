@@ -180,8 +180,8 @@ export default {
 }
 .box2{
     padding: 5px;
-    background-color:gray; 
-    box-shadow: 0px 0px 5px 0.1px grey; 
+    background-color:#FEEBB6; 
+    box-shadow: 0px 0px 5px 0.1px #FEEBB6; 
     border-radius: 0.5em;
     width : 180px;
     height:100%;

@@ -89,25 +89,26 @@
         <!-- 댓글 -->
         <hr>
         <div class="mt-3" v-if="!finDeal">
-            <div class="p-2" style="border-radius: 2em;">
-                <!-- <img src="@/assets/comment.png" style="display:inline;width:7%" class="ml-1 mr-1"> -->
-                <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment"></b-form-textarea>
-                <b-button style="display:inline;width:9%;" @click="registerComment">등록</b-button>
-                <hr>
-            </div>
             <!-- 사람들 댓글 쓴 거 -->
             <!-- 댓글듯 for문 -->
-            <div>
+            <div :key="commentRerender">
                 <!-- 각 댓글 -->
                 <div v-for="(comment, index) in commentList" :key="index">
                     <!-- {{comment}} -->
-                    <div :key="commentRerender" style="margin-right:15px; margin-left:15px">
+                    <div  style="margin-right:15px; margin-left:15px">
                         <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px;" alt="">
                         <img v-if="comment.pic!=null" :src="comment.pic" style="width:30px; height : 30px" alt="">
                         <!-- 사용자 닉네임 -->
                         <a style="color:gray; width:10%; display:inline; font-size:14px;" class="ml-1" @click="moveToMypage(comment.profileId)">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
-                        <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id" @click="modifyComment(comment)">수정</b-button>
+                        <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id" v-b-toggle="String(comment.id)">수정</b-button>
+                        <b-collapse :id="String(comment.id)" class="mt-2">
+                            <div class="p-2" style="border-radius: 2em;">
+                                <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment.content"></b-form-textarea>
+                                <b-button style="display:inline;width:9%;" @click="modifyComment(comment)">수정</b-button>
+                            </div>
+                        </b-collapse>
+
                     </div>
                     <div >
                         <b-row>
@@ -118,6 +119,12 @@
                     </div>
                     <hr>
                 </div>
+            </div>
+            <div class="p-2" style="border-radius: 2em;">
+                <!-- <img src="@/assets/comment.png" style="display:inline;width:7%" class="ml-1 mr-1"> -->
+                <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment"></b-form-textarea>
+                <b-button style="display:inline;width:9%;" @click="registerComment">등록</b-button>
+                <hr>
             </div>
         </div>
     </div>
@@ -145,6 +152,7 @@ export default {
             bossId : null,
             isZzim : null,
             finDeal : false,
+            mod : null,
         };
     },
     created() {
@@ -246,18 +254,17 @@ export default {
             }).then(({data})=>{
                 // console.log(data)
                 data
+                this.commentRerenderForce()
                 this.$router.go();
             })
         },
 
         modifyComment(comment){
+            console.log(comment)
             axios_contact({
                 method : "put",
                 url : "/comment",
-                data : {
-                    "id": comment.id,
-                    "content": comment.content,
-                },
+                data : comment
             }).then(({data})=>{
                 console.log(data)
                 // data
