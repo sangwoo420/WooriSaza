@@ -63,12 +63,23 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleResponseDto> getArticleList(String profileId, String category, String range, String keyword) {
 
+        List<Article> articles = null;
+
+        // 로그인 안했을때 범위는 고려 X
         if (profileId.equals("null")) {
-            return articleRepo.findAllByUserProfileIsNotNullOrderByCreatedAtDesc().stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+            if (category == null && keyword == null) {
+                articles = articleRepo.findAllByUserProfileIsNotNullOrderByCreatedAtDesc();
+            } else if (keyword == null) {
+                articles = articleRepo.findByUserProfileIsNotNullAndCategoryOrderByCreatedAtDesc(Category.valueOf(category));
+            } else if (category == null) {
+                articles = articleRepo.findByUserProfileIsNotNullAndTitleContainingOrContentContainingOrderByCreatedAtDesc(keyword, keyword);
+            } else {
+                articles = articleRepo.findByKeywordAndCategory(keyword, category);
+            }
+            return articles.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
         }
 
         Double[] lnglat = geoLocationUtil.parseLocationToLngLat(userProfileRepo.getById(profileId).getAddress());
-        List<Article> articles = null;
         //1. 전부 없을때
         if (category == null && range == null && keyword == null) {
             articles = articleRepo.findAllByUserProfileIsNotNullOrderByCreatedAtDesc();
@@ -108,9 +119,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public ArticleResponseDto insertArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto) {
 
-        if(articleAndPartyRequestDto.getTotalRecruitMember() <= articleAndPartyRequestDto.getAmount()){
+        if (articleAndPartyRequestDto.getTotalRecruitMember() <= articleAndPartyRequestDto.getAmount()) {
             throw new RuntimeException("전체 인원수보다 선택 인원수가 더 많습니다.");
-        }else{
+        } else {
             Party party = new Party();
             party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
             party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
@@ -198,15 +209,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(Long articleId) {
-        Article article=articleRepo.getById(articleId);
-        List<Comment> comments=commentRepo.findByArticle(article);
-        List<Zzim> Zzims=zzimRepo.findByArticle(article);
+        Article article = articleRepo.getById(articleId);
+        List<Comment> comments = commentRepo.findByArticle(article);
+        List<Zzim> Zzims = zzimRepo.findByArticle(article);
 
         for (Comment comment : comments) {
             commentRepo.deleteById(comment.getId());
         }
         for (Zzim zzim : Zzims) {
-           zzimRepo.deleteById(zzim.getZzimId());
+            zzimRepo.deleteById(zzim.getZzimId());
         }
 
         articleRepo.deleteById(articleId);
