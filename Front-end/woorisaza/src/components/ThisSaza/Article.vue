@@ -5,11 +5,23 @@
             <b-row>
                 <b-col>
                     <div style="cursor:pointer">
-                        <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt="" style="width:150px;height:150px"></b-img>
+                        <!-- <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt="" style="width:150px;height:150px"></b-img> -->
+                        <b-card
+                            class="text-center"
+                            overlay
+                            @click="moveToDetail"
+                            :img-src="article.pic[0]"
+                        >
+                        <b-button v-if="finDeal" variant="danger" size="sm" disaled>거래 완료</b-button>
+                        </b-card>
                     </div>
                 </b-col>
                 <b-col>
-                    <b-row><div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div></b-row>
+                    <b-row>
+                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">
+                            {{article.title}}
+                        </div>
+                    </b-row>
                     <div>
                         <div style="font-size:0.9em">{{article.product}}</div>
                         <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
@@ -44,6 +56,8 @@ export default {
             article : null,
             isZzim : null,
             id : this.$cookie.get("id"),
+            finDeal : false,
+            party : null,
         };
     },
 
@@ -53,6 +67,22 @@ export default {
             url : "article/"+this.articleNo,
         }).then(({data})=>{
             this.article=data.article;
+            axios_contact({
+                method : "get",
+                url : "/party?partyId="+data.article.partyId,
+            }).then(({data})=>{
+                // console.log(data)
+                this.party=data;
+                let count = 0;
+                for (let index = 0; index < data.length; index++) {
+                    if(data[index].isConfirmed){
+                        count+=1;
+                    }
+                }
+                if(count==data.length-1 && data.length > 1){
+                    this.finDeal=true;
+                }
+            })
         })
 
         axios_contact({
@@ -65,6 +95,8 @@ export default {
                 this.isZzim=false;
             }
         })
+
+        
     },
     mounted() {
         
@@ -106,6 +138,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style  scoped>
+.text-danger{
+    color : black;
+}
 </style>

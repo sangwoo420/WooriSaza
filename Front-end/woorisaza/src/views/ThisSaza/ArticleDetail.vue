@@ -7,6 +7,9 @@
             <div style="font-size:1em;font-weight:bold">{{article.title}}</div>
             <!-- 작성자 -->
             <div style="text-align:right;font-size:0.7em;cursor:pointer" @click="moveToUserpage">파티장 : {{article.author}}</div>
+            <div v-if="finDeal" class="mt-3" style="text-align:center">
+                <p class="finParty">거래가 완료된 파티입니다!</p>
+            </div>
             <!-- 상품 사진 -->
             <div>
                 <b-carousel
@@ -85,7 +88,7 @@
         </div>
         <!-- 댓글 -->
         <hr>
-        <div class="mt-3">
+        <div class="mt-3" v-if="!finDeal">
             <div class="p-2" style="border-radius: 2em;">
                 <!-- <img src="@/assets/comment.png" style="display:inline;width:7%" class="ml-1 mr-1"> -->
                 <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment"></b-form-textarea>
@@ -140,6 +143,7 @@ export default {
             inParty : false,
             bossId : null,
             isZzim : null,
+            finDeal : false,
         };
     },
     created() {
@@ -162,6 +166,15 @@ export default {
                     if(data[index].isBoss){
                         this.bossId = data[index].profileId;
                     }
+                }
+                let count = 0;
+                for (let index = 0; index < data.length; index++) {
+                    if(data[index].isConfirmed){
+                        count+=1;
+                    }
+                }
+                if(count==data.length-1 && data.length > 1){
+                    this.finDeal=true;
                 }
             })
         })
@@ -371,5 +384,11 @@ export default {
     font-size : 0.5em;
     padding: 0.5em;
     border-color: #FF0000  ;
+}
+
+.finParty{
+    font-weight: bold;   
+    background-color: #fdd000;
+    font-size: 25px;
 }
 </style>
