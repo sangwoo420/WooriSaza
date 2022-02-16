@@ -34,8 +34,8 @@ public class PartyResponseDto {
     private Integer myPrice; // 총 금액/현재 인원수
 
     public PartyResponseDto(Party party,MemberInfo memberInfo){
-        title= party.getArticle().getTitle();
-        tag=party.getArticle().getTag();
+        title= party.getArticle() == null ? "원글이 삭제된 파티입니다." : party.getArticle().getTitle();
+        //tag=party.getArticle().getTag();
         isBoss=memberInfo.getIsBoss();
         id=party.getId();
         deadline=party.getDeadline();
