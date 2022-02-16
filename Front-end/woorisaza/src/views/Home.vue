@@ -8,12 +8,12 @@
               <img src="@/assets/home_1.png" style="width:100%; backgroun-size : cover">
             </b-col>
             <b-col cols="5">
-              <div style="font-size:3.3vw">
+              <div style="font-size:3vw">
                 내가 원하는 물건을<br>
                 이웃과 함께<br>
                 저렴한 가격으로!<br>
               </div>
-              <button :class="{p_button:true}" @click="moveToGuide" style="font-size:2vw">시작하기</button>
+              <button :class="{p_button:true}" @click="moveToGuide" style="font-size:1.5vw">시작하기</button>
             </b-col>
           </b-row>
         </b-container>
@@ -31,7 +31,7 @@
             </b-col>
             <b-col cols="8">
               <img src="@/assets/icon.png" style="width:10%">
-              <div style="font-size:3vw">
+              <div style="font-size:2.8vw">
                 물건을 수령하면 대금이 전달되는<br>
                 시스템으로 더욱 안전한 거래!<br>
               </div>
@@ -54,7 +54,7 @@
       <div class="py-5 container" >
         <b-container>
           <h1 class="my-5" style="font-size:3vw">파티 만들기</h1>
-          <b-row align-v="center" class="my-5" style="font-size:1.5vw">
+          <b-row align-v="center" class="my-5" style="font-size:1.2vw">
             <b-col cols="3">
               <img :class="{t_img:true}" src="@/assets/home_glass.png" style="height:4.5em">
               <div :class="{d_card:true}">
@@ -96,7 +96,7 @@
       <div class="py-5 container">
         <b-container>
           <h1 class="my-5" style="font-size:3vw">파티 참여하기</h1>
-          <b-row align-v="center" class="my-5" style="font-size:1.5vw">
+          <b-row align-v="center" class="my-5" style="font-size:1.2vw">
             <b-col cols="3">
               <img :class="{t_img:true}" src="@/assets/home_glass.png" style="height:4.5em">
               <div :class="{d_card:true}">
