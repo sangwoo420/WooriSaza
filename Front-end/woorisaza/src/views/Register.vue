@@ -2,7 +2,7 @@
     <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%">
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
-                <b-container >
+                <b-container v-if="windowWidth>=1000">
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
@@ -54,6 +54,48 @@
                         </b-col>
                     </b-row>
                 </b-container>
+                <div :class="{box:true}" style="overflow-y:auto;" v-if="windowWidth<1000">
+                    <div class="p-5">
+                        <h2 style="text-align:center">회원가입</h2>
+                        <div class="mt-4">
+                            <b-container>
+                                <div>
+                                    닉네임
+                                    <b-form-input v-model="userProfile.nickname" placeholder="닉네임을 입력하세요."></b-form-input>
+                                </div>
+                                <div class="mt-4">
+                                    주소<br>
+                                    <b-form-input v-model="postcode" placeholder="우편번호" style="width:70%;display:inline" disabled></b-form-input>
+                                    <b-button variant="warning" @click="execDaumPostcode" class="ml-3" style="width:20%;display:inline">우편번호 찾기</b-button>
+                                    <b-form-input v-model="userProfile.address" placeholder="주소" class="mt-1" disabled></b-form-input>
+                                </div>
+
+                                <div class="mt-4">
+                                    프로필사진
+                                    <div style="text-align:center">
+                                        <div class="photo" style="display:inline-block"> 
+                                            <div v-if="image==null">
+                                                <br><br>
+                                                <img  src="@/assets/IDimage.png" alt="">
+                                            </div>
+                                            <div>
+                                                <br>
+                                                <img v-if="image!=null" :src="preImage" alt="" style="width : 140px; height:140px">
+                                            </div>
+                                        </div>
+                                        <div class="mt-1">
+                                            <b-form-file v-model="image" plain @change="registerImage" accept=".jpg, .png"></b-form-file>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4" style="text-align:center">
+                                    <!-- 탈퇴 수정 버튼 -->
+                                    <b-button variant="warning" class="ml-3" @click="register">회원 가입</b-button>
+                                </div>
+                            </b-container>
+                        </div>
+                    </div>
+                </div>
                 <!-- 모바일버전 -->
                 <!-- <Board></Board> -->
             </div>
@@ -75,6 +117,7 @@ export default {
                 nickname : null,
                 pic : null,
                 score : null, 
+                windowWidth: window.innerWidth
             },
             accesstoken : this.$cookie.get("Raccesstoken"),
             postcode:null,
@@ -98,7 +141,9 @@ export default {
         });
     },
     mounted() {
-
+        window.onresize = () => {
+            this.windowWidth = window.innerWidth
+        }
     },
 
     methods: {
