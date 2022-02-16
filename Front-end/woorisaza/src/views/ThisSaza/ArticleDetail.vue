@@ -275,7 +275,7 @@ export default {
             }).then(({data})=>{
                 console.log(data)
                 // data
-                // this.$router.go();
+                this.$router.go();
             })
         },
 
