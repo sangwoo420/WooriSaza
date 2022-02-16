@@ -58,7 +58,7 @@
                         </div>
                         <div class="mt-2">
                             파티 모집 마감일
-                            <input type="date" style="font-size : 0.8em" v-model="articleAndParty.deadline" :state="deadlineState">
+                            <input type="date" style="font-size : 0.8em" v-model="articleAndParty.deadline" :state="deadlineState" :min=today :max=todayMax>
                         </div>
                     </b-col>
                 </b-row>
@@ -134,10 +134,30 @@ export default {
             totalRecruitMemberState : null,
 
             check:null,
+            today : "",
+            todayMax : "",
         };
     },
 
     created() {
+        let today = new Date();   
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        this.today += year+"-"
+        this.todayMax += (year+1)+"-"
+        if(month<10){
+            this.today+="0"
+            this.todayMax+="0"
+        }
+        this.today+=month+"-"
+        this.todayMax+=month+"-"
+        if(date<10){
+            this.today+="0"
+            this.todayMax+="0"
+        }
+        this.today+=date
+        this.todayMax+=date
     },
     mounted() {
         

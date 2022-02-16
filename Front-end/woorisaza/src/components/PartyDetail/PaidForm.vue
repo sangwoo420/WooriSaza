@@ -20,10 +20,10 @@
             <div class="mt-3" v-if="bm==0">
                 <b-row>
                     <b-col>택배 예상 도착일</b-col>
-                    <b-col><input type="date" style="font-size : 0.8em" v-model="deliveryDate"></b-col>
+                    <b-col><input type="date" style="font-size : 0.8em" v-model="deliveryDate" :min=today :max=todayMax></b-col>
                 </b-row><b-row>
                     <b-col>파티원 예상 수령일</b-col>
-                    <b-col><input type="date" style="font-size : 0.8em" v-model="receiptDate" ></b-col>
+                    <b-col><input type="date" style="font-size : 0.8em" v-model="receiptDate" :min=today :max=todayMax></b-col>
                 </b-row>
             </div>
             <div class="mt-3" v-if="bm==1">
@@ -58,10 +58,31 @@ export default {
             partyId : this.$route.params.partyId,
             bm : this.$route.params.bm,
             updateOrNot : false,
+            today : "",
+            todayMax : "",
         };
     },
 
     created() {
+        let today = new Date();   
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        this.today += year+"-"
+        this.todayMax += (year+1)+"-"
+        if(month<10){
+            this.today+="0"
+            this.todayMax+="0"
+        }
+        this.today+=month+"-"
+        this.todayMax+=month+"-"
+        if(date<10){
+            this.today+="0"
+            this.todayMax+="0"
+        }
+        this.today+=date
+        this.todayMax+=date
+
         axios_contact({
             method : "get",
             url : "/paidForm/"+this.partyId,
@@ -70,8 +91,26 @@ export default {
             // this.image = data.paidForm.pic;
             this.preImage = data.paidForm.pic;
             this.billingNO=data.paidForm.billingNo;
-            this.deliveryDate = data.paidForm.deliveryDate[0]+"-"+data.paidForm.deliveryDate[1]+"-"+data.paidForm.deliveryDate[2];
-            this.receiptDate = data.paidForm.receiptDate[0]+"-"+data.paidForm.receiptDate[1]+"-"+data.paidForm.receiptDate[2];
+
+            this.deliveryDate = data.paidForm.deliveryDate[0]+"-";
+            if(data.paidForm.deliveryDate[1]<10){
+                this.deliveryDate+="0"
+            }
+            this.deliveryDate+=data.paidForm.deliveryDate[1]+"-"
+            if(data.paidForm.deliveryDate[2]<10){
+                this.deliveryDate+="0"
+            }
+            this.deliveryDate+=data.paidForm.deliveryDate[2]
+            
+            this.receiptDate = data.paidForm.receiptDate[0]+"-";
+            if(data.paidForm.receiptDate[1]<10){
+                this.receiptDate+="0"
+            }
+            this.receiptDate+=data.paidForm.receiptDate[1]+"-"
+            if(data.paidForm.receiptDate[2]<10){
+                this.receiptDate+="0"
+            }
+            this.receiptDate+=data.paidForm.receiptDate[2]
             this.updateOrNot=true;
         })
     },
