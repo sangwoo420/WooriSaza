@@ -88,7 +88,7 @@
         </div>
         <!-- 댓글 -->
         <hr>
-        <div class="mt-3" v-if="!finDeal">
+        <div class="mt-3">
             <!-- 사람들 댓글 쓴 거 -->
             <!-- 댓글듯 for문 -->
             <div :key="commentRerender">
@@ -120,7 +120,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="p-2" style="border-radius: 2em;">
+            <div class="p-2" style="border-radius: 2em;" v-if="!finDeal">
                 <!-- <img src="@/assets/comment.png" style="display:inline;width:7%" class="ml-1 mr-1"> -->
                 <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment"></b-form-textarea>
                 <b-button style="display:inline;width:9%;" @click="registerComment">등록</b-button>

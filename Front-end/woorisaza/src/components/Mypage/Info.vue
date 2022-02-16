@@ -120,21 +120,22 @@ export default {
         },
 
         deleteUser(){
-            // console.log("응애 탈퇴")
-            axios_contact({
-                method : "delete",
-                url : "/user/delete",
-                data : {
-                    id : this.id
-                }
-            }).then(({data})=>{
-                console.log(data)
-                this.$cookie.delete("Raccesstoken");
-                this.$cookie.delete("accesstoken");
-                this.$cookie.delete("id");
-                this.$router.push("/");
-                this.$router.go("");
-            })
+            if(confirm("정말 탈퇴하시겠습니까?")==true){
+                axios_contact({
+                    method : "delete",
+                    url : "/user/delete",
+                    data : {
+                        id : this.id
+                    }
+                }).then(({data})=>{
+                    console.log(data)
+                    this.$cookie.delete("Raccesstoken");
+                    this.$cookie.delete("accesstoken");
+                    this.$cookie.delete("id");
+                    this.$router.push("/");
+                    this.$router.go("");
+                })
+            }
         },
 
         registerImage(event){
