@@ -40,7 +40,7 @@ export default {
 
     methods: {
         toMyQuestion(){
-           this.$router.push("/mypage/question").catch(()=>{});;
+           this.$router.push("/mypage/question/null").catch(()=>{});;
        },
     },
 };

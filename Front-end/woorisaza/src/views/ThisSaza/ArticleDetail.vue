@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="article != null && user !=null">
+    <div  v-if="article != null">
         <!-- {{articleNo}} -->
         <!-- 글 내용 -->
         <div>

@@ -50,13 +50,7 @@
                                                 <b-col>{{qna.category.substr(0,8)}}...</b-col>
                                                 <b-col>{{qna.title.substr(0,7)}}...</b-col>
                                                 <b-col>
-                                                    <b-button variant="success" size="sm" v-b-toggle="String(qna.id)">전체보기</b-button>
-                                                    <b-collapse :id="String(qna.id)" class="mt-2">
-                                                        <div class="p-2" style="border-radius: 2em;">
-                                                            <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment.content"></b-form-textarea>
-                                                            <b-button style="display:inline;width:9%;" @click="modifyComment(comment)">등록</b-button>
-                                                        </div>
-                                                    </b-collapse>
+                                                    <b-button variant="success" size="sm" @click="moveToQna(qna)">답변하기</b-button>
                                                 </b-col>
                                             </b-row>
                                         </div>
@@ -130,6 +124,9 @@ export default {
                 console.log(data)
                 this.$router.go()
             })
+        },
+        moveToQna(qna){
+            this.$router.push("/mypage/question/"+qna.id)
         },
     },
 };

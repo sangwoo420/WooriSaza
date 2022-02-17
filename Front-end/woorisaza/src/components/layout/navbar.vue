@@ -30,7 +30,7 @@
                             <template #button-content>
                                 <em><img src="@/assets/saza.png" style="width:40px"></em>
                             </template>
-                            <b-dropdown-item router-link to="/admin" v-if="user.isAdmin">관리자</b-dropdown-item>
+                            <b-dropdown-item router-link to="/admin" v-if="user!=null && user.isAdmin">관리자</b-dropdown-item>
                             <b-dropdown-item router-link to="/mypage">마이페이지</b-dropdown-item>
                             <b-dropdown-item router-link to="/" @click="logout">로그아웃</b-dropdown-item>
                             </b-nav-item-dropdown>

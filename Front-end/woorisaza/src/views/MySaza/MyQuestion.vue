@@ -6,7 +6,7 @@
                     <b-row class="">
                         <b-col></b-col>
                         <b-col cols="7">
-                            <div :class="{box:true}" style="overflow-y:auto;">
+                            <div :class="{box:true}" style="overflow-y:auto;" v-if="qna==null">
                                 <div class="p-5">
                                     <h2>1:1 문의</h2>
                                     <div class="my-5">
@@ -51,6 +51,68 @@
                                         <!-- 취소 완료 버튼 -->
                                         <b-button variant="secondary" class="mr-3" @click="cancelQuestion">작성 취소</b-button>
                                         <b-button variant="warning" class="ml-3" @click="createQuestion">작성 완료</b-button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div :class="{box:true}" style="overflow-y:auto;" v-if="qna!=null">
+                                <div class="p-5">
+                                    <h2>1:1 문의</h2>
+                                    <div class="my-5">
+                                      <b-row>       
+                                        <b-col cols="2">
+                                            <div>
+                                                
+                                            </div>
+                                        </b-col>
+                                        <b-col cols="8">
+                                            <div class="my-3">
+                                                <p>문의 유형</p>
+                                                <b-form-select v-model="qna.category" :options="categories" size="sm" style="width:60%" disabled></b-form-select>
+                                            </div>
+                                            <div class="my-3">
+                                                <p>문의 제목</p>
+                                                <b-form-textarea
+                                                  id="title"
+                                                  v-model="qna.title"
+                                                  size="sm"
+                                                  placeholder="제목을 입력하세요"
+                                                  disabled
+                                                ></b-form-textarea>
+                                            </div>
+                                            <div class="my-3">
+                                                <p>문의 내용</p>
+                                                <b-form-textarea
+                                                  id="context"
+                                                  placeholder="내용을 입력하세요"
+                                                  v-model="qna.content"
+                                                  rows="8"
+                                                  disabled
+                                                ></b-form-textarea>
+                                            </div>
+                                            <div>
+                                                <p>답변 내용</p>
+                                                <b-form-textarea
+                                                  id="context"
+                                                  placeholder="내용을 입력하세요"
+                                                  v-model="qna.comment"
+                                                  rows="8"
+                                                ></b-form-textarea>
+                                            </div>
+                                        </b-col>    
+                                        <b-col cols="2">
+                                            <div>
+                                            </div>
+                                        </b-col>  
+                                      </b-row>                                        
+                                    </div>
+                                    <div class="mt-5" style="text-align:center">
+                                        <!-- 취소 완료 버튼 -->
+                                        <b-button variant="secondary" class="mr-3" @click="cancelAnswer">답변 취소</b-button>
+                                        <b-button variant="warning" class="ml-3" @click="createAnswer">답변 완료</b-button>
                                     </div>
                                 </div>
                             </div>
@@ -135,8 +197,21 @@ export default {
             content : null,
             profileId : this.$cookie.get('id'),
             pic : [],
-            windowWidth: window.innerWidth
+            windowWidth: window.innerWidth,
+            qnaid : this.$route.params.qnaid,
+            qna : null,
         };
+    },
+    created() {
+        if(this.qnaid!="null"){
+            axios_contact({
+                method : "get",
+                url : "/qna?qnaId="+this.qnaid
+            }).then(({data})=>{
+                // console.log(data)
+                this.qna=data.qnaDetail
+            })
+        }
     },
     mounted() {
         window.onresize = () => {
@@ -163,6 +238,20 @@ export default {
         }).then(({data})=>{
             data
             this.$router.push("/mypage")
+        })
+    },
+
+    cancelAnswer(){
+        this.$router.push("/admin")
+    },
+    createAnswer(){
+        console.log(this.qna)
+        axios_contact({
+            method : "put",
+            url : "/qna/admin",
+            data : this.qna
+        }).then(({data})=>{
+            console.log(data)
         })
     },
   }

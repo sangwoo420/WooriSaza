@@ -78,7 +78,7 @@ const routes = [
     component: MyPage,
   },
   {
-    path: "/mypage/question",
+    path: "/mypage/question/:qnaid",
     name: "MyQuestion",
     component: MyQuestion,
   },
