@@ -95,9 +95,7 @@ public class QnaServiceImpl implements QnaService{
     @Override
     public List<String> upload(List<MultipartFile> uploadFiles) throws Exception {
         List<String>filename=new ArrayList<>();
-        System.out.println("여기오나2");
         for (MultipartFile uploadFile : uploadFiles) {
-            System.out.println("여기오나3");
             // 파일 정보
             String originFilename = uploadFile.getOriginalFilename(); //파일이름
             String extension = originFilename.substring(originFilename.length()-3); //확장자
