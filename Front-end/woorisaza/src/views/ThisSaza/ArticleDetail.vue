@@ -8,7 +8,7 @@
             <!-- 작성자 -->
             <div style="text-align:right;font-size:0.7em;cursor:pointer" @click="moveToUserpage">파티장 : {{article.author}}</div>
             <div v-if="finDeal" class="mt-3" style="text-align:center">
-                <p class="finParty">거래가 완료된 파티입니다!</p>
+                <p class="finParty" style="color:white">거래가 완료된 파티입니다!</p>
             </div>
             <div v-if="dateover" class="mt-3" style="text-align:center">
                 <p class="dateOver">기간이 만료된 파티입니다!</p>
