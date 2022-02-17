@@ -150,6 +150,7 @@ public class ArticleServiceImpl implements ArticleService {
             article.setParty(party);
             article = articleRepo.save(article);
 
+
             MemberInfo memberInfo = new MemberInfo();
             memberInfo.setIsBoss(true);
             memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
@@ -187,7 +188,12 @@ public class ArticleServiceImpl implements ArticleService {
             party.setProduct(articleAndPartyRequestDto.getProduct());
             party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
             party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
+            party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+            party.setPenalty(articleAndPartyRequestDto.getPenalty());
+            party.setCurrentRecruitMember(articleAndPartyRequestDto.getAmount());
             party = partyRepo.save(party);
+
+
 
             article.setTitle(articleAndPartyRequestDto.getTitle());
             article.setContent(articleAndPartyRequestDto.getContent());
@@ -197,6 +203,7 @@ public class ArticleServiceImpl implements ArticleService {
             article.setTag(null);
             article.setParty(party);
             article = articleRepo.save(article);
+
 
             List<MemberInfo> memberInfos = memberInfoRepo.findAllByParty(party);
             for (MemberInfo memberInfo : memberInfos) {
