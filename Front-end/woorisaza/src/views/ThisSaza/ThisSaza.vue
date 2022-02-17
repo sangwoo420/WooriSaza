@@ -149,7 +149,7 @@ export default {
     .button {
         position: fixed;
         top:75%;
-        left: 90%;
+        left: 80%;
     }
     .chat {
         position: fixed;
