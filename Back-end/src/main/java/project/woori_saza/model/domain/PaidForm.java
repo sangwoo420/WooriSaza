@@ -19,7 +19,7 @@ public class PaidForm {
 
     private String pic;
 
-    private Integer billingNo;
+    private String billingNo;
 
     private LocalDate deliveryDate;
 
@@ -30,7 +30,7 @@ public class PaidForm {
     private Party party;
 
     @Builder
-    public PaidForm(String pic, Integer billingNo, LocalDate deliveryDate, LocalDate receiptDate) {
+    public PaidForm(String pic, String billingNo, LocalDate deliveryDate, LocalDate receiptDate) {
         this.pic = pic;
         this.billingNo = billingNo;
         this.deliveryDate = deliveryDate;
