@@ -3,7 +3,7 @@
         <!-- {{articleNo}} -->
         <div  v-if="article != null">
             <b-row>
-                <b-col>
+                <b-col cols="4">
                     <div style="cursor:pointer">
                         <!-- <b-img thumbnail @click="moveToDetail" :src="article.pic[0]" alt="" style="width:150px;height:150px"></b-img> -->
                         <b-card
@@ -17,29 +17,35 @@
                         </b-card>
                     </div>
                 </b-col>
-                <b-col>
+                <b-col cols="8">
                     <b-row>
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">
-                            {{title}}
-                        </div>
+                        <b-col sm="12">
+                            <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">
+                                {{title}}
+                            </div>
+                            <b-row>
+                                <b-col sm="8">
+                                    <div>
+                                        <div style="font-size:0.9em">{{product}}</div>
+                                        <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
+                                        <div>{{article.myPrice}}원</div>
+                                    </div>
+                                </b-col>
+                                <b-col>
+                                    <div style="text-align:right" class="mt-5">
+
+                                        <div v-if="isZzim"><img src="@/assets/zzimOn.png" style="width:20px;cursor:pointer" @click="deleteZZim"></div>
+                                        <div v-if="!isZzim"><img src="@/assets/zzimOff.png" style="width:20px;cursor:pointer" @click="addZZim"></div>
+
+                                        <div style="font-size:0.7em" class="mt-2">
+                                            {{article.currentRecruitMember}}명/{{article.totalRecruitMember}}명<br>
+                                            기간 : ~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}}
+                                        </div>
+                                    </div>
+                                </b-col>
+                            </b-row>
+                        </b-col>
                     </b-row>
-                    <div>
-                        <div style="font-size:0.9em">{{article.product}}</div>
-                        <div style="font-size:0.9em; text-decoration:line-through" class="mt-3">{{article.totalPrice}}원</div>
-                        <div>{{article.myPrice}}원</div>
-                    </div>
-                </b-col>
-                <b-col>
-                    <div style="text-align:right" class="mt-5">
-
-                        <div v-if="isZzim"><img src="@/assets/zzimOn.png" style="width:20px;cursor:pointer" @click="deleteZZim"></div>
-                        <div v-if="!isZzim"><img src="@/assets/zzimOff.png" style="width:20px;cursor:pointer" @click="addZZim"></div>
-
-                        <div style="font-size:0.7em" class="mt-2">
-                            {{article.currentRecruitMember}}명/{{article.totalRecruitMember}}명<br>
-                            기간 : ~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}}
-                        </div>
-                    </div>
                 </b-col>
             </b-row>
         </div>
@@ -60,6 +66,7 @@ export default {
             finDeal : false,
             party : null,
             title : "",
+            product:"",
             dateover : false,
         };
     },
@@ -73,12 +80,23 @@ export default {
             // if(this.article.currentRecruitMember == this.article.totalRecruitMember){
             //     this.finDeal=true;
             // }
-            if(this.article.title.length > 9){
-                this.title = this.article.title.substring(0,9)+"..."
+
+            // 파티 제목 길이 조절
+            if(this.article.title.length > 20){
+                this.title = this.article.title.substring(0,18)+"..."
             }
             else{
-                this.title = this.article.title.substring(0,12)
+                this.title = this.article.title
             }
+
+            // 파티 상품명 길이 조절
+            if(this.article.product.length > 16){
+                this.product = this.article.product.substring(0,15)+"..."
+            }
+            else{
+                this.product = this.article.product
+            }
+            
             let today = new Date();   
             let year = today.getFullYear(); // 년도
             let month = today.getMonth() + 1;  // 월

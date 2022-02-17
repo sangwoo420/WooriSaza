@@ -9,20 +9,16 @@
                 <b-col cols="10">
                     <b-col sm="12">
                         <!-- 채팅방 이름 (파티 제목) -->
-                        <div>{{room.name}}</div>
+                        <div>{{roomName}}</div>
                         <b-row>
                             <b-col sm="8" style="font-size:11px">
-                                <div v-if="this.lastChat >= 0">
-                                    {{room.msgList[lastChat].content}}
-                                </div>
-                                <div v-if="this.lastChat < 0">
-                                    대화가 시작되지 않은 방입니다.
-                                </div>
+                                <!-- 채팅방 마지막 채팅 -->
+                                {{lastChat}}
                             </b-col>
                             <b-col sm="4" style="text-align:right">
                                 <div style="font-size:10px">
-                                    <div v-if="this.lastChat >= 0">
-                                        {{room.msgList[lastChat].time}}
+                                    <div v-if="this.lastLen >= 0">
+                                        {{room.msgList[lastLen].time}}
                                     </div>
                                 </div>
                             </b-col>
@@ -55,8 +51,32 @@ export default {
                 size: 50,                                // 420px square
                 format: 'png'                             // use SVG instead of PNG
             },
-            lastChat : this.room.msgList.length-1,
+            lastLen : this.room.msgList.length-1,
+            roomName:"",
+            lastChat : "",
         };
+    },
+
+    created(){
+        // 채팅방 제목 길이 조절
+        if(this.room.name.length > 20){
+            this.roomName = this.room.name.substring(0,14)+"..."
+        }
+        else{
+            this.roomName = this.room.name
+        }
+
+        // 채팅방 마지막 대화 길이 조절
+        if(this.lastLen >= 0){
+            if(this.room.msgList[this.lastLen].content.length > 20){
+                this.lastChat = this.room.msgList[this.lastLen].content.substring(0,14)+"..."
+            }else{
+                this.lastChat = this.room.msgList[this.lastLen].content
+            }
+        }else{
+            this.lastChat = "대화가 시작되지 않은 방입니다."
+        }
+
     },
 
     mounted() {

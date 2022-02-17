@@ -92,7 +92,14 @@ export default {
             url : "/chat/room/enter/"+this.roomId,
         }).then(({data})=>{
             // console.log(data);
-            this.roomName = data.chatRoom.name;
+            // 채팅방 제목 길이 조절
+            if(data.chatRoom.name.length > 20){
+                this.roomName = data.chatRoom.name.substring(0,14)+"..."
+            }
+            else{
+                this.roomName = data.chatRoom.name
+            }
+
             this.roomChat = data.chatRoom.msgList;
             this.roomCnt = data.chatRoom.count;
         })
