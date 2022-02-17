@@ -23,7 +23,14 @@
                 </div>
 
                 <!-- 채팅창 글쓰기 버튼 -->
-                <div class="chat" v-if="!chatShow">
+                <div class="chat2" v-if="!chatShow&&(windowWidth<1000)">
+                    <transition name="fade">
+                        <div >
+                            <ChatList @chatShowFromChild="chatOff"></ChatList>
+                        </div>
+                    </transition>
+                </div>
+                <div class="chat" v-if="!chatShow&&(windowWidth>=1000)">
                     <transition name="fade">
                         <div >
                             <ChatList @chatShowFromChild="chatOff"></ChatList>
@@ -157,6 +164,14 @@ export default {
         left: 60%;
         width: 400px;
         height: 600px;
+    }
+
+    .chat2 {
+        position: fixed;
+        bottom: 5%;
+        left: 0%;
+        width: 300px;
+        height: 500px;
     }
     
     .fade-enter-active, .fade-leave-active {

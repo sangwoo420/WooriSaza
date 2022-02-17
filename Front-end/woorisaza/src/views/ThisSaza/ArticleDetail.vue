@@ -158,9 +158,18 @@ export default {
             finDeal : false,
             mod : null,
             dateover:false,
+            user : null,
         };
     },
     created() {
+        axios_contact({
+            method : "get",
+            url : "/user/"+this.id,
+        }).then(({data})=>{
+            console.log(data)
+            this.user = data.profile
+        })
+
         // 이 부분은 글쓰기 부분에서 사진 필드에 바로 썸네일 사진 링크 넣어주기
         axios_contact({
             method : "get",
