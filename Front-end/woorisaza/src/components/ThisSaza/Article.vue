@@ -142,7 +142,12 @@ export default {
 
     methods: {
         moveToDetail(){
-            this.$router.push("/board/"+this.articleNo).catch(()=>{});
+            if(this.id==null){
+                this.$router.push("/mysaza/null").catch(()=>{});
+            }
+            else{
+                this.$router.push("/board/"+this.articleNo).catch(()=>{});
+            }
         },
         addZZim(){
             this.isZzim = true;
