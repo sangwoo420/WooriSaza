@@ -73,10 +73,6 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     //회원 삭제
     @Override
     public void deleteMemberInfo(Long partyId,String profileId) {
-//        MemberInfo memberInfo=memberInfoRepo.getById(memberinfoId);
-//        Party party=memberInfo.getParty();
-//        party.setCurrentRecruitMember(party.getCurrentRecruitMember()-1);
-//        memberInfoRepo.deleteById(memberinfoId);
         UserProfile userProfile=userProfileRepo.getById(profileId);
 
         List<MemberInfo> memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
