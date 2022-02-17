@@ -31,7 +31,7 @@
             </b-col>
             <b-col cols="8">
               <img src="@/assets/icon.png" style="width:10%">
-              <div style="font-size:2.8vw">
+              <div style="font-size:2vw">
                 물건을 수령하면 대금이 전달되는<br>
                 시스템으로 더욱 안전한 거래!<br>
               </div>
@@ -44,7 +44,7 @@
 
     <div>
       <div class="py-5 container">
-        <div style="font-size:4vw">어떻게 이용하나요?</div>
+        <div style="font-size:3vw">어떻게 이용하나요?</div>
         <img src="@/assets/home_crown.png" style="width:10%">
         <div style="font-size:3vw">파티장</div>
       </div>
