@@ -49,8 +49,6 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         //해당 파티 인원수 선택 수량만큼 + 해주기
         party.setCurrentRecruitMember(party.getCurrentRecruitMember()+memberInfoRequestDto.getAmount());
 
-
-
         partyRepo.save(party);
         //memberinfo에 저장
         MemberInfo memberInfo=MemberInfo.builder()
@@ -70,7 +68,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         chatRoomJoinRepo.save(chatRoomJoin);
     }
 
-    //회원 삭제
+    //참가 취소
     @Override
     public void deleteMemberInfo(Long partyId,String profileId) {
         UserProfile userProfile=userProfileRepo.getById(profileId);
@@ -84,6 +82,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
                 memberInfoRepo.deleteById(memberInfo.getId());
             }
         }
+
 
         // 채팅방 퇴장
         Article article = articleRepo.findByParty(party);

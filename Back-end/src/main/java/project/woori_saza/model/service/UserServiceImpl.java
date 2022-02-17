@@ -45,6 +45,9 @@ public class UserServiceImpl implements UserService {
     ChatRoomJoinRepo chatRoomJoinRepo;
 
     @Autowired
+    PartyRepo partyRepo;
+
+    @Autowired
     private RestTemplate restTemplate;
 
 
@@ -141,6 +144,12 @@ public class UserServiceImpl implements UserService {
         /* 회원과 관련된 글 목록과 댓글의 연관관계 끊기, 나머지는 삭제 */
         List<Article> articleList = articleRepo.findByUserProfileIsNotNullAndUserProfileOrderByCreatedAtDesc(user);
         for (Article article : articleList) {
+            Party party=article.getParty();
+            List<MemberInfo>memberInfos=party.getMemberInfos();
+            for (MemberInfo memberInfo : memberInfos) {
+                party.setCurrentRecruitMember(party.getCurrentRecruitMember() - memberInfo.getAmount());
+            }
+            partyRepo.save(party);
             article.setUserProfile(null);
             articleRepo.save(article);
         }

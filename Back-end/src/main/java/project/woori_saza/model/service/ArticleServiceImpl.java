@@ -193,8 +193,6 @@ public class ArticleServiceImpl implements ArticleService {
             party.setCurrentRecruitMember(articleAndPartyRequestDto.getAmount());
             party = partyRepo.save(party);
 
-
-
             article.setTitle(articleAndPartyRequestDto.getTitle());
             article.setContent(articleAndPartyRequestDto.getContent());
             article.setLink(articleAndPartyRequestDto.getLink());
