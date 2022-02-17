@@ -139,7 +139,7 @@ public class QnaServiceImpl implements QnaService{
     }
 
     /**
-     * 1:1 문의 수정 - 작성자
+     * 1:1 문의 수정 - 관리자
      */
     @Override
     @Transactional
@@ -155,7 +155,7 @@ public class QnaServiceImpl implements QnaService{
     }
 
     /**
-     * 1:1 문의 삭제 - 작성자, 관리자
+     * 1:1 문의 삭제 - 관리자
      */
     @Override
     @Transactional

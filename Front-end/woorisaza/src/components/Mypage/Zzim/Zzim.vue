@@ -5,7 +5,7 @@
                 <b-col cols="8">
                     <div>
                         <!-- <div :class="{statebox:true}">거래 완료</div> -->
-                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{article.title}}</div>
+                        <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">{{articleName}}</div>
                         <div style="font-size:0.9em">기간: ~{{article.deadline[0]}}.{{article.deadline[1]}}.{{article.deadline[2]}}</div>
                         <div style="font-size:0.9em">모집인원: {{article.currentRecruitMember}}/{{article.totalRecruitMember}}</div>
                         
@@ -34,6 +34,7 @@ export default {
     data() {
         return {
             article : null,
+            articleName:"",
         };
     },
 
@@ -43,6 +44,14 @@ export default {
             url : "/article/"+this.zzim.articleId,
         }).then(({data})=>{
             this.article=data.article;
+
+            // 게시글 제목 길이 조절
+            if(this.article.title.length > 20){
+                this.articleName = this.article.title.substring(0,14)+"..."
+            }
+            else{
+                this.articleName = this.article.title
+            }   
         })
     },
 
