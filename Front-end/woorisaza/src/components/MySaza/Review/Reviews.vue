@@ -1,8 +1,8 @@
 <template>
     <div>
-        <!-- 나에게 작성된 후기 -->
+        <!-- 작성된 후기 -->
         <div v-if="reviewList.length == 0" style="text-align:center">
-            나에게 작성된 후기가 없습니다.
+            작성된 후기가 없습니다.
         </div>
         <div v-if="reviewList.length > 0">
             <div v-for="(item, index) in reviewList" :key="index">
