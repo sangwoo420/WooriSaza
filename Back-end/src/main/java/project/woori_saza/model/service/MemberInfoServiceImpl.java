@@ -85,8 +85,10 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         // 채팅방 퇴장
         Article article = articleRepo.findByParty(party);
         List<ChatRoom> chatRoomList = chatRoomRepo.findChatRoomByArticleId(article.getId());
+        chatRoomList.get(0).setCount(chatRoomList.get(0).getCount()-1);
         System.out.println("chatRoomList = " + chatRoomList);
         System.out.println("userProfile.getId() = " + userProfile.getId());
+        chatRoomList.get(0).setCount(chatRoomList.get(0).getCount()-1);
         chatRoomJoinRepo.deleteChatRoomJoinByChatRoomAndUserProfile(chatRoomList.get(0), userProfile);
 
     }
