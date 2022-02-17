@@ -37,7 +37,7 @@
                                     </b-collapse>
                                 </div>
                                 <div class="mt-3">
-                                    <b-button v-b-toggle.collapse-2 variant="primary">문의 관리</b-button>
+                                    <b-button v-b-toggle.collapse-2 variant="warning">문의 관리</b-button>
                                     <b-collapse id="collapse-2" class="mt-2 box p-2">
                                         <div>
                                             <b-row style="font-weight:bold">
