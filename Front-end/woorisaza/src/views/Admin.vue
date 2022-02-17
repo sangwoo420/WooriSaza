@@ -38,10 +38,28 @@
                                 </div>
                                 <div class="mt-3">
                                     <b-button v-b-toggle.collapse-2 variant="primary">문의 관리</b-button>
-                                    <b-collapse id="collapse-2" class="mt-2">
-                                        <b-card>
-                                        <p class="card-text">Collapse contents Here</p>
-                                        </b-card>
+                                    <b-collapse id="collapse-2" class="mt-2 box p-2">
+                                        <div>
+                                            <b-row style="font-weight:bold">
+                                                <b-col>카테고리</b-col>
+                                                <b-col>제목</b-col>
+                                                <b-col></b-col>
+                                            </b-row>
+                                            <hr>
+                                            <b-row v-for="(qna, index) in qnaList" :key="index" class="mt-1">
+                                                <b-col>{{qna.category.substr(0,8)}}...</b-col>
+                                                <b-col>{{qna.title.substr(0,7)}}...</b-col>
+                                                <b-col>
+                                                    <b-button variant="success" size="sm" v-b-toggle="String(qna.id)">전체보기</b-button>
+                                                    <b-collapse :id="String(qna.id)" class="mt-2">
+                                                        <div class="p-2" style="border-radius: 2em;">
+                                                            <b-form-textarea placeholder="댓글을 입력하세요." size="sm" class="mr-1" style="display:inline;width:90%" v-model="comment.content"></b-form-textarea>
+                                                            <b-button style="display:inline;width:9%;" @click="modifyComment(comment)">등록</b-button>
+                                                        </div>
+                                                    </b-collapse>
+                                                </b-col>
+                                            </b-row>
+                                        </div>
                                     </b-collapse>
                                 </div>
                             </div>
@@ -65,6 +83,7 @@ export default {
             id : this.$cookie.get("id"),
             user : null,
             articleList : null,
+            qnaList : null,
         };
     },
     created() {
@@ -81,6 +100,14 @@ export default {
         }).then(({data})=>{
             // console.log(data)
             this.articleList = data.articleList
+        })
+
+        axios_contact({
+            method : "get",
+            url : "/qna/admin",
+        }).then(({data})=>{
+            // console.log(data)
+            this.qnaList = data.qnaList
         })
     },
     mounted() {

@@ -1,5 +1,5 @@
 <template>
-    <div style="" v-if="user!=null">
+    <div style="">
         <div>
             <b-navbar toggleable="lg" type="white" >
                 <b-navbar-nav>
