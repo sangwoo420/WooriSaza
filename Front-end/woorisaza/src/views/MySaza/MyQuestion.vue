@@ -252,6 +252,7 @@ export default {
             data : this.qna
         }).then(({data})=>{
             console.log(data)
+            this.$router.push("/admin")
         })
     },
   }
