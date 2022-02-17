@@ -3,35 +3,34 @@
         <!-- {{room}} -->
         <b-container class="bv-example-row">
             <b-row @click="clickRoom">
-                <b-col cols="3"><b-img  :src="data" v-bind="mainProps" rounded="circle" alt="Circle image" thumbnail ></b-img></b-col>
-                <b-col cols="6">
-                    <div>
-                        <!-- 채팅방 이름 (파티 제목) -->
-                        {{room.name}}
-                    </div>
-                    <div style="font-size:10px">
-                        <!--마지막 댓글 보여주기-->
-                        <div v-if="this.lastChat >= 0">
-                            {{room.msgList[lastChat].content}}
-                        </div>
-                        <div v-if="this.lastChat < 0">
-                            대화가 시작되지 않은 방입니다.
-                        </div>
-                    </div>
+                <b-col cols="2">
+                    <b-img  :src="data" v-bind="mainProps" rounded="circle" alt="Circle image" thumbnail ></b-img>
                 </b-col>
-                <b-col cols="3">
-                    <div style="text-align:right">
-                        <div >
-                            <b-icon icon="chat-fill" variant="danger"></b-icon>
-                        </div>
-                        <div style="font-size:10px">
-                            <div v-if="this.lastChat >= 0">
-                                {{room.msgList[lastChat].time}}
-                            </div>
-                        </div>
-                    </div>
+                <b-col cols="10">
+                    <b-col sm="12">
+                        <!-- 채팅방 이름 (파티 제목) -->
+                        <div>{{room.name}}</div>
+                        <b-row>
+                            <b-col sm="8" style="font-size:11px">
+                                <div v-if="this.lastChat >= 0">
+                                    {{room.msgList[lastChat].content}}
+                                </div>
+                                <div v-if="this.lastChat < 0">
+                                    대화가 시작되지 않은 방입니다.
+                                </div>
+                            </b-col>
+                            <b-col sm="4" style="text-align:right">
+                                <div style="font-size:10px">
+                                    <div v-if="this.lastChat >= 0">
+                                        {{room.msgList[lastChat].time}}
+                                    </div>
+                                </div>
+                            </b-col>
+                        </b-row>
+                    </b-col>
                 </b-col>
             </b-row>
+
         </b-container>
         <hr>
     </div>
@@ -73,11 +72,11 @@ export default {
 </script>
 
 <style scoped>
-.col-3{
+.col-2{
     padding-right: 0;
     padding-left: 0;
 }
-.col-6{
+.col-10{
     padding-right: 0;
     padding-left: 0;
 }

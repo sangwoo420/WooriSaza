@@ -1,7 +1,12 @@
 <template>
     <div class="mb-2">
         <!-- {{room}} -->
-        <div class="title">{{roomName}}</div><br><hr>
+        <div class="title">
+            <b-row>
+                <b-col cols="1"><b-icon-chevron-left @click="backToList" style="cursor:pointer"></b-icon-chevron-left></b-col>
+                <b-col cols="11">{{roomName}}</b-col>
+            </b-row>
+        </div><br><hr>
         <div class="chat" ref="chatMessages">
             <div v-for="(item, index) in roomChat" :key="index" class="mt-1">
                 <!-- 내가 보낸거 -->
@@ -138,6 +143,9 @@ export default {
                 }
             });
         },
+        backToList(){
+            
+        }
     },
 };
 
@@ -169,6 +177,7 @@ export default {
 
 .title{
     position: fixed;
+    width:380px;
 }
 .box{
     padding: 5px;

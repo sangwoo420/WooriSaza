@@ -1,10 +1,12 @@
 <template>
     <div class="chat p-2">
-            <!-- 채팅창 헤더 -->
-            <div style="position: fixed;">
-                <img src="@/assets/saza.png" style="width:30px">
-                사자 채팅
-                <b-icon-x-circle @click="offChat" style="cursor:pointer"></b-icon-x-circle>
+            <div style="position: fixed; width:380px">
+                <!-- 채팅창 헤더 -->
+                <b-row>
+                    <b-col sm="2"><img src="@/assets/saza.png" style="width:30px"></b-col>
+                    <b-col sm="8" style="text-align:left; padding-left:0px; padding-top:5px">사자 채팅</b-col>
+                    <b-col sm="2" style="text-align:right"><b-icon-x-circle @click="offChat" style="cursor:pointer"></b-icon-x-circle></b-col>
+                </b-row>
             </div>
 
             <div class="pt-5">
