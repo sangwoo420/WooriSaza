@@ -58,6 +58,6 @@ node SimpleImageUpload.js
     - 회원가입 후 웹 사이트에서 API 키를 발급받아 사용
 
 # 3. DB 덤프 파일
-
+[DB 덤프 파일](./woorisaza_dump.sql)
 # 4. 시연 시나리오
 [시연 시나리오](./woorisaza_scenario.pdf)
