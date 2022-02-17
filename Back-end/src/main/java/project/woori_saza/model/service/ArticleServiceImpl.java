@@ -176,36 +176,40 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public ArticleResponseDto updateArticle(ArticleAndPartyRequestDto articleAndPartyRequestDto, Long articleId) {
+        if (articleAndPartyRequestDto.getTotalRecruitMember() <= articleAndPartyRequestDto.getAmount()) {
+            throw new RuntimeException("전체 인원수보다 선택 인원수가 더 많습니다.");
+        } else {
+            Article article = articleRepo.getById(articleId);
 
-        Article article = articleRepo.getById(articleId);
+            Party party = article.getParty();
+            party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
+            party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
+            party.setProduct(articleAndPartyRequestDto.getProduct());
+            party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
+            party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
+            party = partyRepo.save(party);
 
-        Party party = article.getParty();
-        party.setDeadline(LocalDateTime.parse(articleAndPartyRequestDto.getDeadline(), DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")));
-        party.setTotalRecruitMember(articleAndPartyRequestDto.getTotalRecruitMember());
-        party.setProduct(articleAndPartyRequestDto.getProduct());
-        party.setTotalPrice(articleAndPartyRequestDto.getTotalPrice());
-        party.setTotalProductCount(articleAndPartyRequestDto.getTotalProductCount());
-        party = partyRepo.save(party);
+            article.setTitle(articleAndPartyRequestDto.getTitle());
+            article.setContent(articleAndPartyRequestDto.getContent());
+            article.setLink(articleAndPartyRequestDto.getLink());
+            article.setPic(articleAndPartyRequestDto.getPic());
+            article.setCategory(articleAndPartyRequestDto.getCategory());
+            article.setTag(null);
+            article.setParty(party);
+            article = articleRepo.save(article);
 
-        article.setTitle(articleAndPartyRequestDto.getTitle());
-        article.setContent(articleAndPartyRequestDto.getContent());
-        article.setLink(articleAndPartyRequestDto.getLink());
-        article.setPic(articleAndPartyRequestDto.getPic());
-        article.setCategory(articleAndPartyRequestDto.getCategory());
-        article.setTag(null);
-        article.setParty(party);
-        article = articleRepo.save(article);
-
-        List<MemberInfo> memberInfos = memberInfoRepo.findAllByParty(party);
-        for (MemberInfo memberInfo : memberInfos) {
-            if (memberInfo.getIsBoss() == true) {
-                memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
-                memberInfo.setPrice(articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getAmount());
+            List<MemberInfo> memberInfos = memberInfoRepo.findAllByParty(party);
+            for (MemberInfo memberInfo : memberInfos) {
+                if (memberInfo.getIsBoss() == true) {
+                    memberInfo.setAmount(articleAndPartyRequestDto.getAmount());
+                    int calprice = (int) (articleAndPartyRequestDto.getTotalPrice() / articleAndPartyRequestDto.getTotalRecruitMember()) * articleAndPartyRequestDto.getAmount();
+                    memberInfo.setPrice(calprice);
+                    memberInfoRepo.save(memberInfo);
+                }
             }
+            return new ArticleResponseDto(article);
         }
-        return new ArticleResponseDto(article);
     }
-
     @Override
     @Transactional
     public void deleteArticle(Long articleId) {

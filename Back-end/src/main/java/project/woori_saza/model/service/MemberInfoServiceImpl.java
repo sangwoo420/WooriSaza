@@ -43,7 +43,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         //파티찾기
         Party party=partyRepo.getById(memberInfoRequestDto.getPartyId());
         //에러체크
-        if(party.getTotalRecruitMember()>=party.getCurrentRecruitMember()){
+        if(party.getTotalRecruitMember()<party.getCurrentRecruitMember()+memberInfoRequestDto.getAmount()){
             throw new RuntimeException("파티에 참가할 수 없습니다.");
         }
         //해당 파티 인원수 선택 수량만큼 + 해주기
