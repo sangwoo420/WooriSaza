@@ -4,7 +4,8 @@
         <div class="title">
             <b-row>
                 <b-col cols="1"><b-icon-chevron-left @click="backToList" style="cursor:pointer"></b-icon-chevron-left></b-col>
-                <b-col cols="11">{{roomName}}</b-col>
+                <b-col cols="10">{{roomName}}</b-col>
+                <b-col cols="1" style="padding-left:0px">{{roomCnt}}</b-col>
             </b-row>
         </div><br><hr>
         <div class="chat" ref="chatMessages">
@@ -58,6 +59,7 @@ export default {
         return {
             profileId : this.$cookie.get("id"),
             roomName:null,
+            roomCnt:null,
             roomChat:[],
             myName:"",
             message:"",
@@ -90,9 +92,10 @@ export default {
             method : "get",
             url : "/chat/room/enter/"+this.roomId,
         }).then(({data})=>{
-            // console.log(data)
+            // console.log(data);
             this.roomName = data.chatRoom.name;
             this.roomChat = data.chatRoom.msgList;
+            this.roomCnt = data.chatRoom.count;
         })
     },
 
