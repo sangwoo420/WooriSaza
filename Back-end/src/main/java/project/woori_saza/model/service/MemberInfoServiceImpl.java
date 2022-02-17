@@ -73,10 +73,6 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     //회원 삭제
     @Override
     public void deleteMemberInfo(Long partyId,String profileId) {
-//        MemberInfo memberInfo=memberInfoRepo.getById(memberinfoId);
-//        Party party=memberInfo.getParty();
-//        party.setCurrentRecruitMember(party.getCurrentRecruitMember()-1);
-//        memberInfoRepo.deleteById(memberinfoId);
         UserProfile userProfile=userProfileRepo.getById(profileId);
 
         List<MemberInfo> memberInfos=memberInfoRepo.findAllByUserProfile(userProfile);
@@ -92,7 +88,6 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         // 채팅방 퇴장
         Article article = articleRepo.findByParty(party);
         List<ChatRoom> chatRoomList = chatRoomRepo.findChatRoomByArticleId(article.getId());
-        chatRoomList.get(0).setCount(chatRoomList.get(0).getCount()-1);
         System.out.println("chatRoomList = " + chatRoomList);
         System.out.println("userProfile.getId() = " + userProfile.getId());
         chatRoomList.get(0).setCount(chatRoomList.get(0).getCount()-1);
