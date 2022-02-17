@@ -14,7 +14,7 @@ public class PaidFormRequestDto {
     @ApiModelProperty(value = "구매 인증 사진")
     private String pic;
     @ApiModelProperty(value = "운송장 번호", example = "1234567")
-    private Integer billingNo;
+    private String billingNo;
     @ApiModelProperty(value = "택배 예상 도착일", example = "2022-02-01")
     private LocalDate deliveryDate;
     @ApiModelProperty(value = "예상 수령일", example = "2022-02-01")
@@ -23,7 +23,7 @@ public class PaidFormRequestDto {
     private Long partyId;
 
     @Builder
-    public PaidFormRequestDto(String pic, Integer billingNo, LocalDate deliveryDate, LocalDate receiptDate, Long partyId) {
+    public PaidFormRequestDto(String pic, String billingNo, LocalDate deliveryDate, LocalDate receiptDate, Long partyId) {
         this.pic = pic;
         this.billingNo = billingNo;
         this.deliveryDate = deliveryDate;
