@@ -10,6 +10,9 @@
             <div v-if="finDeal" class="mt-3" style="text-align:center">
                 <p class="finParty">거래가 완료된 파티입니다!</p>
             </div>
+            <div v-if="dateover" class="mt-3" style="text-align:center">
+                <p class="dateOver">기간이 만료된 파티입니다!</p>
+            </div>
             <!-- 상품 사진 -->
             <div>
                 <b-carousel
@@ -84,6 +87,7 @@
         <!-- 목록버튼 -->
         <div style="text-align:right" class="mt-2">
             <b-button variant="warning" pill @click="toBoard" class="mr-1">목록</b-button>
+            <b-button v-if="bossId==id" variant="success" pill @click="modifyArticle"  class="mr-1" style="width:8em">수정</b-button>
             <b-button v-if="bossId==id" variant="info" pill @click="deleteArticle">삭제</b-button>
         </div>
         <!-- 댓글 -->
@@ -153,6 +157,7 @@ export default {
             isZzim : null,
             finDeal : false,
             mod : null,
+            dateover:false,
         };
     },
     created() {
@@ -163,6 +168,17 @@ export default {
         }).then(({data})=>{
             // const that = this;
             this.article = data.article;
+
+            let today = new Date();   
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            let day = year+"-"+month+"-"+date
+            let deadline = this.article.deadline[0]+"-"+this.article.deadline[1]+"-"+this.article.deadline[2]
+            if(day > deadline){
+                this.dateover = true
+            }
+
             axios_contact({
                 method : "get",
                 url : "/party?partyId="+this.article.partyId,
@@ -340,6 +356,10 @@ export default {
             })
         },
 
+        modifyArticle(){
+            this.$router.push("/board/update/"+this.articleNo)
+        },
+
         moveToMypage(id){
             this.$router.push("/mysaza/"+id)
         },
@@ -397,7 +417,12 @@ export default {
 
 .finParty{
     font-weight: bold;   
-    background-color: #fdd000;
+    background-color: #ec2f21;
+    font-size: 25px;
+}
+.dateOver{
+    font-weight: bold;   
+    background-color: #ec2f21;
     font-size: 25px;
 }
 </style>

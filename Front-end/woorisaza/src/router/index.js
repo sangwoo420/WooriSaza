@@ -10,6 +10,7 @@ import MyAnswer from "../views/MySaza/MyAnswer.vue";
 import Board from "../views/ThisSaza/ThisSaza.vue";
 import ArticleDetail from "../views/ThisSaza/ThisSaza.vue";
 import ArticleWrite from "../views/ThisSaza/ThisSaza.vue";
+import ArticleUpdate from "../views/ThisSaza/ArticleUpdate.vue";
 import Request from "../views/Request/Request.vue";
 
 import PartyDetail from "../views/PartyDetail/PartyDetail.vue";
@@ -44,6 +45,11 @@ const routes = [
     path: "/board/:articleno",
     name: "ArticleDetail",
     component: ArticleDetail,
+  },
+  {
+    path: "/board/update/:articleno",
+    name: "ArticleUpdate",
+    component: ArticleUpdate,
   },
   {
     path: "/board/write",

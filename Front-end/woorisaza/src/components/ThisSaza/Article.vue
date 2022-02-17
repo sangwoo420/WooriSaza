@@ -13,13 +13,14 @@
                             :img-src="article.pic[0]"
                         >
                         <b-button v-if="finDeal" variant="danger" size="sm" disaled>거래 완료</b-button>
+                        <b-button v-if="dateover" variant="warning" size="sm" disaled>기간 만료</b-button>
                         </b-card>
                     </div>
                 </b-col>
                 <b-col>
                     <b-row>
                         <div style="font-size:1.1em;font-weight:bold;cursor:pointer" @click="moveToDetail">
-                            {{article.title}}
+                            {{title}}
                         </div>
                     </b-row>
                     <div>
@@ -58,6 +59,8 @@ export default {
             id : this.$cookie.get("id"),
             finDeal : false,
             party : null,
+            title : "",
+            dateover : false,
         };
     },
 
@@ -70,6 +73,22 @@ export default {
             // if(this.article.currentRecruitMember == this.article.totalRecruitMember){
             //     this.finDeal=true;
             // }
+            if(this.article.title.length > 9){
+                this.title = this.article.title.substring(0,9)+"..."
+            }
+            else{
+                this.title = this.article.title.substring(0,12)
+            }
+            let today = new Date();   
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            let day = year+"-"+month+"-"+date
+            let deadline = this.article.deadline[0]+"-"+this.article.deadline[1]+"-"+this.article.deadline[2]
+            if(day > deadline){
+                this.dateover = true
+            }
+
             axios_contact({
                 method : "get",
                 url : "/party?partyId="+data.article.partyId,
@@ -97,7 +116,6 @@ export default {
                 this.isZzim=false;
             }
         })
-
         
     },
     mounted() {

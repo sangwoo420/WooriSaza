@@ -1,7 +1,7 @@
 <template>
     <div>
         <span class="title">
-            파티 생성하기
+            게시글 수정하기
         </span>
         <div class="mt-4 form">
             <b-container>
@@ -64,10 +64,10 @@
                 </b-row>
             </b-container>
             <div class="mt-5" style="text-align:center">
-                <b-button @click="cancle">&nbsp;&nbsp;&nbsp;작성취소&nbsp;&nbsp;&nbsp;</b-button>
+                <b-button @click="cancle">&nbsp;&nbsp;&nbsp;수정취소&nbsp;&nbsp;&nbsp;</b-button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b-button variant="warning"  v-if="linkState" @click="articleRegister">&nbsp;&nbsp;&nbsp;작성완료&nbsp;&nbsp;&nbsp;</b-button>
-                <b-button variant="warning"  v-if="!linkState" @click="articleRegister" disabled>&nbsp;&nbsp;&nbsp;작성완료&nbsp;&nbsp;&nbsp;</b-button>
+                <b-button variant="warning"  v-if="linkState" @click="articleRegister">&nbsp;&nbsp;&nbsp;수정완료&nbsp;&nbsp;&nbsp;</b-button>
+                <b-button variant="warning"  v-if="!linkState" @click="articleRegister" disabled>&nbsp;&nbsp;&nbsp;수정완료&nbsp;&nbsp;&nbsp;</b-button>
             </div>
         </div>
         
@@ -79,7 +79,7 @@ import {axios_contact} from "@/common.js"
 // import axios from "axios";
 
 export default {
-    name: 'Articlewrite',
+    name: 'Update',
     data() {
         return {
             articleAndParty : {
@@ -136,6 +136,9 @@ export default {
             check:null,
             today : "",
             todayMax : "",
+
+            articleId : this.$route.params.articleno,
+            article : null,
         };
     },
 
@@ -158,6 +161,38 @@ export default {
         }
         this.today+=date
         this.todayMax+=date
+
+        axios_contact({
+            method : "get",
+            url : "/article/"+this.articleId
+        }).then(({data})=>{
+            // console.log(data)
+            this.linkState=true;
+            this.article=data.article
+            this.articleAndParty.amount=1
+            this.articleAndParty.category=this.article.category
+            this.articleAndParty.content=this.article.content
+
+            this.articleAndParty.deadline=this.article.deadline[0]+"-"
+            if(this.article.deadline[1]<10){
+                this.articleAndParty.deadline+="0"
+            }
+            this.articleAndParty.deadline+=this.article.deadline[1]+"-"
+            if(this.article.deadline[2]<10){
+                this.articleAndParty.deadline+="0"
+            }
+            this.articleAndParty.deadline+=this.article.deadline[2]
+
+            this.articleAndParty.link=this.article.link
+            this.articleAndParty.penalty=this.article.penalty
+            this.articleAndParty.pic=this.article.pic
+            this.articleAndParty.product=this.article.product
+            this.articleAndParty.profileId=this.$cookie.get("id"),
+            this.articleAndParty.title=this.article.title
+            this.articleAndParty.totalPrice=this.article.totalPrice
+            this.articleAndParty.totalProductCount=this.article.totalProductCount
+            this.articleAndParty.totalRecruitMember=this.article.totalRecruitMember
+        })
     },
     mounted() {
         
@@ -229,8 +264,8 @@ export default {
                  this.articleAndParty.pic[0]="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0654c%2Fbtrtt5lVhlq%2FouTPxWDaPGuOqSRE5QWQdk%2Fimg.png"
             }
             axios_contact({
-                method : "post",
-                url : "/article",
+                method : "put",
+                url : "/article/"+this.articleId,
                 data : {
                     "amount": this.articleAndParty.amount,
                     "category": this.articleAndParty.category,
@@ -258,9 +293,8 @@ export default {
         },
         
         cancle(){
-            this.$router.push("/board");
+            this.$router.push("/board/"+this.articleId);
         },
-
 
     },
 };
