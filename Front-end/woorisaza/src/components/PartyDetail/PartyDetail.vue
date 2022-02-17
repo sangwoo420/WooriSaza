@@ -45,6 +45,7 @@
                             <div v-if="item.isBoss==true">파티장</div>
                             <div v-if="item.isBoss==false">파티원</div>
                             <MyProfile :userId="item.profileId" style="color:black;"></MyProfile>
+                            <b-button variant="outline-success" @click="moveToMysaza(item)">정보보기</b-button>
                         </div>
                     </slide>
                 </carousel>
@@ -205,6 +206,10 @@ export default {
         moveToQna(){
             this.$router.push("/mypage/question");
         },
+
+        moveToMysaza(item){
+            this.$router.push("/mysaza/"+item.profileId);
+        }
     },
 };
 </script>
