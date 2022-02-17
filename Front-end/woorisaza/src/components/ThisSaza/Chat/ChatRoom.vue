@@ -74,7 +74,6 @@ export default {
                 that.scrollDown();
             }, 100);
             
-            console.log(2)
         }
     },
     created(){
@@ -147,7 +146,8 @@ export default {
             });
         },
         backToList(){
-            
+            console.log("뒤로가")
+            this.$emit('bactToList',null);
         }
     },
 };

@@ -27,7 +27,7 @@
 
                 <!-- 채팅 방 -->
                 <div v-if="chatRoomId!=null">
-                    <ChatRoom :roomId=chatRoomId></ChatRoom>
+                    <ChatRoom :roomId=chatRoomId @bactToList="bactToList"></ChatRoom>
                 </div>
             </div>
 
@@ -81,7 +81,10 @@ export default {
     methods: {
         offChat(){
             this.$emit('chatShowFromChild',true)
-        }
+        },
+        bactToList(){
+            this.chatRoomId=null
+        },
     },
 };
 </script>
