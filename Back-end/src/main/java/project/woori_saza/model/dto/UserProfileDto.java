@@ -36,6 +36,9 @@ public class UserProfileDto {
     @ApiModelProperty(value = "사용자 평가 횟수", example = "5")
     private Integer cnt;
 
+    @ApiModelProperty(value = "관리자 여부", example = "true")
+    private Boolean isAdmin;
+
     public UserProfileDto(UserProfile userProfile){
         this.id = userProfile.getId();
         this.address = userProfile.getAddress();
@@ -44,5 +47,6 @@ public class UserProfileDto {
         this.pic = userProfile.getPic();
         this.score = userProfile.getScore();
         this.cnt = userProfile.getCnt();
+        this.isAdmin = userProfile.getUserAuth().getIsAdmin();
     }
 }
