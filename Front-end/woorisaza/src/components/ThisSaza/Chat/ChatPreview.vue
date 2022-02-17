@@ -2,7 +2,7 @@
     <div class="mb-2">
         <!-- {{room}} -->
         <b-container class="bv-example-row">
-            <b-row @click="clickRoom">
+            <b-row @click="clickRoom" style="cursor:pointer">
                 <b-col cols="2">
                     <b-img  :src="data" v-bind="mainProps" rounded="circle" alt="Circle image" thumbnail ></b-img>
                 </b-col>
