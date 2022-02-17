@@ -27,7 +27,6 @@ public class MemberInfoController {
     public ResponseEntity<Map<String,Object>> insertMemberInfo(@RequestBody @ApiParam( value="사용자가 작성하는 파티에 대한 정보",required = true) MemberInfoRequestDto memberInfoRequestDto){
         Map<String,Object>result=new HashMap<>();
         HttpStatus status=null;
-        System.out.println("찍어보자"+memberInfoRequestDto.getPartyId()+" "+memberInfoRequestDto.getProfileId());
         try{
             memberInfoService.insertMemberInfo(memberInfoRequestDto);
             status=HttpStatus.OK;

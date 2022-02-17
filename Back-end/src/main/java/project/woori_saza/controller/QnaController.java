@@ -33,6 +33,7 @@ public class QnaController {
             qnaList = qnaService.getQnaList();
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("qnaList", qnaList);
@@ -51,6 +52,7 @@ public class QnaController {
             myQnaList = qnaService.getMyQnaList(profileId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("myQnaList", myQnaList);
@@ -69,6 +71,7 @@ public class QnaController {
             qnaDetail = qnaService.getQnaDetail(qnaId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("qnaDetail", qnaDetail);
@@ -120,6 +123,7 @@ public class QnaController {
             qnaService.updateQna(qnaDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);
@@ -133,6 +137,7 @@ public class QnaController {
             qnaService.deleteQna(qnaId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);
@@ -146,10 +151,10 @@ public class QnaController {
             qnaService.insertQnaComment(qnaDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);
     }
-
 
 }

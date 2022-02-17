@@ -43,7 +43,6 @@ public class QnaServiceImpl implements QnaService{
      */
     @Override
     public List<QnaDto> getMyQnaList(String profileId) {
-        System.out.println("===1:1 문의 리스트===");
         UserProfile user = userProfileRepo.getById(profileId);
         List<Qna> qnas = qnaRepo.findByUserProfile(user);
         return qnas.stream().map(QnaDto::new).collect(Collectors.toList());
@@ -54,7 +53,6 @@ public class QnaServiceImpl implements QnaService{
      */
     @Override
     public List<QnaDto> getQnaList() {
-        System.out.println("===관리자가 보는 모든 문의 리스트===");
         List<Qna> qnas = qnaRepo.findAll();
         return qnas.stream().map(QnaDto::new).collect(Collectors.toList());
     }
@@ -64,7 +62,6 @@ public class QnaServiceImpl implements QnaService{
      */
     @Override
     public QnaDto getQnaDetail(Long qnaId) {
-        System.out.println("===선택한 문의글 내용===");
         Qna qna = qnaRepo.getById(qnaId);
         QnaDto qnaDto = new QnaDto(qna);
         return qnaDto;
@@ -76,7 +73,6 @@ public class QnaServiceImpl implements QnaService{
     @Override
     @Transactional
     public void insertQna(QnaDto qnaDto) throws Exception {
-        System.out.println("===1:1 문의 작성===");
         UserProfile user = userProfileRepo.getById(qnaDto.getProfileId());
         Qna qna = new Qna();
         qna.setId(qnaDto.getId());

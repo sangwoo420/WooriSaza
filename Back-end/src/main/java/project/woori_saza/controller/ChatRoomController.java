@@ -20,20 +20,21 @@ public class ChatRoomController {
 
     // 내 채팅방 목록 띄우기
     @GetMapping("/room/{profileId}")
-            public ResponseEntity<Map<String, Object>> rooms(@PathVariable String profileId) {
-                Map<String, Object> result = new HashMap<>();
-                List<String> roomIdList = null;
-                List<ChatRoomDto> roomList = new ArrayList<>();
-                HttpStatus httpStatus = null;
+    public ResponseEntity<Map<String, Object>> rooms(@PathVariable String profileId) {
+        Map<String, Object> result = new HashMap<>();
+        List<String> roomIdList = null;
+        List<ChatRoomDto> roomList = new ArrayList<>();
+        HttpStatus httpStatus = null;
 
-                try{
-                    roomIdList = chatRoomService.findAllRoom(profileId);
-                    for (String roomId : roomIdList) {
-                        roomList.add(chatRoomService.findRoomByRoomID(roomId));
-                    }
-                    httpStatus = HttpStatus.OK;
-                }catch (RuntimeException e) {
-                    httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        try {
+            roomIdList = chatRoomService.findAllRoom(profileId);
+            for (String roomId : roomIdList) {
+                roomList.add(chatRoomService.findRoomByRoomID(roomId));
+            }
+            httpStatus = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("roomList", roomList);
 
@@ -47,14 +48,14 @@ public class ChatRoomController {
         ChatRoomDto chatRoom = null;
         HttpStatus httpStatus = null;
 
-        try{
+        try {
             // 방들어가기
             chatRoom = chatRoomService.findRoomByRoomID(roomId);
             System.out.println("roomName: " + chatRoom.getName());
             // 과거 채팅 내역 보여주기
 
             httpStatus = HttpStatus.OK;
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
@@ -62,7 +63,6 @@ public class ChatRoomController {
 
         return new ResponseEntity<>(result, httpStatus);
     }
-
 
 
 }

@@ -69,7 +69,6 @@ public class PaidFormServiceImpl implements PaidFormService{
         String url="/paidform/";
         String saveFileName =UUID.randomUUID().toString() + originFilename.substring(originFilename.lastIndexOf(".")); //랜덤이름+확장자
         String saveFileName2=url+saveFileName;
-        System.out.println("랜덤이름 출력할래 "+saveFileName2);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -110,9 +109,5 @@ public class PaidFormServiceImpl implements PaidFormService{
         paidFormRepo.save(paidForm);
     }
 
-//    @Override
-//    @Transactional
-//    public void deletePaidForm(Long paidFormId) {
-//        paidFormRepo.deleteById(paidFormId);
-//    }
+
 }

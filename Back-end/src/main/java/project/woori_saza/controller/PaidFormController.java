@@ -32,6 +32,7 @@ public class PaidFormController {
             paidForm = paidFormService.getPaidForm(partyId);
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("paidForm", paidForm);
@@ -48,6 +49,7 @@ public class PaidFormController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (Exception e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
@@ -94,22 +96,5 @@ public class PaidFormController {
         }
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
-
-//    @ApiOperation(value = "구매폼 삭제", notes = "구매폼을 삭제한다.", response = Map.class)
-//    @DeleteMapping("/{paidFormId}")
-//    public ResponseEntity<Map<String, Object>> deletePaidForm(@PathVariable("paidFormId")
-//                                                                  @ApiParam(value = "삭제할 인증 폼 아이디", example = "1", required = true) Long paidFormId) {
-//        Map<String, Object> result = new HashMap<>();
-//        HttpStatus httpStatus = null;
-//        try {
-//            paidFormService.deletePaidForm(paidFormId);
-//            httpStatus = HttpStatus.OK;
-//            result.put("success", true);
-//        } catch (RuntimeException e) {
-//            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-//            result.put("success", false);
-//        }
-//        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
-//    }
 
 }

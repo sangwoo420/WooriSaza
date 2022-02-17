@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserProfileDto login(String userAuthId) {
         UserAuth userAuth = userAuthRepo.getById(hashEncoder.encode(userAuthId));
-        System.out.println(userAuthId + " : " + userAuth.getId());
         UserProfile userProfile = userProfileRepo.findByUserAuth(userAuth);
         return userProfile == null ? null : new UserProfileDto(userProfile);
     }

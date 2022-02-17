@@ -10,5 +10,4 @@ public interface PaidFormService {
     void insertPaidForm(PaidFormRequestDto paidFormRequestDto);
     String upload(MultipartFile uploadFile) throws Exception;
     void updatePaidForm(Long partyId, PaidFormRequestDto paidFormRequestDto);
-//    void deletePaidForm(Long paidFormId);
 }

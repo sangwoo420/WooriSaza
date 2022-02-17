@@ -36,6 +36,7 @@ public class CommentController {
             commentList = commentService.getCommentList(articleId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("commentList", commentList);
@@ -55,6 +56,7 @@ public class CommentController {
             myCommentList = commentService.getMyCommentList(profileId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("myCommentList",myCommentList);
@@ -70,6 +72,7 @@ public class CommentController {
             commentService.insertComment(commentRequestDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);
@@ -83,6 +86,7 @@ public class CommentController {
             commentService.updateComment(commentRequestDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);
@@ -96,7 +100,7 @@ public class CommentController {
             commentService.deleteComment(commentId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
-            System.out.println("500에러");
+            e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(status);

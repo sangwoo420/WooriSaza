@@ -114,6 +114,7 @@ public class UserController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }

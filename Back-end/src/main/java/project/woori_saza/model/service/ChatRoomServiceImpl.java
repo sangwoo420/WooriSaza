@@ -31,7 +31,6 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         List<ChatRoomJoin> joinList = user.getChatRoomJoinList();
         List<String> chatRoomList = new ArrayList<>();
         for (ChatRoomJoin chatRoomJoin : joinList) {
-//            System.out.println(chatRoomJoin.getChatRoom().getName());
             // 객체로 넣으며 안됨 -> 무한참조
             chatRoomList.add(chatRoomJoin.getChatRoom().getId());
         }

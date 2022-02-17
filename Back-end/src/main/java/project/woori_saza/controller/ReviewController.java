@@ -31,6 +31,7 @@ public class ReviewController {
             reviewList = reviewService.getReviewList(profileId);
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("reviewList", reviewList);
@@ -48,6 +49,7 @@ public class ReviewController {
             reviewList = reviewService.getMyReviewList(profileId);
             httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("reviewList", reviewList);
@@ -64,6 +66,7 @@ public class ReviewController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
@@ -82,6 +85,7 @@ public class ReviewController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
@@ -99,6 +103,7 @@ public class ReviewController {
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }

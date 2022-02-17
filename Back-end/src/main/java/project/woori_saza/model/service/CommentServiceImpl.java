@@ -33,7 +33,6 @@ public class CommentServiceImpl implements CommentService{
      */
     @Override
     public List<CommentResponseDto> getCommentList(Long articleId) {
-        System.out.println("===파티 댓글 리스트===");
         Article article = articleRepo.getById(articleId);
         List<Comment> comments = commentRepo.findByArticle(article);
         return comments.stream().map(CommentResponseDto::new).collect(Collectors.toList());
@@ -44,7 +43,6 @@ public class CommentServiceImpl implements CommentService{
      */
     @Override
     public List<CommentResponseDto> getMyCommentList(String profileId) {
-        System.out.println("===파티 댓글 리스트===");
         UserProfile user = userProfileRepo.getById(profileId);
         List<Comment> comments = commentRepo.findByUserProfileOrderByCreateAtDesc(user);
         return comments.stream().map(CommentResponseDto::new).collect(Collectors.toList());
@@ -56,7 +54,6 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public void insertComment(CommentRequestDto commentRequestDto) {
-        System.out.println("===댓글 작성===");
         Article article = articleRepo.getById(commentRequestDto.getArticleId());
         UserProfile user = userProfileRepo.getById(commentRequestDto.getProfileId());
         Comment comment = new Comment();
@@ -73,7 +70,6 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public void updateComment(CommentRequestDto commentRequestDto) {
-        System.out.println("===댓글 수정===");
         Comment comment = commentRepo.getById(commentRequestDto.getId());
         comment.setContent(commentRequestDto.getContent());
         comment.setCreateAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
@@ -86,7 +82,6 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public void deleteComment(Long commentId) {
-        System.out.println("===댓글 삭제===");
         commentRepo.deleteById(commentId);
     }
 }

@@ -56,7 +56,6 @@ public class PartyServiceImpl implements PartyService{
             PartyResponseDto partyResponseDto=new PartyResponseDto(party,memberInfo);
             parties.add(partyResponseDto);
         }
-        System.out.println("parties "+parties);
         return parties;
     }
 
@@ -84,24 +83,11 @@ public class PartyServiceImpl implements PartyService{
 
         List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
         Article article=articleRepo.findByParty(party);
-//        ChatRoom chatRoom=chatRoomRepo.findByArticle(article);
-//        List<ChatRoomJoin> chatRoomJoins=chatRoomJoinRepo.findByChatRoom(chatRoom);
 
         for (MemberInfo memberInfo : memberInfos) {
-//            for (ChatRoomJoin chatRoomJoin : chatRoomJoins) {
-//                if(chatRoomJoin.getUserProfile().getId().equals(memberInfo.getUserProfile().getId())){
-//                   chatRoomJoinRepo.delete(chatRoomJoin);
-//                }
-//            }
+
             memberInfoRepo.deleteById(memberInfo.getId());
         }
-
-//        List<ChatMessage> chatMessage=chatMessageRepo.findByChatRoom(chatRoom);
-//        for (ChatMessage message : chatMessage) {
-//            chatMessageRepo.deleteById(message.getId());
-//        }
-
-//        chatRoomRepo.deleteById(chatRoom.getId());
 
         //파티원들 파티 삭제 시키기
         List<ChatRoom> chatRoom = chatRoomRepo.findChatRoomByArticleId(article.getId());
@@ -132,27 +118,5 @@ public class PartyServiceImpl implements PartyService{
         party.setIsClosed(true);
         partyRepo.save(party);
     }
-
-
-//    @Override
-//    public PartyDto getPartyOne(Long partyId, String userId) {
-//
-//        //1.받은걸로 party와 userprofile찾기
-//        Party party=partyRepo.getById(partyId);
-//
-//        //2.파티아이디와 같은 member_info찾기(리스트)
-//        List<MemberInfo>memberInfos=memberInfoRepo.findAllByParty(party);
-//
-//        //3.리스트를 돌면서 여기에 있는 member_info와 user_profile id가 같은거 찾기 => 그럼 한개 나올듯
-//        //  이제 거기에서 나온 memberinfo에있는 정보들을 dto에 넣어주기
-//        for(MemberInfo memberInfo:memberInfos){
-//            if(memberInfo.getUserProfile().getId().equals(userId)){
-//                PartyDto partyDto = new PartyDto(party, memberInfo);
-//                return partyDto;
-//            }
-//        }
-//        return null;
-//    }
-
 
 }

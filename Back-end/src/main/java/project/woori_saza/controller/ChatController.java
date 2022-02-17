@@ -37,7 +37,6 @@ public class ChatController {
      */
     @MessageMapping("/chat/message")
     public void message(ChatMessageDto message) {
-        System.out.println(message);
 
         // dto로 받아온 채팅 메시지 DB저장 및 전송
         ChatRoom chatRoom = chatRoomRepo.getById(message.getRoomId());
