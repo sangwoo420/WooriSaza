@@ -42,7 +42,7 @@ export default {
 
     methods: {
        toMyAnswer(){
-           this.$router.push("/mypage/answer").catch(()=>{});;
+           this.$router.push("/mypage/answer/"+this.Qna.id).catch(()=>{});;
        }
     },
 };

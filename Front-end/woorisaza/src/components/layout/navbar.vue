@@ -1,5 +1,5 @@
 <template>
-    <div style="">
+    <div style="" v-if="user!=null">
         <div>
             <b-navbar toggleable="lg" type="white" >
                 <b-navbar-nav>
@@ -30,12 +30,11 @@
                             <template #button-content>
                                 <em><img src="@/assets/saza.png" style="width:40px"></em>
                             </template>
+                            <b-dropdown-item router-link to="/admin" v-if="user.isAdmin">관리자</b-dropdown-item>
                             <b-dropdown-item router-link to="/mypage">마이페이지</b-dropdown-item>
                             <b-dropdown-item router-link to="/" @click="logout">로그아웃</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </div>
-                    
-
                     </b-navbar-nav>
             </b-navbar>
         </div>
@@ -79,6 +78,8 @@ export default {
             queryString : null,
             mysazaUrl : null,
             active : this.$cookie.get("active"),
+            id : this.$cookie.get("id"),
+            user : null,
         };
     },
     watch:{
@@ -100,6 +101,13 @@ export default {
         else if(this.active == "guideActive"){
             this.getGuideActive()
         }
+
+        axios_contact({
+            method : "get",
+            url : "/user/"+this.id
+        }).then(({data})=>{
+            this.user = data.profile
+        })
     },
     mounted() {
         this.getKakaoQuery();

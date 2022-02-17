@@ -17,6 +17,7 @@ import PartyDetail from "../views/PartyDetail/PartyDetail.vue";
 import Review from "../views/PartyDetail/Review.vue";
 import PaidForm from "../views/PartyDetail/PaidForm.vue";
 import Register from "../views/Register.vue";
+import Admin from "../views/Admin.vue";
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
     path: "/guide",
     name: "Guide",
     component: Guide,
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
   },
   {
     path: "/board",
@@ -77,7 +83,7 @@ const routes = [
     component: MyQuestion,
   },
   {
-    path: "/mypage/answer",
+    path: "/mypage/answer/:qnaid",
     name: "MyAnswer",
     component: MyAnswer,
   },

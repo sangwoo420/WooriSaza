@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="article != null">
+    <div  v-if="article != null && user !=null">
         <!-- {{articleNo}} -->
         <!-- 글 내용 -->
         <div>
@@ -88,7 +88,7 @@
         <div style="text-align:right" class="mt-2">
             <b-button variant="warning" pill @click="toBoard" class="mr-1">목록</b-button>
             <b-button v-if="bossId==id" variant="success" pill @click="modifyArticle"  class="mr-1" style="width:8em">수정</b-button>
-            <b-button v-if="bossId==id" variant="info" pill @click="deleteArticle">삭제</b-button>
+            <b-button v-if="bossId==id || user.isAdmin" variant="info" pill @click="deleteArticle">삭제</b-button>
         </div>
         <!-- 댓글 -->
         <hr>

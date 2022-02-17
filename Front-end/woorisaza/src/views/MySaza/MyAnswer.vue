@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%">
+  <div class="mt-3" style="background-color : #F6FBF6; width:100%;height:100%" v-if="qna!=null">
             <div class="pt-5 pb-5">
                 <!-- pc버전 -->
                 <b-container v-if="windowWidth>=1000">
@@ -18,25 +18,25 @@
                                             <div class="my-3">
                                                 <p>문의 유형</p>
                                                 <div class="box mt-3 p-3" style="background-color:#F8FAFC">
-                                                물건을 못받았어요
+                                                {{qna.category}}
                                                 </div>
                                             </div>
                                             <div class="my-3">
                                                 <p>문의 제목</p>
                                                 <div class="box mt-3 p-3" style="background-color:#F8FAFC">
-                                                파티장 관련 문의입니다
+                                                {{qna.title}}
                                                 </div>
                                             </div>
                                             <div class="my-3">
                                                 <p>문의 내용</p>
                                                 <div class="box mt-3 p-3" style="background-color:#F8FAFC;height:5rem">
-                                                파티장이 연락이 안돼요
+                                                {{qna.content}}
                                                 </div>
                                             </div>
                                             <div class="mt-5">
                                                 <p>답변 내용</p>
                                                 <div class="box mt-3 p-3" style="background-color:#FFF8F8;height:5rem">
-                                                저희가 사람을 보냈으니 안심하십시오
+                                                {{qna.comment}}
                                                 </div>
                                             </div>
                                         </b-col>    
@@ -46,12 +46,6 @@
                                             </div>
                                         </b-col>  
                                       </b-row>  
-
-                                    </div>
-                                    <div class="mt-3" style="text-align:center">
-                                        <!-- 취소 완료 버튼 -->
-                                        <b-button variant="secondary" class="mr-5" @click="updateQuestion">문의 내용 수정</b-button>
-                                        <b-button variant="danger" class="ml-5" @click="deleteQuestion">문의 삭제</b-button>
                                     </div>
                                 </div>
                             </div>
@@ -75,25 +69,25 @@
                                 <div class="my-3">
                                     <p>문의 유형</p>
                                     <div class="box mt-3 p-3" style="background-color:#F8FAFC">
-                                    물건을 못받았어요
+                                    {{qna.category}}
                                     </div>
                                 </div>
                                 <div class="my-3">
                                     <p>문의 제목</p>
                                     <div class="box mt-3 p-3" style="background-color:#F8FAFC">
-                                    파티장 관련 문의입니다
+                                    {{qna.title}}
                                     </div>
                                 </div>
                                 <div class="my-3">
                                     <p>문의 내용</p>
                                     <div class="box mt-3 p-3" style="background-color:#F8FAFC;height:5rem">
-                                    파티장이 연락이 안돼요
+                                    {{qna.content}}
                                     </div>
                                 </div>
                                 <div class="mt-5">
                                     <p>답변 내용</p>
                                     <div class="box mt-3 p-3" style="background-color:#FFF8F8;height:5rem">
-                                    저희가 사람을 보냈으니 안심하십시오
+                                    {{qna.comment}}
                                     </div>
                                 </div>
                             </b-col>    
@@ -119,12 +113,24 @@
 </template>
 
 <script>
+import {axios_contact} from "@/common.js"
 export default {
   name: 'MyAnswer',
   data() {
         return {
-            windowWidth: window.innerWidth
+            qnaid : this.$route.params.qnaid,
+            qna : null,
+            windowWidth: window.innerWidth,
         };
+    },
+    created() {
+        axios_contact({
+            method : "get",
+            url : "/qna?qnaId="+this.qnaid
+        }).then(({data})=>{
+            // console.log(data)
+            this.qna = data.qnaDetail
+        })
     },
     mounted() {
         window.onresize = () => {
