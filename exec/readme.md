@@ -60,3 +60,4 @@ node SimpleImageUpload.js
 # 3. DB 덤프 파일
 
 # 4. 시연 시나리오
+[시연 시나리오](./woorisaza_scenario.pdf)
