@@ -75,6 +75,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 채팅창 글쓰기 버튼 -->
+                <div class="chat2" v-if="!chatShow&&(windowWidth<1000)">
+                    <transition name="fade">
+                        <div >
+                            <ChatList @chatShowFromChild="chatOff"></ChatList>
+                        </div>
+                    </transition>
+                </div>
+                <div class="chat" v-if="!chatShow&&(windowWidth>=1000)">
+                    <transition name="fade">
+                        <div >
+                            <ChatList @chatShowFromChild="chatOff"></ChatList>
+                        </div>
+                    </transition>
+                </div>
+                <div class="button" v-if="accesstoken!=null">
+                    <div v-if="chatShow">
+                        <transition name="fade">
+                            <div>
+                                <div class="mt-2">
+                                    <b-button variant="secondary" v-on:click="chatShow = !chatShow">
+                                        <img src="@/assets/chat.png" alt="" style="width:80%">
+                                    </b-button>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
             </div>
     </div>
 </template>
@@ -85,6 +114,7 @@ import MyNavbar from "@/components/MySaza/MyNavbar.vue";
 import MemberOfParty from "@/components/MySaza/MemberOfParty/MemberOfParty.vue";
 import BossOfParty from "@/components/MySaza/BossOfParty/BossOfParty.vue";
 import Comment from "@/components/MySaza/Comment/Comments.vue";
+import ChatList from "@/components/ThisSaza/Chat/ChatList.vue";
 import Review from "@/components/MySaza/Review/Reviews.vue";
 import { EventBus } from "@/event-bus.js"
 export default {
@@ -96,15 +126,19 @@ export default {
         BossOfParty,
         Comment,
         Review,
+        ChatList,
     },
     data() {
         return {
+            chatShow: true,
+            accesstoken : null,
             selectComponent : "MemberOfParty",
             id : this.$route.params.id,
             windowWidth: window.innerWidth,
         };
     },
     created(){
+         this.accesstoken = this.$cookie.get("accesstoken");
         EventBus.$on("selectComponent",selectComponent=>{
             this.selectComponent=selectComponent;
         })
@@ -122,7 +156,10 @@ export default {
     methods: {
        moveToMypage(){
            this.$router.push("/mypage").catch(()=>{});;
-       }
+       },
+       chatOff(s){
+            this.chatShow=s;
+        },
     },
 };
 </script>
@@ -165,5 +202,32 @@ export default {
         width:50%;
         margin: 1em;
         padding: 0.25em;
+    }
+    .button {
+        position: fixed;
+        top:75%;
+        left: 80%;
+    }
+    .chat {
+        position: fixed;
+        bottom: 5%;
+        left: 60%;
+        width: 400px;
+        height: 600px;
+    }
+
+    .chat2 {
+        position: fixed;
+        bottom: 5%;
+        left: 0%;
+        width: 300px;
+        height: 500px;
+    }
+    
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>
