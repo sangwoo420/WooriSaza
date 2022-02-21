@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.woori_saza.model.dto.UserProfileDto;
 import project.woori_saza.model.service.UserService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +45,6 @@ public class UserController {
     }
 
 
-
     @ApiOperation(value = "회원가입")
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody UserProfileDto userProfileDto) throws Exception {
@@ -70,9 +70,9 @@ public class UserController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = null;
         try {
-            String url=userService.upload(uploadFile);
+            String url = userService.upload(uploadFile);
             status = HttpStatus.OK;
-            result.put("url",url);
+            result.put("url", url);
             result.put("success", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,10 +83,9 @@ public class UserController {
     }
 
 
-
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 수정한다. 닉네임, 주소, 프로필 사진을 변경할 수 있다.")
     @PutMapping("/update")
-    public ResponseEntity<Map<String, Object>> update(@RequestBody UserProfileDto userProfileDto){
+    public ResponseEntity<Map<String, Object>> update(@RequestBody UserProfileDto userProfileDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = null;
         try {
@@ -106,7 +105,7 @@ public class UserController {
 
     @ApiOperation(value = "회원 탈퇴")
     @DeleteMapping("/delete")
-    public ResponseEntity<Map<String, Object>> delete(@RequestBody UserProfileDto userProfileDto){
+    public ResponseEntity<Map<String, Object>> delete(@RequestBody UserProfileDto userProfileDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
@@ -127,6 +126,13 @@ public class UserController {
         HttpStatus status = null;
         try {
             UserProfileDto userProfileDto = userService.getUserProfileInfo(profileId);
+            result.put("profile", userProfileDto);
+            result.put("success", true);
+
+            status = HttpStatus.OK;
+        } catch (EntityNotFoundException e) {
+            UserProfileDto userProfileDto = new UserProfileDto();
+            userProfileDto.setNickname("존재하지 않는 사용자입니다.");
             result.put("profile", userProfileDto);
             result.put("success", true);
 
