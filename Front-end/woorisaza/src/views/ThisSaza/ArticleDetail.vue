@@ -103,6 +103,8 @@
                         <img v-if="comment.pic==null" src="@/assets/icon.png" style="width:30px; height : 30px;" alt="">
                         <img v-if="comment.pic!=null" :src="comment.pic" style="width:30px; height : 30px" alt="">
                         <!-- 사용자 닉네임 -->
+                        <!-- <a v-if="comment.profileId==null" style="color:gray; width:10%; display:inline; font-size:14px;" class="ml-1">탈퇴한 회원</a> -->
+                        <!-- <a v-if="comment.profileId!=null" style="color:gray; width:10%; display:inline; font-size:14px;" class="ml-1" @click="moveToMypage(comment.profileId)">{{comment.nickname}}</a> -->
                         <a style="color:gray; width:10%; display:inline; font-size:14px;" class="ml-1" @click="moveToMypage(comment.profileId)">{{comment.nickname}}</a>
                         <b-button variant="danger" style="float:right" v-if="comment.profileId==id" @click="deleteComment(comment)">삭제</b-button>
                         <b-button variant="success" style="float:right" class="mr-1" v-if="comment.profileId==id" v-b-toggle="String(comment.id)">수정</b-button>
@@ -370,7 +372,12 @@ export default {
         },
 
         moveToMypage(id){
-            this.$router.push("/mysaza/"+id)
+            console.log(id);
+            if(!id){
+                alert("존재하지 않는 사용자입니다.")
+            }else{
+                this.$router.push("/mysaza/"+id)
+            }
         },
     },
 };
