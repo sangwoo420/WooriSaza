@@ -29,7 +29,7 @@ public class CommentResponseDto {
     public CommentResponseDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
-        this.profileId = comment.getUserProfile().getId();
+        this.profileId = comment.getUserProfile() != null ? comment.getUserProfile().getId() : "탈퇴한 사용자입니다.";
         this.createAt = comment.getCreateAt();
         this.articleId = comment.getArticle().getId();
     }
