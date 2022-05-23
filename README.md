@@ -1,17 +1,3 @@
-## 카테고리
-
-| Application | Domain | Language | Framework |
-| ---- | ---- | ---- | ---- |
-| :white_check_mark: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
-| :black_square_button: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
-| :black_square_button: Responsive Web | :black_square_button: Blockchain | :black_square_button: C/C++ | :black_square_button: Angular |
-| :black_square_button: Android App | :black_square_button: IoT | :black_square_button: C# | :white_check_mark: Node.js |
-| :black_square_button: iOS App | :black_square_button: AR/VR/Metaverse | :black_square_button: Python | :black_square_button: Flask/Django |
-| :black_square_button: Desktop App | :black_square_button: Game | :white_check_mark: Java | :white_check_mark: Spring/Springboot |
-| | | :black_square_button: Kotlin | :white_check_mark: Jpa |
-
-
-
 ## 프로젝트 소개
 
 * 프로젝트명: 우리사자
@@ -33,8 +19,8 @@
 # 공구의 시작, 우리사자 🦁
 
 <p align="center">
-  <div align="center"><img src="/uploads/e6997aa249035b19db883a8af7b32e7c/icon.png" width="30%"/></div>
-  <div align="center"><img src="/uploads/df554bccefa2835415e8afe724fe4a2b/우리사자.PNG" width="20%"/></div>
+  <div align="center"><img src="images/icon.png" width="30%"/></div>
+  <div align="center"><img src="images/우리사자.PNG" width="20%"/></div>
 </p>
 
 ## 목차 
@@ -95,7 +81,7 @@
 - 사이트 소개와 함께 파티장과 파티원의 간단한 역할과 개념을 설명해줍니다.
 - `시작하기` 버튼을 클릭하면 더 자세한 사이트 이용 가이드 페이지로 이동합니다.
 
-![main](/uploads/b5b446a454e4345765e5362269dfd054/main.gif)
+![main](images/main.gif)
 
 
 
@@ -108,9 +94,9 @@
 - 게시글의 장바구니 버튼을 눌러서 찜을 할 수 있습니다.
 - 게시글을 누르면 해당 게시글의 디테일 페이지로 이동합니다.
 
-![이거사자](/uploads/03fe29501abbfd00f4b9416414b813e8/이거사자.PNG)
+![이거사자](images/이거사자.PNG)
 
-![게시글_상세조회](/uploads/c440a97f7d60dd6899a4cedf4af33cd5/게시글_상세조회.PNG)
+![게시글_상세조회](images/게시글_상세조회.PNG)
 
 ### 2.3 마이사자
 
@@ -124,13 +110,13 @@
 - `댓글` 탭에서는 해당 유저가 단 댓글 리스트를 볼 수 있습니다. 댓글을 누르면 해당 댓글이 달린 게시글로 이동합니다.
 - `후기` 탭에서는 해당 유저에게 달린 후기 리스트를 볼 수 있습니다.
 
-![마이사자](/uploads/bfd35138dc7677d5b48d0cbb9330da10/마이사자.PNG)
+![마이사자](images/마이사자.PNG)
 
 ### 2.4 가이드
 
 - 사용자들이 `우리사자`를 쉽게 이용할 수 있도록 가이드를 제공합니다.
 
-![guide](/uploads/a21129e20d86d2fdb2242be7f2fb717a/guide.gif)
+![guide](images/guide.gif)
 
 
 
@@ -143,32 +129,32 @@
 - `나의 1:1 문의` 탭에서는 `문의하기` 버튼을 눌러서 문의글을 작성할 수 있고, 자신의 문의글 리스트를 볼 수 있습니다.
 - `내가 쓴 후기` 탭에서는 자신이 작성한 후기 리스트를 볼 수 있습니다.
 
-![마이페이지](/uploads/6f315e60e4147a23c32b004c828daef9/마이페이지.PNG)
+![마이페이지](images/마이페이지.PNG)
 
 ### 2.6 채팅
 
 - 유저들이 파티에 같이 참여하고 있는 파티원들과 함께 채팅을 주고 받을 수 있는 공간입니다.
 
-![채팅](/uploads/9b3f39a14df9d3530d4d7cae62267e52/채팅.png)
+![채팅](images/채팅.png)
 <div id="3"></div>
 
 ## 3. 프로젝트 명세 🛠
 
 ### 3.1 아키텍처
 
-![아키텍처](/uploads/d8e41e09e3c659370361c650d58bde07/아키텍처.png)
+![아키텍처](images/아키텍처.png)
 
 ### 3.2 ERD
 
 > [Entity-Relationship Diagram](https://www.erdcloud.com/d/fQPhoGfc9uvhgeEqL)
 
-![ERD](/uploads/4f45af1f48a8e2ac6d5997e426f5dae7/ERD.png)
+![ERD](images/ERD.png)
 
 ### 3.3 UI 프로토타입
 
 > [ UI Prototype](https://www.figma.com/file/89ipYukI0aTZRnJ7tCbhpQ/%EC%88%98%EC%83%81%ED%95%9C%EC%82%AC%EB%9E%8C%EB%93%A4-team-library?node-id=0%3A1)
 
-![UI](/uploads/0ae0b0899f81ddcfbf9df96f6a5885af/UI.PNG)
+![UI](images/UI.PNG)
 
 
 
@@ -176,7 +162,7 @@
 
 > [Usecase Diagram](https://app.diagrams.net/#G141ohjTX3GOldM-FH4RdT4x81qykGr-Qv)
 
-![usecase](/uploads/78f50c3d2b3a47760c3123480419233a/usecase.png)
+![usecase](images/usecase.png)
 
 
 
